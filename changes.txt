@@ -169,3 +169,12 @@ Impelemented optoin to supress file date display, for regression tests.
 
 Feb 1
 Better indentatin of verbose option, rudementary canon maker not parsing
+
+March
+Various spelling errors fixed in output strings, and
+jpeg --> JPEG, exif --> Exif
+
+April 13
+Use '-outfile' option when launching jpegtran to do rotation so that syntax
+of launched command is same on windows and unix.
+

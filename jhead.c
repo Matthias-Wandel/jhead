@@ -2,7 +2,7 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.1
+// Version 2.15
 //
 //
 // Compiling under Unix:
@@ -11,7 +11,7 @@
 // Compiling under Windows:  Use MSVC5 or MSVC6, from command line:
 // cl -Ox jhead.c exif.c myglob.c
 //
-// Dec 1999 - Jan 2004
+// Dec 1999 - April 2004
 //
 // by Matthias Wandel   email: mwandel(at)sentex.net
 //--------------------------------------------------------------------------
@@ -25,7 +25,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.1"
+#define JHEAD_VERSION "2.15"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
