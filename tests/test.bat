@@ -71,3 +71,10 @@ mkdir temp
 copy normal-digicams\*.jpg temp
 jhead -nf%%02i-%%H-%%f temp\*.jpg
 ls temp >> results-txt\new-names-txt
+
+rem -------------------------------------------------------------------
+rem test -purejpg with an image that I used to corrupt.
+copy strange-jpegs\olav.jpg results-bin
+jhead -purejpg results-bin\olav.jpg
+jhead -v results-bin\olav.jpg > results-txt\olav.jpg
+
