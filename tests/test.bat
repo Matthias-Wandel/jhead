@@ -11,6 +11,11 @@ rem test parsing and display of some strange jpeg files.
 FOR %%I IN (strange-jpegs\*.jpg) DO jhead -v -nofinfo %%I > results-txt\%%~nI.jpg
 
 rem -------------------------------------------------------------------
+rem test compact view
+jhead -c normal-digicams\*.jpg > results-txt\compact-txt
+jhead -c strange-jpegs\*.jpg >> results-txt\compact-txt
+
+rem -------------------------------------------------------------------
 rem test odd date format
 copy normal-digicams\3dmsc.jpg time.jpg
 jhead -ta+2:00 time.jpg

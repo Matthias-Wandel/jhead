@@ -1229,7 +1229,7 @@ void ShowConciseImageInfo(void)
         printf(" f(35)=%dmm",ImageInfo.FocalLength35mmEquiv);
     }
 
-    if (ImageInfo.FlashUsed & 1){
+    if (ImageInfo.FlashUsed >= 0 && ImageInfo.FlashUsed & 1){
         printf(" (flash)");
     }
 
