@@ -21,6 +21,7 @@ cp exif.c $fdir
 cp jhead.c $fdir
 cp myglob.c $fdir
 cp jpgfile.c $fdir
+cp makernote.c $fdir
 cp jhead.h $fdir
 
 tar -czvf $fdir.tar.gz $fdir
