@@ -34,7 +34,7 @@
 ImageInfo_t ImageInfo;
 
 
-#define MAX_SECTIONS 20
+#define MAX_SECTIONS 30
 static Section_t Sections[MAX_SECTIONS];
 static int SectionsRead;
 static int HaveAll;
