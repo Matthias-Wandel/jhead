@@ -203,7 +203,7 @@ More details on flash usage.
 Show digital zoom ratio
 Don't show jpeg process if it's baseline (almost always is)
 
--------Released version 2.4 -- Jan 2005 ----------
+-------Released version 2.3 -- Jan 2005 ----------
 
 
 to do:
