@@ -747,8 +747,8 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             Offset = Get32u(DirStart+2+12*NumDirEntries);
             if (Offset){
                 SubdirStart = OffsetBase + Offset;
-                if (SubdirStart > OffsetBase+ExifLength){
-                    if (SubdirStart < OffsetBase+ExifLength+20){
+                if (SubdirStart > OffsetBase+ExifLength || SubdirStart < OffsetBase){
+                    if (SubdirStart > OffsetBase && SubdirStart < OffsetBase+ExifLength+20){
                         // Jhead 1.3 or earlier would crop the whole directory!
                         // As Jhead produces this form of format incorrectness, 
                         // I'll just let it pass silently
