@@ -76,5 +76,5 @@ rem -------------------------------------------------------------------
 rem test -purejpg with an image that I used to corrupt.
 copy strange-jpegs\olav.jpg results-bin
 jhead -purejpg results-bin\olav.jpg
-jhead -v results-bin\olav.jpg > results-txt\olav.jpg
+jhead -v -nofinfo results-bin\olav.jpg > results-txt\olav.jpg
 

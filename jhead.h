@@ -170,3 +170,6 @@ extern int ShowTags;
 #define M_JFIF  0xE0            // Jfif marker
 #define M_EXIF  0xE1            // Exif marker
 #define M_COM   0xFE            // COMment 
+#define M_DQT   0xDB
+#define M_DHT   0xC4
+#define M_DRI   0xDD

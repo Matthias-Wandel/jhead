@@ -481,9 +481,9 @@ int RemoveUnknownSections(void)
             case  M_JFIF:
             case  M_EXIF:
             case  M_COM:
-            case  0xdb: 
-            case  0xc4:
-            case  0xdd:
+            case  M_DQT:
+            case  M_DHT:
+            case  M_DRI:
                 // keep.
                 a++;
                 break;
