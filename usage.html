@@ -10,11 +10,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
 <h3>Jhead v2.1 program Features</h3>
 <ul>
-<li>Extracting camera settings from exif image files
-<li>Able to manage running programs on large batches of Jpegs and restoring exif header
+<li>Extracting camera settings from Exif image files
+<li>Able to manage running programs on large batches of Jpegs and restoring Exif header
     information afterwards.
-<li>Able to set and/or adjust the exif time field
-<li>Removing of integral exif thumbnails for compacting Jpegs without loss of other JPEG header info
+<li>Able to set and/or adjust the Exif time field
+<li>Removing of integral Exif thumbnails for compacting Jpegs without loss of other JPEG header info
 <li>Transplant Exif image header from one JPEG to another
 <li>Save integral Exif thumbnails as separated images
 <li>Edit JPEG comment fields
@@ -25,11 +25,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <table cellpadding=5><tr valign=top>
     <td><b>-autorot
     <td>
-        Using the 'Orientation' tag of the exif header, rotate the image so that it is upright.
+        Using the 'Orientation' tag of the Exif header, rotate the image so that it is upright.
         The program 'jpegtran' is used to perform the rotation.  This program is present in most 
         Linux distributions.  For windows, you need to get a copy of it.
-        After rotation, the orientation tag of th exif header is set to '1' (normal orientation).  
-        The thumbnail is not rotated (that would be much harder).  Other fields of the exif header, 
+        After rotation, the orientation tag of th Exif header is set to '1' (normal orientation).  
+        The thumbnail is not rotated (that would be much harder).  Other fields of the Exif header, 
         including dimensions are untouched, but the JPEG height/width are adjusted.<br>
         This feature is especially useful with newer Canon cameras, that set the orientation tag
         automatically using a gravity sensor.
@@ -45,8 +45,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <td><b>-dt
     <td>
         Delete thumbnails from the Exif header, but leave the
-        interesting parts intact.  This opeion truncates the thumbnail from the exif header, provided
-        that the thumbnail is the last part of th exif header (which so far as I know is always the case).
+        interesting parts intact.  This opeion truncates the thumbnail from the Exif header, provided
+        that the thumbnail is the last part of th Exif header (which so far as I know is always the case).
         Exif headers have a built-in thumbnail, which typically
         occupies around 10k of space.  This thumbnail is used by digital cameras.  Windows XP may also
         use this thumbnail if present (but it doesn't need it).  The
@@ -69,8 +69,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-ce
     <td>
-        Edit the JPEG hader comment field (note, this comment field is outside the exif structure
-        and can be part of exif and non exif style JPEG images).
+        Edit the JPEG hader comment field (note, this comment field is outside the Exif structure
+        and can be part of Exif and non Exif style JPEG images).
         <br>
         A temporary file containing the comment is created and Notepad launched to edit it under Windows.  
         Under Unix, vi is used to edit the temprary file.  After the file is edited, the comments
@@ -97,7 +97,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <td>
         Save the built in thumbnail from Jpegs that came from a digital camera.  The thumbnail lives
         inside the Exif header, and is a very low-res JPEG image.  Note that making
-        any changes to a photo, except for with some programs, generally wipes out the exif header
+        any changes to a photo, except for with some programs, generally wipes out the Exif header
         and with it the thumbnail.
         <br>
         I implemented this option because I kept getting asked about having such an option.
@@ -120,16 +120,16 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-te &lt;name&gt;
     <td>
-        Transplant exif header from image &lt;name&gt; into specified image.  This option is
-        useful if you like to edit the photos but still want the exif header on your photos.
-        As most photo editing programs will wipe out the exif header, this option can be used
+        Transplant Exif header from image &lt;name&gt; into specified image.  This option is
+        useful if you like to edit the photos but still want the Exif header on your photos.
+        As most photo editing programs will wipe out the Exif header, this option can be used
         to re-transmplant them back in after editing the photos.
         <br>
         Like the '-st' option, this option uses a 'relative path', which is useful for doing
         a batch of photos at a time.  For example, if you have a directory full of digital camera
         photos, before editing them, you could copy them into the subdirectory 'originals'.
         Then edit them (or batch convert them using mogrify).  After editing, you can put the
-        original exif headers back in to the whole directory of images at a time using the
+        original Exif headers back in to the whole directory of images at a time using the
         incantation:
         <ul> jhead -te "originals\&i" *.jpg</ul>
 
@@ -149,7 +149,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>  
     <td><b>-se
     <td>
-        Supress error messages relating to corrupt exif header structure.
+        Supress error messages relating to corrupt Exif header structure.
 
 <tr valign=top>
     <td><b>-V
@@ -166,7 +166,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-model
     <td>
-        Restricts processing of files to those whose camera model, as indicated by the exif image
+        Restricts processing of files to those whose camera model, as indicated by the Exif image
         information, contains the substring specified in the argument after '-model'.
         For example, the following command will list only images that are from an S100 camera:
         <p>
@@ -179,15 +179,15 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-exonly
     <td>
-        Skip all files that don't have an exif header.  This skips all files that did not
+        Skip all files that don't have an Exif header.  This skips all files that did not
         come directly from the digital camera, as most photo editing software does not 
-        preserve the exif header when saving pictures.
+        preserve the Exif header when saving pictures.
         <p>
 
 <tr valign=top>
     <td><b>-n[fmt-string]
     <td>
-        This option causes files to be renamed according to the exif header "DateTimeOriginal" field.
+        This option causes files to be renamed according to the Exif header "DateTimeOriginal" field.
         Renaming is restricted to files whose names consist largely of digits.
         This effectively restricts renaming to files that have not already been manually renamed, as
         the default sequential names from digital cameras consist largely of digits.
@@ -240,11 +240,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-ta
     <td>
-        Adjust time stored in the exif header by h:mm backwards of forwards.  Useful when having
+        Adjust time stored in the Exif header by h:mm backwards of forwards.  Useful when having
         taken picutres with the wrong time set on the camera, such as afte travelling across
         time zones, or when daylight savings time has changed.
         This option uses the time from the "DateTimeOriginal" (tag 0x9003) field, but sets
-	all the time fields in the exif header to the new value.  Version 2.0 and earlier only
+	all the time fields in the Exif header to the new value.  Version 2.0 and earlier only
 	modified the "DateTimeOriginal" (tag 0x9003) field, but too many people thoutht
 	that that was a bug.
 
@@ -259,7 +259,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-ts
     <td>
-        Sets the time stored in the exif header to what is specified on the command line.
+        Sets the time stored in the Exif header to what is specified on the command line.
         This option changes all the date fields in the Exif header.  Version 2.0 and earlier
 	only changed the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
 	this was a bug.  Time must be specified as:<br>
@@ -268,7 +268,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-ft
     <td>
-        Sets the file's system time stamp to what is stored in the exif header.
+        Sets the file's system time stamp to what is stored in the Exif header.
 
 <tr valign=top>
     <td><b>-cmd
@@ -294,7 +294,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
           jhead -cmd "jpegtran -progressive &i &o" -r *.jpg<p>
         </ul>
         The first command mogrifies all jpegs in the tree that indicate that they are from a 
-        Cannon S100 in their exif header to 80% quality at the same resolution.  This is a 'lossy'
+        Cannon S100 in their Exif header to 80% quality at the same resolution.  This is a 'lossy'
         process, so I only run it on files that are from the Canon, and only run it once.
         The next command then takes all jpegs and converts them to progressive Jpegs.  The result
         is the same images, with no discernible differences, stored in half the space.  This only
@@ -304,12 +304,12 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         JPEG images is a lossless process that typically makes image files 5% smaller.
         <p>
         Keeping the Exif header information is important to me, as I like to check things like the
-        shutter speed for some of my photos, and my HTML index generating program uses the exif tags
+        shutter speed for some of my photos, and my HTML index generating program uses the Exif tags
         to display the JPEG images in order of taking.
         <p>
-        Newer version of "mogrify" already preserve exif informationm, so with some clever 
+        Newer version of "mogrify" already preserve Exif informationm, so with some clever 
         shell scripting, you could do these two steps without using jhead and still keep the 
-        exif headers.
+        Exif headers.
         <p>
 
 <tr valign=top>
@@ -354,7 +354,7 @@ I use the MOGIRIFY command from ImageMagick to do batch conversions and re-compr
 If you use Linux, you probably already have ImageMagic on your system (just type 'mogrify' at the
 command prompt to see if you have it).  For Windows users, you have to download it from:
 <a href="http://www.imagemagick.org"> http://www.imagemagick.org</a><p>
-Image Magick is one of the few programs that preserves comment and exif headers, although older
+Image Magick is one of the few programs that preserves comment and Exif headers, although older
 versions do not.
 </ul>
 <b>JPEGTRAN</b><br>
