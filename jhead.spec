@@ -72,8 +72,14 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
-* Tue Jan 08 2004 Matthias Wandel <mwandel[at]sentex.net> - 2.0-0
+* Sun Jun 20 2004 - 2.2-0
+- Various bug and spelling fixes.
+- added ability to do sequential renaming
+
+* Tue Jan 08 2004 Matthias Wandel <mwandel[at]sentex.net> - 2.1-0
 - Bumped version number to 2.1 for new jhead release.
+- Added -cl feature
+- added -noroot feature
 
 * Tue Jun 03 2003 Oliver Pitzeier <oliver@linux-kernel.at> - 2.0-3
 - Specfile cleanup/beautifying
@@ -84,11 +90,4 @@ rm -rf %{buildroot}
 - First jhead 2.0 RPM built by me.
 - Finally wrote a nice man page for jhead
 - Using jhead 1.9 RPM from connectiva linux as starting point (left in the portugese tags)
-  
-* Jan 2004
-- Added -cl feature
-- added -noroot feature
 
-* Jun 2004
-- Various bug and spelling fixes.
-- added ability to do sequential renaming
