@@ -796,7 +796,7 @@ void ProcessFile(const char * FileName)
                 ErrFatal("Could not write comment file");
             }
         }else{
-            printf("File '%s' contains no comment section",FileName);
+            printf("File '%s' contains no comment section\n",FileName);
         }
     }
 
