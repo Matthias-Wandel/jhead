@@ -1,3 +1,4 @@
+@setlocal
 copy ..\jhead.exe
 
 rm -f results-txt\*
