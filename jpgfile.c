@@ -116,7 +116,7 @@ static void process_SOFn (const uchar * Data, int marker)
 }
 
 
- 
+
 
 //--------------------------------------------------------------------------
 // Parse the marker stream until SOS or EOI is seen;
@@ -354,7 +354,7 @@ void DiscardAllButExif(void)
     int a;
 
     memset(&ExifKeeper, 0, sizeof(ExifKeeper));
-    memset(&CommentKeeper, 0, sizeof(ExifKeeper));
+    memset(&CommentKeeper, 0, sizeof(CommentKeeper));
 
     for (a=0;a<SectionsRead;a++){
         if (Sections[a].Type == M_EXIF && ExifKeeper.Type == 0){
