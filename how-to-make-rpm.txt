@@ -1,0 +1,19 @@
+
+put the jehad-2.3.tar.gz into /usr/src/redhat/SOURCES
+put the spec file in /usr/src/redhat/SPECS
+
+from the SPECS directory do:
+rpmbuild -ba jhead.spec
+
+The source RPM will be under /usr/src/redhat/SRPPMS
+the binary rpm will be under /sur/src/redhat/RPMS/i386
+
+Don't forget to check version in:
+* Manpage
+* usage.html
+* index.html
+* changes.txt
+* jhead.c
+* jhead.spec
+
+
