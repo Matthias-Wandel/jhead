@@ -263,7 +263,7 @@ int Get16u(void * Short)
 //--------------------------------------------------------------------------
 // Convert a 32 bit signed value from file's native byte order
 //--------------------------------------------------------------------------
-static int Get32s(void * Long)
+int Get32s(void * Long)
 {
     if (MotorolaOrder){
         return  ((( char *)Long)[0] << 24) | (((uchar *)Long)[1] << 16)
@@ -1199,16 +1199,8 @@ void ShowImageInfo(int ShowFileInfo)
     }
 
     if (ImageInfo.GpsInfoPresent){
-        printf("GPS Latitude : %c %d %7.4f %5.2f\n", 
-            ImageInfo.GpsLatitude.Ref,
-            ImageInfo.GpsLatitude.Degrees,
-            ImageInfo.GpsLatitude.Minutes,
-            ImageInfo.GpsLatitude.Seconds);
-        printf("GPS Longitude: %c %d %7.4f %5.2f\n", 
-            ImageInfo.GpsLongitude.Ref,
-            ImageInfo.GpsLongitude.Degrees,
-            ImageInfo.GpsLongitude.Minutes,
-            ImageInfo.GpsLongitude.Seconds);
+        printf("GPS Latitude : %s\n",ImageInfo.GpsLat);
+        printf("GPS Longitude: %s\n",ImageInfo.GpsLong);
     }
 
     // Print the comment. Print 'Comment:' for each new line of comment.

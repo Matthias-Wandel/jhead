@@ -75,6 +75,8 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
     }
 
     ImageInfo.GpsInfoPresent = TRUE;
+    strcpy(ImageInfo.GpsLat, "? ?");
+    strcpy(ImageInfo.GpsLong, "? ?");
 
     for (de=0;de<NumDirEntries;de++){
         unsigned Tag, Format, Components;
@@ -113,25 +115,46 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
         }
 
         switch(Tag){
-            GpsDegree * Deg;
+            char FmtString[20];
+            char TempString[50];
+            double Values[3];
+
             case TAG_GPS_LAT_REF:
-                ImageInfo.GpsLatitude.Ref = ValuePtr[0];
+                ImageInfo.GpsLat[0] = ValuePtr[0];
                 break;
 
             case TAG_GPS_LONG_REF:
-                ImageInfo.GpsLongitude.Ref = ValuePtr[0];
+                ImageInfo.GpsLong[0] = ValuePtr[0];
                 break;
 
             case TAG_GPS_LAT:
             case TAG_GPS_LONG:
-                if (Tag == TAG_GPS_LAT){
-                    Deg = &ImageInfo.GpsLatitude;
-                }else{
-                    Deg = &ImageInfo.GpsLongitude;
+                if (Format != FMT_URATIONAL){
+                    ErrNonfatal("Inappropriate format (%d) for GPS coordinates!", Format, 0);
                 }
-                Deg->Degrees = (short)ConvertAnyFormat(ValuePtr, Format);
-                Deg->Minutes = (float)ConvertAnyFormat(ValuePtr+ComponentSize, Format);
-                Deg->Seconds = (float)ConvertAnyFormat(ValuePtr+ComponentSize*2, Format);
+                strcpy(FmtString, "%0.0fd %0.0fm %0.0fs");
+
+                for (a=0;a<3;a++){
+                    int den, digits;
+
+                    den = Get32s(ValuePtr+4+a*ComponentSize);
+                    digits = 0;
+                    while (den > 1){
+                        den = den / 10;
+                        digits += 1;
+                    }
+                    FmtString[1+a*7] = '2'+digits+(digits ? 1 : 0);
+                    FmtString[3+a*7] = '0'+digits;
+
+                    Values[a] = ConvertAnyFormat(ValuePtr+a*ComponentSize, Format);
+                }
+                sprintf(TempString, FmtString, Values[0], Values[1], Values[2]);
+
+                if (Tag == TAG_GPS_LAT){
+                    strncpy(ImageInfo.GpsLat+2, TempString, 29);
+                }else{
+                    strncpy(ImageInfo.GpsLong+2, TempString, 29);
+                }
                 break;
         }
 

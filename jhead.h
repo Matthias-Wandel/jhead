@@ -30,13 +30,6 @@ typedef struct {
 
 #define MAX_DATE_COPIES 10
 
-typedef struct {
-    char  Ref;
-    short Degrees;
-    float Minutes;
-    float Seconds;
-}GpsDegree;
-
 //--------------------------------------------------------------------------
 // This structure stores Exif header image elements in a simple manner
 // Used to store camera data as extracted from the various ways that it can be
@@ -76,8 +69,8 @@ typedef struct {
     int  numDateTimeTags;
 
     int GpsInfoPresent;
-    GpsDegree GpsLatitude;
-    GpsDegree GpsLongitude;
+    char GpsLat[30];
+    char GpsLong[30];
 }ImageInfo_t;
 
 
@@ -107,6 +100,7 @@ void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount);
 double ConvertAnyFormat(void * ValuePtr, int Format);
 int Get16u(void * Short);
 unsigned Get32u(void * Long);
+int Get32s(void * Long);
 
 //--------------------------------------------------------------------------
 // Exif format descriptor stuff
@@ -125,8 +119,6 @@ extern const int BytesPerFormat[];
 #define FMT_SRATIONAL 10
 #define FMT_SINGLE    11
 #define FMT_DOUBLE    12
-
-
 
 
 // makernote.c prototypes
