@@ -1,4 +1,4 @@
-.TH JHEAD 1 "20 Jun 2004" "jhead 2.2"
+.TH JHEAD 1 "20 Jun 2004" "jhead 2.3"
 .SH NAME
 jhead \- Digicam JPEG Exif header manipulation tool
 .SH SYNOPSIS
@@ -65,13 +65,23 @@ section intact.
 Delete comment field from the JPEG header.  Note that the comment
 is not part of the Exif header.
 .TP
+.B \-du
+Delete sections of jpeg that are not Exif, not comment, and otherwise not 
+contributing to the image either - such as data that photoshop might leave in the image.
+.TP
+.B \-purejpg
+Delete all JPEG sections that aren't necessary for rendering the image.  Strips any
+metadata that various applications may have left in the image.  A combintion of 
+the -de -dc and -du options.
+.TP
 .B \-ce
 Edit the JPEG header comment field (note, this comment field is outside the Exif structure
 and can be part of Exif and non Exif style JPEG images).
 
-A temporary file containing the comment is created and Notepad launched to edit it under Windows.  
-Under UNIX, vi is used to edit the temporary file.  After the file is edited, the comments
-are put back into the file, and the temporary file is deleted.
+A temporary file containing the comment is created and a text editor is launched to edit
+the file.  The editor is specified in the EDITOR environment variable.  if none is specified
+notpead or vi are used under Windows and Unix respectively.  After the editor exits,
+the data is transferred back into the image, and the temporary file deleted.
 .TP
 .BI \-\^cs \ file
 Save comment section to a 
@@ -300,8 +310,14 @@ After jhead runs a program to rotate or resize an image, the image dimensions an
 in the Exif header are not adjusted.
 .PP
 Modifying of Exif header data is very limited, as Jhead internally only has a read only
-implementation of the file system contained in the Exif header.  There is no way to replace
-the thumbnail in the Exif header with another, for example.
+implementation of the file system contained in the Exif header.  For example, there is no way
+to replace the thumbnail or edit the Exif comment in the Exif header.  There is also no way
+to create minimal exif headers.
+.PP
+Some CANON digital SLR cameras fail to encode the effective sensor resolution when shooting at less
+than full resolution, causing jhead to incorrectly miscalculate the 35mm equivalent focal length.
+Jhead usually gets blamed for this bug, but it is in fact a camera bug, and jhead can't do
+much about it.
 .PP
 Send bug reports to mwandel at sentex dot net.
 

@@ -1,14 +1,14 @@
 <html>
-<font size = 2 face="helvetica">
+<span style="font-family: helvetica,arial,sans-serif;">
 
 <h3>Jhead is a command line driven program for manipulating the non image parts of Exif flavour
 JPEG files that most digital cameras produce.</h3><p>
 
-Windows users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it with the mouse from Windows 
+Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it with the mouse from Windows 
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
 (or DOS prompt under Win95/98)
 
-<h3>Jhead v2.2 program Features</h3>
+<h3>Jhead v2.3 program Features</h3>
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to manage running programs on large batches of Jpegs and restoring Exif header
@@ -67,15 +67,28 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         is not part of the Exif header.
 
 <tr valign=top>
+    <td><b>-du
+    <td>
+        Delete sections of jpeg that are not Exif, not comment, and otherwise not 
+        contributing to the image either - such as data that photoshop might leave in the image.
+
+<tr valign=top>
+    <td><b>-purejpg
+    <td>
+        Delete all JPEG sections that aren't necessary for rendering the image.  Strips any
+        metadata that various applications may have left in the image.  A combintion of 
+        the -de -dc and -du options.
+
+<tr valign=top>
     <td><b>-ce
     <td>
         Edit the JPEG header comment field (note, this comment field is outside the Exif structure
         and can be part of Exif and non Exif style JPEG images).
         <br>
-        A temporary file containing the comment is created and Notepad launched to edit it under Windows.  
-        Under UNIX, vi is used to edit the temporary file.  After the file is edited, the comments
-        are put back into the file, and the temporary file is deleted.
-
+        A temporary file containing the comment is created and a text editor is launched to edit
+        the file.  The editor is specified in the EDITOR environment variable.  if none is specified
+        notpead or vi are used under Windows and Unix respectively.  After the editor exits,
+        the data is transferred back into the image, and the temporary file deleted.
 
 <tr valign=top>
     <td><b>-cs &lt;name&gt;
@@ -328,6 +341,22 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 </table>
 
 
+<h3>Bugs and Shortcomings</h3>
+<ul>
+    After jhead runs a program to rotate or resize an image, the image dimensions and thumbnail 
+    in the Exif header are not adjusted.
+    <p>
+    Modifying of Exif header data is very limited, as Jhead internally only has a read only
+    implementation of the file system contained in the Exif header.  For example, there is no way
+    to replace the thumbnail or edit the Exif comment in the Exif header.  There is also no way
+    to create minimal exif headers.
+    <p>
+    Some Canon digital SLR cameras fail to encode the effective sensor resolution when shooting at less
+    than full resolution, causing jhead to incorrectly miscalculate the 35mm equivalent focal length.
+    Jhead usually gets blamed for this bug, but it is in fact a camera bug, and jhead can't do
+    much about it.
+</ul>
+
 <h3>Name globbing and recursive directories under Windows</h3>
 <ul>
     Name globbing means matching wildcard patterns to actual file names.  If you know what this
@@ -391,4 +420,4 @@ Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updateed: Jun 2004
+Last Updateed: Dec 2004

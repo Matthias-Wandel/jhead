@@ -132,6 +132,7 @@ void DiscardAllButExif(void);
 int ReadJpegFile(const char * FileName, ReadMode_t ReadMode);
 int TrimExifFunc(void);
 int RemoveSectionType(int SectionType);
+int RemoveUnknownSections(void);
 void WriteJpegFile(const char * FileName);
 Section_t * FindSection(int SectionType);
 Section_t * CreateSection(int SectionType, unsigned char * Data, int size);

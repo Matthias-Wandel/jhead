@@ -2,13 +2,13 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.2
+// Version 2.3
 //
 //
-// Compiling under Windows:  Use microsoft's compile.  from command line:
+// Compiling under Windows:  Use microsoft's compiler.  from command line:
 // cl -Ox jhead.c exif.c myglob.c
 //
-// Dec 1999 - June 2004
+// Dec 1999 - Dec 2004
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.2"
+#define JHEAD_VERSION "2.3"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -66,6 +66,7 @@ static time_t ExifTimeSet = 0;      // Set exif time to a value.
 
 static int DeleteComments = FALSE;
 static int DeleteExif = FALSE;
+static int DeleteUnknown = FALSE;
 static char * ThumbnailName = NULL; // If not NULL, use this string to make up
                                     // the filename to store the thumbnail to.
 
@@ -868,6 +869,9 @@ void ProcessFile(const char * FileName)
     if (DeleteExif){
         if (RemoveSectionType(M_EXIF)) Modified = TRUE;
     }
+    if (DeleteUnknown){
+        if (RemoveUnknownSections()) Modified = TRUE;
+    }
 
 
     if (Modified){
@@ -945,15 +949,16 @@ static void Usage (void)
     printf("Where:\n"
            "[options] are:\n"
            "  -dc        Delete comment field (as left by progs like Photoshop & Compupic)\n"
+           "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
+           "  -du        Delete non image sections except for Exif and comment sections\n"
+           "  -purejpg   Strip all unnecessary data from jpeg (combines -dc -de and -du)\n"
            "  -ce        Edit comment field.  Uses environment variable 'editor' to\n"
            "             determine which editor to use.  If editor not set, uses VI\n"
            "             under Unix and notepad with windows\n"
-
            "  -cs <name> Save comment section to a file\n"
            "  -ci <name> Insert comment section from a file.  -cs and -ci use same naming\n"
            "             scheme as used by the -st option\n"
            "  -cl string Insert literal comment stirng\n"
-           "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
            "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
            "             Note: Windows users must get jpegtran for this to work\n"
            "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
@@ -1142,6 +1147,14 @@ int main (int argc, char **argv)
             DoModify = TRUE;
         }else if (!strcmp(arg,"-de")){
             DeleteExif = TRUE;
+            DoModify = TRUE;
+        }else if (!strcmp(arg, "-du")){
+            DeleteUnknown = TRUE;
+            DoModify = TRUE;
+        }else if (!strcmp(arg, "-purejpg")){
+            DeleteExif = TRUE;
+            DeleteComments = TRUE;
+            DeleteUnknown = TRUE;
             DoModify = TRUE;
         }else if (!strcmp(arg,"-ce")){
             EditComment = TRUE;

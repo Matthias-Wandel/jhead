@@ -187,6 +187,8 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         }
         SectionsRead += 1;
 
+printf("Marker 0x%02x size %d\n",marker, itemlen);
+
         switch(marker){
 
             case M_SOS:   // stop before hitting compressed data 
@@ -451,6 +453,51 @@ int RemoveSectionType(int SectionType)
         }
     }
     return FALSE;
+}
+
+//--------------------------------------------------------------------------
+// Remove sectons not part of image and not exif or comment sections.
+//--------------------------------------------------------------------------
+int RemoveUnknownSections(void)
+{
+    int a;
+    int Modified = FALSE;
+    for (a=0;a<SectionsRead-1;){
+        switch(Sections[a].Type){
+            case  M_SOF0:
+            case  M_SOF1:
+            case  M_SOF2:
+            case  M_SOF3:
+            case  M_SOF5:
+            case  M_SOF6:
+            case  M_SOF7:
+            case  M_SOF9:
+            case  M_SOF10:
+            case  M_SOF11:
+            case  M_SOF13:
+            case  M_SOF14:
+            case  M_SOF15:
+            case  M_SOI:
+            case  M_EOI:
+            case  M_SOS:
+            case  M_JFIF:
+            case  M_EXIF:
+            case  M_COM:
+            case  0xdb: // Need to look up what this one is for...
+            case  0xc4:
+                // keep.
+                a++;
+                break;
+            default:
+                // Unknown.  Delete.
+                free (Sections[a].Data);
+                // Move succeding sections back by one to close space in array.
+                memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a));
+                SectionsRead -= 1;
+                Modified = TRUE;
+        }
+    }
+    return Modified;
 }
 
 //--------------------------------------------------------------------------
