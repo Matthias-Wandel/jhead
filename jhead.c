@@ -288,7 +288,7 @@ static int AutoResizeCmdStuff(void)
 
     if (scale > 0.8) return FALSE; // Don't rescale by really small amounts (not worth it!)
 
-    sprintf(CommandString, "mogrify -geometry %dx%d -quality 80 &i",(int)(ImageInfo.Width*scale), (int)(ImageInfo.Height*scale));
+    sprintf(CommandString, "mogrify -geometry %dx%d -quality 82 &i",(int)(ImageInfo.Width*scale), (int)(ImageInfo.Height*scale));
     return TRUE;
 }
 
