@@ -1,0 +1,77 @@
+Exif header 4631 bytes long
+Exif section in Intel order
+Directory with 10 entries
+    ImageDescription = "                               ?"
+    Make = "SONY?"
+    Model = "CYBERSHOT?"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    DateTime = "2004:01:25 16:13:40?"
+    YCbCrPositioning = 2
+    ExifOffset = 232
+Directory with 27 entries
+    ExposureTime = 10/400
+    FNumber = 28/10
+    ExposureProgram = 2
+    ISOSpeedRatings = 160
+    ExifVersion = "0220"
+    DateTimeOriginal = "2004:01:25 16:13:40?"
+    DateTimeDigitized = "2004:01:25 16:13:40?"
+    ComponentsConfiguration = "?"
+    CompressedBitsPerPixel = 2/1
+    ExposureBiasValue = 0/10
+    MaxApertureValue = 48/16
+    MeteringMode = 3
+    LightSource = 0
+    Flash = 31
+    FocalLength = 765/100
+    MakerNote = ""
+    FlashPixVersion = "0100"
+    ColorSpace = 1
+    ExifImageWidth = 960
+    ExifImageLength = 1280
+    InteroperabilityOffset = 650
+Directory with 2 entries
+  Unknown Tag 0001 Value = "R98?"
+  Unknown Tag 0002 Value = "0100"
+    FileSource = "?"
+    SceneType = "?"
+    CustomRendered = 0
+    ExposureMode = 0
+    WhiteBalance = 0
+    SceneCaptureType = 0
+Directory with 10 entries
+    Compression = 6
+    Make = "SONY?"
+    Model = "CYBERSHOT?"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    DateTime = "2004:01:25 16:13:40?"
+    ThumbnailOffset = 873
+    ThumbnailLength = 3750
+Thumbnail size: 3750 bytes
+Non settings part of Exif header: 3751 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 120w * 160h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 27
+Jpeg section marker 0xc4 size 60
+Jpeg section marker 0xc4 size 26
+Jpeg section marker 0xc4 size 41
+Camera make  : SONY
+Camera model : CYBERSHOT
+Date/Time    : 2004:01:25 16:13:40
+Resolution   : 120 x 160
+Flash used   : Yes
+Focal length :  7.7mm
+Exposure time: 0.025 s  (1/40)
+Aperture     : f/2.8
+ISO equiv.   : 160
+Metering Mode: spot
+Exposure     : program (auto)
+Jpeg process : Baseline
+

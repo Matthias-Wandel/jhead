@@ -1,0 +1,69 @@
+Exif header 5270 bytes long
+Exif section in Motorola order
+Directory with 9 entries
+    Make = "Hewlett-Packard Company?"
+    Model = "hp PhotoSmart 620?"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "Ver V0.610?"
+    YCbCrPositioning = 2
+    ExifOffset = 338
+Directory with 24 entries
+    ExposureTime = 33333/1000000
+    FNumber = 289/100
+    ISOSpeedRatings = 140
+    ExifVersion = "0220"
+    DateTimeOriginal = "2004:01:25 13:21:34?"
+    DateTimeDigitized = "2004:01:25 13:21:34?"
+    ComponentsConfiguration = "?"
+    CompressedBitsPerPixel = 311/100
+    ShutterSpeedValue = 490/100
+    ApertureValue = 600/100
+    ExposureBiasValue = 0/10
+    MaxApertureValue = 600/100
+    MeteringMode = 2
+    Flash = 1
+    FocalLength = 559/100
+    MakerNote = "?h?d?d?÷Ö?Q?‚5?Œ?;?}ÿÍ?/?"
+    FlashPixVersion = "0100"
+    ColorSpace = 1
+    ExifImageWidth = 1632
+    ExifImageLength = 1232
+    InteroperabilityOffset = 1750
+Directory with 2 entries
+  Unknown Tag 0001 Value = "R98?"
+  Unknown Tag 0002 Value = "0100"
+    ExposureMode = 0
+    WhiteBalance = 0
+    SceneCaptureType = 0
+Directory with 7 entries
+    Compression = 6
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    ThumbnailOffset = 1780
+    ThumbnailLength = 3482
+Thumbnail size: 3482 bytes
+Non settings part of Exif header: 3486 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 121h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 59
+Jpeg section marker 0xc4 size 26
+Jpeg section marker 0xc4 size 37
+Camera make  : Hewlett-Packard Company
+Camera model : hp PhotoSmart 620
+Date/Time    : 2004:01:25 13:21:34
+Resolution   : 160 x 121
+Flash used   : Yes
+Focal length :  5.6mm
+Exposure time: 0.033 s  (1/30)
+Aperture     : f/2.9
+ISO equiv.   : 140
+Metering Mode: center weight
+Jpeg process : Baseline
+
