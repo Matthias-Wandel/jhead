@@ -1,0 +1,80 @@
+Exif header 12150 bytes long
+Exif section in Intel order
+Directory with 11 entries
+    Make = "FUJIFILM?"
+    Model = "DX-10?"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "Digital Camera DX-10 Ver1.00?"
+    DateTime = "2000:04:01 13:04:48?"
+    YCbCrPositioning = 2
+    Copyright = "M.Wandel  ?"
+    ExifOffset = 258
+Directory with 27 entries
+    FNumber = 42/10
+    ExposureProgram = 2
+    ISOSpeedRatings = 150
+    ExifVersion = "0210"
+    DateTimeOriginal = "2000:04:01 13:04:48?"
+    DateTimeDigitized = "2000:04:01 13:04:48?"
+    ComponentsConfiguration = "?"
+    CompressedBitsPerPixel = 2/1
+    ShutterSpeedValue = 33/10
+    ApertureValue = 41/10
+    BrightnessValue = 21/10
+    ExposureBiasValue = 0/10
+    MaxApertureValue = 41/10
+    MeteringMode = 5
+    Flash = 0
+    FocalLength = 58/10
+    FlashPixVersion = "0100"
+    ColorSpace = 1
+    ExifImageWidth = 640
+    ExifImageLength = 480
+    InteroperabilityOffset = 708
+Directory with 2 entries
+  Unknown Tag 0001 Value = "R98?"
+  Unknown Tag 0002 Value = "0100"
+    FocalPlaneXResolution = 1344/1
+    FocalPlaneYResolution = 1344/1
+    FocalPlaneResolutionUnit = 3
+    SensingMethod = 2
+    FileSource = "?"
+    SceneType = "?"
+Directory with 8 entries
+    Compression = 6
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    ThumbnailOffset = 856
+    ThumbnailLength = 11286
+    YCbCrPositioning = 2
+Thumbnail size: 11286 bytes
+Non settings part of Exif header: 11286 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 59
+Jpeg section marker 0xc4 size 24
+Jpeg section marker 0xc4 size 36
+File name    : fuji-dx10.jpg
+File size    : 16108 bytes
+File date    : 2000:04:01 13:04:48
+Camera make  : FUJIFILM
+Camera model : DX-10
+Date/Time    : 2000:04:01 13:04:48
+Resolution   : 160 x 120
+Flash used   : No
+Focal length :  5.8mm  (35mm equivalent: 44mm)
+CCD width    : 4.76mm
+Exposure time: 0.102 s  (1/10)
+Aperture     : f/4.2
+ISO equiv.   : 150
+Metering Mode: matrix
+Exposure     : program (auto)
+Jpeg process : Baseline
+

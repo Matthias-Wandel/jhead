@@ -1,0 +1,80 @@
+Exif header 6654 bytes long
+Exif section in Intel order
+Directory with 9 entries
+    Make = "Canon?"
+    Model = "Canon PowerShot G2?"
+    Orientation = 1
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2003:03:28 16:55:04?"
+    YCbCrPositioning = 1
+    ExifOffset = 196
+Directory with 31 entries
+    ExposureTime = 1/50
+    FNumber = 28/10
+    ExifVersion = "0220"
+    DateTimeOriginal = "2003:03:28 16:55:04?"
+    DateTimeDigitized = "2003:03:28 16:55:04?"
+    ComponentsConfiguration = "?"
+    CompressedBitsPerPixel = 3/1
+    ShutterSpeedValue = 181/32
+    ApertureValue = 95/32
+    ExposureBiasValue = 0/3
+    MaxApertureValue = 131072/65536
+    MeteringMode = 5
+    Flash = 24
+    FocalLength = 224/32
+    MakerNote = "?(?D?”?œ?¤?Ú?æ? ?î?°¸? ?&?F?P?0?ÿÿÿÿ ?à? ?C?À?ÿÿ?à?à?à?×?6?€?¡?_?µ?0?ÿÿ?a?¶?ú?IMG:PowerShot G2 JPEG?Firmware Version 1.10?(301)-975-4397?*?€r?€?€?"
+    UserComment = "?"
+    FlashPixVersion = "0100"
+    ColorSpace = 1
+    ExifImageWidth = 2272
+    ExifImageLength = 1704
+    InteroperabilityOffset = 1416
+Directory with 4 entries
+  Unknown Tag 0001 Value = "R98?"
+  Unknown Tag 0002 Value = "0100"
+  Unknown Tag 1001 Value = 2272
+  Unknown Tag 1002 Value = 1704
+    FocalPlaneXResolution = 2272000/280
+    FocalPlaneYResolution = 1704000/210
+    FocalPlaneResolutionUnit = 2
+    SensingMethod = 2
+    FileSource = "?"
+  Unknown Tag a401 Value = 0
+  Unknown Tag a402 Value = 0
+  Unknown Tag a403 Value = 1
+  Unknown Tag a404 Value = 2272/2272
+  Unknown Tag a406 Value = 0
+Directory with 6 entries
+    Compression = 6
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    ThumbnailOffset = 2036
+    ThumbnailLength = 4467
+Thumbnail size: 4467 bytes
+Non settings part of Exif header: 5082 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 27
+Jpeg section marker 0xc4 size 65
+Jpeg section marker 0xc4 size 23
+Jpeg section marker 0xc4 size 34
+File name    : powershot_g2.jpg
+File size    : 10326 bytes
+File date    : 2003:03:28 16:55:04
+Camera make  : Canon
+Camera model : Canon PowerShot G2
+Date/Time    : 2003:03:28 16:55:04
+Resolution   : 160 x 120
+Flash used   : No
+Focal length :  7.0mm  (35mm equivalent: 35mm)
+CCD width    : 7.11mm
+Exposure time: 0.020 s  (1/50)
+Aperture     : f/2.8
+Metering Mode: matrix
+Jpeg process : Baseline
+

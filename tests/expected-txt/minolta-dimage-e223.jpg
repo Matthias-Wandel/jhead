@@ -1,0 +1,76 @@
+Exif header 12239 bytes long
+Exif section in Motorola order
+Directory with 12 entries
+    ImageDescription = "Minolta DSC?"
+    Make = "Minolta Co., Ltd.?"
+    Model = "DiMAGE E223?"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "Ver.1.00?"
+    DateTime = "2003:08:27:00:09:15?"
+    YCbCrPositioning = 2
+    ExifOffset = 458
+Directory with 25 entries
+    ExposureTime = 4182025/268435456
+    FNumber = 290/100
+    ExposureProgram = 2
+    ISOSpeedRatings = 100
+    ExifVersion = "0220"
+    DateTimeOriginal = "2003:08:27:00:09:15?"
+    DateTimeDigitized = "2003:08:27:00:09:15?"
+    ComponentsConfiguration = "?"
+    ShutterSpeedValue = 48/8
+    ApertureValue = 307/100
+    ExposureBiasValue = 0/18
+    MaxApertureValue = 307/100
+    MeteringMode = 5
+    LightSource = 0
+    Flash = 25
+    MakerNote = "?"
+    FlashPixVersion = "0100"
+    ColorSpace = 1
+    ExifImageWidth = 800
+    ExifImageLength = 600
+    InteroperabilityOffset = 1164
+Directory with 2 entries
+  Unknown Tag 0001 Value = "R98?"
+  Unknown Tag 0002 Value = "0100"
+    ExposureIndex = 1/1
+    SensingMethod = 2
+    FileSource = "?"
+    SceneType = "?"
+  Unknown Tag c4a5 Value = "PrintIM?0250?.?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?ÿÿ"
+Directory with 7 entries
+    Compression = 6
+    Orientation = 1
+    XResolution = 1/1
+    YResolution = 1/1
+    ResolutionUnit = 2
+    ThumbnailOffset = 1301
+    ThumbnailLength = 10930
+Thumbnail size: 10930 bytes
+Non settings part of Exif header: 10931 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 74
+Jpeg section marker 0xc4 size 25
+Jpeg section marker 0xc4 size 38
+File name    : minolta-dimage-e223.jpg
+File size    : 16802 bytes
+File date    : 2003:08:27 00:09:15
+Camera make  : Minolta Co., Ltd.
+Camera model : DiMAGE E223
+Date/Time    : 2003:08:27:00:09:15
+Resolution   : 160 x 120
+Flash used   : Yes
+Exposure time: 0.016 s  (1/64)
+Aperture     : f/2.9
+ISO equiv.   : 100
+Metering Mode: matrix
+Exposure     : program (auto)
+Jpeg process : Baseline
+

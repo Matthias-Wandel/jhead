@@ -1,0 +1,70 @@
+Exif header 1144 bytes long
+Exif section in Intel order
+Directory with 9 entries
+    Make = "Canon?"
+    Model = "Canon PowerShot S100"
+    Orientation = 1
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2000:06:27 15:53:09?"
+    YCbCrPositioning = 1
+    ExifOffset = 184
+Directory with 27 entries
+    ExposureTime = 1/30
+    FNumber = 28/10
+    ExifVersion = "0210"
+    DateTimeOriginal = "2000:06:27 15:53:09?"
+    DateTimeDigitized = "2000:06:27 15:53:09?"
+    ComponentsConfiguration = "?"
+    CompressedBitsPerPixel = 3/1
+    ShutterSpeedValue = 321578/65536
+    ApertureValue = 194698/65536
+    ExposureBiasValue = 0/3
+    MaxApertureValue = 194698/65536
+    SubjectDistance = 872/1000
+    MeteringMode = 2
+    Flash = 1
+    FocalLength = 173/32
+    MakerNote = "?x?ž?¦?®?Ì? ?Ø?ø?rà? ?&?­?Ó?ž?Œ?b? ?«?0?IMG:JPEG file?Firmware Version 1.0?Matthias Wandel?"
+    UserComment = "?"
+    FlashPixVersion = "0100"
+    ColorSpace = 1
+    ExifImageWidth = 640
+    ExifImageLength = 480
+    InteroperabilityOffset = 1088
+Directory with 4 entries
+  Unknown Tag 0001 Value = "R98?"
+  Unknown Tag 0002 Value = "0100"
+  Unknown Tag 1001 Value = 640
+  Unknown Tag 1002 Value = 480
+    FocalPlaneXResolution = 640000/206
+    FocalPlaneYResolution = 480000/155
+    FocalPlaneResolutionUnit = 2
+    SensingMethod = 2
+    FileSource = "?"
+Thumbnail removed with Jhead 1.3 or earlier
+Non settings part of Exif header: -2 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 61
+Jpeg section marker 0xc4 size 23
+Jpeg section marker 0xc4 size 28
+File name    : S100.jpg
+File size    : 4595 bytes
+File date    : 2000:06:27 15:53:09
+Camera make  : Canon
+Camera model : Canon PowerShot S100´
+Date/Time    : 2000:06:27 15:53:09
+Resolution   : 160 x 120
+Flash used   : Yes
+Focal length :  5.4mm  (35mm equivalent: 37mm)
+CCD width    : 5.23mm
+Exposure time: 0.033 s  (1/30)
+Aperture     : f/2.8
+Focus dist.  : 0.87m
+Metering Mode: center weight
+Jpeg process : Baseline
+

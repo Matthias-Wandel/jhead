@@ -1,0 +1,77 @@
+Exif header 7166 bytes long
+Exif section in Intel order
+Directory with 9 entries
+    Make = "Canon?"
+    Model = "Canon PowerShot S40?"
+    Orientation = 1
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2002:06:25 13:28:07?"
+    YCbCrPositioning = 1
+    ExifOffset = 196
+Directory with 27 entries
+    ExposureTime = 1/250
+    FNumber = 28/10
+    ExifVersion = "0210"
+    DateTimeOriginal = "2002:06:25 13:28:07?"
+    DateTimeDigitized = "2002:06:25 13:28:07?"
+    ComponentsConfiguration = "?"
+    CompressedBitsPerPixel = 3/1
+    ShutterSpeedValue = 255/32
+    ApertureValue = 95/32
+    ExposureBiasValue = 0/3
+    MaxApertureValue = 194698/65536
+    SubjectDistance = 65535/1000
+    MeteringMode = 5
+    Flash = 0
+    FocalLength = 227/32
+    MakerNote = "?(?l?t?|?²?¾? ?Æ?æ?ÿi? ?þ?P?0?ÿÿÿÿª?ã? ?c?À?ÿÿ?à?à?ã?×?6?€?î?_?ÿ?0?ÿÿ?c?ú?IMG:PowerShot S40 JPEG?Firmware Version    1.00?*?€>?€?Ú?3?"
+    UserComment = "?"
+    FlashPixVersion = "0100"
+    ColorSpace = 1
+    ExifImageWidth = 2272
+    ExifImageLength = 1704
+    InteroperabilityOffset = 1368
+Directory with 4 entries
+  Unknown Tag 0001 Value = "R98?"
+  Unknown Tag 0002 Value = "0100"
+  Unknown Tag 1001 Value = 2272
+  Unknown Tag 1002 Value = 1704
+    FocalPlaneXResolution = 2272000/280
+    FocalPlaneYResolution = 1704000/210
+    FocalPlaneResolutionUnit = 2
+    SensingMethod = 2
+    FileSource = "?"
+Directory with 6 entries
+    Compression = 6
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    ThumbnailOffset = 1524
+    ThumbnailLength = 5359
+Thumbnail size: 5359 bytes
+Non settings part of Exif header: 5642 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 120w * 160h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 61
+Jpeg section marker 0xc4 size 25
+Jpeg section marker 0xc4 size 36
+File name    : S40.jpg
+File size    : 11565 bytes
+File date    : 2002:06:25 13:28:07
+Camera make  : Canon
+Camera model : Canon PowerShot S40
+Date/Time    : 2002:06:25 13:28:07
+Resolution   : 120 x 160
+Flash used   : No
+Focal length :  7.1mm  (35mm equivalent: 36mm)
+CCD width    : 7.11mm
+Exposure time: 0.0040 s  (1/250)
+Aperture     : f/2.8
+Focus dist.  : 65.54m
+Metering Mode: matrix
+Jpeg process : Baseline
+

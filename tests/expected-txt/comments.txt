@@ -1,0 +1,82 @@
+This is a short text file
+for doing tests
+using my jhead program
+bla
+bla
+bla
+and some more text
+File name    : comments.jpg
+File size    : 4695 bytes
+File date    : 2000:06:27 15:53:09
+Camera make  : Canon
+Camera model : Canon PowerShot S100´
+Date/Time    : 2000:06:27 15:53:09
+Resolution   : 160 x 120
+Flash used   : Yes
+Focal length :  5.4mm  (35mm equivalent: 37mm)
+CCD width    : 5.23mm
+Exposure time: 0.033 s  (1/30)
+Aperture     : f/2.8
+Focus dist.  : 0.87m
+Metering Mode: center weight
+Jpeg process : Baseline
+Comment      : This is a short text file
+Comment      : for doing tests
+Comment      : using my jhead program
+Comment      : bla
+Comment      : bla
+Comment      : bla
+Comment      : and some more text
+
+
+File name    : comments.jpg
+File size    : 4625 bytes
+File date    : 2000:06:27 15:53:09
+Camera make  : Canon
+Camera model : Canon PowerShot S100´
+Date/Time    : 2000:06:27 15:53:09
+Resolution   : 160 x 120
+Flash used   : Yes
+Focal length :  5.4mm  (35mm equivalent: 37mm)
+CCD width    : 5.23mm
+Exposure time: 0.033 s  (1/30)
+Aperture     : f/2.8
+Focus dist.  : 0.87m
+Metering Mode: center weight
+Jpeg process : Baseline
+Comment      : "this comment is edited" 
+
+
+File name    : comments.jpg
+File size    : 4626 bytes
+File date    : 2000:06:27 15:53:09
+Camera make  : Canon
+Camera model : Canon PowerShot S100´
+Date/Time    : 2000:06:27 15:53:09
+Resolution   : 160 x 120
+Flash used   : Yes
+Focal length :  5.4mm  (35mm equivalent: 37mm)
+CCD width    : 5.23mm
+Exposure time: 0.033 s  (1/30)
+Aperture     : f/2.8
+Focus dist.  : 0.87m
+Metering Mode: center weight
+Jpeg process : Baseline
+Comment      : a literla inserted comment!
+
+File name    : comments.jpg
+File size    : 4595 bytes
+File date    : 2000:06:27 15:53:09
+Camera make  : Canon
+Camera model : Canon PowerShot S100´
+Date/Time    : 2000:06:27 15:53:09
+Resolution   : 160 x 120
+Flash used   : Yes
+Focal length :  5.4mm  (35mm equivalent: 37mm)
+CCD width    : 5.23mm
+Exposure time: 0.033 s  (1/30)
+Aperture     : f/2.8
+Focus dist.  : 0.87m
+Metering Mode: center weight
+Jpeg process : Baseline
+
