@@ -1,0 +1,61 @@
+Exif header 8003 bytes long
+Exif section in Intel order
+(dir has 3 entries)
+    Make = "Canon"
+    Model = "Canon EOS 20D"
+    ExifOffset = 74
+    Exif Dir:(dir has 27 entries)
+        Artist = "unknown"
+        ExposureTime = 1/50
+        FNumber = 56/10
+        ExposureProgram = 4
+        ISOSpeedRatings = 400
+        ExifVersion = "0221"
+        DateTimeOriginal = "2005:03:26 12:03:47"
+        DateTimeDigitized = "2005:03:26 12:03:47"
+        ComponentsConfiguration = "?"
+        ShutterSpeedValue = 369876/65536
+        ApertureValue = 325770/65536
+        ExposureBiasValue = 0/2
+        MeteringMode = 5
+        Flash = 9
+        FocalLength = 17/1
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 65535
+        ExifImageWidth = 3504
+        ExifImageLength = 2336
+        FocalPlaneXResolution = 4064000/1408
+        FocalPlaneYResolution = 2704000/937
+        FocalPlaneResolutionUnit = 2
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 0
+        SceneCaptureType = 0
+    Continued directory (dir has 3 entries)
+        Compression = 6
+        ThumbnailOffset = 822
+        ThumbnailLength = 7173
+Thumbnail size: 7173 bytes
+Non settings part of Exif header: 7177 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 257w * 170h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 31
+Jpeg section marker 0xc4 size 181
+Jpeg section marker 0xc4 size 31
+Jpeg section marker 0xc4 size 181
+Camera make  : Canon
+Camera model : Canon EOS 20D
+Date/Time    : 2005:03:26 12:03:47
+Resolution   : 257 x 170
+Flash used   : Yes (manual)
+Focal length : 17.0mm  (35mm equivalent: 20mm)
+CCD width    : 30.84mm
+Exposure time: 0.020 s  (1/50)
+Aperture     : f/5.6
+ISO equiv.   : 400
+Whitebalance : Auto
+Metering Mode: matrix
+Exposure     : shutter priority (semi-auto)
+
