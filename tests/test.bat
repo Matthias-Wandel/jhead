@@ -13,6 +13,8 @@ FOR %%i IN (*.jpg) DO jhead -v %%i > ..\results-txt\%%i
 cd ..
 
 rem test parsing and display of some strange jpeg files.
+
+rem FIXME - this is broken - add some kind of supress file time option...
 cd results-bin
 FOR %%i IN (*.jpg) DO jhead -v %%i > ..\results-txt\%%i
 cd ..

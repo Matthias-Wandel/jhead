@@ -52,6 +52,7 @@ typedef struct {
     float Distance;
     float CCDWidth;
     float ExposureBias;
+    int   FocalLength35mmEquiv; // Exif 2.2 tag - usually not present.
     int   Whitebalance;
     int   MeteringMode;
     int   ExposureProgram;

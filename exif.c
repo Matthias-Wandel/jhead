@@ -139,7 +139,6 @@ static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_EXIF_IMAGEWIDTH   0xA002
 #define TAG_EXIF_IMAGELENGTH  0xA003
 
-// the following is added 05-jan-2001 vcs
 #define TAG_EXPOSURE_BIAS     0x9204
 #define TAG_WHITEBALANCE      0x9208
 #define TAG_METERING_MODE     0x9207
@@ -148,6 +147,8 @@ static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 
 #define TAG_THUMBNAIL_OFFSET  0x0201
 #define TAG_THUMBNAIL_LENGTH  0x0202
+
+#define TAG_FOCALLENGTH_35MM  0xa405
 
 static TagTable_t TagTable[] = {
   {   0x100,   "ImageWidth"},
@@ -221,6 +222,7 @@ static TagTable_t TagTable[] = {
   {   0xA001,  "ColorSpace"},
   {   0xA002,  "ExifImageWidth"},
   {   0xA003,  "ExifImageLength"},
+  {   0xA004,  "RelatedAudioFile"},
   {   0xA005,  "InteroperabilityOffset"},
   {   0xA20B,  "FlashEnergy"},                 // 0x920B in TIFF/EP
   {   0xA20C,  "SpatialFrequencyResponse"},  // 0x920C    -  -
@@ -232,7 +234,18 @@ static TagTable_t TagTable[] = {
   {   0xA217,  "SensingMethod"},            // 0x9217    -  -
   {   0xA300,  "FileSource"},
   {   0xA301,  "SceneType"},
-  {      0, NULL}
+  {   0xA301,  "CFA Pattern"},
+  {   0xa401,  "CustomRendered"},
+  {   0xa402,  "ExposureMode"},
+  {   0xa403,  "WhiteBalance"},
+  {   0xa404,  "DigitalZoomRatio"},
+  {   0xa405,  "FocalLengthIn35mmFilm"},
+  {   0xa406,  "SceneCaptureType"},
+  {   0xa407,  "GainControl"},
+  {   0xa408,  "Contrast"},
+  {   0xa409,  "Saturation"},
+  {   0xa40a,  "Sharpness"},
+  {   0xa40c,  "SubjectDistanceRange"}
 } ;
 
 
@@ -672,6 +685,13 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     }
                     continue;
                 }
+
+            case TAG_FOCALLENGTH_35MM:
+                // The focal length equivalent 35 mm is a 2.2 tag (defined as of April 2002)
+                // if its present, use it to compute equivalent focal length instead of 
+                // computing it from sensor geometry and actual focal length.
+                ImageInfo.FocalLength35mmEquiv = (unsigned)ConvertAnyFormat(ValuePtr, Format);
+                break;
         }
     }
 
@@ -781,7 +801,19 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
 
     // Compute the CCD width, in milimeters.
     if (FocalplaneXRes != 0){
+        // Note: With some cameras, its not possible to compute this correctly because
+        // they don't adjust the indicated focal plane resolution units when using less
+        // than maximum resolution, so the CCDWidth value comes out too small.  Nothing
+        // that Jhad can do about it - its a camera problem.
         ImageInfo.CCDWidth = (float)(ExifImageWidth * FocalplaneUnits / FocalplaneXRes);
+
+
+        if (ImageInfo.FocalLength && ImageInfo.FocalLength35mmEquiv == 0){
+            // Compute 35 mm equivalent focal length based on sensor geometry if we haven't
+            // already got it explicitly from a tag.
+            ImageInfo.FocalLength35mmEquiv = (int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*36 + 0.5);
+        }
+
     }
 
     if (ShowTags){
@@ -939,9 +971,8 @@ void ShowImageInfo(void)
     }
     if (ImageInfo.FocalLength){
         printf("Focal length : %4.1fmm",(double)ImageInfo.FocalLength);
-        if (ImageInfo.CCDWidth){
-            printf("  (35mm equivalent: %dmm)",
-                        (int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*36 + 0.5));
+        if (ImageInfo.FocalLength35mmEquiv){
+            printf("  (35mm equivalent: %dmm)", ImageInfo.FocalLength35mmEquiv);
         }
         printf("\n");
     }
@@ -1072,10 +1103,14 @@ void ShowConciseImageInfo(void)
         printf(" f/%3.1f",(double)ImageInfo.ApertureFNumber);
     }
 
-    if (ImageInfo.FocalLength){
-        if (ImageInfo.CCDWidth){
-            // 35 mm equivalent focal length.
-            printf(" f(35)=%dmm",(int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*35 + 0.5));
+
+    if (ImageInfo.FocalLength35mmEquiv){
+        // 35 mm equivalent focal length is provided by camera (a new field for 2002).
+        printf(" f(35)=%dmm",ImageInfo.FocalLength35mmEquiv);
+    }else{
+        if (ImageInfo.FocalLength35mmEquiv){
+            // Compute 35 mm equivalent focal length based on sensor geometry.
+            printf(" f(35)=%dmm",ImageInfo.FocalLength35mmEquiv);
         }
     }
 
