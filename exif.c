@@ -836,13 +836,11 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
         // that Jhad can do about it - its a camera problem.
         ImageInfo.CCDWidth = (float)(ExifImageWidth * FocalplaneUnits / FocalplaneXRes);
 
-
         if (ImageInfo.FocalLength && ImageInfo.FocalLength35mmEquiv == 0){
             // Compute 35 mm equivalent focal length based on sensor geometry if we haven't
             // already got it explicitly from a tag.
             ImageInfo.FocalLength35mmEquiv = (int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*36 + 0.5);
         }
-
     }
 
     if (ShowTags){
@@ -1180,15 +1178,8 @@ void ShowConciseImageInfo(void)
         printf(" f/%3.1f",(double)ImageInfo.ApertureFNumber);
     }
 
-
     if (ImageInfo.FocalLength35mmEquiv){
-        // 35 mm equivalent focal length is provided by camera (a new field for 2002).
         printf(" f(35)=%dmm",ImageInfo.FocalLength35mmEquiv);
-    }else{
-        if (ImageInfo.FocalLength35mmEquiv){
-            // Compute 35 mm equivalent focal length based on sensor geometry.
-            printf(" f(35)=%dmm",ImageInfo.FocalLength35mmEquiv);
-        }
     }
 
     if (ImageInfo.FlashUsed > 0){
