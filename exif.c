@@ -140,7 +140,7 @@ static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_EXIF_IMAGELENGTH  0xA003
 
 #define TAG_EXPOSURE_BIAS     0x9204
-#define TAG_WHITEBALANCE      0x9208
+#define TAG_WHITEBALANCE      0xa403
 #define TAG_METERING_MODE     0x9207
 #define TAG_EXPOSURE_PROGRAM  0x8822
 #define TAG_ISO_EQUIVALENT    0x8827
@@ -149,6 +149,10 @@ static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_THUMBNAIL_LENGTH  0x0202
 
 #define TAG_FOCALLENGTH_35MM  0xa405
+
+// Added by Quercus 17-1-2004
+#define TAG_EXPOSURE_INDEX    0xa215
+#define TAG_LIGHT_SOURCE      0x9208
 
 static TagTable_t TagTable[] = {
   {   0x100,   "ImageWidth"},
@@ -518,7 +522,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
                 if (ImageInfo.numDateTimeTags >= MAX_DATE_COPIES){
                     ErrNonfatal("More than %d date fields!  This is nuts", MAX_DATE_COPIES, 0);
-		    break;
+            break;
                 }
                 ImageInfo.DateTimePointers[ImageInfo.numDateTimeTags++] = ValuePtr;
                 break;
@@ -651,6 +655,11 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 ImageInfo.Whitebalance = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
+//Quercus: 17-1-2004 Lightsource
+	    case TAG_LIGHT_SOURCE:
+                ImageInfo.LightSource = (int)ConvertAnyFormat(ValuePtr, Format);
+                break;
+
             case TAG_METERING_MODE:
                 ImageInfo.MeteringMode = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
@@ -659,9 +668,21 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 ImageInfo.ExposureProgram = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
+            case TAG_EXPOSURE_INDEX:
+                if (ImageInfo.ISOequivalent == 0){
+                    // Exposure index and ISO equivalent are often used interchangeably,
+                    // so we will do the same in jhead.
+                    // http://photography.about.com/library/glossary/bldef_ei.htm
+                    ImageInfo.ISOequivalent = (int)ConvertAnyFormat(ValuePtr, Format);
+                }
+                break;
+
             case TAG_ISO_EQUIVALENT:
                 ImageInfo.ISOequivalent = (int)ConvertAnyFormat(ValuePtr, Format);
-                if ( ImageInfo.ISOequivalent < 50 ) ImageInfo.ISOequivalent *= 200;
+                if ( ImageInfo.ISOequivalent < 50 ){
+                    // Fixes strange encoding on some older digicams.
+                    ImageInfo.ISOequivalent *= 200;
+                }
                 break;
 
             case TAG_THUMBNAIL_OFFSET:
@@ -937,7 +958,6 @@ int Exif2tm(struct tm * timeptr, char * ExifTime)
 //--------------------------------------------------------------------------
 void ShowImageInfo(void)
 {
-    int a;
     printf("File name    : %s\n",ImageInfo.FileName);
     printf("File size    : %d bytes\n",ImageInfo.FileSize);
 
@@ -969,6 +989,7 @@ void ShowImageInfo(void)
     if (ImageInfo.FlashUsed >= 0){
         printf("Flash used   : %s\n",ImageInfo.FlashUsed ? "Yes" :"No");
     }
+
     if (ImageInfo.FocalLength){
         printf("Focal length : %4.1fmm",(double)ImageInfo.FocalLength);
         if (ImageInfo.FocalLength35mmEquiv){
@@ -976,6 +997,7 @@ void ShowImageInfo(void)
         }
         printf("\n");
     }
+
 
     if (ImageInfo.CCDWidth){
         printf("CCD width    : %4.2fmm\n",(double)ImageInfo.CCDWidth);
@@ -1003,29 +1025,55 @@ void ShowImageInfo(void)
         }
     }
 
-
-    if (ImageInfo.ISOequivalent){ // 05-jan-2001 vcs
+    if (ImageInfo.ISOequivalent){
         printf("ISO equiv.   : %2d\n",(int)ImageInfo.ISOequivalent);
     }
-    if (ImageInfo.ExposureBias){ // 05-jan-2001 vcs
+
+
+    if (ImageInfo.ExposureBias){
+        // If exposure bias was specified, but set to zero, presumably its no bias at all,
+        // so only show it if its nonzero.
         printf("Exposure bias: %4.2f\n",(double)ImageInfo.ExposureBias);
     }
         
-    if (ImageInfo.Whitebalance){ // 05-jan-2001 vcs
+    if (ImageInfo.Whitebalance){
         switch(ImageInfo.Whitebalance) {
         case 1:
-            printf("Whitebalance : sunny\n");
+            printf("Whitebalance : Manual\n");
             break;
-        case 2:
-            printf("Whitebalance : fluorescent\n");
-            break;
-        case 3:
-            printf("Whitebalance : incandescent\n");
+        case 0:
+            printf("Whitebalance : Auto\n");
             break;
         default:
-            printf("Whitebalance : cloudy\n");
+            printf("Whitebalance : Auto\n");
         }
     }
+
+    //Quercus: 17-1-2004 Added LightSource, some cams return this, whitebalance or both
+    switch(ImageInfo.LightSource) {
+        case 1:
+            printf("Light Source : Daylight\n");
+            break;
+        case 2:
+            printf("Light Source : Fluorescent\n");
+            break;
+        case 3:
+            printf("Light Source : Incandescent\n");
+            break;
+        case 4:
+            printf("Light Source : Flash\n");
+            break;
+        case 9:
+            printf("Light Source : Fine weather\n");
+            break;
+        case 11:
+            printf("Light Source : Shade\n");
+            break;
+        default:; //Quercus: 17-1-2004 There are many more modes for this, check Exif2.2 specs
+            // If it just says 'unknown' or we don't know it, then
+            // don't bother showing it - it doesn't add any useful information.
+    }
+
     if (ImageInfo.MeteringMode){ // 05-jan-2001 vcs
         switch(ImageInfo.MeteringMode) {
         case 2:
@@ -1050,13 +1098,32 @@ void ShowImageInfo(void)
         case 4:
             printf("Exposure     : shutter priority (semi-auto)\n");
             break;
+
+        case 1:
+            //Quercus: 17-1-2004 The Kodak DX6340 (and may be others) use ExposureProgram number 1 for
+            // Shutter Priority program with times shorter than 0.5 seconds
+            printf("Exposure prog: shutter priority (semi-auto)\n");
+            break;
+
+        // Some other programs from DX6340
+        case 7:
+            printf("Exposure prog: portrait (auto)\n");
+            break;
+        case 6:
+            printf("Exposure prog: action (auto)\n");
+            break;
+        default:
+            printf("Exposure prog: auto\n");
         }
     }
 
-    for (a=0;;a++){
-        if (ProcessTable[a].Tag == ImageInfo.Process || ProcessTable[a].Tag == 0){
-            printf("Jpeg process : %s\n",ProcessTable[a].Desc);
-            break;
+    {
+        int a;
+        for (a=0;;a++){
+            if (ProcessTable[a].Tag == ImageInfo.Process || ProcessTable[a].Tag == 0){
+                printf("Jpeg process : %s\n",ProcessTable[a].Desc);
+                break;
+            }
         }
     }
 

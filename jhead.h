@@ -57,6 +57,7 @@ typedef struct {
     int   MeteringMode;
     int   ExposureProgram;
     int   ISOequivalent;
+    int   LightSource;
     char  Comments[MAX_COMMENT];
 
     unsigned char * ThumbnailPointer;  // Pointer at the thumbnail
