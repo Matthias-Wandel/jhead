@@ -184,4 +184,10 @@ Various spelling fixes in manapge.
 Jun 20
 Added ability to do sequencial renaming ('%i' in format string for -n option)
 
--------Released version 2.2 -- Jun 2004 -------
+-------Released version 2.2 -- Jun 2004 ----------
+
+add -simulate option
+Don't touch read only files - use access() function
+Review David Homer's changes
+Set creation time (figure out how)
+Modify before reporting date/time or using it for -ft
