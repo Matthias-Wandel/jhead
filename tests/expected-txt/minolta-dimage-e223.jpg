@@ -1,15 +1,15 @@
 Exif header 12239 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
-    ImageDescription = "Minolta DSC?"
-    Make = "Minolta Co., Ltd.?"
-    Model = "DiMAGE E223?"
+    ImageDescription = "Minolta DSC"
+    Make = "Minolta Co., Ltd."
+    Model = "DiMAGE E223"
     Orientation = 1
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    Software = "Ver.1.00?"
-    DateTime = "2003:08:27:00:09:15?"
+    Software = "Ver.1.00"
+    DateTime = "2003:08:27:00:09:15"
     YCbCrPositioning = 2
     ExifOffset = 458
     Exif Dir:(dir has 25 entries)
@@ -18,8 +18,8 @@ Exif section in Motorola order
         ExposureProgram = 2
         ISOSpeedRatings = 100
         ExifVersion = "0220"
-        DateTimeOriginal = "2003:08:27:00:09:15?"
-        DateTimeDigitized = "2003:08:27:00:09:15?"
+        DateTimeOriginal = "2003:08:27:00:09:15"
+        DateTimeDigitized = "2003:08:27:00:09:15"
         ComponentsConfiguration = "?"
         ShutterSpeedValue = 48/8
         ApertureValue = 307/100
@@ -35,12 +35,12 @@ Exif section in Motorola order
         ExifImageLength = 600
         InteroperabilityOffset = 1164
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
         ExposureIndex = 1/1
         SensingMethod = 2
-        FileSource = "?"
-        SceneType = "?"
+        FileSource = ""
+        SceneType = ""
     Unknown Tag c4a5 Value = "PrintIM?0250?.?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?ÿÿ"
     Continued directory (dir has 7 entries)
         Compression = 6

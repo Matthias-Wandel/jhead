@@ -1,24 +1,24 @@
 Exif header 12150 bytes long
 Exif section in Intel order
 (dir has 11 entries)
-    Make = "FUJIFILM?"
-    Model = "DX-10?"
+    Make = "FUJIFILM"
+    Model = "DX-10"
     Orientation = 1
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    Software = "Digital Camera DX-10 Ver1.00?"
-    DateTime = "2000:04:01 13:04:48?"
+    Software = "Digital Camera DX-10 Ver1.00"
+    DateTime = "2000:04:01 13:04:48"
     YCbCrPositioning = 2
-    Copyright = "M.Wandel  ?"
+    Copyright = "M.Wandel  "
     ExifOffset = 258
     Exif Dir:(dir has 27 entries)
         FNumber = 42/10
         ExposureProgram = 2
         ISOSpeedRatings = 150
         ExifVersion = "0210"
-        DateTimeOriginal = "2000:04:01 13:04:48?"
-        DateTimeDigitized = "2000:04:01 13:04:48?"
+        DateTimeOriginal = "2000:04:01 13:04:48"
+        DateTimeDigitized = "2000:04:01 13:04:48"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 2/1
         ShutterSpeedValue = 33/10
@@ -35,14 +35,14 @@ Exif section in Intel order
         ExifImageLength = 480
         InteroperabilityOffset = 708
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
         FocalPlaneXResolution = 1344/1
         FocalPlaneYResolution = 1344/1
         FocalPlaneResolutionUnit = 3
         SensingMethod = 2
-        FileSource = "?"
-        SceneType = "?"
+        FileSource = ""
+        SceneType = ""
     Continued directory (dir has 8 entries)
         Compression = 6
         Orientation = 1

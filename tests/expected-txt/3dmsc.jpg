@@ -1,17 +1,17 @@
 Exif header 7893 bytes long
 Exif section in Intel order
 (dir has 4 entries)
-    Make = "                         ?"
-    Model = "3MDSC?"
-    Software = "1.00(B0563)?"
+    Make = "                         "
+    Model = "3MDSC"
+    Software = "1.00(B0563)"
     ExifOffset = 148
     Exif Dir:(dir has 21 entries)
         ExposureTime = 10/600
         FNumber = 287/100
         ISOSpeedRatings = 100
         ExifVersion = "0210"
-        DateTimeOriginal = "2004/05/09 16:00:21?"
-        DateTimeDigitized = "2004/05/09 16:00:21?"
+        DateTimeOriginal = "2004/05/09 16:00:21"
+        DateTimeDigitized = "2004/05/09 16:00:21"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 17/10
         ShutterSpeedValue = 59/10
@@ -28,7 +28,7 @@ Exif section in Intel order
         ExifImageLength = 960
         InteroperabilityOffset = 766
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
     Continued directory (dir has 3 entries)
         Compression = 6

@@ -1,15 +1,15 @@
 Exif header 34737 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
-    ImageDescription = "KONICA MINOLTA DIGITAL CAMERA?"
-    Make = "Konica Minolta Camera, Inc.?"
-    Model = "DiMAGE A2?"
+    ImageDescription = "KONICA MINOLTA DIGITAL CAMERA"
+    Make = "Konica Minolta Camera, Inc."
+    Model = "DiMAGE A2"
     Orientation = 8
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    Software = "DiMAGE A2 Ver.1.12 ?"
-    DateTime = "2004:09:08 22:34:10?"
+    Software = "DiMAGE A2 Ver.1.12 "
+    DateTime = "2004:09:08 22:34:10"
     YCbCrPositioning = 1
     ExifOffset = 404
     Exif Dir:(dir has 34 entries)
@@ -18,8 +18,8 @@ Exif section in Motorola order
         ExposureProgram = 2
         ISOSpeedRatings = 64
         ExifVersion = "0221"
-        DateTimeOriginal = "2004:09:08 22:34:10?"
-        DateTimeDigitized = "2004:09:08 22:34:10?"
+        DateTimeOriginal = "2004:09:08 22:34:10"
+        DateTimeDigitized = "2004:09:08 22:34:10"
         ComponentsConfiguration = "?"
         BrightnessValue = 90/10
         ExposureBiasValue = 0/10
@@ -37,7 +37,7 @@ Exif section in Motorola order
         ExifImageLength = 2448
         InteroperabilityOffset = 31256
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
         CustomRendered = 0
         ExposureMode = 0
@@ -50,7 +50,7 @@ Exif section in Motorola order
         Saturation = 0
         Sharpness = 0
         SubjectDistanceRange = 3
-    Unknown Tag c4a5 Value = "PrintIM?0250?.?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?"
+    Unknown Tag c4a5 Value = "PrintIM?0250?.?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'"
     Continued directory (dir has 8 entries)
         Compression = 6
         Orientation = 8

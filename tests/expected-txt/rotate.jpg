@@ -1,21 +1,21 @@
 Exif header 6654 bytes long
 Exif section in Intel order
 (dir has 9 entries)
-    Make = "Canon?"
-    Model = "Canon PowerShot S40?"
+    Make = "Canon"
+    Model = "Canon PowerShot S40"
     Orientation = 8
     XResolution = 180/1
     YResolution = 180/1
     ResolutionUnit = 2
-    DateTime = "2004:01:08 22:00:22?"
+    DateTime = "2004:01:08 22:00:22"
     YCbCrPositioning = 1
     ExifOffset = 196
     Exif Dir:(dir has 27 entries)
         ExposureTime = 1/10
         FNumber = 28/10
         ExifVersion = "0210"
-        DateTimeOriginal = "2004:01:08 22:00:22?"
-        DateTimeDigitized = "2004:01:08 22:00:22?"
+        DateTimeOriginal = "2004:01:08 22:00:22"
+        DateTimeDigitized = "2004:01:08 22:00:22"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 2/1
         ShutterSpeedValue = 106/32
@@ -46,7 +46,7 @@ Exif section in Intel order
         ExifImageLength = 480
         InteroperabilityOffset = 1368
         Interop Dir:(dir has 4 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
             RelatedImageWidth = 640
             RelatedImageLength = 480
@@ -54,7 +54,7 @@ Exif section in Intel order
         FocalPlaneYResolution = 480000/210
         FocalPlaneResolutionUnit = 2
         SensingMethod = 2
-        FileSource = "?"
+        FileSource = ""
     Continued directory (dir has 6 entries)
         Compression = 6
         XResolution = 180/1

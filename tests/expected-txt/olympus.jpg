@@ -1,15 +1,15 @@
 Exif header 6068 bytes long
 Exif section in Intel order
 (dir has 11 entries)
-    ImageDescription = "OLYMPUS DIGITAL CAMERA         ?"
-    Make = "OLYMPUS OPTICAL CO.,LTD?"
-    Model = "C830L,D340R?"
+    ImageDescription = "OLYMPUS DIGITAL CAMERA         "
+    Make = "OLYMPUS OPTICAL CO.,LTD"
+    Model = "C830L,D340R"
     Orientation = 1
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    Software = "v85-73?"
-    DateTime = "1999:07:18 20:41:25?"
+    Software = "v85-73"
+    DateTime = "1999:07:18 20:41:25"
     YCbCrPositioning = 2
     ExifOffset = 284
     Exif Dir:(dir has 22 entries)
@@ -17,8 +17,8 @@ Exif section in Intel order
         FNumber = 28/10
         ISOSpeedRatings = 100
         ExifVersion = "0210"
-        DateTimeOriginal = "1999:07:18 20:41:25?"
-        DateTimeDigitized = "1999:07:18 20:41:25?"
+        DateTimeOriginal = "1999:07:18 20:41:25"
+        DateTimeDigitized = "1999:07:18 20:41:25"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 1/1
         ExposureBiasValue = 0/10
@@ -35,9 +35,9 @@ Exif section in Intel order
         ExifImageLength = 480
         InteroperabilityOffset = 862
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
-        FileSource = "?"
+        FileSource = ""
     Continued directory (dir has 6 entries)
         Compression = 6
         XResolution = 72/1

@@ -1,14 +1,14 @@
 Exif header 26446 bytes long
 Exif section in Motorola order
 (dir has 10 entries)
-    ImageDescription = "                                ?"
-    Make = "NIKON CORPORATION?"
-    Model = "NIKON D100 ?"
+    ImageDescription = "                                "
+    Make = "NIKON CORPORATION"
+    Model = "NIKON D100 "
     XResolution = 300/1
     YResolution = 300/1
     ResolutionUnit = 2
-    Software = "Ver.2.00 ?"
-    DateTime = "2003:12:26 09:12:21?"
+    Software = "Ver.2.00 "
+    DateTime = "2003:12:26 09:12:21"
     YCbCrPositioning = 2
     ExifOffset = 252
     Exif Dir:(dir has 40 entries)
@@ -16,8 +16,8 @@ Exif section in Motorola order
         FNumber = 45/10
         ExposureProgram = 2
         ExifVersion = "0220"
-        DateTimeOriginal = "2003:12:26 09:12:21?"
-        DateTimeDigitized = "2003:12:26 09:12:21?"
+        DateTimeOriginal = "2003:12:26 09:12:21"
+        DateTimeDigitized = "2003:12:26 09:12:21"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 2/1
         ExposureBiasValue = 0/6
@@ -28,21 +28,21 @@ Exif section in Motorola order
         FocalLength = 580/10
         Maker note:  4e 69 6b 6f 6e 00 02 00 00 00 4d... (19770 bytes)
         UserComment = "ASCII?CDEFG?"
-        SubSecTime = "80?"
-        SubSecTimeOriginal = "80?"
-        SubSecTimeDigitized = "80?"
+        SubSecTime = "80"
+        SubSecTimeOriginal = "80"
+        SubSecTimeDigitized = "80"
         FlashPixVersion = "0100"
         ColorSpace = 1
         ExifImageWidth = 3008
         ExifImageLength = 2000
-        RelatedAudioFile = "            ?"
+        RelatedAudioFile = "            "
         InteroperabilityOffset = 20674
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
         SensingMethod = 2
-        FileSource = "?"
-        SceneType = "?"
+        FileSource = ""
+        SceneType = ""
         Unknown Tag a302 Value = "?"
         CustomRendered = 0
         ExposureMode = 0

@@ -1,21 +1,21 @@
 Exif header 1144 bytes long
 Exif section in Intel order
 (dir has 9 entries)
-    Make = "Canon?"
+    Make = "Canon"
     Model = "Canon PowerShot S100"
     Orientation = 1
     XResolution = 180/1
     YResolution = 180/1
     ResolutionUnit = 2
-    DateTime = "2000:06:27 15:53:09?"
+    DateTime = "2000:06:27 15:53:09"
     YCbCrPositioning = 1
     ExifOffset = 184
     Exif Dir:(dir has 27 entries)
         ExposureTime = 1/30
         FNumber = 28/10
         ExifVersion = "0210"
-        DateTimeOriginal = "2000:06:27 15:53:09?"
-        DateTimeDigitized = "2000:06:27 15:53:09?"
+        DateTimeOriginal = "2000:06:27 15:53:09"
+        DateTimeDigitized = "2000:06:27 15:53:09"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 3/1
         ShutterSpeedValue = 321578/65536
@@ -44,7 +44,7 @@ Exif section in Intel order
         ExifImageLength = 480
         InteroperabilityOffset = 1088
         Interop Dir:(dir has 4 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
             RelatedImageWidth = 640
             RelatedImageLength = 480
@@ -52,7 +52,7 @@ Exif section in Intel order
         FocalPlaneYResolution = 480000/155
         FocalPlaneResolutionUnit = 2
         SensingMethod = 2
-        FileSource = "?"
+        FileSource = ""
 Thumbnail removed with Jhead 1.3 or earlier
 Non settings part of Exif header: -2 bytes
 Jpeg section marker 0xdb size 67

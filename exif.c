@@ -472,7 +472,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                             }else{
                                 // Avoiding indicating too many unprintable characters of proprietary
                                 // bits of binary information this program may not know how to parse.
-                                if (!NoPrint){
+                                if (!NoPrint && a != ByteCount-1){
                                     putchar('?');
                                     NoPrint = 1;
                                 }

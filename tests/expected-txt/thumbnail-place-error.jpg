@@ -1,13 +1,13 @@
 Exif header 18512 bytes long
 Exif section in Intel order
 (dir has 12 entries)
-    Make = "Canon?"
-    Model = "Canon EOS 20D?"
+    Make = "Canon"
+    Model = "Canon EOS 20D"
     Orientation = 6
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    DateTime = "2004:12:19 14:29:26?"
+    DateTime = "2004:12:19 14:29:26"
     WhitePoint = 313/1000
     PrimaryChromaticities = 64/100
     YCbCrCoefficients = 299/1000
@@ -19,8 +19,8 @@ Exif section in Intel order
         ExposureProgram = 3
         ISOSpeedRatings = 100
         ExifVersion = "0221"
-        DateTimeOriginal = "2004:12:19 14:29:26?"
-        DateTimeDigitized = "2004:12:19 14:29:26?"
+        DateTimeOriginal = "2004:12:19 14:29:26"
+        DateTimeDigitized = "2004:12:19 14:29:26"
         ComponentsConfiguration = "?"
         ShutterSpeedValue = 456510/65536
         ApertureValue = 262144/65536
@@ -60,7 +60,7 @@ Exif section in Intel order
         ExifImageLength = 2336
         InteroperabilityOffset = 9386
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R03?"
+            InteropIndex = "R03"
             InteropVersion = "0100"
         FocalPlaneXResolution = 4064000/1408
         FocalPlaneYResolution = 2704000/937

@@ -1,13 +1,13 @@
 Exif header 5270 bytes long
 Exif section in Motorola order
 (dir has 9 entries)
-    Make = "Hewlett-Packard Company?"
-    Model = "hp PhotoSmart 620?"
+    Make = "Hewlett-Packard Company"
+    Model = "hp PhotoSmart 620"
     Orientation = 1
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    Software = "Ver V0.610?"
+    Software = "Ver V0.610"
     YCbCrPositioning = 2
     ExifOffset = 338
     Exif Dir:(dir has 24 entries)
@@ -15,8 +15,8 @@ Exif section in Motorola order
         FNumber = 289/100
         ISOSpeedRatings = 140
         ExifVersion = "0220"
-        DateTimeOriginal = "2004:01:25 13:21:34?"
-        DateTimeDigitized = "2004:01:25 13:21:34?"
+        DateTimeOriginal = "2004:01:25 13:21:34"
+        DateTimeDigitized = "2004:01:25 13:21:34"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 311/100
         ShutterSpeedValue = 490/100
@@ -33,7 +33,7 @@ Exif section in Motorola order
         ExifImageLength = 1232
         InteroperabilityOffset = 1750
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
         ExposureMode = 0
         WhiteBalance = 0

@@ -1,14 +1,14 @@
 Exif header 4631 bytes long
 Exif section in Intel order
 (dir has 10 entries)
-    ImageDescription = "                               ?"
-    Make = "SONY?"
-    Model = "CYBERSHOT?"
+    ImageDescription = "                               "
+    Make = "SONY"
+    Model = "CYBERSHOT"
     Orientation = 1
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    DateTime = "2004:01:25 16:13:40?"
+    DateTime = "2004:01:25 16:13:40"
     YCbCrPositioning = 2
     ExifOffset = 232
     Exif Dir:(dir has 27 entries)
@@ -17,8 +17,8 @@ Exif section in Intel order
         ExposureProgram = 2
         ISOSpeedRatings = 160
         ExifVersion = "0220"
-        DateTimeOriginal = "2004:01:25 16:13:40?"
-        DateTimeDigitized = "2004:01:25 16:13:40?"
+        DateTimeOriginal = "2004:01:25 16:13:40"
+        DateTimeDigitized = "2004:01:25 16:13:40"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 2/1
         ExposureBiasValue = 0/10
@@ -34,23 +34,23 @@ Exif section in Intel order
         ExifImageLength = 1280
         InteroperabilityOffset = 650
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
-        FileSource = "?"
-        SceneType = "?"
+        FileSource = ""
+        SceneType = ""
         CustomRendered = 0
         ExposureMode = 0
         WhiteBalance = 0
         SceneCaptureType = 0
     Continued directory (dir has 10 entries)
         Compression = 6
-        Make = "SONY?"
-        Model = "CYBERSHOT?"
+        Make = "SONY"
+        Model = "CYBERSHOT"
         Orientation = 1
         XResolution = 72/1
         YResolution = 72/1
         ResolutionUnit = 2
-        DateTime = "2004:01:25 16:13:40?"
+        DateTime = "2004:01:25 16:13:40"
         ThumbnailOffset = 873
         ThumbnailLength = 3750
 Thumbnail size: 3750 bytes

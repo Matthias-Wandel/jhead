@@ -1,21 +1,21 @@
 Exif header 6654 bytes long
 Exif section in Intel order
 (dir has 9 entries)
-    Make = "Canon?"
-    Model = "Canon PowerShot G2?"
+    Make = "Canon"
+    Model = "Canon PowerShot G2"
     Orientation = 1
     XResolution = 180/1
     YResolution = 180/1
     ResolutionUnit = 2
-    DateTime = "2003:03:28 16:55:04?"
+    DateTime = "2003:03:28 16:55:04"
     YCbCrPositioning = 1
     ExifOffset = 196
     Exif Dir:(dir has 31 entries)
         ExposureTime = 1/50
         FNumber = 28/10
         ExifVersion = "0220"
-        DateTimeOriginal = "2003:03:28 16:55:04?"
-        DateTimeDigitized = "2003:03:28 16:55:04?"
+        DateTimeOriginal = "2003:03:28 16:55:04"
+        DateTimeDigitized = "2003:03:28 16:55:04"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 3/1
         ShutterSpeedValue = 181/32
@@ -45,7 +45,7 @@ Exif section in Intel order
         ExifImageLength = 1704
         InteroperabilityOffset = 1416
         Interop Dir:(dir has 4 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
             RelatedImageWidth = 2272
             RelatedImageLength = 1704
@@ -53,7 +53,7 @@ Exif section in Intel order
         FocalPlaneYResolution = 1704000/210
         FocalPlaneResolutionUnit = 2
         SensingMethod = 2
-        FileSource = "?"
+        FileSource = ""
         CustomRendered = 0
         ExposureMode = 0
         WhiteBalance = 1

@@ -1,21 +1,21 @@
 Exif header 48550 bytes long
 Exif section in Motorola order
 (dir has 9 entries)
-    Make = "Asahi Optical Co.,Ltd. ?"
-    Model = "PENTAX Optio 230   ?"
+    Make = "Asahi Optical Co.,Ltd. "
+    Model = "PENTAX Optio 230   "
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    Software = "Optio 230 Ver 1.10 ?"
-    DateTime = "2002:08:17 14:51:01?"
+    Software = "Optio 230 Ver 1.10 "
+    DateTime = "2002:08:17 14:51:01"
     YCbCrPositioning = 1
     ExifOffset = 226
     Exif Dir:(dir has 28 entries)
         ExposureTime = 1/250
         FNumber = 48/10
         ExifVersion = "0220"
-        DateTimeOriginal = "2002:08:17 14:51:01?"
-        DateTimeDigitized = "2002:08:17 14:51:01?"
+        DateTimeOriginal = "2002:08:17 14:51:01"
+        DateTimeDigitized = "2002:08:17 14:51:01"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 4/1
         ExposureBiasValue = 0/10
@@ -30,7 +30,7 @@ Exif section in Motorola order
         ExifImageLength = 1200
         InteroperabilityOffset = 41626
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
         CustomRendered = 0
         ExposureMode = 0

@@ -1,16 +1,16 @@
 Exif header 7988 bytes long
 Exif section in Motorola order
 (dir has 13 entries)
-    ImageDescription = "                                                               ?"
-    Make = "RICOH      ?"
-    Model = "Caplio Pro G3  ?"
+    ImageDescription = "                                                               "
+    Make = "RICOH      "
+    Model = "Caplio Pro G3  "
     Orientation = 1
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
-    DateTime = "2005:01:13 12:22:45?"
+    DateTime = "2005:01:13 12:22:45"
     YCbCrPositioning = 2
-    Copyright = "(C) by Caplio Pro G3 User?"
+    Copyright = "(C) by Caplio Pro G3 User"
     ExifOffset = 324
     Exif Dir:(dir has 28 entries)
         ExposureTime = 1/111
@@ -18,8 +18,8 @@ Exif section in Motorola order
         ExposureProgram = 2
         ISOSpeedRatings = 125
         ExifVersion = "0220"
-        DateTimeOriginal = "2005:01:13 12:22:45?"
-        DateTimeDigitized = "2005:01:13 12:22:45?"
+        DateTimeOriginal = "2005:01:13 12:22:45"
+        DateTimeDigitized = "2005:01:13 12:22:45"
         ComponentsConfiguration = "?"
         CompressedBitsPerPixel = 200/100
         ApertureValue = 50/10
@@ -38,7 +38,7 @@ Exif section in Motorola order
         ExifImageLength = 480
         InteroperabilityOffset = 2047
         Interop Dir:(dir has 2 entries)
-            InteropIndex = "R98?"
+            InteropIndex = "R98"
             InteropVersion = "0100"
         ExposureMode = 0
         WhiteBalance = 0
