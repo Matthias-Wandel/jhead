@@ -80,7 +80,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
         unsigned Tag, Format, Components;
         unsigned char * ValuePtr;
         int ComponentSize;
-        int ByteCount;
+        unsigned ByteCount;
         char * DirEntry;
         DirEntry = DIR_ENTRY_ADDR(DirStart, de);
 
