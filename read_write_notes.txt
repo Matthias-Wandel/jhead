@@ -1,0 +1,18 @@
+Thoughts on read/write support for exif header filesystem in jhead:
+
+* Need to re-compact the files
+* Need some method of adding directories and files
+* Have some api that says "add this file to this directory", which creates 
+  the directory if it doesn't already exist.
+* There are different ways that the header can refer to subdirectories.  Need
+  to handle all known ones, including GPS, makernotes, and interop dirs.
+
+
+Make a nice C data structure for the directories.
+At start, parse it onto the C data structure.
+All data will be referred to by pointer, just point back into exif.
+Have a sort of library for manipulating this directory structure.
+Need some sort of double indirection for referring to other directories, as these
+may have to be moved.  Maybe just a moderately sized table of pointers.
+If directory structure is unchanged, can just write exif data straight back.
+If directory structure changed, must recreate directories.
