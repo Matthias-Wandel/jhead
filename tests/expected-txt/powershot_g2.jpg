@@ -42,11 +42,11 @@ Directory with 4 entries
     FocalPlaneResolutionUnit = 2
     SensingMethod = 2
     FileSource = "?"
-  Unknown Tag a401 Value = 0
-  Unknown Tag a402 Value = 0
-  Unknown Tag a403 Value = 1
-  Unknown Tag a404 Value = 2272/2272
-  Unknown Tag a406 Value = 0
+    CustomRendered = 0
+    ExposureMode = 0
+    WhiteBalance = 1
+    DigitalZoomRatio = 2272/2272
+    SceneCaptureType = 0
 Directory with 6 entries
     Compression = 6
     XResolution = 180/1
@@ -63,9 +63,6 @@ Jpeg section marker 0xc4 size 27
 Jpeg section marker 0xc4 size 65
 Jpeg section marker 0xc4 size 23
 Jpeg section marker 0xc4 size 34
-File name    : powershot_g2.jpg
-File size    : 10326 bytes
-File date    : 2003:03:28 16:55:04
 Camera make  : Canon
 Camera model : Canon PowerShot G2
 Date/Time    : 2003:03:28 16:55:04
@@ -75,6 +72,7 @@ Focal length :  7.0mm  (35mm equivalent: 35mm)
 CCD width    : 7.11mm
 Exposure time: 0.020 s  (1/50)
 Aperture     : f/2.8
+Whitebalance : Manual
 Metering Mode: matrix
 Jpeg process : Baseline
 

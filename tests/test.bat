@@ -10,14 +10,14 @@ jhead -ft results-bin\*.jpg
 
 rem test parsing of normal exif information.
 cd results-bin
-FOR %%i IN (*.jpg) DO jhead -v %%i > ..\results-txt\%%i
+FOR %%i IN (*.jpg) DO jhead -v -nofinfo %%i > ..\results-txt\%%i
 cd ..
 
 rem test parsing and display of some strange jpeg files.
 
 rem FIXME - this is broken - add some kind of supress file time option...
 cd results-bin
-FOR %%i IN (*.jpg) DO jhead -v %%i > ..\results-txt\%%i
+FOR %%i IN (*.jpg) DO jhead -v -nofinfo %%i > ..\results-txt\%%i
 cd ..
 
 rem -------------------------------------------------------------------

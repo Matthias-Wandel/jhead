@@ -35,7 +35,7 @@ Directory with 40 entries
     ColorSpace = 1
     ExifImageWidth = 3008
     ExifImageLength = 2000
-  Unknown Tag a004 Value = "            ?"
+    RelatedAudioFile = "            ?"
     InteroperabilityOffset = 20674
 Directory with 2 entries
   Unknown Tag 0001 Value = "R98?"
@@ -44,17 +44,17 @@ Directory with 2 entries
     FileSource = "?"
     SceneType = "?"
   Unknown Tag a302 Value = "?"
-  Unknown Tag a401 Value = 0
-  Unknown Tag a402 Value = 0
-  Unknown Tag a403 Value = 0
-  Unknown Tag a404 Value = 1/1
-  Unknown Tag a405 Value = 87
-  Unknown Tag a406 Value = 0
-  Unknown Tag a407 Value = 0
-  Unknown Tag a408 Value = 0
-  Unknown Tag a409 Value = 0
-  Unknown Tag a40a Value = 0
-  Unknown Tag a40c Value = 0
+    CustomRendered = 0
+    ExposureMode = 0
+    WhiteBalance = 0
+    DigitalZoomRatio = 1/1
+    FocalLengthIn35mmFilm = 87
+    SceneCaptureType = 0
+    GainControl = 0
+    Contrast = 0
+    Saturation = 0
+    Sharpness = 0
+    SubjectDistanceRange = 0
 Directory with 7 entries
     Compression = 6
     XResolution = 300/1
@@ -72,15 +72,12 @@ Jpeg section marker 0xc4 size 25
 Jpeg section marker 0xc4 size 32
 Jpeg section marker 0xc4 size 24
 Jpeg section marker 0xc4 size 22
-File name    : 35mmequiv-tag.jpg
-File size    : 27205 bytes
-File date    : 2003:12:26 09:12:21
 Camera make  : NIKON CORPORATION
 Camera model : NIKON D100 
 Date/Time    : 2003:12:26 09:12:21
 Resolution   : 160 x 106
 Flash used   : Yes
-Focal length : 58.0mm
+Focal length : 58.0mm  (35mm equivalent: 87mm)
 Exposure time: 0.017 s  (1/60)
 Aperture     : f/4.5
 Metering Mode: matrix
