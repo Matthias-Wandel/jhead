@@ -93,51 +93,39 @@ int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 //--------------------------------------------------------------------------
 // Describes tag values
 
-#define TAG_EXIF_OFFSET       0x8769
-#define TAG_INTEROP_OFFSET    0xa005
-
-#define TAG_MAKE              0x010F
-#define TAG_MODEL             0x0110
-
-#define TAG_ORIENTATION       0x0112
-
-#define TAG_EXPOSURETIME      0x829A
-#define TAG_FNUMBER           0x829D
-
-#define TAG_SHUTTERSPEED      0x9201
-#define TAG_APERTURE          0x9202
-#define TAG_MAXAPERTURE       0x9205
-#define TAG_FOCALLENGTH       0x920A
-
-#define TAG_DATETIME           0x132
+#define TAG_MAKE               0x010F
+#define TAG_MODEL              0x0110
+#define TAG_ORIENTATION        0x0112
+#define TAG_DATETIME           0x0132
+#define TAG_THUMBNAIL_OFFSET   0x0201
+#define TAG_THUMBNAIL_LENGTH   0x0202
+#define TAG_EXPOSURETIME       0x829A
+#define TAG_FNUMBER            0x829D
+#define TAG_EXIF_OFFSET        0x8769
+#define TAG_EXPOSURE_PROGRAM   0x8822
+#define TAG_ISO_EQUIVALENT     0x8827
 #define TAG_DATETIME_ORIGINAL  0x9003
 #define TAG_DATETIME_DIGITIZED 0x9004
-#define TAG_USERCOMMENT       0x9286
-
-#define TAG_SUBJECT_DISTANCE  0x9206
-#define TAG_FLASH             0x9209
-
-#define TAG_FOCALPLANEXRES    0xa20E
-#define TAG_FOCALPLANEUNITS   0xa210
-#define TAG_EXIF_IMAGEWIDTH   0xA002
-#define TAG_EXIF_IMAGELENGTH  0xA003
-
-#define TAG_EXPOSURE_BIAS     0x9204
-#define TAG_WHITEBALANCE      0xa403
-#define TAG_METERING_MODE     0x9207
-#define TAG_EXPOSURE_PROGRAM  0x8822
-#define TAG_ISO_EQUIVALENT    0x8827
-
-#define TAG_THUMBNAIL_OFFSET  0x0201
-#define TAG_THUMBNAIL_LENGTH  0x0202
-
-#define TAG_FOCALLENGTH_35MM  0xa405
-
-// Added by Quercus 17-1-2004
-#define TAG_EXPOSURE_INDEX    0xa215
-#define TAG_LIGHT_SOURCE      0x9208
-
-#define TAG_MAKER_NOTE        0x927C
+#define TAG_SHUTTERSPEED       0x9201
+#define TAG_APERTURE           0x9202
+#define TAG_EXPOSURE_BIAS      0x9204
+#define TAG_MAXAPERTURE        0x9205
+#define TAG_SUBJECT_DISTANCE   0x9206
+#define TAG_METERING_MODE      0x9207
+#define TAG_LIGHT_SOURCE       0x9208
+#define TAG_FLASH              0x9209
+#define TAG_FOCALLENGTH        0x920A
+#define TAG_MAKER_NOTE         0x927C
+#define TAG_USERCOMMENT        0x9286
+#define TAG_EXIF_IMAGEWIDTH    0xa002
+#define TAG_EXIF_IMAGELENGTH   0xa003
+#define TAG_INTEROP_OFFSET     0xa005
+#define TAG_FOCALPLANEXRES     0xa20E
+#define TAG_FOCALPLANEUNITS    0xa210
+#define TAG_EXPOSURE_INDEX     0xa215
+#define TAG_EXPOSURE_MODE      0xa402
+#define TAG_WHITEBALANCE       0xa403
+#define TAG_FOCALLENGTH_35MM   0xa405
 
 static TagTable_t TagTable[] = {
   { 0x001,   "InteropIndex"},
@@ -217,28 +205,29 @@ static TagTable_t TagTable[] = {
   { 0xA003,  "ExifImageLength"},
   { 0xA004,  "RelatedAudioFile"},
   { 0xA005,  "InteroperabilityOffset"},
-  { 0xA20B,  "FlashEnergy"},                 // 0x920B in TIFF/EP
-  { 0xA20C,  "SpatialFrequencyResponse"},  // 0x920C    -  -
-  { 0xA20E,  "FocalPlaneXResolution"},     // 0x920E    -  -
-  { 0xA20F,  "FocalPlaneYResolution"},      // 0x920F    -  -
-  { 0xA210,  "FocalPlaneResolutionUnit"},  // 0x9210    -  -
-  { 0xA214,  "SubjectLocation"},             // 0x9214    -  -
-  { 0xA215,  "ExposureIndex"},            // 0x9215    -  -
-  { 0xA217,  "SensingMethod"},            // 0x9217    -  -
+  { 0xA20B,  "FlashEnergy"},              
+  { 0xA20C,  "SpatialFrequencyResponse"}, 
+  { 0xA20E,  "FocalPlaneXResolution"},    
+  { 0xA20F,  "FocalPlaneYResolution"},    
+  { 0xA210,  "FocalPlaneResolutionUnit"}, 
+  { 0xA214,  "SubjectLocation"},          
+  { 0xA215,  "ExposureIndex"},            
+  { 0xA217,  "SensingMethod"},            
   { 0xA300,  "FileSource"},
   { 0xA301,  "SceneType"},
   { 0xA301,  "CFA Pattern"},
-  { 0xa401,  "CustomRendered"},
-  { 0xa402,  "ExposureMode"},
-  { 0xa403,  "WhiteBalance"},
-  { 0xa404,  "DigitalZoomRatio"},
-  { 0xa405,  "FocalLengthIn35mmFilm"},
-  { 0xa406,  "SceneCaptureType"},
-  { 0xa407,  "GainControl"},
-  { 0xa408,  "Contrast"},
-  { 0xa409,  "Saturation"},
-  { 0xa40a,  "Sharpness"},
-  { 0xa40c,  "SubjectDistanceRange"}
+  { 0xA401,  "CustomRendered"},
+  { 0xA402,  "ExposureMode"},
+  { 0xA403,  "WhiteBalance"},
+  { 0xA404,  "DigitalZoomRatio"},
+  { 0xA405,  "FocalLengthIn35mmFilm"},
+  { 0xA406,  "SceneCaptureType"},
+  { 0xA407,  "GainControl"},
+  { 0xA408,  "Contrast"},
+  { 0xA409,  "Saturation"},
+  { 0xA40a,  "Sharpness"},
+  { 0xA40c,  "SubjectDistanceRange"},
+  { 0, "NULL"}
 } ;
 
 const int SizeTagTable = sizeof( TagTable ) / sizeof( TagTable_t );
@@ -603,12 +592,9 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 }
                 break;
 
+
             case TAG_FLASH:
-                if ((int)ConvertAnyFormat(ValuePtr, Format) & 1){
-                    ImageInfo.FlashUsed = TRUE;
-                }else{
-                    ImageInfo.FlashUsed = FALSE;
-                }
+                ImageInfo.FlashUsed=(int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_ORIENTATION:
@@ -649,12 +635,10 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                         break;
 
                     case 3: FocalplaneUnits = 10;   break;  // centimeter
-                    case 4: FocalplaneUnits = 1;    break;  // milimeter
+                    case 4: FocalplaneUnits = 1;    break;  // millimeter
                     case 5: FocalplaneUnits = .001; break;  // micrometer
                 }
                 break;
-
-                // Remaining cases contributed by: Volker C. Schoech (schoech@gmx.de)
 
             case TAG_EXPOSURE_BIAS:
                 ImageInfo.ExposureBias = (float)ConvertAnyFormat(ValuePtr, Format);
@@ -664,7 +648,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 ImageInfo.Whitebalance = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
-	    case TAG_LIGHT_SOURCE:
+            case TAG_LIGHT_SOURCE:
                 ImageInfo.LightSource = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
@@ -839,7 +823,7 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
     ProcessExifDir(ExifSection+8+FirstOffset, ExifSection+8, length-6, 0);
 
-    // Compute the CCD width, in milimeters.
+    // Compute the CCD width, in millimeters.
     if (FocalplaneXRes != 0){
         // Note: With some cameras, its not possible to compute this correctly because
         // they don't adjust the indicated focal plane resolution units when using less
@@ -1005,9 +989,38 @@ void ShowImageInfo(int ShowFileInfo)
     if (ImageInfo.IsColor == 0){
         printf("Color/bw     : Black and white\n");
     }
+
     if (ImageInfo.FlashUsed >= 0){
-        printf("Flash used   : %s\n",ImageInfo.FlashUsed ? "Yes" :"No");
+        if (ImageInfo.FlashUsed & 1){    
+            printf("Flash used   : Yes");
+            switch (ImageInfo.FlashUsed){
+	            case 0x5: printf(" (Strobe light not detected)"); break;
+	            case 0x7: printf(" (Strobe light detected) "); break;
+	            case 0x9: printf(" (manual)"); break;
+	            case 0xd: printf(" (manual, return light not detected)"); break;
+	            case 0xf: printf(" (maual, return light  detected)"); break;
+	            case 0x19:printf(" (auto)"); break;
+	            case 0x1d:printf(" (auto, return light not detected)"); break;
+	            case 0x1f:printf(" (auto, return light detected)"); break;
+	            case 0x41:printf(" (red eye reduction mode)"); break;
+	            case 0x45:printf(" (red eye reduction mode return light not detected)"); break;
+	            case 0x47:printf(" (red eye reduction mode return light  detected)"); break;
+	            case 0x49:printf(" (manual, red eye reduction mode)"); break;
+	            case 0x4d:printf(" (manual, red eye reduction mode, return light not detected)"); break;
+	            case 0x4f:printf(" (red eye reduction mode, red eye reduction mode, return light detected)"); break;
+	            case 0x59:printf(" (auto, red eye reduction mode)"); break;
+	            case 0x5d:printf(" (auto, red eye reduction mode, return light not detected)"); break;
+	            case 0x5f:printf(" (auto, red eye reduction mode, return light detected)"); break;
+            }
+        }else{
+            printf("Flash used   : No");
+            switch (ImageInfo.FlashUsed){
+	            case 0x18:printf(" (auto)"); break;
+            }
+        }
+        printf("\n");
     }
+
 
     if (ImageInfo.FocalLength){
         printf("Focal length : %4.1fmm",(double)ImageInfo.FocalLength);
@@ -1106,8 +1119,12 @@ void ShowImageInfo(int ShowFileInfo)
             break;
         }
     }
+
     if (ImageInfo.ExposureProgram){ // 05-jan-2001 vcs
         switch(ImageInfo.ExposureProgram) {
+        case 1:
+            printf("Exposure     : Manual\n");
+            break;
         case 2:
             printf("Exposure     : program (auto)\n");
             break;
@@ -1117,22 +1134,20 @@ void ShowImageInfo(int ShowFileInfo)
         case 4:
             printf("Exposure     : shutter priority (semi-auto)\n");
             break;
-
-        case 1:
-            //Quercus: 17-1-2004 The Kodak DX6340 (and may be others) use ExposureProgram number 1 for
-            // Shutter Priority program with times shorter than 0.5 seconds
-            printf("Exposure prog: shutter priority (semi-auto)\n");
-            break;
-
-        // Some other programs from DX6340
-        case 7:
-            printf("Exposure prog: portrait (auto)\n");
+        case 5:
+            printf("Exposure     : Creative Program (based towards depth of field\n"); 
             break;
         case 6:
-            printf("Exposure prog: action (auto)\n");
+            printf("Exposure     : Action program (based towards fast shutter speed)\n");
+            break;
+        case 7:
+            printf("Exposure     : Portrait Mode\n");
+            break;
+        case 8:
+            printf("Exposure     : LandscapeMode \n");
             break;
         default:
-            printf("Exposure prog: auto\n");
+            break;
         }
     }
 
@@ -1145,7 +1160,6 @@ void ShowImageInfo(int ShowFileInfo)
             }
         }
     }
-
 
 
     // Print the comment. Print 'Comment:' for each new line of comment.
@@ -1193,7 +1207,7 @@ void ShowConciseImageInfo(void)
         printf(" f(35)=%dmm",ImageInfo.FocalLength35mmEquiv);
     }
 
-    if (ImageInfo.FlashUsed > 0){
+    if (ImageInfo.FlashUsed & 1){
         printf(" (flash)");
     }
 

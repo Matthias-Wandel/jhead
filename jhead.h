@@ -56,6 +56,7 @@ typedef struct {
     int   Whitebalance;
     int   MeteringMode;
     int   ExposureProgram;
+    int   ExposureMode;
     int   ISOequivalent;
     int   LightSource;
     char  Comments[MAX_COMMENT];

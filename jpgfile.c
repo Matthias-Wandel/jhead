@@ -187,8 +187,6 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         }
         SectionsRead += 1;
 
-printf("Marker 0x%02x size %d\n",marker, itemlen);
-
         switch(marker){
 
             case M_SOS:   // stop before hitting compressed data 
