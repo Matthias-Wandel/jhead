@@ -18,7 +18,7 @@ OBJECTS_JHEAD = $(OBJ)\jhead.obj  \
                 $(OBJ)\makernote.obj 
 
 $(OBJECTS_JHEAD): $(@B).c jhead.h
-    $(CC) /Fo$(OBJ)\ $(CFLAGS) $(@B).c
+    $(CC) -W3 /Fo$(OBJ)\ $(CFLAGS) $(@B).c
 
 jhead.exe: $(OBJECTS_JHEAD)
     $(LINKER) $(LINKCON) -OUT:jhead.exe $(OBJECTS_JHEAD)
