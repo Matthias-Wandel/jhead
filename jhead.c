@@ -29,7 +29,7 @@
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-#define MATTHIAS
+//#define MATTHIAS
 
 #ifdef _WIN32
     #include <process.h>
@@ -908,7 +908,7 @@ void ProcessFile(const char * FileName)
 static void Usage (void)
 {
     printf("Program for extracting Digicam setting information from Exif Jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Dec 11 2002.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jan 8 2004.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
