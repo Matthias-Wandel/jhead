@@ -16,7 +16,6 @@ Exposure time: 0.033 s  (1/30)
 Aperture     : f/2.8
 Focus dist.  : 0.87m
 Metering Mode: center weight
-Jpeg process : Baseline
 Comment      : This is a short text file
 Comment      : for doing tests
 Comment      : using my jhead program
@@ -37,7 +36,6 @@ Exposure time: 0.033 s  (1/30)
 Aperture     : f/2.8
 Focus dist.  : 0.87m
 Metering Mode: center weight
-Jpeg process : Baseline
 Comment      : "this comment is edited" 
 
 
@@ -52,7 +50,6 @@ Exposure time: 0.033 s  (1/30)
 Aperture     : f/2.8
 Focus dist.  : 0.87m
 Metering Mode: center weight
-Jpeg process : Baseline
 Comment      : a literal inserted comment!
 
 Camera make  : Canon
@@ -66,5 +63,4 @@ Exposure time: 0.033 s  (1/30)
 Aperture     : f/2.8
 Focus dist.  : 0.87m
 Metering Mode: center weight
-Jpeg process : Baseline
 

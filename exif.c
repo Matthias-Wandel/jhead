@@ -60,7 +60,7 @@ static TagTable_t ProcessTable[] = {
     { M_SOF13,  "Differential sequential, arithmetic coding"},
     { M_SOF14,  "Differential progressive, arithmetic coding"},
     { M_SOF15,  "Differential lossless, arithmetic coding"},
-    { 0,        "Unknown"}
+    { 0      ,  NULL}
 };
 
 // 1 - "The 0th row is at the visual top of the image,    and the 0th column is the visual left-hand side."
@@ -125,6 +125,7 @@ int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_EXPOSURE_INDEX     0xa215
 #define TAG_EXPOSURE_MODE      0xa402
 #define TAG_WHITEBALANCE       0xa403
+#define TAG_DIGITALZOOMRATIO   0xA404
 #define TAG_FOCALLENGTH_35MM   0xa405
 
 static TagTable_t TagTable[] = {
@@ -669,12 +670,20 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 }
                 break;
 
+            case TAG_EXPOSURE_MODE:
+                ImageInfo.ExposureMode = (int)ConvertAnyFormat(ValuePtr, Format);
+                break;
+
             case TAG_ISO_EQUIVALENT:
                 ImageInfo.ISOequivalent = (int)ConvertAnyFormat(ValuePtr, Format);
                 if ( ImageInfo.ISOequivalent < 50 ){
                     // Fixes strange encoding on some older digicams.
                     ImageInfo.ISOequivalent *= 200;
                 }
+                break;
+
+            case TAG_DIGITALZOOMRATIO:
+                ImageInfo.DigitalZoomRatio = (float)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_THUMBNAIL_OFFSET:
@@ -1030,6 +1039,10 @@ void ShowImageInfo(int ShowFileInfo)
         printf("\n");
     }
 
+    if (ImageInfo.DigitalZoomRatio > 1){
+        // Digital zoom used.  Shame on you!
+        printf("Digital Zoom : %1.3fx\n", (double)ImageInfo.DigitalZoomRatio);
+    }
 
     if (ImageInfo.CCDWidth){
         printf("CCD width    : %4.2fmm\n",(double)ImageInfo.CCDWidth);
@@ -1061,24 +1074,19 @@ void ShowImageInfo(int ShowFileInfo)
         printf("ISO equiv.   : %2d\n",(int)ImageInfo.ISOequivalent);
     }
 
-
     if (ImageInfo.ExposureBias){
         // If exposure bias was specified, but set to zero, presumably its no bias at all,
         // so only show it if its nonzero.
         printf("Exposure bias: %4.2f\n",(double)ImageInfo.ExposureBias);
     }
         
-    if (ImageInfo.Whitebalance){
-        switch(ImageInfo.Whitebalance) {
+    switch(ImageInfo.Whitebalance) {
         case 1:
             printf("Whitebalance : Manual\n");
             break;
         case 0:
             printf("Whitebalance : Auto\n");
             break;
-        default:
-            printf("Whitebalance : Auto\n");
-        }
     }
 
     //Quercus: 17-1-2004 Added LightSource, some cams return this, whitebalance or both
@@ -1150,11 +1158,25 @@ void ShowImageInfo(int ShowFileInfo)
             break;
         }
     }
+    switch(ImageInfo.ExposureMode){
+        case 0: // Automatic (not worth cluttering up output for)
+            break;
+        case 1: printf("Exposure Mode: Manual\n");
+        case 2: printf("Exposure Mode: Auto bracketing\n");
+    }
 
-    {
+
+    if (ImageInfo.Process != M_SOF0){
+        // don't show it if its the plain old boring 'baseline' process, but do
+        // show it if its something else, like 'progressive' (used on web sometimes)
         int a;
         for (a=0;;a++){
-            if (ProcessTable[a].Tag == ImageInfo.Process || ProcessTable[a].Tag == 0){
+            if (ProcessTable[a].Tag == 0){
+                // ran off the end of the table.
+                printf("Jpeg process : Unknown\n");
+                break;
+            }
+            if (ProcessTable[a].Tag == ImageInfo.Process){
                 printf("Jpeg process : %s\n",ProcessTable[a].Desc);
                 break;
             }

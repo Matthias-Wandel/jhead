@@ -198,7 +198,10 @@ Use changed copy of date/time for rename and file time set operations
 Dec 25
 Added -purejpg and -du options
 
+Dec 28
+More details on flash usage.
+Show digital zoom ratio
+Don't show jpeg prcess if its baseline (almost always is)
 
 to do:
-Review David Homer's changes
 Renaming - rename associated sound files, and video files for thumbnails.

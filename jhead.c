@@ -578,6 +578,7 @@ void ProcessFile(const char * FileName)
     memset(&ImageInfo, 0, sizeof(ImageInfo));
     ImageInfo.FlashUsed = -1;
     ImageInfo.MeteringMode = -1;
+    ImageInfo.Whitebalance = -1;
 
     // Store file date/time.
     {

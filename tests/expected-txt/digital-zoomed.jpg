@@ -1,0 +1,97 @@
+Exif header 5630 bytes long
+Exif section in Intel order
+(dir has 9 entries)
+    Make = "Canon?"
+    Model = "Canon PowerShot Pro1?"
+    Orientation = 1
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2004:12:28 20:47:05?"
+    YCbCrPositioning = 1
+    ExifOffset = 196
+    Exif Dir:(dir has 31 entries)
+        ExposureTime = 1/5
+        FNumber = 35/10
+        ExifVersion = "0221"
+        DateTimeOriginal = "2004:12:28 20:47:05?"
+        DateTimeDigitized = "2004:12:28 20:47:05?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 3/1
+        ShutterSpeedValue = 74/32
+        ApertureValue = 116/32
+        ExposureBiasValue = 0/3
+        MaxApertureValue = 116/32
+        MeteringMode = 2
+        Flash = 16
+        FocalLength = 1626/32
+        Maker note: (dir has 19 entries)
+            Canon maker tag 0001 Value = 92
+            Canon maker tag 0002 Value = 2
+            Canon maker tag 0003 Value = 0
+            Canon maker tag 0004 Value = 68
+            Canon maker tag 0000 Value = 0
+            Canon maker tag 0000 Value = 0
+            Canon maker tag 0012 Value = 1
+            Canon maker tag 0013 Value = 0
+            Canon maker tag 0006 Value = "IMG:PowerShot Pro1 JPEG"
+            Canon maker tag 0007 Value = "Firmware Version 1.00"
+            Canon maker tag 0008 Value = 1151528
+            Canon maker tag 0009 Value = "R"
+            Canon maker tag 0010 Value = 20381696
+            Canon maker tag 0000 Value = 10
+            Canon maker tag 0018 Value = 00
+            Canon maker tag 0019 Value = 1
+            Canon maker tag 00b4 Value = 1
+            Canon maker tag 001a Value = 0
+            Canon maker tag 000d Value = 56
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 2272
+        ExifImageLength = 1704
+        InteroperabilityOffset = 1846
+        Interop Dir:(dir has 4 entries)
+            InteropIndex = "R98?"
+            InteropVersion = "0100"
+            RelatedImageWidth = 2272
+            RelatedImageLength = 1704
+        FocalPlaneXResolution = 7240864/347
+        FocalPlaneYResolution = 5430648/260
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = "?"
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 1
+        DigitalZoomRatio = 3264/1024
+        SceneCaptureType = 0
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 180/1
+        YResolution = 180/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2548
+        ThumbnailLength = 2862
+Thumbnail size: 2862 bytes
+Non settings part of Exif header: 3628 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 100w * 75h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 27
+Jpeg section marker 0xc4 size 41
+Jpeg section marker 0xc4 size 25
+Jpeg section marker 0xc4 size 31
+Camera make  : Canon
+Camera model : Canon PowerShot Pro1
+Date/Time    : 2004:12:28 20:47:05
+Resolution   : 100 x 75
+Flash used   : No
+Focal length : 50.8mm  (35mm equivalent: 661mm)
+Digital Zoom : 3.188x
+CCD width    : 2.77mm
+Exposure time: 0.200 s  (1/5)
+Aperture     : f/3.5
+Whitebalance : Manual
+Metering Mode: center weight
+

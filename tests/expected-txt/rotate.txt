@@ -12,7 +12,6 @@ Exposure time: 0.100 s  (1/10)
 Aperture     : f/2.8
 Focus dist.  : 1.77m
 Metering Mode: center weight
-Jpeg process : Baseline
 
 Camera make  : Canon
 Camera model : Canon PowerShot S40
@@ -25,7 +24,6 @@ Exposure time: 0.100 s  (1/10)
 Aperture     : f/2.8
 Focus dist.  : 1.77m
 Metering Mode: center weight
-Jpeg process : Baseline
 
 Exif header 34737 bytes long
 Exif section in Motorola order
@@ -107,7 +105,7 @@ Focal length : 50.8mm  (35mm equivalent: 200mm)
 Exposure time: 0.0050 s  (1/200)
 Aperture     : f/7.1
 ISO equiv.   : 64
+Whitebalance : Auto
 Metering Mode: matrix
 Exposure     : program (auto)
-Jpeg process : Baseline
 
