@@ -447,8 +447,7 @@ void DoFileRenaming(const char * FileName)
         }
     }
 
-
-    if (!ImageInfo.DateTime[0] || !Exif2tm(&tm, ImageInfo.DateTime)){
+    if (ImageInfo.numDateTimeTags == 0 || !Exif2tm(&tm, ImageInfo.DateTimePointers[0])){
         printf("File '%s' contains no exif date stamp.  Using file date\n",FileName);
         // Use file date/time instead.
         tm = *localtime(&ImageInfo.FileDateTime);
@@ -894,12 +893,12 @@ void ProcessFile(const char * FileName)
 
     if (Exif2FileTime){
         // Set the file date to the date from the exif header.
-        if (ImageInfo.DateTime[0]){
+        if (ImageInfo.numDateTimeTags){
             // Converte the file date to Unix time.
             struct tm tm;
             time_t UnixTime;
             struct utimbuf mtime;
-            if (!Exif2tm(&tm, ImageInfo.DateTime)) goto badtime;
+            if (!Exif2tm(&tm, ImageInfo.DateTimePointers[0])) goto badtime;
 
             UnixTime = mktime(&tm);
             if ((int)UnixTime == -1){

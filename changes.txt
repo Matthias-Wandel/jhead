@@ -193,7 +193,8 @@ Increase maximum number of jpeg sections to 40 from 20
 
 Dec 3
 Don't try to write to readonly files.
+Use changed copy of date/time for rename and file time set operations
 
 
 Review David Homer's changes
-Modify before reporting date/time or using it for -ft
+Renaming - rename associated sound files, and video files for thumbnails.
