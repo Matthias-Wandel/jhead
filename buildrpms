@@ -3,7 +3,7 @@
 # Shell script for building RPMS and copying to website.
 
 fdir=jhead-2.3
-release=1
+release=2
 
 cp $fdir.tar.gz /usr/src/redhat/SOURCES/
 cp jhead.spec /usr/src/redhat/SPECS/
