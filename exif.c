@@ -87,6 +87,8 @@ static const char * OrientTab[9] = {
     "transverse",       // flipped about top-right <--> bottom-left axis
     "rotate 270",       // rotate 270 to right it.
 };
+
+int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 
 //--------------------------------------------------------------------------
 // Describes tag values
@@ -1193,4 +1195,4 @@ void ShowConciseImageInfo(void)
     }
 
     printf("\n");
-}
+}

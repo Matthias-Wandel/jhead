@@ -10,6 +10,10 @@
 #include <time.h>
 #include <errno.h>
 #include <ctype.h>
+
+#ifndef _WIN32
+    #include <limits.h>
+#endif
 
 #include "jhead.h"
 //--------------------------------------------------------------------------
@@ -21,8 +25,6 @@ void ProcessCannonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetB
     int de;
     int a;
     int NumDirEntries;
-    unsigned ThumbnailOffset = 0;
-    unsigned ThumbnailSize = 0;
 
     NumDirEntries = Get16u(DirStart);
     #define DIR_ENTRY_ADDR(Start, Entry) (Start+2+12*(Entry))

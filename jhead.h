@@ -97,7 +97,7 @@ unsigned Get32u(void * Long);
 
 //--------------------------------------------------------------------------
 // Exif format descriptor stuff
-static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
+extern int BytesPerFormat[];
 #define NUM_FORMATS 12
 
 #define FMT_BYTE       1 
