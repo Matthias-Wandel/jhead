@@ -1,28 +1,17 @@
 #--------------------------------
-# makehtml makefile
+# jhead makefile for Unix
 #--------------------------------
 
 OBJ=.
 SRC=.
 
-objsmakehtml = $(OBJ)/imagegather.o $(OBJ)/crosslink.o $(OBJ)/main.o $(OBJ)/makehtml.o \
-               $(OBJ)/updatecache.o $(OBJ)/utility.o $(OBJ)/collectdir.o
+all: jhead
 
-all: makehtml jhead
-
-jhead: jhead.c exif.c
-	cc -O3 -Wall -lm -o jhead jhead.c exif.c
-	cp jhead $(HOME)/bin
-
-$(objsmakehtml) : makehtml.h
+objs = $(OBJ)/jhead.o $(OBJ)/jpgfile.o $(OBJ)/exif.o
 
 $(OBJ)/%.o:$(SRC)/%.c
 	cc -O3 -Wall -c $< -o $@
 
-makehtml: $(objsmakehtml)
-	cc -o makehtml $(objsmakehtml)
-	cp makehtml $(HOME)/bin
+jhead: $(objs) jhead.h
+	cc -o jhead $(objs) -lm
 
-
-clean :
-	rm -f $(objsmakehtml)

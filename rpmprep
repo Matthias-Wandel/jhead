@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# bash shell script for maing archive of jhead source files.
+
+fdir=jhead-2.1
+
+rm -rf $fdir
+mkdir $fdir
+cp changes.txt $fdir
+gzip < jhead.1 > $fdir/jhead.1.gz
+
+cp make.bat $fdir
+cp makefile $fdir/makefile
+cp makefile-win32 $fdir
+cp makefile $fdir
+
+cp readme.txt $fdir
+cp usage.html $fdir
+
+cp exif.c $fdir
+cp jhead.c $fdir
+cp myglob.c $fdir
+cp jpgfile.c $fdir
+cp jhead.h $fdir
+
+tar -czvf $fdir.tar.gz $fdir
