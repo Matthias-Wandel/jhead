@@ -46,10 +46,10 @@ Exif section in Intel order
         ExifImageLength = 1704
         InteroperabilityOffset = 1368
         Interop Dir:(dir has 4 entries)
-            Unknown Tag 0001 Value = "R98?"
-            Unknown Tag 0002 Value = "0100"
-            Unknown Tag 1001 Value = 2272
-            Unknown Tag 1002 Value = 1704
+            InteropIndex = "R98?"
+            InteropVersion = "0100"
+            RelatedImageWidth = 2272
+            RelatedImageLength = 1704
         FocalPlaneXResolution = 2272000/280
         FocalPlaneYResolution = 1704000/210
         FocalPlaneResolutionUnit = 2

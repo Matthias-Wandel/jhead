@@ -35,8 +35,8 @@ Exif section in Motorola order
         ExifImageLength = 600
         InteroperabilityOffset = 1164
         Interop Dir:(dir has 2 entries)
-            Unknown Tag 0001 Value = "R98?"
-            Unknown Tag 0002 Value = "0100"
+            InteropIndex = "R98?"
+            InteropVersion = "0100"
         ExposureIndex = 1/1
         SensingMethod = 2
         FileSource = "?"

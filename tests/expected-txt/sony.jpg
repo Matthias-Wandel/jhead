@@ -34,8 +34,8 @@ Exif section in Intel order
         ExifImageLength = 1280
         InteroperabilityOffset = 650
         Interop Dir:(dir has 2 entries)
-            Unknown Tag 0001 Value = "R98?"
-            Unknown Tag 0002 Value = "0100"
+            InteropIndex = "R98?"
+            InteropVersion = "0100"
         FileSource = "?"
         SceneType = "?"
         CustomRendered = 0
