@@ -1,6 +1,6 @@
 .TH JHEAD 1 "8 Jan 2004" "jhead 2.1"
 .SH NAME
-jhead \- Digicam JPEG Exif header minaipulation tool
+jhead \- Digicam JPEG Exif header manipulation tool
 .SH SYNOPSIS
 .B jhead
 [
@@ -16,10 +16,10 @@ jhead \- Digicam JPEG Exif header minaipulation tool
 .B jhead
 is used to display and manipulate data contained in the Exif header of JPEG
 images from digital cameras.  By default, jhead displays the more useful
-camera settings from the file in a user freindly format.
+camera settings from the file in a user-freindly format.
 .PP
 .B jhead
-Can also be used to manipulate some aspects of the image relating to JPEG and
+can also be used to manipulate some aspects of the image relating to JPEG and
 Exif headers, such as changing the internal timestamps, removing the thumbnail,
 or transferring Exif headers back into edited images after graphical editors
 deleted the Exif header.
@@ -42,7 +42,7 @@ This feature is especially useful with newer Canon cameras, that set the orienta
 tag automatically using a gravity sensor.
 .TP
 .B \-norot
-Clears the rotatin field in the Exif header without altering the image.  Useful if
+Clears the rotation field in the Exif header without altering the image.  Useful if
 the images were previously rotated without clearing the Exif rotation tag, as some
 image browsers will auto rotate images when the rotation tag is set.
 .TP
@@ -83,7 +83,7 @@ Replace comment with text from
 .TP
 .BI \-\^cl \ string
 Replace comment with specified string from command line
-.I file
+.IR file
 .TP
 .BI \-\^st \ file
 Save the integral thumbnail to 
@@ -302,5 +302,5 @@ Send bug reports to mwandel at sentex dot net.
 
 .SH COPYING PERMISSIONS
 Jhead is 'public domain'.  You may freely copy jhead, and reuse part or all of its code 
-in free or prorpietary programs.   I do however request that you do not post my e-mail
+in free or proprietary programs.   I do however request that you do not post my e-mail
 address in ways that spam robots can harvest it.
