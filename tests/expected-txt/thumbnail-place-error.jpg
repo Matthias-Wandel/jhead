@@ -1,0 +1,100 @@
+Exif header 18512 bytes long
+Exif section in Intel order
+(dir has 12 entries)
+    Make = "Canon?"
+    Model = "Canon EOS 20D?"
+    Orientation = 6
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    DateTime = "2004:12:19 14:29:26?"
+    WhitePoint = 313/1000
+    PrimaryChromaticities = 64/100
+    YCbCrCoefficients = 299/1000
+    YCbCrPositioning = 2
+    ExifOffset = 320
+    Exif Dir:(dir has 29 entries)
+        ExposureTime = 1/125
+        FNumber = 40/10
+        ExposureProgram = 3
+        ISOSpeedRatings = 100
+        ExifVersion = "0221"
+        DateTimeOriginal = "2004:12:19 14:29:26?"
+        DateTimeDigitized = "2004:12:19 14:29:26?"
+        ComponentsConfiguration = "?"
+        ShutterSpeedValue = 456510/65536
+        ApertureValue = 262144/65536
+        ExposureBiasValue = 0/2
+        MeteringMode = 1
+        Flash = 16
+        FocalLength = 200/1
+        Maker note: (dir has 24 entries)
+            Canon maker tag 0001 Value = 92
+            Canon maker tag 0002 Value = 2
+            Canon maker tag 0003 Value = 100
+            Canon maker tag 0004 Value = 68
+            Canon maker tag 0006 Value = "Canon EOS 20D"
+            Canon maker tag 0007 Value = "Firmware 1.0.5"
+            Canon maker tag 0009 Value = "Peter Norby / Tara Bloyd"
+            Canon maker tag 000c Value = 420105522
+            Canon maker tag 000d Value = ""
+            Canon maker tag 000f Value = 38
+            Canon maker tag 0010 Value = -2147483275
+            Canon maker tag 0012 Value = 9
+            Canon maker tag 0013 Value = 0
+            Canon maker tag 0015 Value = -1610612736
+            Canon maker tag 0019 Value = 1
+            Canon maker tag 0083 Value = 0
+            Canon maker tag 0093 Value = 32
+            Canon maker tag 00a0 Value = 28
+            Canon maker tag 00aa Value = 10
+            Canon maker tag 00d0 Value = 0
+            Canon maker tag 00e0 Value = 34
+            Canon maker tag 4001 Value = 1164
+            Canon maker tag 4002 Value = 5352
+            Canon maker tag 4003 Value = 0
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 65535
+        ExifImageWidth = 3504
+        ExifImageLength = 2336
+        InteroperabilityOffset = 9386
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R03?"
+            InteropVersion = "0100"
+        FocalPlaneXResolution = 4064000/1408
+        FocalPlaneYResolution = 2704000/937
+        FocalPlaneResolutionUnit = 2
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 1
+        SceneCaptureType = 0
+        Unknown Tag a500 Value = 22/10
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 9716
+        ThumbnailLength = 8796
+Thumbnail incorrectly placed in header
+Thumbnail size: 8790 bytes
+Non settings part of Exif header: 8970 bytes
+Jpeg section marker 0xc4 size 418
+Jpeg section marker 0xdb size 132
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Camera make  : Canon
+Camera model : Canon EOS 20D
+Date/Time    : 2004:12:19 14:29:26
+Resolution   : 160 x 120
+Orientation  : rotate 90
+Flash used   : No
+Focal length : 200.0mm  (35mm equivalent: 233mm)
+CCD width    : 30.84mm
+Exposure time: 0.0080 s  (1/125)
+Aperture     : f/4.0
+ISO equiv.   : 100
+Whitebalance : Manual
+Exposure     : aperture priority (semi-auto)
+Jpeg process : Baseline
+

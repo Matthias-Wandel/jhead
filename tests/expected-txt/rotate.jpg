@@ -1,0 +1,87 @@
+Exif header 6654 bytes long
+Exif section in Intel order
+(dir has 9 entries)
+    Make = "Canon?"
+    Model = "Canon PowerShot S40?"
+    Orientation = 8
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2004:01:08 22:00:22?"
+    YCbCrPositioning = 1
+    ExifOffset = 196
+    Exif Dir:(dir has 27 entries)
+        ExposureTime = 1/10
+        FNumber = 28/10
+        ExifVersion = "0210"
+        DateTimeOriginal = "2004:01:08 22:00:22?"
+        DateTimeDigitized = "2004:01:08 22:00:22?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 2/1
+        ShutterSpeedValue = 106/32
+        ApertureValue = 95/32
+        ExposureBiasValue = 0/3
+        MaxApertureValue = 194698/65536
+        SubjectDistance = 1769/1000
+        MeteringMode = 2
+        Flash = 0
+        FocalLength = 227/32
+        Maker note: (dir has 12 entries)
+            Canon maker tag 0001 Value = 80
+            Canon maker tag 0002 Value = 2
+            Canon maker tag 0003 Value = 0
+            Canon maker tag 0004 Value = 54
+            Canon maker tag 0000 Value = 0
+            Canon maker tag 0000 Value = 0
+            Canon maker tag 0006 Value = "IMG:PowerShot S40 JPEG"
+            Canon maker tag 0007 Value = "Firmware Version    1.00"
+            Canon maker tag 0008 Value = 1222242
+            Canon maker tag 0009 Value = ""
+            Canon maker tag 0010 Value = 17891328
+            Canon maker tag 000d Value = 42
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 640
+        ExifImageLength = 480
+        InteroperabilityOffset = 1368
+        Interop Dir:(dir has 4 entries)
+            InteropIndex = "R98?"
+            InteropVersion = "0100"
+            RelatedImageWidth = 640
+            RelatedImageLength = 480
+        FocalPlaneXResolution = 640000/280
+        FocalPlaneYResolution = 480000/210
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = "?"
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 180/1
+        YResolution = 180/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 1524
+        ThumbnailLength = 4815
+Thumbnail size: 4815 bytes
+Non settings part of Exif header: 5130 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 27
+Jpeg section marker 0xc4 size 60
+Jpeg section marker 0xc4 size 26
+Jpeg section marker 0xc4 size 42
+Camera make  : Canon
+Camera model : Canon PowerShot S40
+Date/Time    : 2004:01:08 22:00:22
+Resolution   : 160 x 120
+Orientation  : rotate 270
+Flash used   : No
+Focal length :  7.1mm  (35mm equivalent: 36mm)
+CCD width    : 7.11mm
+Exposure time: 0.100 s  (1/10)
+Aperture     : f/2.8
+Focus dist.  : 1.77m
+Metering Mode: center weight
+Jpeg process : Baseline
+

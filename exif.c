@@ -760,9 +760,16 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         }
     }
 
-
     if (ThumbnailSize && ThumbnailOffset){
-        if (ThumbnailSize + ThumbnailOffset <= ExifLength){
+        if (ThumbnailOffset <= ExifLength){
+            if (ThumbnailSize > ExifLength-ThumbnailOffset){
+                // If thumbnail extends past exif header, only save the part that
+                // actually exists.  Canon's EOS viewer utility will do this - the
+                // thumbnail extracts ok with this hack.
+                ThumbnailSize = ExifLength-ThumbnailOffset;
+                if (ShowTags) printf("Thumbnail incorrectly placed in header\n");
+
+            }
             // The thumbnail pointer appears to be valid.  Store it.
             ImageInfo.ThumbnailPointer = OffsetBase + ThumbnailOffset;
             ImageInfo.ThumbnailSize = ThumbnailSize;

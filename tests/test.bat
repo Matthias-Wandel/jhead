@@ -55,3 +55,6 @@ rem test with two orientation  tags.
 copy normal-digicams\two-orientation.jpg results-bin
 jhead -autorot results-bin\two-orientation.jpg
 jhead -nofinfo -v results-bin\two-orientation.jpg >> results-txt\rotate.txt
+
+rem test saving of incorrectly placed thumbnail
+jhead -st results-bin\thumbnail-place-error.thm strange-jpegs\thumbnail-place-error.jpg
