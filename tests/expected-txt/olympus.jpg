@@ -1,6 +1,6 @@
 Exif header 6068 bytes long
 Exif section in Intel order
-Directory with 11 entries
+(dir has 11 entries)
     ImageDescription = "OLYMPUS DIGITAL CAMERA         ?"
     Make = "OLYMPUS OPTICAL CO.,LTD?"
     Model = "C830L,D340R?"
@@ -12,39 +12,39 @@ Directory with 11 entries
     DateTime = "1999:07:18 20:41:25?"
     YCbCrPositioning = 2
     ExifOffset = 284
-Directory with 22 entries
-    ExposureTime = 1/31
-    FNumber = 28/10
-    ISOSpeedRatings = 100
-    ExifVersion = "0210"
-    DateTimeOriginal = "1999:07:18 20:41:25?"
-    DateTimeDigitized = "1999:07:18 20:41:25?"
-    ComponentsConfiguration = "?"
-    CompressedBitsPerPixel = 1/1
-    ExposureBiasValue = 0/10
-    MaxApertureValue = 3/1
-    MeteringMode = 1
-    LightSource = 0
-    Flash = 0
-    FocalLength = 55/10
-    MakerNote = "OLYMP?"?*?6?3?>? ?z?š?˜?d?ÿSþ1þ1ÿ®þ®þSR85?[pictureInfo] Resolution=1 [Camera Info] Type=SR85?OLYMPUS DIGITAL CAMERA?€?êM?v¿?4?{N?.w?|Y?/§?/§?m?e?V?ƒ?§?21?+/?6?@?k?Pê?dd?½?ÿÿÿ?G/?"
-    UserComment = "?"
-    FlashPixVersion = "0100"
-    ColorSpace = 1
-    ExifImageWidth = 640
-    ExifImageLength = 480
-    InteroperabilityOffset = 862
-Directory with 2 entries
-  Unknown Tag 0001 Value = "R98?"
-  Unknown Tag 0002 Value = "0100"
-    FileSource = "?"
-Directory with 6 entries
-    Compression = 6
-    XResolution = 72/1
-    YResolution = 72/1
-    ResolutionUnit = 2
-    ThumbnailOffset = 2012
-    ThumbnailLength = 4048
+    Exif Dir:(dir has 22 entries)
+        ExposureTime = 1/31
+        FNumber = 28/10
+        ISOSpeedRatings = 100
+        ExifVersion = "0210"
+        DateTimeOriginal = "1999:07:18 20:41:25?"
+        DateTimeDigitized = "1999:07:18 20:41:25?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 1/1
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 3/1
+        MeteringMode = 1
+        LightSource = 0
+        Flash = 0
+        FocalLength = 55/10
+        Maker note:  4f 4c 59 4d 50 00 01 00 0b 00 00... (406 bytes)
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 640
+        ExifImageLength = 480
+        InteroperabilityOffset = 862
+        Interop Dir:(dir has 2 entries)
+            Unknown Tag 0001 Value = "R98?"
+            Unknown Tag 0002 Value = "0100"
+        FileSource = "?"
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2012
+        ThumbnailLength = 4048
 Thumbnail size: 4048 bytes
 Non settings part of Exif header: 4762 bytes
 Jpeg section marker 0xdb size 67

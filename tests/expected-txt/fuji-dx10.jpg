@@ -1,6 +1,6 @@
 Exif header 12150 bytes long
 Exif section in Intel order
-Directory with 11 entries
+(dir has 11 entries)
     Make = "FUJIFILM?"
     Model = "DX-10?"
     Orientation = 1
@@ -12,46 +12,46 @@ Directory with 11 entries
     YCbCrPositioning = 2
     Copyright = "M.Wandel  ?"
     ExifOffset = 258
-Directory with 27 entries
-    FNumber = 42/10
-    ExposureProgram = 2
-    ISOSpeedRatings = 150
-    ExifVersion = "0210"
-    DateTimeOriginal = "2000:04:01 13:04:48?"
-    DateTimeDigitized = "2000:04:01 13:04:48?"
-    ComponentsConfiguration = "?"
-    CompressedBitsPerPixel = 2/1
-    ShutterSpeedValue = 33/10
-    ApertureValue = 41/10
-    BrightnessValue = 21/10
-    ExposureBiasValue = 0/10
-    MaxApertureValue = 41/10
-    MeteringMode = 5
-    Flash = 0
-    FocalLength = 58/10
-    FlashPixVersion = "0100"
-    ColorSpace = 1
-    ExifImageWidth = 640
-    ExifImageLength = 480
-    InteroperabilityOffset = 708
-Directory with 2 entries
-  Unknown Tag 0001 Value = "R98?"
-  Unknown Tag 0002 Value = "0100"
-    FocalPlaneXResolution = 1344/1
-    FocalPlaneYResolution = 1344/1
-    FocalPlaneResolutionUnit = 3
-    SensingMethod = 2
-    FileSource = "?"
-    SceneType = "?"
-Directory with 8 entries
-    Compression = 6
-    Orientation = 1
-    XResolution = 72/1
-    YResolution = 72/1
-    ResolutionUnit = 2
-    ThumbnailOffset = 856
-    ThumbnailLength = 11286
-    YCbCrPositioning = 2
+    Exif Dir:(dir has 27 entries)
+        FNumber = 42/10
+        ExposureProgram = 2
+        ISOSpeedRatings = 150
+        ExifVersion = "0210"
+        DateTimeOriginal = "2000:04:01 13:04:48?"
+        DateTimeDigitized = "2000:04:01 13:04:48?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 2/1
+        ShutterSpeedValue = 33/10
+        ApertureValue = 41/10
+        BrightnessValue = 21/10
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 41/10
+        MeteringMode = 5
+        Flash = 0
+        FocalLength = 58/10
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 640
+        ExifImageLength = 480
+        InteroperabilityOffset = 708
+        Interop Dir:(dir has 2 entries)
+            Unknown Tag 0001 Value = "R98?"
+            Unknown Tag 0002 Value = "0100"
+        FocalPlaneXResolution = 1344/1
+        FocalPlaneYResolution = 1344/1
+        FocalPlaneResolutionUnit = 3
+        SensingMethod = 2
+        FileSource = "?"
+        SceneType = "?"
+    Continued directory (dir has 8 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 856
+        ThumbnailLength = 11286
+        YCbCrPositioning = 2
 Thumbnail size: 11286 bytes
 Non settings part of Exif header: 11286 bytes
 Jpeg section marker 0xdb size 67

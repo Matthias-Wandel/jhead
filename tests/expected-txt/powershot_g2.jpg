@@ -1,6 +1,6 @@
 Exif header 6654 bytes long
 Exif section in Intel order
-Directory with 9 entries
+(dir has 9 entries)
     Make = "Canon?"
     Model = "Canon PowerShot G2?"
     Orientation = 1
@@ -10,50 +10,62 @@ Directory with 9 entries
     DateTime = "2003:03:28 16:55:04?"
     YCbCrPositioning = 1
     ExifOffset = 196
-Directory with 31 entries
-    ExposureTime = 1/50
-    FNumber = 28/10
-    ExifVersion = "0220"
-    DateTimeOriginal = "2003:03:28 16:55:04?"
-    DateTimeDigitized = "2003:03:28 16:55:04?"
-    ComponentsConfiguration = "?"
-    CompressedBitsPerPixel = 3/1
-    ShutterSpeedValue = 181/32
-    ApertureValue = 95/32
-    ExposureBiasValue = 0/3
-    MaxApertureValue = 131072/65536
-    MeteringMode = 5
-    Flash = 24
-    FocalLength = 224/32
-    MakerNote = "?(?D?”?œ?¤?Ú?æ? ?î?°¸? ?&?F?P?0?ÿÿÿÿ ?à? ?C?À?ÿÿ?à?à?à?×?6?€?¡?_?µ?0?ÿÿ?a?¶?ú?IMG:PowerShot G2 JPEG?Firmware Version 1.10?(301)-975-4397?*?€r?€?€?"
-    UserComment = "?"
-    FlashPixVersion = "0100"
-    ColorSpace = 1
-    ExifImageWidth = 2272
-    ExifImageLength = 1704
-    InteroperabilityOffset = 1416
-Directory with 4 entries
-  Unknown Tag 0001 Value = "R98?"
-  Unknown Tag 0002 Value = "0100"
-  Unknown Tag 1001 Value = 2272
-  Unknown Tag 1002 Value = 1704
-    FocalPlaneXResolution = 2272000/280
-    FocalPlaneYResolution = 1704000/210
-    FocalPlaneResolutionUnit = 2
-    SensingMethod = 2
-    FileSource = "?"
-    CustomRendered = 0
-    ExposureMode = 0
-    WhiteBalance = 1
-    DigitalZoomRatio = 2272/2272
-    SceneCaptureType = 0
-Directory with 6 entries
-    Compression = 6
-    XResolution = 180/1
-    YResolution = 180/1
-    ResolutionUnit = 2
-    ThumbnailOffset = 2036
-    ThumbnailLength = 4467
+    Exif Dir:(dir has 31 entries)
+        ExposureTime = 1/50
+        FNumber = 28/10
+        ExifVersion = "0220"
+        DateTimeOriginal = "2003:03:28 16:55:04?"
+        DateTimeDigitized = "2003:03:28 16:55:04?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 3/1
+        ShutterSpeedValue = 181/32
+        ApertureValue = 95/32
+        ExposureBiasValue = 0/3
+        MaxApertureValue = 131072/65536
+        MeteringMode = 5
+        Flash = 24
+        FocalLength = 224/32
+        Maker note: (dir has 12 entries)
+            Canon maker tag 0001 Value = 80
+            Canon maker tag 0002 Value = 2
+            Canon maker tag 0003 Value = 0
+            Canon maker tag 0004 Value = 54
+            Canon maker tag 0000 Value = 0
+            Canon maker tag 0000 Value = 0
+            Canon maker tag 0006 Value = "IMG:PowerShot G2 JPEG"
+            Canon maker tag 0007 Value = "Firmware Version 1.10"
+            Canon maker tag 0008 Value = 1030320
+            Canon maker tag 0009 Value = "(301)-975-4397"
+            Canon maker tag 0010 Value = 17825792
+            Canon maker tag 000d Value = 42
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 2272
+        ExifImageLength = 1704
+        InteroperabilityOffset = 1416
+        Interop Dir:(dir has 4 entries)
+            Unknown Tag 0001 Value = "R98?"
+            Unknown Tag 0002 Value = "0100"
+            Unknown Tag 1001 Value = 2272
+            Unknown Tag 1002 Value = 1704
+        FocalPlaneXResolution = 2272000/280
+        FocalPlaneYResolution = 1704000/210
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = "?"
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 1
+        DigitalZoomRatio = 2272/2272
+        SceneCaptureType = 0
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 180/1
+        YResolution = 180/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2036
+        ThumbnailLength = 4467
 Thumbnail size: 4467 bytes
 Non settings part of Exif header: 5082 bytes
 Jpeg section marker 0xdb size 67

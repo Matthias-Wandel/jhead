@@ -1,6 +1,6 @@
 Exif header 5270 bytes long
 Exif section in Motorola order
-Directory with 9 entries
+(dir has 9 entries)
     Make = "Hewlett-Packard Company?"
     Model = "hp PhotoSmart 620?"
     Orientation = 1
@@ -10,42 +10,42 @@ Directory with 9 entries
     Software = "Ver V0.610?"
     YCbCrPositioning = 2
     ExifOffset = 338
-Directory with 24 entries
-    ExposureTime = 33333/1000000
-    FNumber = 289/100
-    ISOSpeedRatings = 140
-    ExifVersion = "0220"
-    DateTimeOriginal = "2004:01:25 13:21:34?"
-    DateTimeDigitized = "2004:01:25 13:21:34?"
-    ComponentsConfiguration = "?"
-    CompressedBitsPerPixel = 311/100
-    ShutterSpeedValue = 490/100
-    ApertureValue = 600/100
-    ExposureBiasValue = 0/10
-    MaxApertureValue = 600/100
-    MeteringMode = 2
-    Flash = 1
-    FocalLength = 559/100
-    MakerNote = "?h?d?d?÷Ö?Q?‚5?Œ?;?}ÿÍ?/?"
-    FlashPixVersion = "0100"
-    ColorSpace = 1
-    ExifImageWidth = 1632
-    ExifImageLength = 1232
-    InteroperabilityOffset = 1750
-Directory with 2 entries
-  Unknown Tag 0001 Value = "R98?"
-  Unknown Tag 0002 Value = "0100"
-    ExposureMode = 0
-    WhiteBalance = 0
-    SceneCaptureType = 0
-Directory with 7 entries
-    Compression = 6
-    Orientation = 1
-    XResolution = 72/1
-    YResolution = 72/1
-    ResolutionUnit = 2
-    ThumbnailOffset = 1780
-    ThumbnailLength = 3482
+    Exif Dir:(dir has 24 entries)
+        ExposureTime = 33333/1000000
+        FNumber = 289/100
+        ISOSpeedRatings = 140
+        ExifVersion = "0220"
+        DateTimeOriginal = "2004:01:25 13:21:34?"
+        DateTimeDigitized = "2004:01:25 13:21:34?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 311/100
+        ShutterSpeedValue = 490/100
+        ApertureValue = 600/100
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 600/100
+        MeteringMode = 2
+        Flash = 1
+        FocalLength = 559/100
+        Maker note:  00 00 00 00 00 00 00 00 00 00 00... (112 bytes)
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 1632
+        ExifImageLength = 1232
+        InteroperabilityOffset = 1750
+        Interop Dir:(dir has 2 entries)
+            Unknown Tag 0001 Value = "R98?"
+            Unknown Tag 0002 Value = "0100"
+        ExposureMode = 0
+        WhiteBalance = 0
+        SceneCaptureType = 0
+    Continued directory (dir has 7 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 1780
+        ThumbnailLength = 3482
 Thumbnail size: 3482 bytes
 Non settings part of Exif header: 3486 bytes
 Jpeg section marker 0xdb size 67

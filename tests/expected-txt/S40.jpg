@@ -1,6 +1,6 @@
 Exif header 7166 bytes long
 Exif section in Intel order
-Directory with 9 entries
+(dir has 9 entries)
     Make = "Canon?"
     Model = "Canon PowerShot S40?"
     Orientation = 1
@@ -10,46 +10,58 @@ Directory with 9 entries
     DateTime = "2002:06:25 13:28:07?"
     YCbCrPositioning = 1
     ExifOffset = 196
-Directory with 27 entries
-    ExposureTime = 1/250
-    FNumber = 28/10
-    ExifVersion = "0210"
-    DateTimeOriginal = "2002:06:25 13:28:07?"
-    DateTimeDigitized = "2002:06:25 13:28:07?"
-    ComponentsConfiguration = "?"
-    CompressedBitsPerPixel = 3/1
-    ShutterSpeedValue = 255/32
-    ApertureValue = 95/32
-    ExposureBiasValue = 0/3
-    MaxApertureValue = 194698/65536
-    SubjectDistance = 65535/1000
-    MeteringMode = 5
-    Flash = 0
-    FocalLength = 227/32
-    MakerNote = "?(?l?t?|?²?¾? ?Æ?æ?ÿi? ?þ?P?0?ÿÿÿÿª?ã? ?c?À?ÿÿ?à?à?ã?×?6?€?î?_?ÿ?0?ÿÿ?c?ú?IMG:PowerShot S40 JPEG?Firmware Version    1.00?*?€>?€?Ú?3?"
-    UserComment = "?"
-    FlashPixVersion = "0100"
-    ColorSpace = 1
-    ExifImageWidth = 2272
-    ExifImageLength = 1704
-    InteroperabilityOffset = 1368
-Directory with 4 entries
-  Unknown Tag 0001 Value = "R98?"
-  Unknown Tag 0002 Value = "0100"
-  Unknown Tag 1001 Value = 2272
-  Unknown Tag 1002 Value = 1704
-    FocalPlaneXResolution = 2272000/280
-    FocalPlaneYResolution = 1704000/210
-    FocalPlaneResolutionUnit = 2
-    SensingMethod = 2
-    FileSource = "?"
-Directory with 6 entries
-    Compression = 6
-    XResolution = 180/1
-    YResolution = 180/1
-    ResolutionUnit = 2
-    ThumbnailOffset = 1524
-    ThumbnailLength = 5359
+    Exif Dir:(dir has 27 entries)
+        ExposureTime = 1/250
+        FNumber = 28/10
+        ExifVersion = "0210"
+        DateTimeOriginal = "2002:06:25 13:28:07?"
+        DateTimeDigitized = "2002:06:25 13:28:07?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 3/1
+        ShutterSpeedValue = 255/32
+        ApertureValue = 95/32
+        ExposureBiasValue = 0/3
+        MaxApertureValue = 194698/65536
+        SubjectDistance = 65535/1000
+        MeteringMode = 5
+        Flash = 0
+        FocalLength = 227/32
+        Maker note: (dir has 12 entries)
+            Canon maker tag 0001 Value = 80
+            Canon maker tag 0002 Value = 2
+            Canon maker tag 0003 Value = 0
+            Canon maker tag 0004 Value = 54
+            Canon maker tag 0000 Value = 0
+            Canon maker tag 0000 Value = 0
+            Canon maker tag 0006 Value = "IMG:PowerShot S40 JPEG"
+            Canon maker tag 0007 Value = "Firmware Version    1.00"
+            Canon maker tag 0008 Value = 1010175
+            Canon maker tag 0009 Value = ""
+            Canon maker tag 0010 Value = 17891328
+            Canon maker tag 000d Value = 42
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 2272
+        ExifImageLength = 1704
+        InteroperabilityOffset = 1368
+        Interop Dir:(dir has 4 entries)
+            Unknown Tag 0001 Value = "R98?"
+            Unknown Tag 0002 Value = "0100"
+            Unknown Tag 1001 Value = 2272
+            Unknown Tag 1002 Value = 1704
+        FocalPlaneXResolution = 2272000/280
+        FocalPlaneYResolution = 1704000/210
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = "?"
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 180/1
+        YResolution = 180/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 1524
+        ThumbnailLength = 5359
 Thumbnail size: 5359 bytes
 Non settings part of Exif header: 5642 bytes
 Jpeg section marker 0xdb size 67
