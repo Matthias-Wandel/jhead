@@ -13,7 +13,7 @@
 Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		2.1
+Version:		2.2
 Release:		0
 
 Group:			Libraries
@@ -85,4 +85,10 @@ rm -rf %{buildroot}
 - Finally wrote a nice man page for jhead
 - Using jhead 1.9 RPM from connectiva linux as starting point (left in the portugese tags)
   
+* Jan 2004
+- Added -cl feature
+- added -noroot feature
 
+* Jun 2004
+- Various bug and spelling fixes.
+- added ability to do sequential renaming
