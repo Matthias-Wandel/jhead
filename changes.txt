@@ -1,38 +1,6 @@
 
-Change notes:
-1.1 --> 1.2
-* Now recognizes more Exif tags (Contributions by Volker C Schoen)
-* One hour off on -ft option fixed (uninitialized DST structure element)
-* More flexible date-renaming option using strftime function
-* -n and -nf option no longer overwrite pre-existing target names under Unix
 
-1.2 --> 1.3  (August 8 2001)
-Added -te option for trasplanting exif headers between Jpeg images
-Added -st option for saving the integral Exif thumbnails to a spearate file
-Added -dc option to delete all comments
-Bugfixes:
-* Follow the TIFF directory links in the Exif correctly, not just the Exif link.
-  This necessary for extracting the thumbnail from the exif header.  Thansk to
-  Michael D Hughes (mdh@logcabin.woods.bridge.com) for explaining his subtle 
-  nuance of Exif file headers.
-* No longer crop comments at 200 characters.
-
-1.3 --> 1.4  (Oct 9 2001)
-* Fixed saving of thumbnails for big-endian format cameras
-* Wen renaming files to date based scheme, avoid changing names of files with 
-  correct name already.
-* Added '-de' option to remove exif header
-* Added '-ts' option to set exif timestamp absolutely
-
-1.4 --> 1.5  (Oct 25 2001)
-* Minor typos fixed
-* Added "-ce" option to edit comments
-* Fixed bug in "-ts" option that caused the time set to be incorrect
-
-
-
-
-Detailed change log:
+Detailed change log - since version 1.2
 
 Jun 3 2001:
 Added -dc option for deleting all comments
@@ -45,30 +13,30 @@ Follow TIFF link correctly
 Save thumbnail option added
     (Thanks Michal D Hughes for his help mdh@logcabin.woods.bridge.com)
 
-Aug 8 & 9
+Aug 8 & 9 2001
 Transfer exif header option added.
 Moved relative path & discard all but jpeg stuff in separate functions
 Changed ISO heuristic to deal with ISo < 80 better
     (Thanks Harry TsaiHarryTsai@alum.mit.edu)
 
-Agust 12
+Agust 12 2001
 Testing under Linux, minor fixups.
 
 -------Released version 1.3-------
 
-August 26
+August 26 2001
 Fixed problem where thumbnails in big endian files were not saved right.
     (thanks Joe Steele [joe@madewell.com])
 
-Sept 1
+Sept 1 2001
 Added command line option to remove exif section entirely.
 Added time / time-zone adjust option.
 
-Sept 9
+Sept 9 2001
 Avoid renaming file with right name again with -n option
 Change name of SetFileTime variable to not conflict with windows.
 
-October 9
+Oct 9 2001
 Added option to set exif timestamp to absolute time
 Added option to save thumbnail to stdout (unix only)
     (thanks Nathan Schmidt [mailto:nathan@cs.stanford.edu])
@@ -78,20 +46,20 @@ Got rid of strnprintf (not avilable on FreeBSD 4.4)
   
 -------Released version 1.4-------
 
-Oct 10:
+Oct 10 2001
 More improved handling of truncated exif headers - as may be produced 
 by -dt option in older versions of this program.
 
-Oct 18:
+Oct 18 2001
 Fixed bug in -ts option where '-' causes scanf to treat parms as negative.
     (thanks Pete Ashdon [mailto:pashdown@xmission.com])
 
-Oct 25:
+Oct 25 2001
 Added -ce option
 
 -------Released version 1.5-------
 
-Dec 26:
+Dec 26 2001
 Added -V (version) option
 Added -exonly (exif only) option
 
@@ -99,69 +67,69 @@ Added -exonly (exif only) option
 Jan 2 2002:
 Fixed lots of typos (Thanks, David Baker [mailto:dave@dsb3.com])
 
-Jan 12:
+Jan 12: 2002
 Use EDITOR environment variable to pick which editor (Instead of notpead or VI)
 
-Jan 13:
+Jan 13: 2002
 Improved thumbnail deletion feature - now not just shortens the header, but
 also removes pointers to the thumbnail form the exif header.
 
 
 -------Released version 1.6-------
 
-Jan 29
+Jan 29 2002
 Use adjusted date instead of original date when -ta is used in combination 
 with -ft or -n options
 
-Feb 25
+Feb 25 2002
 Added image orientation display to summary
 
-April 22
+April 22 2002
 Changed 35mm equivalent focal calculation to use 36mm instead of 35mm for 35mm 
 negative width (35 mm negative frames are 36 mm wide)
 
-April 28
+April 28 2002
 Split jhead.c int jhead.c and jpgfile.c.  Jpgfile.c contains jpeg manipulation
 code that is reusable outside of jhead, while jhead.c contains code specific
 to jhead (command line parsing, display)
 
-May 11
+May 11 2002 
 Fix bug in -dt option that rears its ugly head if the directories are in the
 exif header out of order.
 
 -------Released version 1.7-------
 
-June 3
+June 3 2002
 Ignore undefined bits of "flash used" tag, as cannon sets them nonzero, causing
 jhead to indicate flash used when it wasn't with some Canon models.
 
-Jul 7
+Jul 7 2002
 -------Released version 1.8-------
 
-Sept 8
+Sept 8 2002
 makehtml now also lists .avi files as video clips
 
-Sept 11
+Sept 11 2002
 Handle first IFD offset != 8, as comes out of Pentax Optio 230 camera.
 
-Sept 13
+Sept 13 2002 
 Show 4 digits of past decimal if exposrure time is less than 0.01 sec.
 
-Sept 25
+Sept 25 2002
 Integrate patch from James R Van Zandt to allow inclusion of original name
 when '%f' is part of rename format string.
 
 Dec 11 2002
 -------Released version 1.9-------
 
-Oct 8
+Oct 8 2002
 Minor changes where newlines are printed.
 Added check to warn about wiping out the originals with the -st option.
 
-Oct 9
+Oct 9 2002
 Fixed display of "flash used=no" for exif headers generated by photoshop.
 
-Oct 13
+Oct 13 2002
 Added -ci and -cs options.
 
 March 3 2003
@@ -174,19 +142,19 @@ a rotation tag from the camera.
 
 *Finally* wrote a nice MAN page for jhead.
 
--------Released version 2.0-------
+-------Released version 2.0 -- April 2003 -------
 
-Dec
+Dec ?? 2003
 Set all copies of the date to same value when setting or modifying.
 (I intentionally only set one, but too may people considered this a bug)
 
-Dec 28 
+Dec 28 2003
 fixed unix makefile
 
-Dec 29
+Dec 29 2003
 added -cl (insert comment literal) option
 
 Jan 8 2004
 Added -norot (zero out rotation tag) option
 
-
+-------Released version 2.1 -- Jan 2004 -------
