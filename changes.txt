@@ -186,6 +186,7 @@ fixed unix makefile
 Dec 29
 added -cl (insert comment literal) option
 
-
+Jan 8 2004
+Added -norot (zero out rotation tag) option
 
 

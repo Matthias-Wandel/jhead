@@ -34,6 +34,14 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         This feature is especially useful with newer Canon cameras, that set the orientation tag
         automatically using a gravity sensor.
 <tr valign=top>
+    <td><b>-norot
+    <td>
+        Clears the Exif header rotation tag without altering the image.
+        You may find that your images have rotation tags in them from your camera, but you already 
+        rotated them with some lossless tool without clearing the rotation tag.
+        Now your freindly browser rotates the images on you again because the image rotation
+        tag still indicates the image should be rotated.  Use this option to fix this problem.
+<tr valign=top>
     <td><b>-dt
     <td>
         Delete thumbnails from the Exif header, but leave the

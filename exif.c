@@ -977,7 +977,7 @@ void ShowImageInfo(void)
         printf("ISO equiv.   : %2d\n",(int)ImageInfo.ISOequivalent);
     }
     if (ImageInfo.ExposureBias){ // 05-jan-2001 vcs
-        printf("Exposure bias:%4.2f\n",(double)ImageInfo.ExposureBias);
+        printf("Exposure bias: %4.2f\n",(double)ImageInfo.ExposureBias);
     }
         
     if (ImageInfo.Whitebalance){ // 05-jan-2001 vcs

@@ -83,6 +83,7 @@ static char * CommentInsertfileName = NULL; // Insert comment from this file.
 static char * CommentInsertLiteral = NULL;  // Insert this comment (from command line)
 
 static int AutoRotate = 0;
+static int ZeroRotateTagOnly = 0;
 
 #ifdef MATTHIAS
     // This #ifdef to take out less than elegant stuff for editing
@@ -273,7 +274,7 @@ static int AutoResizeCmdStuff(void)
 
     ApplyCommand = CommandString;
 
-    if (ImageInfo.Height < 640 && ImageInfo.Width < 640){
+    if (ImageInfo.Height < 800 && ImageInfo.Width < 800){
         printf("not redizing %dx%x '%s'\n",ImageInfo.Height, ImageInfo.Width, ImageInfo.FileName);
         return FALSE;
     }
@@ -585,20 +586,23 @@ void ProcessFile(const char * FileName)
 
         if (AutoRotate){
             if (ImageInfo.Orientation >= 2 && ImageInfo.Orientation <= 8){
-                char RotateCommand[50];
                 const char * Argument;
                 Argument = ClearOrientation();
-                if (Argument == NULL){
-                    ErrFatal("Orientation screwup");
+
+                if (!ZeroRotateTagOnly){
+                    char RotateCommand[50];
+                    if (Argument == NULL){
+                        ErrFatal("Orientation screwup");
+                    }
+                    #ifdef _WIN32
+                        sprintf(RotateCommand, "jpegtran -%s &i &o", Argument);
+                    #else
+                        sprintf(RotateCommand, "jpegtran -%s &i > &o", Argument);
+                    #endif
+                    ApplyCommand = RotateCommand;
+                    DoCommand(FileName);
+                    ApplyCommand = NULL;
                 }
-                #ifdef _WIN32
-                    sprintf(RotateCommand, "jpegtran -%s &i &o", Argument);
-                #else
-                    sprintf(RotateCommand, "jpegtran -%s &i > &o", Argument);
-                #endif
-                ApplyCommand = RotateCommand;
-                DoCommand(FileName);
-                ApplyCommand = NULL;
 
                 Modified = TRUE;
                 ReadMode = READ_IMAGE;   // Don't re-read exif section again on next read.
@@ -927,10 +931,13 @@ static void Usage (void)
            "  -de        Strip Exif section (smaller jpeg file, but lose digicam info)\n"
            "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
            "             Note: Windows users must get jpegtran for this to work\n"
+           "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
+           "             rotating the image again after you rotated it but neglected to\n"
+           "             clear the rotation tag\n"
 #ifdef MATTHIAS
            "  -cr        Remove comment tag (my way)\n"
            "  -ca        Add comment tag (my way)\n"
-           "  -ar        Auto resize to fit in 640x640, but never less than half\n"
+           "  -ar        Auto resize to fit in 800x800, but never less than half\n"
 #endif //MATTHIAS
            "  -st <name> Save Exif thumbnail, if there is one, in file <name>\n"
            "             If output file name contains the substring \"&i\" then the\n"
@@ -1112,6 +1119,10 @@ int main (int argc, char **argv)
             SupressNonFatalErrors = TRUE;
         }else if (!memcmp(arg,"-autorot", 8)){
             AutoRotate = 1;
+            DoModify = TRUE;
+        }else if (!memcmp(arg,"-autorot", 8)){
+            AutoRotate = 1;
+            ZeroRotateTagOnly = 1;
             DoModify = TRUE;
 #ifdef MATTHIAS
         }else if (!strcmp(arg,"-ca")){

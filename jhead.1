@@ -41,6 +41,11 @@ dimensions are untouched, but the jpeg height/width are adjusted.
 This feature is especially useful with newer Canon cameras, that set the orientation 
 tag automatically using a gravity sensor.
 .TP
+.B \-norot
+Clears the rotatin field in the Exif header without altering the image.  Useful if
+the images were previously rotated without clearing the Exif rotation tag, as some
+image browsers will auto rotate images when the rotation tag is set.
+.TP
 .B \-dt
 Delete thumbnails from the Exif header, but leave the
 interesting parts intact.  This option truncates the thumbnail from the exif header, provided
