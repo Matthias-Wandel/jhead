@@ -46,7 +46,7 @@ typedef struct {
 
 //--------------------------------------------------------------------------
 // Table of Jpeg encoding process names
-static TagTable_t ProcessTable[] = {
+static const TagTable_t ProcessTable[] = {
     { M_SOF0,   "Baseline"},
     { M_SOF1,   "Extended sequential"},
     { M_SOF2,   "Progressive"},
@@ -60,8 +60,9 @@ static TagTable_t ProcessTable[] = {
     { M_SOF13,  "Differential sequential, arithmetic coding"},
     { M_SOF14,  "Differential progressive, arithmetic coding"},
     { M_SOF15,  "Differential lossless, arithmetic coding"},
-    { 0      ,  NULL}
 };
+
+#define PROCESS_TABLE_SIZE  (sizeof(ProcessTable) / sizeof(TagTable_t))
 
 // 1 - "The 0th row is at the visual top of the image,    and the 0th column is the visual left-hand side."
 // 2 - "The 0th row is at the visual top of the image,    and the 0th column is the visual right-hand side."
@@ -88,7 +89,7 @@ static const char * OrientTab[9] = {
     "rotate 270",       // rotate 270 to right it.
 };
 
-int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
+const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 
 //--------------------------------------------------------------------------
 // Describes tag values
@@ -103,6 +104,7 @@ int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_FNUMBER            0x829D
 #define TAG_EXIF_OFFSET        0x8769
 #define TAG_EXPOSURE_PROGRAM   0x8822
+#define TAG_GPSINFO            0x8825
 #define TAG_ISO_EQUIVALENT     0x8827
 #define TAG_DATETIME_ORIGINAL  0x9003
 #define TAG_DATETIME_DIGITIZED 0x9004
@@ -128,7 +130,7 @@ int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_DIGITALZOOMRATIO   0xA404
 #define TAG_FOCALLENGTH_35MM   0xa405
 
-static TagTable_t TagTable[] = {
+static const TagTable_t TagTable[] = {
   { 0x001,   "InteropIndex"},
   { 0x002,   "InteropVersion"},
   { 0x100,   "ImageWidth"},
@@ -177,7 +179,7 @@ static TagTable_t TagTable[] = {
   { 0x8773,  "InterColorProfile"},
   { 0x8822,  "ExposureProgram"},
   { 0x8824,  "SpectralSensitivity"},
-  { 0x8825,  "GPSInfo"},
+  { 0x8825,  "GPS Dir offset"},
   { 0x8827,  "ISOSpeedRatings"},
   { 0x8828,  "OECF"},
   { 0x9000,  "ExifVersion"},
@@ -228,10 +230,9 @@ static TagTable_t TagTable[] = {
   { 0xA409,  "Saturation"},
   { 0xA40a,  "Sharpness"},
   { 0xA40c,  "SubjectDistanceRange"},
-  { 0, "NULL"}
 } ;
 
-const int SizeTagTable = sizeof( TagTable ) / sizeof( TagTable_t );
+#define TAG_TABLE_SIZE  (sizeof(TagTable) / sizeof(TagTable_t))
 
 //--------------------------------------------------------------------------
 // Convert a 16 bit unsigned value from file's native byte order
@@ -288,17 +289,17 @@ void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
 {
     switch(Format){
         case FMT_SBYTE:
-        case FMT_BYTE:      printf("%02x\n",*(uchar *)ValuePtr);            break;
-        case FMT_USHORT:    printf("%d\n",Get16u(ValuePtr));                break;
+        case FMT_BYTE:      printf("%02x",*(uchar *)ValuePtr);            break;
+        case FMT_USHORT:    printf("%d",Get16u(ValuePtr));                break;
         case FMT_ULONG:     
-        case FMT_SLONG:     printf("%d\n",Get32s(ValuePtr));                break;
-        case FMT_SSHORT:    printf("%hd\n",(signed short)Get16u(ValuePtr)); break;
+        case FMT_SLONG:     printf("%d",Get32s(ValuePtr));                break;
+        case FMT_SSHORT:    printf("%hd",(signed short)Get16u(ValuePtr)); break;
         case FMT_URATIONAL:
         case FMT_SRATIONAL: 
-           printf("%d/%d\n",Get32s(ValuePtr), Get32s(4+(char *)ValuePtr)); break;
+           printf("%d/%d",Get32s(ValuePtr), Get32s(4+(char *)ValuePtr)); break;
 
-        case FMT_SINGLE:    printf("%f\n",(double)*(float *)ValuePtr);   break;
-        case FMT_DOUBLE:    printf("%f\n",*(double *)ValuePtr);          break;
+        case FMT_SINGLE:    printf("%f",(double)*(float *)ValuePtr);   break;
+        case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr);          break;
         default: 
             printf("Unknown format %d:", Format);
             
@@ -378,8 +379,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 // Version 1.3 of jhead would truncate a bit too much.
                 // This also caught later on as well.
             }else{
-                // Note: Files that had thumbnails trimmed with jhead 1.3 or earlier
-                // might trigger this.
                 ErrNonfatal("Illegally sized directory",0,0);
                 return;
             }
@@ -443,7 +442,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         if (ShowTags){
             // Show tag name
             for (a=0;;a++){
-                if (a >= SizeTagTable ){
+                if (a >= TAG_TABLE_SIZE){
                     printf(IndentString);
                     printf("    Unknown Tag %04x Value = ", Tag);
                     break;
@@ -486,6 +485,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 default:
                     // Handle arrays of numbers later (will there ever be?)
                     PrintFormatNumber(ValuePtr, Format, ByteCount);
+                    printf("\n");
             }
         }
 
@@ -710,6 +710,21 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     }
                     continue;
                 }
+                break;
+
+            case TAG_GPSINFO:
+                if (ShowTags) printf("%s    GPS info dir:",IndentString);
+                {
+                    unsigned char * SubdirStart;
+                    SubdirStart = OffsetBase + Get32u(ValuePtr);
+                    if (SubdirStart < OffsetBase || SubdirStart > OffsetBase+ExifLength){
+                        ErrNonfatal("Illegal GPS directory link",0,0);
+                    }else{
+                        ProcessGpsInfo(SubdirStart, ByteCount, OffsetBase, ExifLength);
+                    }
+                    continue;
+                }
+                break;
 
             case TAG_FOCALLENGTH_35MM:
                 // The focal length equivalent 35 mm is a 2.2 tag (defined as of April 2002)
@@ -1171,7 +1186,7 @@ void ShowImageInfo(int ShowFileInfo)
         // show it if its something else, like 'progressive' (used on web sometimes)
         int a;
         for (a=0;;a++){
-            if (ProcessTable[a].Tag == 0){
+            if (a >= PROCESS_TABLE_SIZE){
                 // ran off the end of the table.
                 printf("Jpeg process : Unknown\n");
                 break;
@@ -1183,6 +1198,18 @@ void ShowImageInfo(int ShowFileInfo)
         }
     }
 
+    if (ImageInfo.GpsInfoPresent){
+        printf("GPS Latitude : %c %d %7.4f %5.2f\n", 
+            ImageInfo.GpsLatitude.Ref,
+            ImageInfo.GpsLatitude.Degrees,
+            ImageInfo.GpsLatitude.Minutes,
+            ImageInfo.GpsLatitude.Seconds);
+        printf("GPS Longitude: %c %d %7.4f %5.2f\n", 
+            ImageInfo.GpsLongitude.Ref,
+            ImageInfo.GpsLongitude.Degrees,
+            ImageInfo.GpsLongitude.Minutes,
+            ImageInfo.GpsLongitude.Seconds);
+    }
 
     // Print the comment. Print 'Comment:' for each new line of comment.
     if (ImageInfo.Comments[0]){

@@ -1,0 +1,98 @@
+Exif header 7988 bytes long
+Exif section in Motorola order
+(dir has 13 entries)
+    ImageDescription = "                                                               ?"
+    Make = "RICOH      ?"
+    Model = "Caplio Pro G3  ?"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    DateTime = "2005:01:13 12:22:45?"
+    YCbCrPositioning = 2
+    Copyright = "(C) by Caplio Pro G3 User?"
+    ExifOffset = 324
+    Exif Dir:(dir has 28 entries)
+        ExposureTime = 1/111
+        FNumber = 550/100
+        ExposureProgram = 2
+        ISOSpeedRatings = 125
+        ExifVersion = "0220"
+        DateTimeOriginal = "2005:01:13 12:22:45?"
+        DateTimeDigitized = "2005:01:13 12:22:45?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 200/100
+        ApertureValue = 50/10
+        BrightnessValue = 66/10
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 260/100
+        MeteringMode = 5
+        LightSource = 0
+        Flash = 16
+        FocalLength = 57/10
+        Maker note:  52 69 63 6f 68 f1 00 00 00 09 00... (520 bytes)
+        UserComment = "Unicode?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 640
+        ExifImageLength = 480
+        InteroperabilityOffset = 2047
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98?"
+            InteropVersion = "0100"
+        ExposureMode = 0
+        WhiteBalance = 0
+        SceneCaptureType = 0
+        Sharpness = 0
+    GPS Dir offset = 1554
+    GPS info dir:(dir has 21 entries)
+        GPSVersionID        =02, 02, 00, 00
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =42/1, 51/1, 2940/100
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =70/1, 55/1, 5233/100
+        GPSAltitudeRef      =00
+        GPSAltitude         =0/1
+        GPSTimeStamp        =17/1, 22/1, 14/1
+        GPSSatellites       ="28,11,07                                       "
+        GPSStatus           ="A"
+        GPSMeasureMode      ="2"
+        GPSDOP              =5000/100
+        GPSSpeedRef         ="N"
+        GPSSpeed            =0/1
+        GPSTrackRef         ="T"
+        GPSTrack            =0/1
+        GPSImgDirectionRef  ="T"
+        GPSImgDirection     =0/1
+        GPSMapDatum         ="WGS-84                         "
+        GPSDateStamp        ="2005:01:13"
+        Illegal GPS tag c84d="12"
+    Unknown Tag c4a5 Value = "PrintIM?0250?d?¬?Ä?€?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?"
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2424
+        ThumbnailLength = 5556
+Thumbnail size: 5556 bytes
+Non settings part of Exif header: 5565 bytes
+Jpeg section marker 0xdb size 132
+Jpeg section marker 0xc4 size 418
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Camera make  : RICOH      
+Camera model : Caplio Pro G3  
+Date/Time    : 2005:01:13 12:22:45
+Resolution   : 160 x 120
+Flash used   : No
+Focal length :  5.7mm
+Exposure time: 0.0090 s  (1/111)
+Aperture     : f/5.5
+ISO equiv.   : 125
+Whitebalance : Auto
+Metering Mode: matrix
+Exposure     : program (auto)
+GPS Latitude : N 42 51.0000 29.40
+GPS Longitude: W 70 55.0000 52.33
+Comment      : Unicode
+

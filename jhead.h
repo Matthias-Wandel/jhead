@@ -30,6 +30,13 @@ typedef struct {
 
 #define MAX_DATE_COPIES 10
 
+typedef struct {
+    char  Ref;
+    short Degrees;
+    float Minutes;
+    float Seconds;
+}GpsDegree;
+
 //--------------------------------------------------------------------------
 // This structure stores Exif header image elements in a simple manner
 // Used to store camera data as extracted from the various ways that it can be
@@ -67,6 +74,10 @@ typedef struct {
 
     char * DateTimePointers[MAX_DATE_COPIES];
     int  numDateTimeTags;
+
+    int GpsInfoPresent;
+    GpsDegree GpsLatitude;
+    GpsDegree GpsLongitude;
 }ImageInfo_t;
 
 
@@ -99,7 +110,7 @@ unsigned Get32u(void * Long);
 
 //--------------------------------------------------------------------------
 // Exif format descriptor stuff
-extern int BytesPerFormat[];
+extern const int BytesPerFormat[];
 #define NUM_FORMATS 12
 
 #define FMT_BYTE       1 
@@ -122,6 +133,9 @@ extern int BytesPerFormat[];
 extern void ProcessMakerNote(unsigned char * DirStart, int ByteCount,
                  unsigned char * OffsetBase, unsigned ExifLength);
 
+// gpsinfo.c prototypes
+void ProcessGpsInfo(unsigned char * ValuePtr, int ByteCount, 
+                unsigned char * OffsetBase, unsigned ExifLength);
 
 
 // Prototypes for myglob.c module

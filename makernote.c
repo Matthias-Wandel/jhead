@@ -1,7 +1,6 @@
 //--------------------------------------------------------------------------
-// Some rudimentary parsing of maker specific tags.
-//
-// Matthias Wandel,  Dec 1999 - Dec 2002 
+// Parse some maker specific onformation.
+// (Very limited right now - add maker specific stuff to this module)
 //--------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
@@ -114,6 +113,7 @@ void ProcessCannonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetB
             default:
                 // Handle arrays of numbers later (will there ever be?)
                 PrintFormatNumber(ValuePtr, Format, ByteCount);
+                printf("\n");
         }
         
     }

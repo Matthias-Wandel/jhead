@@ -205,6 +205,10 @@ Don't show jpeg process if it's baseline (almost always is)
 
 -------Released version 2.3 -- Jan 2005 ----------
 
+Jan 14 2005
+First cut of adding GPS data display support.
+
+
 
 to do:
 Renaming - rename associated sound files, and video files for thumbnails.
