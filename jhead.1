@@ -283,7 +283,7 @@ Having a whole directory tree of photos from my S100, I run the following comman
 
 .B jhead -cmd "mogrify -quality 80 &i" -model S100 -r *.jpg
 .br
-.B jhead -cmd "jpegtran -progressive &i &o" -r *.jpg
+.B jhead -cmd "jpegtran -progressive &i > &o" -r *.jpg
 
 The first command mogrifies all JPEGs in the tree that indicate that they are from a 
 Cannon S100 in their Exif header to 80% quality at the same resolution.  This is a 'lossy'
