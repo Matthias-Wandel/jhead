@@ -2,7 +2,7 @@
 
 # bash shell script for maing archive of jhead source files.
 
-fdir=jhead-2.1
+fdir=jhead-2.15
 
 rm -rf $fdir
 mkdir $fdir
@@ -10,7 +10,6 @@ cp changes.txt $fdir
 gzip < jhead.1 > $fdir/jhead.1.gz
 
 cp make.bat $fdir
-cp makefile $fdir/makefile
 cp makefile-win32 $fdir
 cp makefile $fdir
 
