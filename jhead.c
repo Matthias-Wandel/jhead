@@ -43,6 +43,7 @@
 #include "jhead.h"
 
 static int FilesMatched;
+static int FileSequence;
 
 static const char * CurrentFile;
 
@@ -495,7 +496,7 @@ void DoFileRenaming(const char * FileName)
                         memcpy(pat, pattern+ppos, 4);
                         pat[a-ppos] = 'd'; // Replace 'i' with 'd' for '%d'
                         pat[a-ppos+1] = '\0';
-                        sprintf(num, pat, FilesMatched); // let printf do the number formatting.
+                        sprintf(num, pat, FileSequence); // let printf do the number formatting.
                         memmove(pattern+ppos+strlen(num), pattern+a+1, strlen(pattern+a+1)+1);
                         memcpy(pattern+ppos, num, strlen(num));
                         break;
@@ -564,7 +565,8 @@ void ProcessFile(const char * FileName)
     int Modified = FALSE;
     ReadMode_t ReadMode = READ_EXIF;
     CurrentFile = FileName;
-    FilesMatched += 1; // Count files processed.
+    FilesMatched = 1; 
+    FileSequence += 1; // Count files processed.
 
     if (DoModify || RenameToDate || Exif2FileTime){
         if (access(FileName, 2 /*W_OK*/)){
@@ -1225,6 +1227,7 @@ int main (int argc, char **argv)
         }
     }
 
+    FileSequence = 0;
     for (;argn<argc;argn++){
         FilesMatched = FALSE;
 
@@ -1241,14 +1244,15 @@ int main (int argc, char **argv)
             // subdirectories under Windows.
 
             MyGlob(argv[argn], ProcessFile);
-            if (!FilesMatched){
-                fprintf(stderr, "Error: No files matched '%s'\n",argv[argn]);
-            }
         #else
             // Under linux, don't do any extra fancy globbing - shell globbing is 
             // pretty fancy as it is.
             ProcessFile(argv[argn]);
         #endif
+
+        if (!FilesMatched){
+            fprintf(stderr, "Error: No files matched '%s'\n",argv[argn]);
+        }
     }
     return EXIT_SUCCESS;
 }
