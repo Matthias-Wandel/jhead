@@ -15,7 +15,7 @@ OBJECTS_JHEAD = $(OBJ)\jhead.obj  \
                 $(OBJ)\jpgfile.obj \
                 $(OBJ)\myglob.obj \
                 $(OBJ)\exif.obj \
-#                $(OBJ)\makernote.obj 
+                $(OBJ)\makernote.obj 
 
 $(OBJECTS_JHEAD): $(@B).c jhead.h
     $(CC) /Fo$(OBJ)\ $(CFLAGS) $(@B).c

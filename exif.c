@@ -88,25 +88,6 @@ static const char * OrientTab[9] = {
     "rotate 270",       // rotate 270 to right it.
 };
 
-
-//--------------------------------------------------------------------------
-// Describes format descriptor
-static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
-#define NUM_FORMATS 12
-
-#define FMT_BYTE       1 
-#define FMT_STRING     2
-#define FMT_USHORT     3
-#define FMT_ULONG      4
-#define FMT_URATIONAL  5
-#define FMT_SBYTE      6
-#define FMT_UNDEFINED  7
-#define FMT_SSHORT     8
-#define FMT_SLONG      9
-#define FMT_SRATIONAL 10
-#define FMT_SINGLE    11
-#define FMT_DOUBLE    12
-
 //--------------------------------------------------------------------------
 // Describes tag values
 
@@ -153,6 +134,8 @@ static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 // Added by Quercus 17-1-2004
 #define TAG_EXPOSURE_INDEX    0xa215
 #define TAG_LIGHT_SOURCE      0x9208
+
+#define TAG_MAKER_NOTE        0x927C
 
 static TagTable_t TagTable[] = {
   {   0x100,   "ImageWidth"},
@@ -270,7 +253,7 @@ static void Put16u(void * Short, unsigned short PutValue)
 //--------------------------------------------------------------------------
 // Convert a 16 bit unsigned value from file's native byte order
 //--------------------------------------------------------------------------
-static int Get16u(void * Short)
+int Get16u(void * Short)
 {
     if (MotorolaOrder){
         return (((uchar *)Short)[0] << 8) | ((uchar *)Short)[1];
@@ -296,7 +279,7 @@ static int Get32s(void * Long)
 //--------------------------------------------------------------------------
 // Convert a 32 bit unsigned value from file's native byte order
 //--------------------------------------------------------------------------
-static unsigned Get32u(void * Long)
+unsigned Get32u(void * Long)
 {
     return (unsigned)Get32s(Long) & 0xffffffff;
 }
@@ -304,7 +287,7 @@ static unsigned Get32u(void * Long)
 //--------------------------------------------------------------------------
 // Display a number as one of its many formats
 //--------------------------------------------------------------------------
-static void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
+void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
 {
     switch(Format){
         case FMT_SBYTE:
@@ -329,7 +312,7 @@ static void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
 //--------------------------------------------------------------------------
 // Evaluate number, be it int, rational, or float from directory.
 //--------------------------------------------------------------------------
-static double ConvertAnyFormat(void * ValuePtr, int Format)
+double ConvertAnyFormat(void * ValuePtr, int Format)
 {
     double Value;
     Value = 0;
@@ -376,11 +359,15 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
     int NumDirEntries;
     unsigned ThumbnailOffset = 0;
     unsigned ThumbnailSize = 0;
+    char IndentString[25];
 
     if (NestingLevel > 4){
         ErrNonfatal("Maximum directory nesting exceeded (corrupt exif header)", 0,0);
         return;
     }
+
+    memset(IndentString, ' ', 25);
+    IndentString[NestingLevel * 4] = '\0';
 
 
     NumDirEntries = Get16u(DirStart);
@@ -404,7 +391,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
     }
 
     if (ShowTags){
-        printf("Directory with %d entries\n",NumDirEntries);
+        printf("(dir has %d entries)\n",NumDirEntries);
     }
 
     for (de=0;de<NumDirEntries;de++){
@@ -448,14 +435,24 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
         }
 
+        if (Tag == TAG_MAKER_NOTE){
+            if (ShowTags){
+                printf("%s    Maker note: ",IndentString);
+            }
+            ProcessMakerNote(ValuePtr, ByteCount, OffsetBase, ExifLength);
+            continue;
+        }
+
         if (ShowTags){
             // Show tag name
             for (a=0;;a++){
                 if (TagTable[a].Tag == 0){
-                    printf("  Unknown Tag %04x Value = ", Tag);
+                    printf(IndentString);
+                    printf("    Unknown Tag %04x Value = ", Tag);
                     break;
                 }
                 if (TagTable[a].Tag == Tag){
+                    printf(IndentString);
                     printf("    %s = ",TagTable[a].Desc);
                     break;
                 }
@@ -474,7 +471,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                         printf("\"");
                         for (a=0;a<ByteCount;a++){
                             if (ValuePtr[a] >= 32){
-                                putchar((ValuePtr)[a]);
+                                putchar(ValuePtr[a]);
                                 NoPrint = 0;
                             }else{
                                 // Avoiding indicating too many unprintable characters of proprietary
@@ -695,7 +692,10 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 break;
 
             case TAG_EXIF_OFFSET:
+                if (ShowTags) printf("%s    Exif Dir:",IndentString);
+
             case TAG_INTEROP_OFFSET:
+                if (Tag == TAG_INTEROP_OFFSET && ShowTags) printf("%s    Interop Dir:",IndentString);
                 {
                     unsigned char * SubdirStart;
                     SubdirStart = OffsetBase + Get32u(ValuePtr);
@@ -739,6 +739,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     }
                 }else{
                     if (SubdirStart <= OffsetBase+ExifLength){
+                        if (ShowTags) printf("%s    Continued directory ",IndentString);
                         ProcessExifDir(SubdirStart, OffsetBase, ExifLength, NestingLevel+1);
                     }
                 }

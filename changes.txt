@@ -164,7 +164,8 @@ Added handling of explicit 35mm equivalent tag
 fixed inconsistency in computing 35 mm equivalent focal lengths between
 concise and regular output.
 
+Jan 17
+Impelemented optoin to supress file date display, for regression tests.
 
-TODO:
-    supress file date tag for regression testing functionality
-    Look into parsing Exif information
+Feb 1
+Better indentatin of verbose option, rudementary canon maker not parsing

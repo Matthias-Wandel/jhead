@@ -80,16 +80,47 @@ typedef enum {
 
 
 // prototypes for jhead.c functions
-extern void ErrFatal(char * msg);
-extern void ErrNonfatal(char * msg, int a1, int a2);
+void ErrFatal(char * msg);
+void ErrNonfatal(char * msg, int a1, int a2);
 
 // Prototypes for exif.c functions.
-extern int Exif2tm(struct tm * timeptr, char * ExifTime);
-extern void process_EXIF (unsigned char * CharBuf, unsigned int length);
-extern int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length);
-extern void ShowImageInfo(int ShowFileInfo);
-extern void ShowConciseImageInfo(void);
-extern const char * ClearOrientation(void);
+int Exif2tm(struct tm * timeptr, char * ExifTime);
+void process_EXIF (unsigned char * CharBuf, unsigned int length);
+int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length);
+void ShowImageInfo(int ShowFileInfo);
+void ShowConciseImageInfo(void);
+const char * ClearOrientation(void);
+void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount);
+double ConvertAnyFormat(void * ValuePtr, int Format);
+int Get16u(void * Short);
+unsigned Get32u(void * Long);
+
+//--------------------------------------------------------------------------
+// Exif format descriptor stuff
+static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
+#define NUM_FORMATS 12
+
+#define FMT_BYTE       1 
+#define FMT_STRING     2
+#define FMT_USHORT     3
+#define FMT_ULONG      4
+#define FMT_URATIONAL  5
+#define FMT_SBYTE      6
+#define FMT_UNDEFINED  7
+#define FMT_SSHORT     8
+#define FMT_SLONG      9
+#define FMT_SRATIONAL 10
+#define FMT_SINGLE    11
+#define FMT_DOUBLE    12
+
+
+
+
+// makernote.c prototypes
+extern void ProcessMakerNote(unsigned char * DirStart, int ByteCount,
+                 unsigned char * OffsetBase, unsigned ExifLength);
+
+
 
 // Prototypes for myglob.c module
 extern void MyGlob(const char * Pattern , void (*FileFuncParm)(const char * FileName));
