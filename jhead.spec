@@ -11,10 +11,10 @@
 # RPM-Information
 # -----------------------------------------------------
 Name:			jhead
-Summary:		Tool for handling EXIF data in JPEG image files
+Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		2.0
-Release:		3
+Version:		2.1
+Release:		0
 
 Group:			Libraries
 License:		Public Domain
@@ -72,12 +72,15 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
+* Tue Jan 08 2004 Matthias Wandel <mwandel[at]sentex.net> - 2.0-0
+- Bumped version number to 2.1 for new jhead release.
+
 * Tue Jun 03 2003 Oliver Pitzeier <oliver@linux-kernel.at> - 2.0-3
 - Specfile cleanup/beautifying
 - Use _smp_mflags within make
 - Add versions to the changelog entries
 
-* Mon Apr 14 2003 Matthias Wandel <mwandel[at]sentex.net>  - 2.0-2
+* Mon Apr 14 2003 Matthias Wandel <mwandel[at]sentex.net> - 2.0-2
 - First jhead 2.0 RPM built by me.
 - Finally wrote a nice man page for jhead
 - Using jhead 1.9 RPM from connectiva linux as starting point (left in the portugese tags)
