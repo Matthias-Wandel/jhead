@@ -1,1 +1,1 @@
-windiff expected-txt results-txt 
+start windiff expected-txt results-txt 

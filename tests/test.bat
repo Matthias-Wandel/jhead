@@ -4,21 +4,11 @@ copy ..\jhead.exe
 rm -f results-txt\*
 rm -f results-bin\*
 
-rem The date of the files has to be set deterministically.
-copy normal-digicams\*.jpg results-bin
-jhead -ft results-bin\*.jpg
-
 rem test parsing of normal exif information.
-cd results-bin
-FOR %%i IN (*.jpg) DO jhead -v -nofinfo %%i > ..\results-txt\%%i
-cd ..
+FOR %%I IN (normal-digicams\*.jpg) DO jhead -v -nofinfo %%I > results-txt\%%~nI.jpg
 
 rem test parsing and display of some strange jpeg files.
-
-rem FIXME - this is broken - add some kind of supress file time option...
-cd results-bin
-FOR %%i IN (*.jpg) DO jhead -v -nofinfo %%i > ..\results-txt\%%i
-cd ..
+FOR %%I IN (strange-jpegs\*.jpg) DO jhead -v -nofinfo %%I > results-txt\%%~nI.jpg
 
 rem -------------------------------------------------------------------
 rem test comment manipulation
