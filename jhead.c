@@ -493,7 +493,6 @@ void DoFileRenaming(const char * FileName)
                         char pat[8];
                         char num[16];
                         memcpy(pat, pattern+ppos, 4);
-                        pat[a-ppos] = 'd';
                         pat[a-ppos+1] = '\0';
                         sprintf(num, pat, FilesMatched); // let printf do the number formatting.
                         memmove(pattern+ppos+strlen(num), pattern+a+1, strlen(pattern+a+1)+1);
@@ -981,14 +980,14 @@ static void Usage (void)
            "             were not created by digicam)\n"
            "  -ft        Set file modification time to Exif time.\n"
            "  -n[format-string]\n"
-           "             Rename files according to date.  Uses exif date if present, file\b
+           "             Rename files according to date.  Uses exif date if present, file\n"
            "             date otherwise.  If the optional format-string is not supplied,\n"
            "             the format is mmdd-hhmmss.  If a format-string is given, it is\n"
            "             is passed to the 'strftime' function for formatting\n"
            "             In addition to strftime format codes:\n"
            "             '%%f' as part of the string will include the original file name\n"
-           "             '%i' will include a sequence nubmer, starting from 1.  You can\n
-           "             You can specify '%03i' for example to get leading zeros.\n
+           "             '%%i' will include a sequence nubmer, starting from 1. You can\n"
+           "             You can specify '%03i' for example to get leading zeros.\n"
            "             This feature is useful for ordering files from multipe digicams to\n"
            "             sequence of taking.  Only renames files whose names are mostly\n"
            "             numerical (as assigned by digicam)\n"
@@ -1000,7 +999,7 @@ static void Usage (void)
            "  -ta<+|->h[:mm[:ss]]\n"
            "             Adjust time by h:mm backwards or forwards.  Useful when having\n"
            "             taken pictures with the wrong time set on the camera, such as when\n"
-           "             travelling across time zones or DST changes. Dates can be adjusted\n
+           "             travelling across time zones or DST changes. Dates can be adjusted\n"
            "             by offsetting by 24 hours or more.\n"
            "  -ts<time>  Set the Exif internal time to <time>.  <time> is in the format\n"
            "               yyyy:mm:dd-hh:mm:ss\n"
