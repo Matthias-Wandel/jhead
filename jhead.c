@@ -563,6 +563,15 @@ void ProcessFile(const char * FileName)
     int Modified = FALSE;
     ReadMode_t ReadMode = READ_EXIF;
     CurrentFile = FileName;
+    FilesMatched += 1; // Count files processed.
+
+    if (DoModify || RenameToDate || Exif2FileTime){
+        if (access(FileName, 2 /*W_OK*/)){
+            printf("Skipping readonly file '%s'\n",FileName);
+            return;
+        }
+    }
+
     ResetJpgfile();
 
     // Start with an empty image information structure.
@@ -644,8 +653,6 @@ void ProcessFile(const char * FileName)
         Modified = TRUE;
         ReadMode = READ_IMAGE;
     }
-
-    FilesMatched += 1; // Count files processed.
 
     if (DoModify){
         ReadMode |= READ_IMAGE;

@@ -186,8 +186,14 @@ Added ability to do sequencial renaming ('%i' in format string for -n option)
 
 -------Released version 2.2 -- Jun 2004 ----------
 
-add -simulate option
-Don't touch read only files - use access() function
+Handle some oddities - like '/' separators in date fields, or images with
+an orientation tag for the thumbnail.
+
+Increase maximum number of jpeg sections to 40 from 20
+
+Dec 3
+Don't try to write to readonly files.
+
+
 Review David Homer's changes
-Set creation time (figure out how)
 Modify before reporting date/time or using it for -ft
