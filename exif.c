@@ -612,6 +612,11 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 break;
 
             case TAG_ORIENTATION:
+                if (OrientationPtr){
+                    // Already have orientation.  The second orientation is likely
+                    // to be that of the thumbnail image.
+                    break;
+                }
                 ImageInfo.Orientation = (int)ConvertAnyFormat(ValuePtr, Format);
                 OrientationPtr = ValuePtr;
                 OrientationNumFormat = Format;
@@ -659,7 +664,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 ImageInfo.Whitebalance = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
-//Quercus: 17-1-2004 Lightsource
 	    case TAG_LIGHT_SOURCE:
                 ImageInfo.LightSource = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;

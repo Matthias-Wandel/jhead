@@ -1,0 +1,52 @@
+Exif header 7893 bytes long
+Exif section in Intel order
+(dir has 4 entries)
+    Make = "                         ?"
+    Model = "3MDSC?"
+    Software = "1.00(B0563)?"
+    ExifOffset = 148
+    Exif Dir:(dir has 21 entries)
+        ExposureTime = 10/600
+        FNumber = 287/100
+        ISOSpeedRatings = 100
+        ExifVersion = "0210"
+        DateTimeOriginal = "2004/05/09 16:00:21?"
+        DateTimeDigitized = "2004/05/09 16:00:21?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 17/10
+        ShutterSpeedValue = 59/10
+        ApertureValue = 30/10
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 60/10
+        MeteringMode = 1
+        LightSource = 0
+        Flash = 1
+        FocalLength = 600/100
+        Maker note:  32 00 13 00 68 c9 32 b2 01 6f 40... (256 bytes)
+        ColorSpace = 1
+        ExifImageWidth = 1280
+        ExifImageLength = 960
+        InteroperabilityOffset = 766
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98?"
+            InteropVersion = "0100"
+    Continued directory (dir has 3 entries)
+        Compression = 6
+        ThumbnailOffset = 796
+        ThumbnailLength = 3953
+Thumbnail size: 3953 bytes
+Non settings part of Exif header: 7093 bytes
+Jpeg section marker 0xdb size 132
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 418
+Camera make  :                          
+Camera model : 3MDSC
+Date/Time    : 2004/05/09 16:00:21
+Resolution   : 160 x 120
+Flash used   : Yes
+Focal length :  6.0mm
+Exposure time: 0.017 s  (1/60)
+Aperture     : f/2.9
+ISO equiv.   : 100
+Jpeg process : Baseline
+

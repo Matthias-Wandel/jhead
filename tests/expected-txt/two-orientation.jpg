@@ -1,39 +1,10 @@
-File name    : results-bin\rotate.jpg
-File size    : 10555 bytes
-File date    : 2004:01:08 22:00:22
-Camera make  : Canon
-Camera model : Canon PowerShot S40
-Date/Time    : 2004:01:08 22:00:22
-Resolution   : 160 x 120
-Flash used   : No
-Focal length :  7.1mm  (35mm equivalent: 36mm)
-CCD width    : 7.11mm
-Exposure time: 0.100 s  (1/10)
-Aperture     : f/2.8
-Focus dist.  : 1.77m
-Metering Mode: center weight
-Jpeg process : Baseline
-
-Camera make  : Canon
-Camera model : Canon PowerShot S40
-Date/Time    : 2004:01:08 22:00:22
-Resolution   : 120 x 160
-Flash used   : No
-Focal length :  7.1mm  (35mm equivalent: 36mm)
-CCD width    : 7.11mm
-Exposure time: 0.100 s  (1/10)
-Aperture     : f/2.8
-Focus dist.  : 1.77m
-Metering Mode: center weight
-Jpeg process : Baseline
-
 Exif header 34737 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
     ImageDescription = "KONICA MINOLTA DIGITAL CAMERA?"
     Make = "Konica Minolta Camera, Inc.?"
     Model = "DiMAGE A2?"
-    Orientation = 1
+    Orientation = 8
     XResolution = 72/1
     YResolution = 72/1
     ResolutionUnit = 2
@@ -91,17 +62,14 @@ Exif section in Motorola order
         YCbCrPositioning = 1
 Thumbnail size: 3085 bytes
 Non settings part of Exif header: 3325 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
-JPEG image is 120w * 160h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
+Jpeg section marker 0xdb size 132
+Jpeg section marker 0xc4 size 418
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
 Camera make  : Konica Minolta Camera, Inc.
 Camera model : DiMAGE A2
 Date/Time    : 2004:09:08 22:34:10
-Resolution   : 120 x 160
+Resolution   : 160 x 120
+Orientation  : rotate 270
 Flash used   : No
 Focal length : 50.8mm  (35mm equivalent: 200mm)
 Exposure time: 0.0050 s  (1/200)

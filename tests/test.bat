@@ -51,3 +51,7 @@ copy normal-digicams\rotate.jpg results-bin
 jhead -autorot -ft results-bin\rotate.jpg
 jhead -nofinfo results-bin\rotate.jpg >> results-txt\rotate.txt
 
+rem test with two orientation  tags.
+copy normal-digicams\two-orientation.jpg results-bin
+jhead -autorot results-bin\two-orientation.jpg
+jhead -nofinfo -v results-bin\two-orientation.jpg >> results-txt\rotate.txt
