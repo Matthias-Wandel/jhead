@@ -201,7 +201,10 @@ Added -purejpg and -du options
 Dec 28
 More details on flash usage.
 Show digital zoom ratio
-Don't show jpeg prcess if its baseline (almost always is)
+Don't show jpeg process if it's baseline (almost always is)
+
+-------Released version 2.4 -- Jan 2005 ----------
+
 
 to do:
 Renaming - rename associated sound files, and video files for thumbnails.
