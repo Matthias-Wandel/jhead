@@ -956,17 +956,19 @@ int Exif2tm(struct tm * timeptr, char * ExifTime)
 // Show the collected image info, displaying camera F-stop and shutter speed
 // in a consistent and legible fashion.
 //--------------------------------------------------------------------------
-void ShowImageInfo(void)
+void ShowImageInfo(int ShowFileInfo)
 {
-    printf("File name    : %s\n",ImageInfo.FileName);
-    printf("File size    : %d bytes\n",ImageInfo.FileSize);
+    if (ShowFileInfo){
+        printf("File name    : %s\n",ImageInfo.FileName);
+        printf("File size    : %d bytes\n",ImageInfo.FileSize);
 
-    {
-        char Temp[20];
-        struct tm ts;
-        ts = *localtime(&ImageInfo.FileDateTime);
-        strftime(Temp, 20, "%Y:%m:%d %H:%M:%S", &ts);
-        printf("File date    : %s\n",Temp);
+        {
+            char Temp[20];
+            struct tm ts;
+            ts = *localtime(&ImageInfo.FileDateTime);
+            strftime(Temp, 20, "%Y:%m:%d %H:%M:%S", &ts);
+            printf("File date    : %s\n",Temp);
+        }
     }
 
     if (ImageInfo.CameraMake[0]){

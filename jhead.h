@@ -87,7 +87,7 @@ extern void ErrNonfatal(char * msg, int a1, int a2);
 extern int Exif2tm(struct tm * timeptr, char * ExifTime);
 extern void process_EXIF (unsigned char * CharBuf, unsigned int length);
 extern int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length);
-extern void ShowImageInfo(void);
+extern void ShowImageInfo(int ShowFileInfo);
 extern void ShowConciseImageInfo(void);
 extern const char * ClearOrientation(void);
 

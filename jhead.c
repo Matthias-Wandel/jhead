@@ -85,6 +85,11 @@ static char * CommentInsertLiteral = NULL;  // Insert this comment (from command
 static int AutoRotate = 0;
 static int ZeroRotateTagOnly = 0;
 
+static int ShowFileInfo = 1;        // Indicates to show standard file info
+                                    // (file name, file size, file date)
+
+
+
 #ifdef MATTHIAS
     // This #ifdef to take out less than elegant stuff for editing
     // the comments in a jpeg.  The programs rdjpgcom and wrjpgcom
@@ -643,7 +648,7 @@ void ProcessFile(const char * FileName)
         ShowConciseImageInfo();
     }else{
         if (!(DoModify || DoReadAction) || ShowTags){
-            ShowImageInfo();
+            ShowImageInfo(ShowFileInfo);
         }
     }
 
@@ -953,6 +958,7 @@ static void Usage (void)
            "  -v         even more verbose output\n"
            "  -se        Supress error messages relating to corrupt exif header structure\n"
            "  -c         concise output\n"
+           "  -nofinfo   Don't show file info (name/size/date)\n"
            "  -model model\n"
            "             Only process files from digicam containing model substring in\n"
            "             camera model description\n"
@@ -1040,6 +1046,8 @@ int main (int argc, char **argv)
             AutoRotate = 1;
             ZeroRotateTagOnly = 1;
             DoModify = TRUE;
+        }else if (!strcmp(arg,"-nofinfo")){
+            ShowFileInfo = 0;
         }else if (!memcmp(arg,"-n",2)){
             RenameToDate = 1;
             DoReadAction = TRUE; // Rename doesn't modify file, so count as read action.
