@@ -8,7 +8,7 @@ Windows users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it wi
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
 (or Dos prompt under Win95/98)
 
-<h3>Jhead v2.0 program Features</h3>
+<h3>Jhead v2.1 program Features</h3>
 <ul>
 <li>Extracting camera settings from exif image files
 <li>Removing of integral exif thumbnails for compacting Jpegs without loss of other jpeg header info
@@ -73,6 +73,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <td><b>-cs &lt;name&gt;
     <td>
         Save comment sectino to a file
+
+<tr valign=top>
+    <td><b>-cl &lt;comment&gt;
+    <td>
+        Replace comment with comment from command line.
 
 <tr valign=top>
     <td><b>-ci &lt;name&gt;
@@ -230,8 +235,10 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         Adjust time stored in the exif header by h:mm backwards of forwards.  Useful when having
         taken picutres with the wrong time set on the camera, such as afte travelling across
         time zones, or when daylight savings time has changed.
-        This option only changes the "DateTimeOriginal" (tag 0x9003) field, but leaves the 
-        "DateTimeDigitized" (tag 0x9004) field alone.
+        This option uses the time from the "DateTimeOriginal" (tag 0x9003) field, but sets
+	all the time fields in the exif header to the new value.  Version 2.0 and earlier only
+	modified the "DateTimeOriginal" (tag 0x9003) field, but too many people thoutht
+	that that was a bug.
 
         Examples:<br>
         Adjust time one hour forward (you would use this after you forgot to set daylight savings 
@@ -245,8 +252,9 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <td><b>-ts
     <td>
         Sets the time stored in the exif header to what is specified on the command line.
-        This option only changes the "DateTimeOriginal" (tar 0x9003) field, but leaves the 
-        "DateTimeDigitized" (tag 0x9004) field alone.  Time must be specified as:<br>
+        This option changes all the date fields in the Exif header.  Version 2.0 and earlier
+	only changed the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
+	this was a bug.  Time must be specified as:<br>
         <font face=courier> &nbsp &nbsp yyyy:mm:dd-hh:mm:ss</font><p>
 
 <tr valign=top>
@@ -355,10 +363,7 @@ I also use <a href="http://www.photodex.com"> CompuPic </a> to organize my photo
 the built in lossless Jpeg rotation feature (which also preserves the Exif header).  This unfortunately
 is payware, but its a pretty good program.  It has a free two week evaluation period.  After
 this period, it is still semi-usable but annoying.  I ended up paying for it.  Or you can then use ACDsee,
-which has a longer free evaluation period, but costs more.  There's also 
-<a href="http://www.irfanview.com">infranview</a> for windows.
-There's also a free version of <a href="http://www.photodex.com/downloads/platforms/linux.html">Compupic 5.1 for Linux</a>
-and other platforms.  Version 5.1 is a bit out of date, but still works.  Lacks lossles rotation though.
+which has a longer free evaluation period, but costs more. 
 </ul>
 
 <b>wrjpgcom / rdjpgcom</b><br>
@@ -370,4 +375,4 @@ linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updateed: April 2003
+Last Updateed: Jan 2004

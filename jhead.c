@@ -11,7 +11,7 @@
 // Compiling under Windows:  Use MSVC5 or MSVC6, from command line:
 // cl -Ox jhead.c exif.c myglob.c
 //
-// Dec 1999 - Dec 2003
+// Dec 1999 - Jan 2004
 //
 // by Matthias Wandel   email: mwandel(at)sentex.net
 //--------------------------------------------------------------------------
