@@ -63,3 +63,11 @@ jhead -nofinfo -v results-bin\two-orientation.jpg >> results-txt\rotate.txt
 
 rem test saving of incorrectly placed thumbnail
 jhead -st results-bin\thumbnail-place-error.thm strange-jpegs\thumbnail-place-error.jpg
+
+rem -------------------------------------------------------------------
+rem test rename command.
+rm -rf temp
+mkdir temp
+copy normal-digicams\*.jpg temp
+jhead -nf%%02i-%%H-%%f temp\*.jpg
+ls temp >> results-txt\new-names-txt

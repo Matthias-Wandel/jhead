@@ -493,6 +493,7 @@ void DoFileRenaming(const char * FileName)
                         char pat[8];
                         char num[16];
                         memcpy(pat, pattern+ppos, 4);
+                        pat[a-ppos] = 'd'; // Replace 'i' with 'd' for '%d'
                         pat[a-ppos+1] = '\0';
                         sprintf(num, pat, FilesMatched); // let printf do the number formatting.
                         memmove(pattern+ppos+strlen(num), pattern+a+1, strlen(pattern+a+1)+1);
