@@ -175,6 +175,13 @@ Various spelling errors fixed in output strings, and
 jpeg --> JPEG, exif --> Exif
 
 April 13
-Use '-outfile' option when launching jpegtran to do rotation so that syntax
-of launched command is same on windows and unix.
+Use '-outfile' command line option of jpegtran when launching jpegtran to 
+do rotation so that syntax of launched command is same on Windows and Unix.
 
+April 19
+Various spelling fixes in manapge.
+
+Jun 20
+Added ability to do sequencial renaming ('%i' in format string for -n option)
+
+-------Released version 2.2 -- Jun 2004 -------

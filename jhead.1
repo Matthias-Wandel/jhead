@@ -1,4 +1,4 @@
-.TH JHEAD 1 "8 Jan 2004" "jhead 2.1"
+.TH JHEAD 1 "20 Jun 2004" "jhead 2.2"
 .SH NAME
 jhead \- Digicam JPEG Exif header manipulation tool
 .SH SYNOPSIS
@@ -169,6 +169,8 @@ preserve the Exif header when saving pictures.
 .BI \-\^n [format_string]
 This option causes files to be renamed using the date information from the Exif header 
 "DateTimeOriginal" field.
+If the file is not an Exif file, or the DateTimeOriginal does not contain a valid value,
+the file date is used.
 Renaming is by default restricted to files whose names consist largely of digits.
 This effectively restricts renaming to files that have not already been manually renamed, as
 the default sequential names from digital cameras consist largely of digits.
@@ -185,7 +187,9 @@ If a
 .I format_string
 is provided, it will be passed to the strftime function as the format string.  
 In addition, if the format string contains '%f', this will
-substitute the original name of the file (minus extension).
+substitute the original name of the file (minus extension).  '%i' will substitute a sequence
+number.  Leading zeros can be specified like with printf - i.e. '%04i' pads the number to 4 
+digits using leading zeros.
 
 If the target name already exists, the name will be appended with "a", "b", "c", etc,
 unless the name ends with a letter, in which case it will be appended with "0", "1", "2", etc.
@@ -274,7 +278,7 @@ Having a whole directory tree of photos from my S100, I run the following comman
 The first command mogrifies all JPEGs in the tree that indicate that they are from a 
 Cannon S100 in their Exif header to 80% quality at the same resolution.  This is a 'lossy'
 process, so I only run it on files that are from the Canon, and only run it once.
-The next command then takes all JPEGs and converts them to progressive JPEGs.  The result
+The next command then takes a JPEGs and converts them to progressive JPEGs.  The result
 is the same images, with no discernible differences, stored in half the space.  This only
 produces substantial savings on some cameras, such as the Canon S100.  The newer S110 and S300
 cameras are smarter about how they compress JPEG images, so re-mogrifying them may not give
@@ -296,7 +300,8 @@ After jhead runs a program to rotate or resize an image, the image dimensions an
 in the Exif header are not adjusted.
 .PP
 Modifying of Exif header data is very limited, as Jhead internally only has a read only
-implementation of the file system contained in the Exif header.
+implementation of the file system contained in the Exif header.  There is no way to replace
+the thumbnail in the Exif header with another, for example.
 .PP
 Send bug reports to mwandel at sentex dot net.
 

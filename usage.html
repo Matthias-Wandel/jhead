@@ -8,7 +8,7 @@ Windows users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it wi
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
 (or DOS prompt under Win95/98)
 
-<h3>Jhead v2.1 program Features</h3>
+<h3>Jhead v2.2 program Features</h3>
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to manage running programs on large batches of Jpegs and restoring Exif header
@@ -28,7 +28,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         Using the 'Orientation' tag of the Exif header, rotate the image so that it is upright.
         The program 'jpegtran' is used to perform the rotation.  This program is present in most 
         Linux distributions.  For windows, you need to get a copy of it.
-        After rotation, the orientation tag of th Exif header is set to '1' (normal orientation).  
+        After rotation, the orientation tag of the Exif header is set to '1' (normal orientation).  
         The thumbnail is not rotated (that would be much harder).  Other fields of the Exif header, 
         including dimensions are untouched, but the JPEG height/width are adjusted.<br>
         This feature is especially useful with newer Canon cameras, that set the orientation tag
@@ -39,20 +39,20 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         Clears the Exif header rotation tag without altering the image.
         You may find that your images have rotation tags in them from your camera, but you already 
         rotated them with some lossless tool without clearing the rotation tag.
-        Now your freindly browser rotates the images on you again because the image rotation
+        Now your friendly browser rotates the images on you again because the image rotation
         tag still indicates the image should be rotated.  Use this option to fix this problem.
 <tr valign=top>
     <td><b>-dt
     <td>
         Delete thumbnails from the Exif header, but leave the
-        interesting parts intact.  This opeion truncates the thumbnail from the Exif header, provided
+        interesting parts intact.  This option truncates the thumbnail from the Exif header, provided
         that the thumbnail is the last part of th Exif header (which so far as I know is always the case).
         Exif headers have a built-in thumbnail, which typically
         occupies around 10k of space.  This thumbnail is used by digital cameras.  Windows XP may also
         use this thumbnail if present (but it doesn't need it).  The
         thumbnails are too small to use even full screen on the digicam's LCD.
         I have not encountered any adverse side effects of deleting the thumbnails, even from the
-        software provided with my old olympus digicam.  Use with caution.
+        software provided with my old Olympus digicam.  Use with caution.
 
 <tr valign=top>
     <td><b>-de
@@ -69,18 +69,18 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-ce
     <td>
-        Edit the JPEG hader comment field (note, this comment field is outside the Exif structure
+        Edit the JPEG header comment field (note, this comment field is outside the Exif structure
         and can be part of Exif and non Exif style JPEG images).
         <br>
         A temporary file containing the comment is created and Notepad launched to edit it under Windows.  
-        Under Unix, vi is used to edit the temprary file.  After the file is edited, the comments
+        Under UNIX, vi is used to edit the temporary file.  After the file is edited, the comments
         are put back into the file, and the temporary file is deleted.
 
 
 <tr valign=top>
     <td><b>-cs &lt;name&gt;
     <td>
-        Save comment sectino to a file
+        Save comment section to a file
 
 <tr valign=top>
     <td><b>-cl &lt;comment&gt;
@@ -127,7 +127,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         <br>
         Like the '-st' option, this option uses a 'relative path', which is useful for doing
         a batch of photos at a time.  For example, if you have a directory full of digital camera
-        photos, before editing them, you could copy them into the subdirectory 'originals'.
+        photos, before editing them, you could copy them into the subdirectory 'originals.
         Then edit them (or batch convert them using mogrify).  After editing, you can put the
         original Exif headers back in to the whole directory of images at a time using the
         incantation:
@@ -149,7 +149,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>  
     <td><b>-se
     <td>
-        Supress error messages relating to corrupt Exif header structure.
+        Suppress error messages relating to corrupt Exif header structure.
 
 <tr valign=top>
     <td><b>-V
@@ -188,23 +188,29 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <td><b>-n[fmt-string]
     <td>
         This option causes files to be renamed according to the Exif header "DateTimeOriginal" field.
-        Renaming is restricted to files whose names consist largely of digits.
+        If the file is not an Exif file, or the DateTimeOriginal does not contain a valid value, 
+        the file date is used.
+        Renaming is by default restricted to files whose names consist largely of digits.
         This effectively restricts renaming to files that have not already been manually renamed, as
         the default sequential names from digital cameras consist largely of digits.
-        Use the -nf option to force renaming of all files.<p>
+        Use the -nf option to force renaming of all files.
+        <p>
         If the [fmt-string] is omitted, the file will be renamed to MMDD-HHMMSS.  Note that 
         this scheme doesn't include the year (I never have photos from different years together anyway).
         <br>
-        If a [fmt-string] is provided, the fmt-will be passed to the 
+        If a [fmt-string] is provided, the fmt-string will be passed to the 
         strftime function for formatting.  In addition, if the format string contains '%f', this will
         substitute the original name of the file (minus extension).
-      
+        <br>
+        A sequence number may also be included by including '%i' in the format string.  Leading
+        zeros can be specified.  '%03i' for example will pad the numbers to '001', '002'...
+        this works just like printf in C, but with '%i' instead of '%d'.
         <br>
         If the target name already exists, the name will be appended with "a", "b", "c", etc,
         unless the name ends with a letter, in which case it will be appended with "0", "1", "2", etc.
         <br>
         This feature is especially useful if more than one digital camera was used to take pictures
-        of an event.  By renaming them to a schem according to date, they will automatically
+        of an event.  By renaming them to a scheme according to date, they will automatically
         appear in order of taking when viewed with some sort of viewer like Compupic or AcdSee, and
         sorted by name.  Or you could use the -ft option and sort by date.
         <p>
@@ -228,7 +234,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         This will rename files matched by *.jpg according to YYYYMMDD-HHMMSS
         <p>
         For a full listing of strftime arguments, look up the strftime function.  Note that some arguments
-        to the strftime function (not listed here) produce strings with charactrers such as '/' and ':' that
+        to the strftime function (not listed here) produce strings with characters such as '/' and ':' that
         may not be valid as part of a filename on various systems.
 
 <tr valign=top>
@@ -241,11 +247,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <td><b>-ta
     <td>
         Adjust time stored in the Exif header by h:mm backwards of forwards.  Useful when having
-        taken picutres with the wrong time set on the camera, such as afte travelling across
+        taken pictures with the wrong time set on the camera, such as after travelling across
         time zones, or when daylight savings time has changed.
         This option uses the time from the "DateTimeOriginal" (tag 0x9003) field, but sets
 	all the time fields in the Exif header to the new value.  Version 2.0 and earlier only
-	modified the "DateTimeOriginal" (tag 0x9003) field, but too many people thoutht
+	modified the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
 	that that was a bug.
 
         Examples:<br>
@@ -255,6 +261,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         Adjust time back by 23 seconds (you would use this to get the timestamps from two digicams
         in sync after you found that they didn't quite align)
         <ul>jhead -ta-0:00:23 *.jpg</ul>
+        Adjust time forward by 2 days and 1 hour (49 hours)
+        <ul>jhead -ta+49 *.jpg</ul>
 
 <tr valign=top>
     <td><b>-ts
@@ -293,7 +301,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
           jhead -cmd "mogrify -quality 80 &i" -model S100 -r *.jpg<br>
           jhead -cmd "jpegtran -progressive &i &o" -r *.jpg<p>
         </ul>
-        The first command mogrifies all jpegs in the tree that indicate that they are from a 
+        The first command mogrifies all Jpegs in the tree that indicate that they are from a 
         Cannon S100 in their Exif header to 80% quality at the same resolution.  This is a 'lossy'
         process, so I only run it on files that are from the Canon, and only run it once.
         The next command then takes all jpegs and converts them to progressive Jpegs.  The result
@@ -307,7 +315,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         shutter speed for some of my photos, and my HTML index generating program uses the Exif tags
         to display the JPEG images in order of taking.
         <p>
-        Newer version of "mogrify" already preserve Exif informationm, so with some clever 
+        Newer version of "mogrify" already preserve Exif information, so with some clever 
         shell scripting, you could do these two steps without using jhead and still keep the 
         Exif headers.
         <p>
@@ -325,7 +333,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     Name globbing means matching wildcard patterns to actual file names.  If you know what this
     term means, you are probably annoyed at how programs on Windows typically handle this.
     The Win32 version of this program goes beyond the pattern matching that Windows provides,
-    and allows you to specify fancy unix-like patterns such as:
+    and allows you to specify fancy UNIX-like patterns such as:
     <p>
     <font size = 2 face="courier">&nbsp jhead c:\pix\199*\*\*.jpg</font>
     <p>
@@ -340,7 +348,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <font size = 2 face="courier">'c:\a**\*.jpg'</font>
     will not recurse.
     The <font size = 2 face="courier">'**'</font>
-    recursive expansion is ONLY supportedd on the Windows version.   The code is in the module 'myglob.c',
+    recursive expansion is ONLY supported on the Windows version.   The code is in the module 'myglob.c',
     if you want to reuse it (I certainly intend to reuse that code for other applications).
     Under Unix, the shell's wildcard expansion is
     pretty decent already, and dealing with the convoluted nature of some Unix file layouts,
@@ -378,9 +386,9 @@ which has a longer free evaluation period, but costs more.
 <ul>
 You can use these programs to write and extract COM markers from JPEG images respectively.  Although I always
 use my jhead program for this feature, the wrjpgcom and rdjpgcom programs are extremely simple and very
-suitable for use with perl or shell scripts to process lots of images.  Thes programs are part of most 
-linux distributions as part of the libjpg package (along with jpegtran)
+suitable for use with perl or shell scripts to process lots of images.  These programs are part of most 
+Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updateed: Jan 2004
+Last Updateed: Jun 2004

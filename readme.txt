@@ -55,9 +55,7 @@ Liscence:
     common courtesy, please.
 
     If you do integrate the code into some software of yours, I'd appreciate
-    knowing about it though. You can e-mail me at mwandel(at)sentex.net
-    You don't have to e-mail me however.
-
+    knowing about it though. 
 
 Matthias Wandel
 
