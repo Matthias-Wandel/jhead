@@ -943,7 +943,7 @@ int Exif2tm(struct tm * timeptr, char * ExifTime)
     // Check for format: YYYY:MM:DD HH:MM:SS format.
     // Date and time normally separated by a space, but also seen a ':' there, so
     // skip the middle space with '%*c' so it can be any character.
-    a = sscanf(ExifTime, "%d:%d:%d%*c%d:%d:%d",
+    a = sscanf(ExifTime, "%d%*c%d%*c%d%*c%d:%d:%d",
             &timeptr->tm_year, &timeptr->tm_mon, &timeptr->tm_mday,
             &timeptr->tm_hour, &timeptr->tm_min, &timeptr->tm_sec);
 

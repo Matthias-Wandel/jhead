@@ -14,9 +14,6 @@ Focus dist.  : 1.77m
 Metering Mode: center weight
 Jpeg process : Baseline
 
-File name    : results-bin\rotate.jpg
-File size    : 10879 bytes
-File date    : 2004:01:08 22:00:22
 Camera make  : Canon
 Camera model : Canon PowerShot S40
 Date/Time    : 2004:01:08 22:00:22
