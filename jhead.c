@@ -1033,6 +1033,13 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-te")){
             ExifXferScrFile = argv[++argn];
             DoModify = TRUE;
+        }else if (!strcmp(arg,"-autorot")){
+            AutoRotate = 1;
+            DoModify = TRUE;
+        }else if (!strcmp(arg,"-norot")){
+            AutoRotate = 1;
+            ZeroRotateTagOnly = 1;
+            DoModify = TRUE;
         }else if (!memcmp(arg,"-n",2)){
             RenameToDate = 1;
             DoReadAction = TRUE; // Rename doesn't modify file, so count as read action.
@@ -1117,13 +1124,6 @@ int main (int argc, char **argv)
             DoModify = TRUE;
         }else if (!strcmp(arg,"-se")){
             SupressNonFatalErrors = TRUE;
-        }else if (!memcmp(arg,"-autorot", 8)){
-            AutoRotate = 1;
-            DoModify = TRUE;
-        }else if (!memcmp(arg,"-autorot", 8)){
-            AutoRotate = 1;
-            ZeroRotateTagOnly = 1;
-            DoModify = TRUE;
 #ifdef MATTHIAS
         }else if (!strcmp(arg,"-ca")){
             // Its a literal comment.  Add.

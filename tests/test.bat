@@ -26,7 +26,7 @@ rem extract the comments (-cs)
 jhead -cs results-txt\comments.txt comments.jpg 
 jhead comments.jpg >> results-txt\comments.txt
 rem test comment edit
-set EDITOR=normal-digicams\fake-editor.bat
+set EDITOR=normal-digicams\pretend-editor.bat
 jhead -ce -ft comments.jpg
 jhead comments.jpg >> results-txt\comments.txt
 
@@ -38,4 +38,14 @@ jhead comments.jpg >> results-txt\comments.txt
 rem remove the comment again (-dc)
 jhead -dc -ft comments.jpg
 jhead comments.jpg >> results-txt\comments.txt
+
+
+rem -------------------------------------------------------------------
+rem test rotate command stuff
+copy normal-digicams\rotate.jpg results-bin
+jhead -norot -ft results-bin\rotate.jpg
+jhead results-bin\rotate.jpg > results-txt\rotate.txt
+copy normal-digicams\rotate.jpg results-bin
+jhead -autorot -ft results-bin\rotate.jpg
+jhead results-bin\rotate.jpg >> results-txt\rotate.txt
 
