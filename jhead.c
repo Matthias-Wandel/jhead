@@ -2,18 +2,15 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.15
+// Version 2.2
 //
 //
-// Compiling under Unix:
-// Use: cc -O3 -o jhead jhead.c exif.c -lm
-//
-// Compiling under Windows:  Use MSVC5 or MSVC6, from command line:
+// Compiling under Windows:  Use microsoft's compile.  from command line:
 // cl -Ox jhead.c exif.c myglob.c
 //
-// Dec 1999 - April 2004
+// Dec 1999 - June 2004
 //
-// by Matthias Wandel   email: mwandel(at)sentex.net
+// by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.15"
+#define JHEAD_VERSION "2.2"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -426,6 +423,8 @@ void DoFileRenaming(const char * FileName)
     int PrefixPart = 0;
     int ExtensionPart = strlen(FileName);
     int a;
+    struct tm tm;
+    char NewBaseName[PATH_MAX*2];
 
     for (a=0;FileName[a];a++){
         if (FileName[a] == '/' || FileName[a] == '\\'){
@@ -449,90 +448,110 @@ void DoFileRenaming(const char * FileName)
     }
 
 
-    if (ImageInfo.DateTime[0]){
-        struct tm tm;
-        if (Exif2tm(&tm, ImageInfo.DateTime)){
-            char NewBaseName[PATH_MAX*2];
+    if (!ImageInfo.DateTime[0] || !Exif2tm(&tm, ImageInfo.DateTime)){
+        printf("File '%s' contains no exif date stamp.  Using file date\n",FileName);
+        // Use file date/time instead.
+        tm = *localtime(&ImageInfo.FileDateTime);
+    }
+    
 
-            strcpy(NewBaseName, FileName); // Get path component of name.
+    strcpy(NewBaseName, FileName); // Get path component of name.
 
-            if (strftime_args){
-                // Complicated scheme for flexibility.  Just pass the args to strftime.
-                time_t UnixTime;
+    if (strftime_args){
+        // Complicated scheme for flexibility.  Just pass the args to strftime.
+        time_t UnixTime;
 
-                char *s;
-                char pattern[PATH_MAX];
-                int n = ExtensionPart - PrefixPart;
+        char *s;
+        char pattern[PATH_MAX+20];
+        int n = ExtensionPart - PrefixPart;
 
-                // Call mktime to get weekday and such filled in.
-                UnixTime = mktime(&tm);
-                if ((int)UnixTime == -1){
-                    printf("Could not convert %s to unix time",ImageInfo.DateTime);
-                    return;
-                }
-
-                // Substitute "%f" for the original name (minus path & extension)
-                // This feature integrated from James R. Van Zandt" <jrv @ vanzandt.mv.com>
-                pattern[PATH_MAX-1]=0;
-                strncpy(pattern, strftime_args, PATH_MAX-1);
-                while ((s = strstr(pattern, "%f")) && strlen(pattern) + n < PATH_MAX-1){
-                    memmove(s + n, s + 2, strlen(s+2) + 1);
-                    memmove(s, FileName + PrefixPart, n);
-                }
-            
-                strftime(NewBaseName+PrefixPart, PATH_MAX, pattern, &tm);
-
-            }else{
-                // My favourite scheme.
-                sprintf(NewBaseName+PrefixPart, "%02d%02d-%02d%02d%02d",
-                     tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-            }
-
-            for (a=0;;a++){
-                char NewName[120];
-                char NameExtra[3];
-                struct stat dummy;
-
-                if (a){
-                    // Generate a suffix for the file name if previous choice of names is taken.
-                    // depending on wether the name ends in a letter or digit, pick the opposite to separate
-                    // it.  This to avoid using a separator character - this because any good separator
-                    // is before the '.' in ascii, and so sorting the names would put the later name before
-                    // the name without suffix, causing the pictures to more likely be out of order.
-                    if (isdigit(NewBaseName[strlen(NewBaseName)-1])){
-                        NameExtra[0] = 'a'-1+a; // Try a,b,c,d... for suffix if it ends in a letter.
-                    }else{
-                        NameExtra[0] = '0'-1+a; // Try 1,2,3,4... for suffix if it ends in a char.
-                    }
-                    NameExtra[1] = 0;
-                }else{
-                    NameExtra[0] = 0;
-                }
-
-                sprintf(NewName, "%s%s.jpg", NewBaseName, NameExtra);
-
-                if (!strcmp(FileName, NewName)) break; // Skip if its already this name.
-
-                if (stat(NewName, &dummy)){
-                    // This name does not pre-exist.
-                    if (rename(FileName, NewName) == 0){
-                        printf("%s --> %s\n",FileName, NewName);
-                    }else{
-                        printf("Error: Couldn't rename '%s' to '%s'\n",FileName, NewName);
-                    }
-                    break;
-                }
-
-                if (a >= 9){
-                    printf("Possible new names for for '%s' already exist\n",FileName);
-                    break;
-                }
-            }
-        }else{
-            printf("File '%s' contains no Exif timestamp\n", FileName);
+        // Call mktime to get weekday and such filled in.
+        UnixTime = mktime(&tm);
+        if ((int)UnixTime == -1){
+            printf("Could not convert %s to unix time",ImageInfo.DateTime);
+            return;
         }
+
+        // Substitute "%f" for the original name (minus path & extension)
+        pattern[PATH_MAX-1]=0;
+        strncpy(pattern, strftime_args, PATH_MAX-1);
+        while ((s = strstr(pattern, "%f")) && strlen(pattern) + n < PATH_MAX-1){
+            memmove(s + n, s + 2, strlen(s+2) + 1);
+            memmove(s, FileName + PrefixPart, n);
+        }
+
+        {
+            // Sequential number renaming part.  
+            // '%i' type pattern becomes sequence number.
+            int ppos = -1;
+            for (a=0;pattern[a];a++){
+                if (pattern[a] == '%'){
+                     ppos = a;
+                }else if (pattern[a] == 'i'){
+                    if (ppos >= 0 && a<ppos+4){
+                        // Replace this part with a number.
+                        char pat[8];
+                        char num[16];
+                        memcpy(pat, pattern+ppos, 4);
+                        pat[a-ppos] = 'd';
+                        pat[a-ppos+1] = '\0';
+                        sprintf(num, pat, FilesMatched); // let printf do the number formatting.
+                        memmove(pattern+ppos+strlen(num), pattern+a+1, strlen(pattern+a+1)+1);
+                        memcpy(pattern+ppos, num, strlen(num));
+                        break;
+                    }
+                }else if (!isdigit(pattern[a])){
+                    ppos = -1;
+                }
+            }
+        }
+
+        strftime(NewBaseName+PrefixPart, PATH_MAX, pattern, &tm);
     }else{
-        printf("File '%s' contains no exif date stamp\n",FileName);
+        // My favourite scheme.
+        sprintf(NewBaseName+PrefixPart, "%02d%02d-%02d%02d%02d",
+             tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    }
+
+    for (a=0;;a++){
+        char NewName[PATH_MAX];
+        char NameExtra[3];
+        struct stat dummy;
+
+        if (a){
+            // Generate a suffix for the file name if previous choice of names is taken.
+            // depending on wether the name ends in a letter or digit, pick the opposite to separate
+            // it.  This to avoid using a separator character - this because any good separator
+            // is before the '.' in ascii, and so sorting the names would put the later name before
+            // the name without suffix, causing the pictures to more likely be out of order.
+            if (isdigit(NewBaseName[strlen(NewBaseName)-1])){
+                NameExtra[0] = 'a'-1+a; // Try a,b,c,d... for suffix if it ends in a letter.
+            }else{
+                NameExtra[0] = '0'-1+a; // Try 1,2,3,4... for suffix if it ends in a char.
+            }
+            NameExtra[1] = 0;
+        }else{
+            NameExtra[0] = 0;
+        }
+
+        sprintf(NewName, "%s%s.jpg", NewBaseName, NameExtra);
+
+        if (!strcmp(FileName, NewName)) break; // Skip if its already this name.
+
+        if (stat(NewName, &dummy)){
+            // This name does not pre-exist.
+            if (rename(FileName, NewName) == 0){
+                printf("%s --> %s\n",FileName, NewName);
+            }else{
+                printf("Error: Couldn't rename '%s' to '%s'\n",FileName, NewName);
+            }
+            break;
+        }
+
+        if (a >= 9){
+            printf("Possible new names for for '%s' already exist\n",FileName);
+            break;
+        }
     }
 }
 
@@ -627,7 +646,7 @@ void ProcessFile(const char * FileName)
         ReadMode = READ_IMAGE;
     }
 
-    FilesMatched = TRUE; // Turns off complaining that nothing matched.
+    FilesMatched += 1; // Count files processed.
 
     if (DoModify){
         ReadMode |= READ_IMAGE;
@@ -962,10 +981,14 @@ static void Usage (void)
            "             were not created by digicam)\n"
            "  -ft        Set file modification time to Exif time.\n"
            "  -n[format-string]\n"
-           "             Rename files according to date.  If the optional format-string is\n"
-           "             not supplied, the format is mmdd-hhmmss.  If a format-string is\n"
-           "             given, it is passed to the 'strftime' function for formatting\n"
+           "             Rename files according to date.  Uses exif date if present, file\b
+           "             date otherwise.  If the optional format-string is not supplied,\n"
+           "             the format is mmdd-hhmmss.  If a format-string is given, it is\n"
+           "             is passed to the 'strftime' function for formatting\n"
+           "             In addition to strftime format codes:\n"
            "             '%%f' as part of the string will include the original file name\n"
+           "             '%i' will include a sequence nubmer, starting from 1.  You can\n
+           "             You can specify '%03i' for example to get leading zeros.\n
            "             This feature is useful for ordering files from multipe digicams to\n"
            "             sequence of taking.  Only renames files whose names are mostly\n"
            "             numerical (as assigned by digicam)\n"
@@ -974,10 +997,11 @@ static void Usage (void)
            "             the end of the name to make it uniqe.\n"
            "  -nf[format-string]\n"
            "             Same as -n, but rename regardless of original name\n"
-           "  -ta<+|->h[:mm]\n"
+           "  -ta<+|->h[:mm[:ss]]\n"
            "             Adjust time by h:mm backwards or forwards.  Useful when having\n"
            "             taken pictures with the wrong time set on the camera, such as when\n"
-           "             travelling across time zones or DST changes.\n"
+           "             travelling across time zones or DST changes. Dates can be adjusted\n
+           "             by offsetting by 24 hours or more.\n"
            "  -ts<time>  Set the Exif internal time to <time>.  <time> is in the format\n"
            "               yyyy:mm:dd-hh:mm:ss\n"
            "  -cmd command\n"
