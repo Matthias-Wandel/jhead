@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.35"
+#define JHEAD_VERSION "2.36"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -449,7 +449,7 @@ void DoFileRenaming(const char * FileName)
         }
     }
 
-    if (ImageInfo.numDateTimeTags == 0 || !Exif2tm(&tm, ImageInfo.DateTimePointers[0])){
+    if (!Exif2tm(&tm, ImageInfo.DateTime)){
         printf("File '%s' contains no exif date stamp.  Using file date\n",FileName);
         // Use file date/time instead.
         tm = *localtime(&ImageInfo.FileDateTime);
@@ -906,7 +906,7 @@ void ProcessFile(const char * FileName)
             struct tm tm;
             time_t UnixTime;
             struct utimbuf mtime;
-            if (!Exif2tm(&tm, ImageInfo.DateTimePointers[0])) goto badtime;
+            if (!Exif2tm(&tm, ImageInfo.DateTime)) goto badtime;
 
             UnixTime = mktime(&tm);
             if ((int)UnixTime == -1){

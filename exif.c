@@ -516,7 +516,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
                 if (ImageInfo.numDateTimeTags >= MAX_DATE_COPIES){
                     ErrNonfatal("More than %d date fields!  This is nuts", MAX_DATE_COPIES, 0);
-            break;
+                    break;
                 }
                 ImageInfo.DateTimePointers[ImageInfo.numDateTimeTags++] = ValuePtr;
                 break;
