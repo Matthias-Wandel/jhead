@@ -2,7 +2,7 @@
 <font size = 2 face="helvetica">
 
 <h3>Jhead is a command line driven program for manipulating the non image parts of Exif flavour
-Jpeg files that most digital cameras produce.</h3><p>
+JPEG files that most digital cameras produce.</h3><p>
 
 Windows users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it with the mouse from Windows 
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
@@ -11,14 +11,14 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <h3>Jhead v2.1 program Features</h3>
 <ul>
 <li>Extracting camera settings from exif image files
-<li>Removing of integral exif thumbnails for compacting Jpegs without loss of other jpeg header info
 <li>Able to manage running programs on large batches of Jpegs and restoring exif header
     information afterwards.
-<li>Transplant Exif image header from one Jpeg to another
-<li>Save integral Exif thumbnails as separated images
 <li>Able to set and/or adjust the exif time field
-<li>Edit Jpeg comment fields
-<li>Automatically rotate images upright (using jpegtran) according to "orientation" tag
+<li>Removing of integral exif thumbnails for compacting Jpegs without loss of other JPEG header info
+<li>Transplant Exif image header from one JPEG to another
+<li>Save integral Exif thumbnails as separated images
+<li>Edit JPEG comment fields
+<li>Automatically rotate images upright (using jpegtran) according to "orientation" tag.
 </ul>
 
 <h3>Command line options</h3>
@@ -30,7 +30,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         Linux distributions.  For windows, you need to get a copy of it.
         After rotation, the orientation tag of th exif header is set to '1' (normal orientation).  
         The thumbnail is not rotated (that would be much harder).  Other fields of the exif header, 
-        including dimensions are untouched, but the jpeg height/width are adjusted.<br>
+        including dimensions are untouched, but the JPEG height/width are adjusted.<br>
         This feature is especially useful with newer Canon cameras, that set the orientation tag
         automatically using a gravity sensor.
 <tr valign=top>
@@ -69,8 +69,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-ce
     <td>
-        Edit the jpeg hader comment field (note, this comment field is outside the exif structure
-        and can be part of exif and non exif style Jpeg images).
+        Edit the JPEG hader comment field (note, this comment field is outside the exif structure
+        and can be part of exif and non exif style JPEG images).
         <br>
         A temporary file containing the comment is created and Notepad launched to edit it under Windows.  
         Under Unix, vi is used to edit the temprary file.  After the file is edited, the comments
@@ -95,8 +95,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
     <td><b>-st &lt;name&gt;
     <td>
-        Save the built in thumbnail from jpegs that came from a digital camera.  The thumbnail lives
-        inside the Exif header, and is a very low-res Jpeg image.  Note that making
+        Save the built in thumbnail from Jpegs that came from a digital camera.  The thumbnail lives
+        inside the Exif header, and is a very low-res JPEG image.  Note that making
         any changes to a photo, except for with some programs, generally wipes out the exif header
         and with it the thumbnail.
         <br>
@@ -276,10 +276,10 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         Executes the specified command on each Jepg file to be processed.<p>
         The Exif section of each file is read before running the command, and re-inserted
         after the command finishes.<p>
-        The specified command invoked separately for each Jpeg that is processed, even if
+        The specified command invoked separately for each JPEG that is processed, even if
         multiple files are specified (explicitly or by wild card).
         I use this option to process whole directory trees of Jpegs from my digital camera
-        with JPEGTRAN (Independent Jpeg group) and Image-Magic's 'MOGRIFY' command without 
+        with JPEGTRAN (Independent JPEG group) and Image-Magic's 'MOGRIFY' command without 
         loosing the camera settings and other info stored in the Exif headers.<p>
         JPEGTRAN is useful for lossless rotation, as well as for converting Jpegs to
         progressive Jpegs (also a lossless process, but results in typically 5% smaller files)
@@ -299,13 +299,13 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         The next command then takes all jpegs and converts them to progressive Jpegs.  The result
         is the same images, with no discernible differences, stored in half the space.  This only
         produces substantial savings on some cameras, such as the Canon S100.  The newer S110 and S300
-        cameras are smarter about how they compress Jpeg images, so re-mogrifying them may not give
+        cameras are smarter about how they compress JPEG images, so re-mogrifying them may not give
         you any savings unless you crank the quality way down.  However, turning them into progressive
-        jpeg images is a lossless process that typically makes image files 5% smaller.
+        JPEG images is a lossless process that typically makes image files 5% smaller.
         <p>
         Keeping the Exif header information is important to me, as I like to check things like the
         shutter speed for some of my photos, and my HTML index generating program uses the exif tags
-        to display the Jpeg images in order of taking.
+        to display the JPEG images in order of taking.
         <p>
         Newer version of "mogrify" already preserve exif informationm, so with some clever 
         shell scripting, you could do these two steps without using jhead and still keep the 
@@ -360,7 +360,7 @@ versions do not.
 <b>JPEGTRAN</b><br>
 <ul>
 If you use Linux you probably also already have this program.  For windows, its hard to find a 
-pre-built binary on the web.  The <a href="http://www.ijg.org"> Independent Jpeg
+pre-built binary on the web.  The <a href="http://www.ijg.org"> Independent JPEG
 Group</a>'s website only has the source code.<p>
 There's a fancier version, with pre-built Windows binaries and a lossless cropping feature added at:
 <a href="http://sylvana.net/jpegcrop"> http://sylvana.net/jpegcrop</a>.
@@ -368,7 +368,7 @@ There's a fancier version, with pre-built Windows binaries and a lossless croppi
 <b>CompuPic</b><br>
 <ul>
 I also use <a href="http://www.photodex.com"> CompuPic </a> to organize my photos.  I especially like
-the built in lossless Jpeg rotation feature (which also preserves the Exif header).  This unfortunately
+the built in lossless JPEG rotation feature (which also preserves the Exif header).  This unfortunately
 is payware, but its a pretty good program.  It has a free two week evaluation period.  After
 this period, it is still semi-usable but annoying.  I ended up paying for it.  Or you can then use ACDsee,
 which has a longer free evaluation period, but costs more. 
@@ -376,7 +376,7 @@ which has a longer free evaluation period, but costs more.
 
 <b>wrjpgcom / rdjpgcom</b><br>
 <ul>
-You can use these programs to write and extract COM markers from jpeg images respectively.  Although I always
+You can use these programs to write and extract COM markers from JPEG images respectively.  Although I always
 use my jhead program for this feature, the wrjpgcom and rdjpgcom programs are extremely simple and very
 suitable for use with perl or shell scripts to process lots of images.  Thes programs are part of most 
 linux distributions as part of the libjpg package (along with jpegtran)

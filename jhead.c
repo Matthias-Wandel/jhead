@@ -73,7 +73,7 @@ static char * ThumbnailName = NULL; // If not NULL, use this string to make up
                                     // the filename to store the thumbnail to.
 
 static char * ExifXferScrFile = NULL;// Extract Exif header from this file, and
-                                    // put it into the jpegs processed.
+                                    // put it into the Jpegs processed.
 
 static int EditComment = FALSE;     // Invoke an editor for editing the comment
 static int SupressNonFatalErrors = FALSE; // Wether or not to pint warnings on recoverable errors
@@ -92,7 +92,7 @@ static int ShowFileInfo = 1;        // Indicates to show standard file info
 
 #ifdef MATTHIAS
     // This #ifdef to take out less than elegant stuff for editing
-    // the comments in a jpeg.  The programs rdjpgcom and wrjpgcom
+    // the comments in a JPEG.  The programs rdjpgcom and wrjpgcom
     // included with Linux distributions do a better job.
 
     static char * AddComment = NULL; // Add this tag.
@@ -300,7 +300,7 @@ static int AutoResizeCmdStuff(void)
 
 
 //--------------------------------------------------------------------------
-// Apply the specified command to the jpeg file.
+// Apply the specified command to the JPEG file.
 //--------------------------------------------------------------------------
 static void DoCommand(const char * FileName)
 {
@@ -372,7 +372,7 @@ static void DoCommand(const char * FileName)
 static int CheckFileSkip(void)
 {
     // I sometimes add code here to only process images based on certain
-    // criteria - for example, only to convert non progressive jpegs to progressives, etc..
+    // criteria - for example, only to convert non progressive Jpegs to progressives, etc..
 
     if (FilterModel){
         // Filtering processing by camera model.
@@ -916,7 +916,7 @@ void ProcessFile(const char * FileName)
 //--------------------------------------------------------------------------
 static void Usage (void)
 {
-    printf("Program for extracting Digicam setting information from Exif Jpeg headers\n"
+    printf("Program for extracting Digicam setting information from Exif JPEG headers\n"
            "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jan 8 2004.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
@@ -933,7 +933,7 @@ static void Usage (void)
            "  -ci <name> Insert comment section from a file.  -cs and -ci use same naming\n"
            "             scheme as used by the -st option\n"
            "  -cl string Insert literal comment stirng\n"
-           "  -de        Strip Exif section (smaller jpeg file, but lose digicam info)\n"
+           "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
            "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
            "             Note: Windows users must get jpegtran for this to work\n"
            "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
