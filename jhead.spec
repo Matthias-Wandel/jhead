@@ -13,7 +13,7 @@
 Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		2.2
+Version:		2.3
 Release:		0
 
 Group:			Libraries
@@ -72,6 +72,12 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
+* Mon Jan 03 2005 - 2.3-0
+- Handle readonly files better
+- Handle more strange jpegs
+- added 'purejpg' option
+- Display digital zoom ratio
+
 * Sun Jun 20 2004 - 2.2-0
 - Various bug and spelling fixes.
 - added ability to do sequential renaming

@@ -8,7 +8,7 @@
 // Compiling under Windows:  Use microsoft's compiler.  from command line:
 // cl -Ox jhead.c exif.c myglob.c
 //
-// Dec 1999 - Dec 2004
+// Dec 1999 - Jan 2005
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -26,7 +26,7 @@
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-#define MATTHIAS
+//#define MATTHIAS
 
 #ifdef _WIN32
     #include <process.h>
