@@ -630,7 +630,7 @@ void ProcessFile(const char * FileName)
                     if (Argument == NULL){
                         ErrFatal("Orientation screwup");
                     }
-                    sprintf(RotateCommand, "jpegtran -%s -outfile \"&o\" \"&i\"", Argument);
+                    sprintf(RotateCommand, "jpegtran -%s -outfile &o &i", Argument);
                     ApplyCommand = RotateCommand;
                     DoCommand(FileName);
                     ApplyCommand = NULL;
