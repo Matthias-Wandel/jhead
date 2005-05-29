@@ -199,7 +199,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         <p>
 
 <tr valign=top>
-    <td><b>-n[fmt-string]
+    <td><b>-n[&lt;fmt-string&gt;]
     <td>
         This option causes files to be renamed according to the Exif header "DateTimeOriginal" field.
         If the file is not an Exif file, or the DateTimeOriginal does not contain a valid value, 
@@ -258,15 +258,15 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         <p>
 
 <tr valign=top>
-    <td><b>-ta
+    <td><b>-ta&lt;timediff&gt;
     <td>
         Adjust time stored in the Exif header by h:mm backwards of forwards.  Useful when having
         taken pictures with the wrong time set on the camera, such as after travelling across
         time zones, or when daylight savings time has changed.
         This option uses the time from the "DateTimeOriginal" (tag 0x9003) field, but sets
-	all the time fields in the Exif header to the new value.  Version 2.0 and earlier only
-	modified the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
-	that that was a bug.
+        all the time fields in the Exif header to the new value.  Version 2.0 and earlier only
+        modified the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
+        that that was a bug.
 
         Examples:<br>
         Adjust time one hour forward (you would use this after you forgot to set daylight savings 
@@ -279,12 +279,33 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         <ul>jhead -ta+49 *.jpg</ul>
 
 <tr valign=top>
-    <td><b>-ts
+    <td><b>-da&lt;date&gt;-&lt;date&gt;
+    <td>
+        Works like -ta, but for specifying large date offsets, to be used when fixing dates from 
+        cameras where the date was set incorrectly, such as having date and time reset by battery
+        removal on some cameras
+        <p>
+        Because different months and years have different numbers of days in them, a simple offset
+        for months, days, years would lead to unexpected results at times.  The time offset is
+        thus specified as a difference between two dates, so that jhead can figure out exactly
+        how many days the timestamp needs to be adjusted by, including leap years and daylight
+        savings time changes.
+        The dates are specified as yyyy:mm:dd.  For sub-day adjustments, a time of day can also
+        be included, by specifying yyyy:nn:dd+hh:mm or yyyy:mm:dd+hh:mm:ss
+        <p>
+        Examples:<br>
+        Year on camera was set to 2005 instead of 2004 for pictures taken in April
+        <ul>jhead -da2005:03:01-2004:03:01</ul>
+        Default camera date is 2002:01:01, and date was reset on 2005:05:29 at 11:21 am
+        <ul>jhead -da2005:05:29+11:21-2002:01:01</ul>
+
+<tr valign=top>
+    <td><b>-ts&lt;date-time&gt;
     <td>
         Sets the time stored in the Exif header to what is specified on the command line.
         This option changes all the date fields in the Exif header.  Version 2.0 and earlier
-	only changed the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
-	this was a bug.  Time must be specified as:<br>
+        only changed the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
+        this was a bug.  Time must be specified as:<br>
         <font face=courier> &nbsp &nbsp yyyy:mm:dd-hh:mm:ss</font><p>
 
 <tr valign=top>
@@ -293,7 +314,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         Sets the file's system time stamp to what is stored in the Exif header.
 
 <tr valign=top>
-    <td><b>-cmd
+    <td><b>-cmd&lt;command&gt;
     <td>
         Executes the specified command on each Jepg file to be processed.<p>
         The Exif section of each file is read before running the command, and re-inserted
@@ -352,10 +373,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     to replace the thumbnail or edit the Exif comment in the Exif header.  There is also no way
     to create minimal exif headers.
     <p>
-    Some Canon digital SLR cameras fail to encode the effective sensor resolution when shooting at less
-    than full resolution, causing jhead to incorrectly miscalculate the 35mm equivalent focal length.
-    Jhead usually gets blamed for this bug, but it is in fact a camera bug, and jhead can't do
-    much about it.
+
+    Some CANON digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
+    than full resolution, causing jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
+    focal length.  Jhead usually gets blamed for this bug, but it is in fact a camera bug, and jhead 
+    can't do much about it, and I'm not about to add camera bug specific hacks to it. 
 </ul>
 
 <h3>Name globbing and recursive directories under Windows</h3>

@@ -1015,7 +1015,17 @@ static void Usage (void)
            "             Adjust time by h:mm backwards or forwards.  Useful when having\n"
            "             taken pictures with the wrong time set on the camera, such as when\n"
            "             travelling across time zones or DST changes. Dates can be adjusted\n"
-           "             by offsetting by 24 hours or more.\n"
+           "             by offsetting by 24 hours or more.  For large date adjustments,\n"
+           "             use the -da option\n"
+           "  -da<date>-<date>\n"
+           "             Adjust date by large amounts.  This is used to fix photos from\n"
+           "             cameras where the date got set back to the default camera date\n"
+           "             by accdent or battery removal.\n"
+           "             To deal with different monts and years having different numbers of\n"
+           "             days, a simple date-month-year offset would result in unexpected\n"
+           "             results.  Instead, the difference is specified as desired date\n"
+           "             minus original date.  Date is specified as yyyy:mmm:dd or as date\n"
+           "             and time in the format yyyy:mmm:dd/hh:mm:ss\n"
            "  -ts<time>  Set the Exif internal time to <time>.  <time> is in the format\n"
            "             yyyy:mm:dd-hh:mm:ss\n"
            "  -cmd command\n"
@@ -1046,6 +1056,39 @@ static void Usage (void)
     exit(EXIT_FAILURE);
 }
 
+
+//--------------------------------------------------------------------------
+// Parse specified date or date+time from command line.
+//--------------------------------------------------------------------------
+time_t ParseCmdDate(char * DateSpecified)
+{
+    int a;
+    struct tm tm;
+    time_t UnixTime;
+
+    tm.tm_wday = -1;
+    tm.tm_hour = tm.tm_min = tm.tm_sec = 0;
+
+    a = sscanf(DateSpecified, "%d:%d:%d/%d:%d:%d",
+            &tm.tm_year, &tm.tm_mon, &tm.tm_mday,
+            &tm.tm_hour, &tm.tm_min, &tm.tm_sec);
+
+    if (a != 3 || a < 5){
+        // Date must be YYYY:MM:DD, YYYY:MM:DD+HH:MM
+        // or YYYY:MM:DD+HH:MM:SS
+        ErrFatal("Could not parse specified dae");
+    }
+    tm.tm_isdst = -1;  
+    tm.tm_mon -= 1;      // Adjust for unix zero-based months 
+    tm.tm_year -= 1900;  // Adjust for year starting at 1900 
+
+    UnixTime = mktime(&tm);
+    if (UnixTime == -1){
+        ErrFatal("Specified time is invalid or out of range");
+    }
+    
+    return UnixTime;    
+}
 
 //--------------------------------------------------------------------------
 // The main program.
@@ -1099,7 +1142,7 @@ int main (int argc, char **argv)
             Exif2FileTime = TRUE;
             DoReadAction = TRUE;
         }else if (!memcmp(arg,"-ta",3)){
-            // Timezone adjust feature.
+            // Time adjust feature.
             int hours, minutes, seconds, n;
             minutes = seconds = 0;
             if (arg[3] != '-' && arg[3] != '+'){
@@ -1110,9 +1153,23 @@ int main (int argc, char **argv)
             if (n < 1){
                 ErrFatal("Error: -ta must be immediately followed by time\n");
             }
-
+            if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
             ExifTimeAdjust = hours*3600 + minutes*60 + seconds;
             if (arg[3] == '-') ExifTimeAdjust = -ExifTimeAdjust;
+            DoModify = TRUE;
+        }else if (!memcmp(arg,"-da",3)){
+            // Date adjust feature (large time adjustments)
+            time_t NewDate, OldDate;
+            char * pOldDate;
+            NewDate = ParseCmdDate(arg+3);
+            pOldDate = strstr(arg+1, "-");
+            if (pOldDate){
+                OldDate = ParseCmdDate(pOldDate+1);
+            }else{
+                ErrFatal("Must specifiy second date for -da option");
+            }
+            if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
+            ExifTimeAdjust = NewDate-OldDate;
             DoModify = TRUE;
         }else if (!memcmp(arg,"-ts",3)){
             // Set the exif time.

@@ -241,13 +241,37 @@ may not be valid as part of a filename on various systems.
 .B \-nf
 Same as '-n' but renames files regardless of original file name.
 .TP
-.B \-ta
+.B \-ta<+|->[timediff]
 Adjust time stored in the Exif header by h:mm backwards of forwards.  Useful when having
 taken pictures with the wrong time set on the camera, such as after travelling across
 time zones, or when daylight savings time has changed.
 
 This option only changes the "DateTimeOriginal" (tar 0x9003) field, but leaves the 
 "DateTimeDigitized" (tag 0x9004) field alone.
+.TP
+.B \-da<newdate>-<olddate>
+
+Works like -ta, but for specifying large date offsets, to be used when fixing dates from 
+cameras where the date was set incorrectly, such as having date and time reset by battery
+removal on some cameras
+
+Because different months and years have different numbers of days in them, a simple offset
+for months, days, years would lead to unexpected results at times.  The time offset is
+thus specified as a difference between two dates, so that jhead can figure out exactly
+how many days the timestamp needs to be adjusted by, including leap years and daylight
+savings time changes.
+The dates are specified as yyyy:mm:dd.  For sub-day adjustments, a time of day can also
+be included, by specifying yyyy:nn:dd+hh:mm or yyyy:mm:dd+hh:mm:ss
+
+Examples:
+
+Year on camera was set to 2005 instead of 2004 for pictures taken in April
+.br
+jhead -da2005:03:01-2004:03:01
+
+Default camera date is 2002:01:01, and date was reset on 2005:05:29 at 11:21 am
+.br
+jhead -da2005:05:29+11:21-2002:01:01
 .TP
 .B \-ts
 Sets the time stored in the Exif header to what is specified on the command line.
@@ -314,10 +338,10 @@ implementation of the file system contained in the Exif header.  For example, th
 to replace the thumbnail or edit the Exif comment in the Exif header.  There is also no way
 to create minimal exif headers.
 .PP
-Some CANON digital SLR cameras fail to encode the effective sensor resolution when shooting at less
-than full resolution, causing jhead to incorrectly miscalculate the 35mm equivalent focal length.
-Jhead usually gets blamed for this bug, but it is in fact a camera bug, and jhead can't do
-much about it.
+Some CANON digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
+than full resolution, causing jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
+focal length.  Jhead usually gets blamed for this bug, but it is in fact a camera bug, and jhead 
+can't do much about it, and I'm not about to add camera bug specific hacks to it. 
 .PP
 Send bug reports to mwandel at sentex dot net.
 

@@ -21,3 +21,13 @@ Exposure time: 0.017 s  (1/60)
 Aperture     : f/2.9
 ISO equiv.   : 100
 
+Camera make  :                          
+Camera model : 3MDSC
+Date/Time    : 2005:05:10 18:00:01
+Resolution   : 160 x 120
+Flash used   : Yes
+Focal length :  6.0mm
+Exposure time: 0.017 s  (1/60)
+Aperture     : f/2.9
+ISO equiv.   : 100
+

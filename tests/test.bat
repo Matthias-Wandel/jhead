@@ -23,6 +23,8 @@ jhead -ft time.jpg
 jhead time.jpg > results-txt\time.txt
 jhead -ta-0:00:20 time.jpg
 jhead -nofinfo time.jpg >> results-txt\time.txt
+jhead -da+2005:01:01:11:26-2004:01:01 time.jpg
+jhead -nofinfo time.jpg >> results-txt\time.txt
 
 rem -------------------------------------------------------------------
 rem test comment manipulation

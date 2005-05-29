@@ -206,9 +206,18 @@ Don't show jpeg process if it's baseline (almost always is)
 -------Released version 2.3 -- Jan 2005 ----------
 
 Jan 14 2005
-First cut of adding GPS data display support.
+Display GPS info if included in image
+
+Feb 27 2004
+Fix some time reference confusion bugs relating to -ta option
+
+May 29 2005
+Added -da option for easier adjusting of date/time by large amounts.
+
 
 
 
 to do:
 Renaming - rename associated sound files, and video files for thumbnails.
+Someday - read/write implementation of exif file system.  This will allow
+          me to add new tags - a feature occasionally requested.
