@@ -214,7 +214,7 @@ Fix some time reference confusion bugs relating to -ta option
 May 29 2005
 Added -da option for easier adjusting of date/time by large amounts.
 
-
+-------Released version 2.4 -- May 2005 ----------
 
 
 to do:

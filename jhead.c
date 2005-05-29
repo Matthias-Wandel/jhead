@@ -8,7 +8,7 @@
 // Compiling under Windows:  Use microsoft's compiler.  from command line:
 // cl -Ox jhead.c exif.c myglob.c
 //
-// Dec 1999 - Jan 2005
+// Dec 1999 - May 2005
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -22,11 +22,11 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.38"
+#define JHEAD_VERSION "2.4"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-#define MATTHIAS
+//#define MATTHIAS
 
 #ifdef _WIN32
     #include <process.h>
@@ -945,7 +945,7 @@ void ProcessFile(const char * FileName)
 static void Usage (void)
 {
     printf("Program for extracting Digicam setting information from Exif JPEG headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jan 8 2004.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, May 29 2004.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 

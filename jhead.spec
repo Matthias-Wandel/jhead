@@ -13,8 +13,8 @@
 Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		2.3
-Release:		2
+Version:		2.4
+Release:		0
 
 Group:			Libraries
 License:		Public Domain
@@ -72,7 +72,13 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
-* Mon Jan 03 2005 - 2.3-1
+* Sun May 29 2005 - 2.4
+- Display gps info
+- Added -da optino for large date adjust
+- Fix time reference bug for -ta option
+- Fix crashes with some corrupt jpeg files
+
+* Mon Jan 03 2005 - 2.4
 - Handle readonly files better
 - Handle more strange jpegs
 - added 'purejpg' option
