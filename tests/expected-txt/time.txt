@@ -23,7 +23,7 @@ ISO equiv.   : 100
 
 Camera make  :                          
 Camera model : 3MDSC
-Date/Time    : 2005:05:10 18:00:01
+Date/Time    : 2004:05:09 18:00:01
 Resolution   : 160 x 120
 Flash used   : Yes
 Focal length :  6.0mm

@@ -1073,10 +1073,10 @@ time_t ParseCmdDate(char * DateSpecified)
             &tm.tm_year, &tm.tm_mon, &tm.tm_mday,
             &tm.tm_hour, &tm.tm_min, &tm.tm_sec);
 
-    if (a != 3 || a < 5){
+    if (a != 3 && a < 5){
         // Date must be YYYY:MM:DD, YYYY:MM:DD+HH:MM
         // or YYYY:MM:DD+HH:MM:SS
-        ErrFatal("Could not parse specified dae");
+        ErrFatal("Could not parse specified date");
     }
     tm.tm_isdst = -1;  
     tm.tm_mon -= 1;      // Adjust for unix zero-based months 
