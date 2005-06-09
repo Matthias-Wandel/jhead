@@ -216,6 +216,10 @@ Added -da option for easier adjusting of date/time by large amounts.
 
 -------Released version 2.4 -- May 2005 ----------
 
+Jun 06 2005
+Fix -da option
+
+-------Released version 2.4-1 -- Jun 06 2005 --------
 
 to do:
 Renaming - rename associated sound files, and video files for thumbnails.
