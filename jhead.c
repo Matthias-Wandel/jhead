@@ -2,13 +2,13 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.3
+// Version 2.4-1
 //
 //
 // Compiling under Windows:  Use microsoft's compiler.  from command line:
 // cl -Ox jhead.c exif.c myglob.c
 //
-// Dec 1999 - May 2005
+// Dec 1999 - Jun 2005
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.4"
+#define JHEAD_VERSION "2.4-1"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -320,12 +320,7 @@ static void DoCommand(const char * FileName)
         if (ApplyCommand[a] == '&'){
             if (ApplyCommand[a+1] == 'i'){
                 // Input file.
-                if (strstr(FileName, " ")){
-                    e += sprintf(ExecString+e, "\"%s\"",FileName);
-                }else{
-                    // No need for quoting (that way I can put a relative path in front)
-                    e += sprintf(ExecString+e, "%s",FileName);
-                }
+                e += sprintf(ExecString+e, "\"%s\"",FileName);
                 a += 1;
                 continue;
             }
@@ -945,7 +940,7 @@ void ProcessFile(const char * FileName)
 static void Usage (void)
 {
     printf("Program for extracting Digicam setting information from Exif JPEG headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, May 29 2004.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jun 09 2005.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
@@ -1072,7 +1067,7 @@ time_t ParseCmdDate(char * DateSpecified)
     a = sscanf(DateSpecified, "%d:%d:%d/%d:%d:%d",
             &tm.tm_year, &tm.tm_mon, &tm.tm_mday,
             &tm.tm_hour, &tm.tm_min, &tm.tm_sec);
-
+printf("'%s',a=%d\n",DateSpecified,a);
     if (a != 3 && a < 5){
         // Date must be YYYY:MM:DD, YYYY:MM:DD+HH:MM
         // or YYYY:MM:DD+HH:MM:SS

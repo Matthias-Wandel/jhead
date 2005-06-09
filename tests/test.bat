@@ -23,7 +23,7 @@ jhead -ft time.jpg
 jhead time.jpg > results-txt\time.txt
 jhead -ta-0:00:20 time.jpg
 jhead -nofinfo time.jpg >> results-txt\time.txt
-jhead -da+2005:01:01:11:26-2004:01:01 time.jpg
+jhead -da+2005:05:01/01:01-2004:05:01 time.jpg
 jhead -nofinfo time.jpg >> results-txt\time.txt
 
 rem -------------------------------------------------------------------
@@ -71,6 +71,7 @@ rem test rename command.
 rm -rf temp
 mkdir temp
 copy normal-digicams\*.jpg temp
+del temp\no-exif.jpg
 jhead -nf%%02i-%%H-%%f temp\*.jpg
 ls temp >> results-txt\new-names-txt
 

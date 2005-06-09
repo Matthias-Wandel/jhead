@@ -14,7 +14,7 @@ Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
 Version:		2.4
-Release:		0
+Release:		1
 
 Group:			Libraries
 License:		Public Domain
@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
+* Thu Jun 06 2005 - 2.4
+- Minor fixups.
+
 * Sun May 29 2005 - 2.4
 - Display gps info
 - Added -da optino for large date adjust
