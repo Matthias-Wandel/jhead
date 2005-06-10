@@ -14,7 +14,7 @@ Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
 Version:		2.4
-Release:		1
+Release:		2
 
 Group:			Libraries
 License:		Public Domain
@@ -72,7 +72,7 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
-* Thu Jun 06 2005 - 2.4
+* Thu Jun 10 2005 - 2.4-2
 - Minor fixups.
 
 * Sun May 29 2005 - 2.4
