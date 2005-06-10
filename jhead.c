@@ -2,7 +2,7 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.4-1
+// Version 2.4-2
 //
 //
 // Compiling under Windows:  Use microsoft's compiler.  from command line:
@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.4-1"
+#define JHEAD_VERSION "2.4-2"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -1067,7 +1067,7 @@ time_t ParseCmdDate(char * DateSpecified)
     a = sscanf(DateSpecified, "%d:%d:%d/%d:%d:%d",
             &tm.tm_year, &tm.tm_mon, &tm.tm_mday,
             &tm.tm_hour, &tm.tm_min, &tm.tm_sec);
-printf("'%s',a=%d\n",DateSpecified,a);
+
     if (a != 3 && a < 5){
         // Date must be YYYY:MM:DD, YYYY:MM:DD+HH:MM
         // or YYYY:MM:DD+HH:MM:SS

@@ -219,7 +219,12 @@ Added -da option for easier adjusting of date/time by large amounts.
 Jun 06 2005
 Fix -da option
 
--------Released version 2.4-1 -- Jun 06 2005 --------
+-------Released version 2.4-1 -- Jun 09 2005 --------
+
+Jun 10 2005
+Removed some debug printf I accidentally left in!
+
+-------Released version 2.4-2 -- Jun 10 2005 --------
 
 to do:
 Renaming - rename associated sound files, and video files for thumbnails.
