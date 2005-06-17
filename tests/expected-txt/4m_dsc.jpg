@@ -1,0 +1,67 @@
+Exif header 4968 bytes long
+Exif section in Intel order
+(dir has 11 entries)
+    ImageDescription = "PIC00499.JPG                   "
+    Make = " "
+    Model = "4M DSC"
+    Orientation = 1
+    XResolution = 300/1
+    YResolution = 300/1
+    ResolutionUnit = 2
+    Software = "Software version 712"
+    DateTime = "2004:11:06 04:36:22"
+    YCbCrPositioning = 2
+    ExifOffset = 240
+    Exif Dir:(dir has 23 entries)
+        ExposureTime = 10/3075
+        FNumber = 682/100
+        ExposureProgram = 2
+        ISOSpeedRatings = 50
+        ExifVersion = "0221"
+        DateTimeOriginal = "2004:11:06 04:36:04"
+        DateTimeDigitized = "2004:11:06 04:36:04"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 2/1
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 3/2
+        MeteringMode = 4
+        LightSource = 1
+        Flash = 0
+        FocalLength = 5827/100
+        Maker note:  0b 93 7b 00 03 0c 53 00 2a 01 00... (596 bytes)
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 3264
+        ExifImageLength = 2448
+        InteroperabilityOffset = 1594
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0101"
+        FileSource = ""
+        SceneType = ""
+    Continued directory (dir has 8 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 1624
+        ThumbnailLength = 3336
+        YCbCrPositioning = 2
+Thumbnail size: 3336 bytes
+Non settings part of Exif header: 3340 bytes
+Jpeg section marker 0xdb size 132
+Jpeg section marker 0xc4 size 418
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Camera make  :  
+Camera model : 4M DSC
+Date/Time    : 2004:11:06 04:36:04
+Resolution   : 160 x 120
+Flash used   : No
+Focal length : 58.3mm
+Exposure time: 0.0033 s  (1/308)
+Aperture     : f/6.8
+ISO equiv.   : 50
+Light Source : Daylight
+Exposure     : program (auto)
+

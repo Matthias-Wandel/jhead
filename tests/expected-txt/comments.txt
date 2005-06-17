@@ -6,7 +6,7 @@ bla
 bla
 and some more text
 Camera make  : Canon
-Camera model : Canon PowerShot S100´
+Camera model : Canon PowerShot S100
 Date/Time    : 2000:06:27 15:53:09
 Resolution   : 160 x 120
 Flash used   : Yes
@@ -26,7 +26,7 @@ Comment      : and some more text
 
 
 Camera make  : Canon
-Camera model : Canon PowerShot S100´
+Camera model : Canon PowerShot S100
 Date/Time    : 2000:06:27 15:53:09
 Resolution   : 160 x 120
 Flash used   : Yes
@@ -40,7 +40,7 @@ Comment      : "this comment is edited"
 
 
 Camera make  : Canon
-Camera model : Canon PowerShot S100´
+Camera model : Canon PowerShot S100
 Date/Time    : 2000:06:27 15:53:09
 Resolution   : 160 x 120
 Flash used   : Yes
@@ -53,7 +53,7 @@ Metering Mode: center weight
 Comment      : a literal inserted comment!
 
 Camera make  : Canon
-Camera model : Canon PowerShot S100´
+Camera model : Canon PowerShot S100
 Date/Time    : 2000:06:27 15:53:09
 Resolution   : 160 x 120
 Flash used   : Yes

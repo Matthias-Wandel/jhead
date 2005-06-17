@@ -493,13 +493,12 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         switch(Tag){
 
             case TAG_MAKE:
-                strncpy(ImageInfo.CameraMake, ValuePtr, 31);
+                strncpy(ImageInfo.CameraMake, ValuePtr, ByteCount < 31 ? ByteCount : 31);
                 break;
 
             case TAG_MODEL:
-                strncpy(ImageInfo.CameraModel, ValuePtr, 39);
+                strncpy(ImageInfo.CameraModel, ValuePtr, ByteCount < 39 ? ByteCount : 39);
                 break;
-
 
             case TAG_DATETIME_ORIGINAL:
                 // If we get a DATETIME_ORIGINAL, we use that one.
