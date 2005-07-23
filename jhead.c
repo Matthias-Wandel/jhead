@@ -278,19 +278,17 @@ static int AutoResizeCmdStuff(void)
 
     ApplyCommand = CommandString;
 
-    if (ImageInfo.Height < 800 && ImageInfo.Width < 800){
-        printf("not redizing %dx%x '%s'\n",ImageInfo.Height, ImageInfo.Width, ImageInfo.FileName);
+    if (ImageInfo.Height <= 1280 && ImageInfo.Width <= 1280){
+        printf("not resizing %dx%x '%s'\n",ImageInfo.Height, ImageInfo.Width, ImageInfo.FileName);
         return FALSE;
     }
 
-    scale = 800.0 / ImageInfo.Height;
-    if (800.0 / ImageInfo.Width < scale) scale = 800.0 / ImageInfo.Width;
+    scale = 1024.0 / ImageInfo.Height;
+    if (1024.0 / ImageInfo.Width < scale) scale = 1024.0 / ImageInfo.Width;
 
     if (scale < 0.5) scale = 0.5; // Don't scale down by more than a factor of two.
 
-    if (scale > 0.8) return FALSE; // Don't rescale by really small amounts (not worth it!)
-
-    sprintf(CommandString, "mogrify -geometry %dx%d -quality 82 &i",(int)(ImageInfo.Width*scale), (int)(ImageInfo.Height*scale));
+    sprintf(CommandString, "mogrify -geometry %dx%d -quality 85 &i",(int)(ImageInfo.Width*scale), (int)(ImageInfo.Height*scale));
     return TRUE;
 }
 
