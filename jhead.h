@@ -71,6 +71,7 @@ typedef struct {
     int GpsInfoPresent;
     char GpsLat[30];
     char GpsLong[30];
+    char GpsAlt[20];
 }ImageInfo_t;
 
 

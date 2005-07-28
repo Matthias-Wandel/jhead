@@ -1200,6 +1200,7 @@ void ShowImageInfo(int ShowFileInfo)
     if (ImageInfo.GpsInfoPresent){
         printf("GPS Latitude : %s\n",ImageInfo.GpsLat);
         printf("GPS Longitude: %s\n",ImageInfo.GpsLong);
+        if (ImageInfo.GpsAlt[0]) printf("GPS Altitude : %s\n",ImageInfo.GpsAlt);
     }
 
     // Print the comment. Print 'Comment:' for each new line of comment.

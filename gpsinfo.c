@@ -23,6 +23,9 @@
 #define TAG_GPS_LAT        2
 #define TAG_GPS_LONG_REF   3
 #define TAG_GPS_LONG       4
+#define TAG_GPS_ALT_REF    5
+#define TAG_GPS_ALT        6
+
 
 static const char * GpsTags[MAX_GPS_TAG+1]= {
     "VersionID       ",//0x00  
@@ -77,6 +80,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
     ImageInfo.GpsInfoPresent = TRUE;
     strcpy(ImageInfo.GpsLat, "? ?");
     strcpy(ImageInfo.GpsLong, "? ?");
+    ImageInfo.GpsAlt[0] = 0; 
 
     for (de=0;de<NumDirEntries;de++){
         unsigned Tag, Format, Components;
@@ -155,6 +159,14 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
                 }else{
                     strncpy(ImageInfo.GpsLong+2, TempString, 29);
                 }
+                break;
+
+            case TAG_GPS_ALT_REF:
+                ImageInfo.GpsAlt[0] = (ValuePtr[0] ? '-' : ' ');
+                break;
+
+            case TAG_GPS_ALT:
+                sprintf(ImageInfo.GpsAlt + 1, "%dm", Get32s(ValuePtr));
                 break;
         }
 
