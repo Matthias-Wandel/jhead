@@ -119,7 +119,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
         }
 
         switch(Tag){
-            char FmtString[20];
+            char FmtString[21];
             char TempString[50];
             double Values[3];
 

@@ -69,8 +69,8 @@ typedef struct {
     int  numDateTimeTags;
 
     int GpsInfoPresent;
-    char GpsLat[30];
-    char GpsLong[30];
+    char GpsLat[31];
+    char GpsLong[31];
     char GpsAlt[20];
 }ImageInfo_t;
 
