@@ -26,7 +26,7 @@
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-//#define MATTHIAS
+#define MATTHIAS
 
 #ifdef _WIN32
     #include <process.h>
@@ -630,13 +630,13 @@ void ProcessFile(const char * FileName)
                 }
 
                 Modified = TRUE;
-                ReadMode = READ_IMAGE;   // Don't re-read exif section again on next read.
             }
         }else{
             DoCommand(FileName);
             Modified = TRUE;
-            ReadMode = READ_IMAGE;   // Don't re-read exif section again on next read.
         }
+        ReadMode = READ_IMAGE;   // Don't re-read exif section again on next read.
+
     }else if (ExifXferScrFile){
         char RelativeExifName[PATH_MAX+1];
 
