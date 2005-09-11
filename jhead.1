@@ -246,8 +246,8 @@ Adjust time stored in the Exif header by h:mm backwards or forwards.  Useful whe
 taken pictures with the wrong time set on the camera, such as after travelling across
 time zones, or when daylight savings time has changed.
 
-This option only changes the "DateTimeOriginal" (tar 0x9003) field, but leaves the 
-"DateTimeDigitized" (tag 0x9004) field alone.
+This option changes all Date/time fileds in the exif header, including "DateTimeOriginal" (tag 0x9003) 
+and "DateTimeDigitized" (tag 0x9004).
 .TP
 .B \-da<newdate>-<olddate>
 
