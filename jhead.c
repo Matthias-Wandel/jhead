@@ -311,7 +311,7 @@ static void DoCommand(const char * FileName)
     // Make a temporary file in the destination directory by changing last char.
     strcpy(TempName, FileName);
     a = strlen(TempName)-1;
-    TempName[a] = TempName[a] == 't' ? 'z' : 't';
+    TempName[a] = (char)(TempName[a] == 't' ? 'z' : 't');
 
     // Build the exec string.  &i and &o in the exec string get replaced by input and output files.
     for (a=0;;a++){
@@ -371,7 +371,6 @@ static int CheckFileSkip(void)
         if (strstr(ImageInfo.CameraModel, FilterModel) == NULL){
             // Skip.
             return TRUE;
-
         }
     }
 
@@ -519,9 +518,9 @@ void DoFileRenaming(const char * FileName)
             // is before the '.' in ascii, and so sorting the names would put the later name before
             // the name without suffix, causing the pictures to more likely be out of order.
             if (isdigit(NewBaseName[strlen(NewBaseName)-1])){
-                NameExtra[0] = 'a'-1+a; // Try a,b,c,d... for suffix if it ends in a letter.
+                NameExtra[0] = (char)('a'-1+a); // Try a,b,c,d... for suffix if it ends in a letter.
             }else{
-                NameExtra[0] = '0'-1+a; // Try 1,2,3,4... for suffix if it ends in a char.
+                NameExtra[0] = (char)('0'-1+a); // Try 1,2,3,4... for suffix if it ends in a char.
             }
             NameExtra[1] = 0;
         }else{
@@ -559,7 +558,6 @@ void ProcessFile(const char * FileName)
     ReadMode_t ReadMode = READ_EXIF;
     CurrentFile = FileName;
     FilesMatched = 1; 
-    FileSequence += 1; // Count files processed.
 
     if (DoModify || RenameToDate || Exif2FileTime){
         if (access(FileName, 2 /*W_OK*/)){
@@ -588,6 +586,7 @@ void ProcessFile(const char * FileName)
     }
 
     strncpy(ImageInfo.FileName, FileName, PATH_MAX);
+
 
     if (ApplyCommand || AutoRotate){
         // Applying a command is special - the headers from the file have to be
@@ -661,6 +660,8 @@ void ProcessFile(const char * FileName)
         DiscardData();
         return;
     }
+
+    FileSequence += 1; // Count files processed.
 
     if (ShowConcise){
         ShowConciseImageInfo();
@@ -925,10 +926,10 @@ void ProcessFile(const char * FileName)
     if (RenameToDate){
         DoFileRenaming(FileName);
     }
-    if(0){
-        badtime:
-        printf("Error: Time '%s': cannot convert to Unix time\n",ImageInfo.DateTime);
-    }
+    DiscardData();
+    return;
+badtime:
+    printf("Error: Time '%s': cannot convert to Unix time\n",ImageInfo.DateTime);
     DiscardData();
 }
 
@@ -1152,7 +1153,7 @@ int main (int argc, char **argv)
             DoModify = TRUE;
         }else if (!memcmp(arg,"-da",3)){
             // Date adjust feature (large time adjustments)
-            time_t NewDate, OldDate;
+            time_t NewDate, OldDate = 0;
             char * pOldDate;
             NewDate = ParseCmdDate(arg+3);
             pOldDate = strstr(arg+1, "-");
@@ -1304,6 +1305,11 @@ int main (int argc, char **argv)
             fprintf(stderr, "Error: No files matched '%s'\n",argv[argn]);
         }
     }
-    return EXIT_SUCCESS;
+    
+    if (FileSequence == 0){
+        return EXIT_FAILURE;
+    }else{
+        return EXIT_SUCCESS;
+    }
 }
 
