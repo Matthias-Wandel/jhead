@@ -70,6 +70,8 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
     unsigned a;
     int NumDirEntries;
 
+    ByteCount; // We assume byte count is big enough.
+
     NumDirEntries = Get16u(DirStart);
     #define DIR_ENTRY_ADDR(Start, Entry) (Start+2+12*(Entry))
 
@@ -87,7 +89,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
         unsigned char * ValuePtr;
         int ComponentSize;
         unsigned ByteCount;
-        char * DirEntry;
+        unsigned char * DirEntry;
         DirEntry = DIR_ENTRY_ADDR(DirStart, de);
 
         Tag = Get16u(DirEntry);
@@ -147,8 +149,8 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
                         den = den / 10;
                         digits += 1;
                     }
-                    FmtString[1+a*7] = '2'+digits+(digits ? 1 : 0);
-                    FmtString[3+a*7] = '0'+digits;
+                    FmtString[1+a*7] = (char)('2'+digits+(digits ? 1 : 0));
+                    FmtString[3+a*7] = (char)('0'+digits);
 
                     Values[a] = ConvertAnyFormat(ValuePtr+a*ComponentSize, Format);
                 }
@@ -162,7 +164,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * Off
                 break;
 
             case TAG_GPS_ALT_REF:
-                ImageInfo.GpsAlt[0] = (ValuePtr[0] ? '-' : ' ');
+                ImageInfo.GpsAlt[0] = (char)(ValuePtr[0] ? '-' : ' ');
                 break;
 
             case TAG_GPS_ALT:

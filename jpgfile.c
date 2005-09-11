@@ -245,7 +245,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 // that uses marker 31 for non exif stuff.  Thus make sure 
                 // it says 'Exif' in the section before treating it as exif.
                 if ((ReadMode & READ_EXIF) && memcmp(Data+2, "Exif", 4) == 0){
-                    process_EXIF((char *)Data, itemlen);
+                    process_EXIF(Data, itemlen);
                 }else{
                     // Discard this section.
                     free(Sections[--SectionsRead].Data);

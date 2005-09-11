@@ -394,7 +394,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         int Tag, Format, Components;
         unsigned char * ValuePtr;
         int ByteCount;
-        char * DirEntry;
+        unsigned char * DirEntry;
         DirEntry = DIR_ENTRY_ADDR(DirStart, de);
 
         Tag = Get16u(DirEntry);
@@ -493,16 +493,16 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         switch(Tag){
 
             case TAG_MAKE:
-                strncpy(ImageInfo.CameraMake, ValuePtr, ByteCount < 31 ? ByteCount : 31);
+                strncpy(ImageInfo.CameraMake, (char *)ValuePtr, ByteCount < 31 ? ByteCount : 31);
                 break;
 
             case TAG_MODEL:
-                strncpy(ImageInfo.CameraModel, ValuePtr, ByteCount < 39 ? ByteCount : 39);
+                strncpy(ImageInfo.CameraModel, (char *)ValuePtr, ByteCount < 39 ? ByteCount : 39);
                 break;
 
             case TAG_DATETIME_ORIGINAL:
                 // If we get a DATETIME_ORIGINAL, we use that one.
-                strncpy(ImageInfo.DateTime, ValuePtr, 19);
+                strncpy(ImageInfo.DateTime, (char *)ValuePtr, 19);
                 // Fallthru...
 
             case TAG_DATETIME_DIGITIZED:
@@ -510,14 +510,14 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 if (!isdigit(ImageInfo.DateTime[0])){
                     // If we don't already have a DATETIME_ORIGINAL, use whatever
                     // time fields we may have.
-                    strncpy(ImageInfo.DateTime, ValuePtr, 19);
+                    strncpy(ImageInfo.DateTime, (char *)ValuePtr, 19);
                 }
 
                 if (ImageInfo.numDateTimeTags >= MAX_DATE_COPIES){
                     ErrNonfatal("More than %d date fields!  This is nuts", MAX_DATE_COPIES, 0);
                     break;
                 }
-                ImageInfo.DateTimePointers[ImageInfo.numDateTimeTags++] = ValuePtr;
+                ImageInfo.DateTimePointers[ImageInfo.numDateTimeTags++] = (char *)ValuePtr;
                 break;
 
 
@@ -539,13 +539,13 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                         int c;
                         c = (ValuePtr)[a];
                         if (c != '\0' && c != ' '){
-                            strncpy(ImageInfo.Comments, a+ValuePtr, 199);
+                            strncpy(ImageInfo.Comments, (char *)ValuePtr+a, 199);
                             break;
                         }
                     }
                     
                 }else{
-                    strncpy(ImageInfo.Comments, ValuePtr, 199);
+                    strncpy(ImageInfo.Comments, (char *)ValuePtr, 199);
                 }
                 break;
 
@@ -925,7 +925,7 @@ int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length)
 
         for (de=0;de<NumDirEntries;de++){
             int Tag;
-            char * DirEntry;
+            unsigned char * DirEntry;
             DirEntry = DIR_ENTRY_ADDR(DirWithThumbnailPtrs, de);
             Tag = Get16u(DirEntry);
             if (Tag == TAG_THUMBNAIL_OFFSET || Tag == TAG_THUMBNAIL_LENGTH){

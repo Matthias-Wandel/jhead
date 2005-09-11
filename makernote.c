@@ -47,7 +47,7 @@ void ProcessCannonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetB
         int Tag, Format, Components;
         unsigned char * ValuePtr;
         int ByteCount;
-        char * DirEntry;
+        unsigned char * DirEntry;
         DirEntry = DIR_ENTRY_ADDR(DirStart, de);
 
         Tag = Get16u(DirEntry);
