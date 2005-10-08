@@ -64,13 +64,11 @@ static const char * GpsTags[MAX_GPS_TAG+1]= {
 //--------------------------------------------------------------------------
 // Process GPS info directory
 //--------------------------------------------------------------------------
-void ProcessGpsInfo(unsigned char * DirStart, int ByteCount, unsigned char * OffsetBase, unsigned ExifLength)
+void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char * OffsetBase, unsigned ExifLength)
 {
     int de;
     unsigned a;
     int NumDirEntries;
-
-    ByteCount; // We assume byte count is big enough.
 
     NumDirEntries = Get16u(DirStart);
     #define DIR_ENTRY_ADDR(Start, Entry) (Start+2+12*(Entry))
