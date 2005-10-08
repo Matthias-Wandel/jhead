@@ -226,6 +226,16 @@ Removed some debug printf I accidentally left in!
 
 -------Released version 2.4-2 -- Jun 10 2005 --------
 
+August 8 2005
+Avoid duplicating exif header on some commands
+
+Sept 11 2005
+Fix up return codes.
+
+Oct  8 2005
+Preserve file permissions and time when files are modified.
+
+
 to do:
 Renaming - rename associated sound files, and video files for thumbnails.
 Someday - read/write implementation of exif file system.  This will allow

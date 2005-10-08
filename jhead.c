@@ -874,6 +874,8 @@ void ProcessFile(const char * FileName)
 
     if (Modified){
         char BackupName[400];
+        struct stat buf;
+
         printf("Modified: %s\n",FileName);
 
         strcpy(BackupName, FileName);
@@ -887,6 +889,18 @@ void ProcessFile(const char * FileName)
 
         // Write the new file.
         WriteJpegFile(FileName);
+
+        // Copy the access rights from original file
+        if (stat(BackupName, &buf) == 0){
+            // set Unix access rights and time to new file
+            struct utimbuf mtime;
+            chmod(FileName, buf.st_mode);
+
+            mtime.actime = buf.st_mtime;
+            mtime.modtime = buf.st_mtime;
+            
+            utime(FileName, &mtime);
+        }
 
         // Now that we are done, remove original file.
         unlink(BackupName);
