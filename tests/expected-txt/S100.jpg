@@ -27,11 +27,11 @@ Exif section in Intel order
         Flash = 1
         FocalLength = 173/32
         Maker note: (dir has 10 entries)
-            Canon maker tag 0001 Value = 38
-            Canon maker tag 0002 Value = 2
-            Canon maker tag 0003 Value = 0
-            Canon maker tag 0004 Value = 30
-            Canon maker tag 0000 Value = 0
+            Canon maker tag 0001 Value = 38, 2, 0, 3, 1, 0, 0, 1, 0, 1, 2, 1, 0, 0, 0, 0, ...
+            Canon maker tag 0002 Value = 2, 173, 211, 158
+            Canon maker tag 0003 Value = 0, 15, 0, 0
+            Canon maker tag 0004 Value = 30, 0, 140, 22, 98, 160, 0, 0, 0, 1, 0, 0, 0, 171, 12289
+            Canon maker tag 0000 Value = 0, 0, 0, 0, 0, 0
             Canon maker tag 0006 Value = "IMG:JPEG file"
             Canon maker tag 0007 Value = "Firmware Version 1.0"
             Canon maker tag 0008 Value = 1040498

@@ -46,14 +46,14 @@ Exif section in Motorola order
         Sharpness = 0
     GPS Dir offset = 1554
     GPS info dir:(dir has 21 entries)
-        GPSVersionID        =02, 02, 00, 00
+        GPSVersionID        =02, 02, 00, 00, 02, 00, 00, 00, 00, 00, 00, 01, 00, 00, 01, 00
         GPSLatitudeRef      ="N"
-        GPSLatitude         =42/1, 51/1, 2940/100
+        GPSLatitude         =42/1, 51/1, 2940/100, 51/1, 2940/100, 70/1, 2940/100, 70/1, 55/1
         GPSLongitudeRef     ="W"
-        GPSLongitude        =70/1, 55/1, 5233/100
+        GPSLongitude        =70/1, 55/1, 5233/100, 55/1, 5233/100, 0/1, 5233/100, 0/1, 17/1
         GPSAltitudeRef      =00
         GPSAltitude         =0/1
-        GPSTimeStamp        =17/1, 22/1, 14/1
+        GPSTimeStamp        =17/1, 22/1, 14/1, 22/1, 14/1, 842542129/824979511, 14/1, 842542129/824979511, 538976288/538976288
         GPSSatellites       ="28,11,07                                       "
         GPSStatus           ="A"
         GPSMeasureMode      ="2"

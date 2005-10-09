@@ -26,18 +26,18 @@ Exif section in Intel order
         Flash = 24
         FocalLength = 224/32
         Maker note: (dir has 12 entries)
-            Canon maker tag 0001 Value = 80
-            Canon maker tag 0002 Value = 2
-            Canon maker tag 0003 Value = 0
-            Canon maker tag 0004 Value = 54
-            Canon maker tag 0000 Value = 0
-            Canon maker tag 0000 Value = 0
+            Canon maker tag 0001 Value = 80, 2, 0, 3, 1, 0, 0, 4, 0, 1, 0, 1, 0, 0, 0, 0, ...
+            Canon maker tag 0002 Value = 2, 224, 286, 215
+            Canon maker tag 0003 Value = 0, 0, 0, 0
+            Canon maker tag 0004 Value = 54, 0, 128, 161, 95, 181, 0, 2, 0, 0, 0, 0, 0, 0, 12290, 0, ...
+            Canon maker tag 0000 Value = 0, 0, 0, 0, 0, 0
+            Canon maker tag 0000 Value = 0, 0, 0, 0
             Canon maker tag 0006 Value = "IMG:PowerShot G2 JPEG"
             Canon maker tag 0007 Value = "Firmware Version 1.10"
             Canon maker tag 0008 Value = 1030320
             Canon maker tag 0009 Value = "(301)-975-4397"
             Canon maker tag 0010 Value = 17825792
-            Canon maker tag 000d Value = 42
+            Canon maker tag 000d Value = 42, 3, 32769, 114, 32769, 0, 0, 0, 2, 0, 0, 10, 0, 11, 1, 277, ...
         UserComment = "?"
         FlashPixVersion = "0100"
         ColorSpace = 1

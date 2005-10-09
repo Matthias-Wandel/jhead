@@ -287,23 +287,35 @@ unsigned Get32u(void * Long)
 //--------------------------------------------------------------------------
 void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
 {
-    switch(Format){
-        case FMT_SBYTE:
-        case FMT_BYTE:      printf("%02x",*(uchar *)ValuePtr);            break;
-        case FMT_USHORT:    printf("%d",Get16u(ValuePtr));                break;
-        case FMT_ULONG:     
-        case FMT_SLONG:     printf("%d",Get32s(ValuePtr));                break;
-        case FMT_SSHORT:    printf("%hd",(signed short)Get16u(ValuePtr)); break;
-        case FMT_URATIONAL:
-        case FMT_SRATIONAL: 
-           printf("%d/%d",Get32s(ValuePtr), Get32s(4+(char *)ValuePtr)); break;
+    int s,n;
 
-        case FMT_SINGLE:    printf("%f",(double)*(float *)ValuePtr);   break;
-        case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr);          break;
-        default: 
-            printf("Unknown format %d:", Format);
-            
+    for(n=0;n<16;n++){
+        switch(Format){
+            case FMT_SBYTE:
+            case FMT_BYTE:      printf("%02x",*(uchar *)ValuePtr); s=1;  break;
+            case FMT_USHORT:    printf("%d",Get16u(ValuePtr)); s=2;      break;
+            case FMT_ULONG:     
+            case FMT_SLONG:     printf("%d",Get32s(ValuePtr)); s=4;      break;
+            case FMT_SSHORT:    printf("%hd",(signed short)Get16u(ValuePtr)); s=2; break;
+            case FMT_URATIONAL:
+            case FMT_SRATIONAL: 
+               printf("%d/%d",Get32s(ValuePtr), Get32s(4+(char *)ValuePtr)); 
+               s = 8;
+               break;
+
+            case FMT_SINGLE:    printf("%f",(double)*(float *)ValuePtr);   break;
+               s=8;
+            case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr);          break;
+               s=8;
+            default: 
+                printf("Unknown format %d:", Format);
+        }
+        ByteCount -= s;
+        if (ByteCount <= 0) break;
+        printf(", ");
+        ((char *)ValuePtr) += s;
     }
+    if (n >= 16) printf("...");
 }
 
 
