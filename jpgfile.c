@@ -332,8 +332,8 @@ int TrimExifFunc(void)
             unsigned int NewSize;
             NewSize = RemoveThumbnail(Sections[a].Data, Sections[a].Size);
             // Truncate the thumbnail section of the exif.
+            if (Sections[a].Size == NewSize || NewSize == 0) return FALSE; // Nothing removed.
             printf("%d bytes removed\n",Sections[a].Size-NewSize);
-            if (Sections[a].Size == NewSize) return FALSE; // Nothing removed.
             Sections[a].Size = NewSize;
             Sections[a].Data[0] = (uchar)(NewSize >> 8);
             Sections[a].Data[1] = (uchar)NewSize;
@@ -341,6 +341,7 @@ int TrimExifFunc(void)
         }
     }
     // Not an exif image.  Can't remove exif thumbnail.
+    ErrNonfatal("Image is not exif.  No thumbnail to remove",0,0);
     return FALSE;
 }
 

@@ -63,7 +63,8 @@ typedef struct {
     char  Comments[MAX_COMMENT];
 
     unsigned char * ThumbnailPointer;  // Pointer at the thumbnail
-    unsigned ThumbnailSize;     // Size of thumbnail.
+    unsigned ThumbnailSize;            // Size of thumbnail.
+    int   ThumbnailAtEnd;              // Exif header ends with the thumbnail
 
     char * DateTimePointers[MAX_DATE_COPIES];
     int  numDateTimeTags;

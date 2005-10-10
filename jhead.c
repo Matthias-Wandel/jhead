@@ -672,7 +672,7 @@ void ProcessFile(const char * FileName)
     }
 
     if (ThumbnailName){
-        if (ImageInfo.ThumbnailPointer){
+        if (ImageInfo.ThumbnailPointer && ImageInfo.ThumbnailSize){
             FILE * ThumbnailFile;
             char OutFileName[PATH_MAX+1];
 

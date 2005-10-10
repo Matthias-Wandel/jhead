@@ -27,7 +27,6 @@
 
 #include "jhead.h"
 
-static unsigned char * LastExifRefd;
 static unsigned char * DirWithThumbnailPtrs;
 static double FocalplaneXRes;
 static double FocalplaneUnits;
@@ -395,7 +394,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 return;
             }
         }
-        if (DirEnd > LastExifRefd) LastExifRefd = DirEnd;
     }
 
     if (ShowTags){
@@ -434,13 +432,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         }else{
             // 4 bytes or less and value is in the dir entry itself
             ValuePtr = DirEntry+8;
-        }
-
-        if (LastExifRefd < ValuePtr+ByteCount){
-            // Keep track of last byte in the exif header that was actually referenced.
-            // That way, we know where the discardable thumbnail data begins.
-            LastExifRefd = ValuePtr+ByteCount;
-
         }
 
         if (Tag == TAG_MAKER_NOTE){
@@ -779,7 +770,8 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         }
     }
 
-    if (ThumbnailSize && ThumbnailOffset){
+    ImageInfo.ThumbnailAtEnd = FALSE;
+    if (ThumbnailOffset){
         if (ThumbnailOffset <= ExifLength){
             if (ThumbnailSize > ExifLength-ThumbnailOffset){
                 // If thumbnail extends past exif header, only save the part that
@@ -795,6 +787,10 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             if (ShowTags){
                 printf("Thumbnail size: %d bytes\n",ThumbnailSize);
+            }
+
+            if (ThumbnailOffset+ThumbnailSize == ExifLength){
+                ImageInfo.ThumbnailAtEnd = TRUE;
             }
         }
     }
@@ -852,7 +848,6 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
         ErrNonfatal("Suspicious offset of first IFD value",0,0);
     }
 
-    LastExifRefd = ExifSection;
     DirWithThumbnailPtrs = NULL;
 
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
@@ -871,10 +866,6 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
             // already got it explicitly from a tag.
             ImageInfo.FocalLength35mmEquiv = (int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*36 + 0.5);
         }
-    }
-
-    if (ShowTags){
-        printf("Non settings part of Exif header: %d bytes\n",ExifSection+length-LastExifRefd);
     }
 }
 
@@ -930,7 +921,19 @@ int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length)
         ShowTags = ShowTagsTemp;
     }
 
-    if (DirWithThumbnailPtrs){
+    if (!DirWithThumbnailPtrs || 
+        ImageInfo.ThumbnailPointer == 0 || 
+        ImageInfo.ThumbnailSize == 0){
+        // No thumbnail, or already deleted it.
+        ErrNonfatal("Exif header contains no thumbnail", 0, 0);
+        return 0;
+    }
+    if (ImageInfo.ThumbnailAtEnd){
+        ErrNonfatal("Thumbnail is not at end of header, can't chop it off", 0, 0);
+        return 0;
+    }
+
+    {
         int de;
         int NumDirEntries;
         NumDirEntries = Get16u(DirWithThumbnailPtrs);
@@ -940,24 +943,24 @@ int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length)
             unsigned char * DirEntry;
             DirEntry = DIR_ENTRY_ADDR(DirWithThumbnailPtrs, de);
             Tag = Get16u(DirEntry);
-            if (Tag == TAG_THUMBNAIL_OFFSET || Tag == TAG_THUMBNAIL_LENGTH){
-                // We remove data out of the exif directory by doing a memmove on the rest
-                // of the directory to close the gap.
-                // It would of course be far better to have a general purpose read/write
-                // implementation of the filesystem in the exif header, but that would
-                // be quite complicated and therefore very error prone.
-                memmove(DirEntry, 
-                        DIR_ENTRY_ADDR(DirWithThumbnailPtrs, de+1),
-                        (NumDirEntries-de-1)*12+4);
-                NumDirEntries -= 1;
-                de -= 1;
+            if (Tag == TAG_THUMBNAIL_LENGTH){
+                // Set length to zero.
+                if (Get16u(DirEntry+2) != FMT_ULONG){
+                    // non standard format encoding.  Can't do it.
+                    ErrNonfatal("Can't remove thumbnail", 0, 0);
+                    return 0;
+                }
+                DirEntry[8] = 0; 
+                DirEntry[9] = 0; 
+                DirEntry[10] = 0; 
+                DirEntry[11] = 0; 
             }                    
         }
-        Put16u(DirWithThumbnailPtrs, (unsigned short)NumDirEntries);
     }
 
     // This is how far the non thumbnail data went.
-    return LastExifRefd - ExifSection;
+    return ImageInfo.ThumbnailPointer-ExifSection;
+
 }
 
 
