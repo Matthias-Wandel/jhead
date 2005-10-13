@@ -54,7 +54,6 @@ Exif section in Intel order
         SensingMethod = 2
         FileSource = ""
 Thumbnail removed with Jhead 1.3 or earlier
-Non settings part of Exif header: -2 bytes
 Jpeg section marker 0xdb size 67
 Jpeg section marker 0xdb size 67
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample

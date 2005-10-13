@@ -51,7 +51,6 @@ Exif section in Motorola order
         ThumbnailOffset = 1301
         ThumbnailLength = 10930
 Thumbnail size: 10930 bytes
-Non settings part of Exif header: 10931 bytes
 Jpeg section marker 0xdb size 67
 Jpeg section marker 0xdb size 67
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample

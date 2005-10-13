@@ -74,7 +74,6 @@ Exif section in Intel order
         ThumbnailOffset = 2548
         ThumbnailLength = 2862
 Thumbnail size: 2862 bytes
-Non settings part of Exif header: 3628 bytes
 Jpeg section marker 0xdb size 67
 Jpeg section marker 0xdb size 67
 JPEG image is 100w * 75h, 3 color components, 8 bits per sample

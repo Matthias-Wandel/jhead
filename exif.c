@@ -87,8 +87,8 @@ static const char * OrientTab[9] = {
     "transverse",       // flipped about top-right <--> bottom-left axis
     "rotate 270",       // rotate 270 to right it.
 };
-
-const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
+
+const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 
 //--------------------------------------------------------------------------
 // Describes tag values
@@ -308,6 +308,7 @@ void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
                s=8;
             default: 
                 printf("Unknown format %d:", Format);
+                return;
         }
         ByteCount -= s;
         if (ByteCount <= 0) break;
@@ -459,6 +460,14 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             // Show tag value.
             switch(Format){
+                case FMT_BYTE:
+                    if(ByteCount>1){
+                        printf("%.*ls\n", ByteCount/2, (wchar_t *)ValuePtr);
+                    }else{
+                        PrintFormatNumber(ValuePtr, Format, ByteCount);
+                        printf("\n");
+                    }
+                    break;
 
                 case FMT_UNDEFINED:
                     // Undefined is typically an ascii string.
