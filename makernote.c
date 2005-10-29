@@ -18,7 +18,7 @@
 //--------------------------------------------------------------------------
 // Process exif format directory, as used by Cannon maker note
 //--------------------------------------------------------------------------
-void ProcessCannonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBase, 
+void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBase, 
         unsigned ExifLength)
 {
     int de;
@@ -111,11 +111,29 @@ void ProcessCannonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetB
                 break;
 
             default:
-                // Handle arrays of numbers later (will there ever be?)
-                PrintFormatNumber(ValuePtr, Format, ByteCount);
-                printf("\n");
+                if (ShowTags){
+                    PrintFormatNumber(ValuePtr, Format, ByteCount);
+                    printf("\n");
+                }
         }
-        
+        if (Tag == 1 && ByteCount >= 17*sizeof(unsigned short)){
+            int IsoCode = Get16u(ValuePtr + 16*sizeof(unsigned short));
+            if (IsoCode >= 16 && IsoCode <= 24){
+                ImageInfo.ISOequivalent = 50 << (IsoCode-16);
+            } 
+        }
+
+        if (Tag == 4 && ByteCount >= 8*sizeof(unsigned short)){
+            int WhiteBalance = Get16u(ValuePtr + 7*sizeof(unsigned short));
+            switch(WhiteBalance){
+                // 0=Auto, 6=Custom
+                case 1: ImageInfo.LightSource = 1; break; // Sunny
+                case 2: ImageInfo.LightSource = 1; break; // Cloudy
+                case 3: ImageInfo.LightSource = 3; break; // Thungsten
+                case 4: ImageInfo.LightSource = 2; break; // Fourescent
+                case 5: ImageInfo.LightSource = 4; break; // Flash
+            }
+        }
     }
 }
 
@@ -143,11 +161,10 @@ void ShowMakerNoteGeneric(unsigned char * ValuePtr, int ByteCount)
 void ProcessMakerNote(unsigned char * ValuePtr, int ByteCount, 
         unsigned char * OffsetBase, unsigned ExifLength)
 {
-
-    if (ShowTags){
-        if (strstr(ImageInfo.CameraMake, "Canon")){
-            ProcessCannonMakerNoteDir(ValuePtr, OffsetBase, ExifLength);
-        }else{
+    if (strstr(ImageInfo.CameraMake, "Canon")){
+        ProcessCanonMakerNoteDir(ValuePtr, OffsetBase, ExifLength);
+    }else{
+        if (ShowTags){
             ShowMakerNoteGeneric(ValuePtr, ByteCount);
         }
     }
