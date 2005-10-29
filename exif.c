@@ -303,7 +303,7 @@ void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
                break;
 
             case FMT_SINGLE:    printf("%f",(double)*(float *)ValuePtr); s=8;  break;
-            case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr); s=8     break;
+            case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr); s=8; break;
             default: 
                 printf("Unknown format %d:", Format);
                 return;
