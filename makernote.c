@@ -90,7 +90,7 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
 
             case FMT_STRING:
                 // String arrays printed without function call (different from int arrays)
-                {
+                if (ShowTags){
                     printf("\"");
                     for (a=0;a<ByteCount;a++){
                         int ZeroSkipped = 0;
