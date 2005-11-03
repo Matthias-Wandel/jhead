@@ -11,6 +11,7 @@ CCD width    : 7.11mm
 Exposure time: 0.100 s  (1/10)
 Aperture     : f/2.8
 Focus dist.  : 1.77m
+ISO equiv.   : 100
 Metering Mode: center weight
 
 Camera make  : Canon
@@ -23,6 +24,7 @@ CCD width    : 7.11mm
 Exposure time: 0.100 s  (1/10)
 Aperture     : f/2.8
 Focus dist.  : 1.77m
+ISO equiv.   : 100
 Metering Mode: center weight
 
 Exif header 34737 bytes long
