@@ -28,6 +28,8 @@ typedef struct {
     unsigned Size;
 }Section_t;
 
+int ExifSectionIndex;
+
 #define MAX_DATE_COPIES 10
 
 //--------------------------------------------------------------------------
@@ -62,11 +64,11 @@ typedef struct {
     int   LightSource;
     char  Comments[MAX_COMMENT];
 
-    unsigned char * ThumbnailPointer;  // Pointer at the thumbnail
+    unsigned ThumbnailOffset;          // Exif offset to thumbnail
     unsigned ThumbnailSize;            // Size of thumbnail.
     int   ThumbnailAtEnd;              // Exif header ends with the thumbnail
 
-    char * DateTimePointers[MAX_DATE_COPIES];
+    int  DateTimeOffsets[MAX_DATE_COPIES];
     int  numDateTimeTags;
 
     int GpsInfoPresent;
@@ -74,6 +76,7 @@ typedef struct {
     char GpsLong[31];
     char GpsAlt[20];
 }ImageInfo_t;
+
 
 
 #define EXIT_FAILURE  1

@@ -302,8 +302,8 @@ void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
                s = 8;
                break;
 
-            case FMT_SINGLE:    printf("%f",(double)*(float *)ValuePtr); s=8;  break;
-            case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr); s=8; break;
+            case FMT_SINGLE:    printf("%f",(double)*(float *)ValuePtr); s=8; break;
+            case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr);        s=8; break;
             default: 
                 printf("Unknown format %d:", Format);
                 return;
@@ -352,6 +352,9 @@ double ConvertAnyFormat(void * ValuePtr, int Format)
         // Not sure if this is correct (never seen float used in Exif format)
         case FMT_SINGLE:    Value = (double)*(float *)ValuePtr;      break;
         case FMT_DOUBLE:    Value = *(double *)ValuePtr;             break;
+
+        default:
+            ErrNonfatal("Illegal format code %d",Format,0);
     }
     return Value;
 }
@@ -527,7 +530,8 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     ErrNonfatal("More than %d date fields!  This is nuts", MAX_DATE_COPIES, 0);
                     break;
                 }
-                ImageInfo.DateTimePointers[ImageInfo.numDateTimeTags++] = (char *)ValuePtr;
+                ImageInfo.DateTimeOffsets[ImageInfo.numDateTimeTags++] = 
+                    (char *)ValuePtr - OffsetBase;
                 break;
 
 
@@ -789,7 +793,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             }
             // The thumbnail pointer appears to be valid.  Store it.
-            ImageInfo.ThumbnailPointer = OffsetBase + ThumbnailOffset;
+            ImageInfo.ThumbnailOffset = ThumbnailOffset;
             ImageInfo.ThumbnailSize = ThumbnailSize;
 
             if (ShowTags){
@@ -919,20 +923,10 @@ const char * ClearOrientation(void)
 //--------------------------------------------------------------------------
 int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length)
 {
-
-    // Ensure pointers are up to date.
-    {
-        int ShowTagsTemp = ShowTags;
-        ShowTags = FALSE;
-        process_EXIF(ExifSection, Length);
-        ShowTags = ShowTagsTemp;
-    }
-
     if (!DirWithThumbnailPtrs || 
-        ImageInfo.ThumbnailPointer == 0 || 
+        ImageInfo.ThumbnailOffset == 0 || 
         ImageInfo.ThumbnailSize == 0){
         // No thumbnail, or already deleted it.
-        ErrNonfatal("Exif header contains no thumbnail", 0, 0);
         return 0;
     }
     if (ImageInfo.ThumbnailAtEnd){
@@ -966,7 +960,7 @@ int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length)
     }
 
     // This is how far the non thumbnail data went.
-    return ImageInfo.ThumbnailPointer-ExifSection;
+    return ImageInfo.ThumbnailOffset+8;
 
 }
 

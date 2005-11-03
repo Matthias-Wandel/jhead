@@ -672,7 +672,7 @@ void ProcessFile(const char * FileName)
     }
 
     if (ThumbnailName){
-        if (ImageInfo.ThumbnailPointer && ImageInfo.ThumbnailSize){
+        if (ImageInfo.ThumbnailOffset && ImageInfo.ThumbnailSize){
             FILE * ThumbnailFile;
             char OutFileName[PATH_MAX+1];
 
@@ -691,7 +691,12 @@ void ProcessFile(const char * FileName)
             }
 
             if (ThumbnailFile){
-                fwrite(ImageInfo.ThumbnailPointer, ImageInfo.ThumbnailSize ,1, ThumbnailFile);
+                char * ThumbnailPointer;
+                Section_t * ExifSection;
+                ExifSection = FindSection(M_EXIF);
+                ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
+
+                fwrite(ThumbnailPointer, ImageInfo.ThumbnailSize ,1, ThumbnailFile);
                 fclose(ThumbnailFile);
                 if (ThumbnailFile != stdout){
                     printf("Created: '%s'\n", OutFileName);
@@ -705,6 +710,15 @@ void ProcessFile(const char * FileName)
             printf("Image '%s' contains no thumbnail\n",FileName);
         }
     }
+
+    if (TrimExif){
+        if (ImageInfo.ThumbnailOffset && ImageInfo.ThumbnailSize){
+            if (TrimExifFunc()) Modified = TRUE;
+        }else{
+            printf("Image '%s' contains no thumbnail\n",FileName);
+        }
+    }
+    
 
     if (
 #ifdef MATTHIAS
@@ -826,6 +840,7 @@ void ProcessFile(const char * FileName)
             time_t UnixTime;
             char TempBuf[50];
             int a;
+            Section_t * ExifSection;
 
             if (ExifTimeSet){
                 // A time to set was specified.
@@ -847,8 +862,12 @@ void ProcessFile(const char * FileName)
                 tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
                 tm.tm_hour, tm.tm_min, tm.tm_sec);
 
+            ExifSection = FindSection(M_EXIF);
+
             for (a = 0; a < ImageInfo.numDateTimeTags; a++) {
-                memcpy(ImageInfo.DateTimePointers[a], TempBuf, 19);
+                char * Pointer;
+                Pointer = ExifSection->Data+ImageInfo.DateTimeOffsets[a]+8;
+                memcpy(Pointer, TempBuf, 19);
             }
 
             Modified = TRUE;
@@ -857,10 +876,6 @@ void ProcessFile(const char * FileName)
         }
     }
 
-    if (TrimExif){
-        if (TrimExifFunc()) Modified = TRUE;
-    }
-    
     if (DeleteComments){
         if (RemoveSectionType(M_COM)) Modified = TRUE;
     }
