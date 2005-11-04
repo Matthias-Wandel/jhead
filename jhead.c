@@ -2,13 +2,13 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.4-2
+// Version 2.46
 //
 //
 // Compiling under Windows:  Use microsoft's compiler.  from command line:
 // cl -Ox jhead.c exif.c myglob.c
 //
-// Dec 1999 - Jun 2005
+// Dec 1999 - Nov 2005
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.45"
+#define JHEAD_VERSION "2.46"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -68,8 +68,11 @@ static time_t ExifTimeSet = 0;      // Set exif time to a value.
 static int DeleteComments = FALSE;
 static int DeleteExif = FALSE;
 static int DeleteUnknown = FALSE;
-static char * ThumbnailName = NULL; // If not NULL, use this string to make up
+static char * ThumbSaveName = NULL; // If not NULL, use this string to make up
                                     // the filename to store the thumbnail to.
+
+static char * ThumbInsertName = NULL; // If not NULL, use this string to make up
+                                    // the filename to retrieve the thumbnail from.
 
 static char * ExifXferScrFile = NULL;// Extract Exif header from this file, and
                                     // put it into the Jpegs processed.
@@ -671,16 +674,16 @@ void ProcessFile(const char * FileName)
         }
     }
 
-    if (ThumbnailName){
+    if (ThumbSaveName){
         if (ImageInfo.ThumbnailOffset && ImageInfo.ThumbnailSize){
             FILE * ThumbnailFile;
             char OutFileName[PATH_MAX+1];
 
             // Make a relative name.
-            RelativeName(OutFileName, ThumbnailName, FileName);
+            RelativeName(OutFileName, ThumbSaveName, FileName);
 
 #ifndef _WIN32
-            if (strcmp(ThumbnailName, "-") == 0){
+            if (strcmp(ThumbSaveName, "-") == 0){
                 // A filename of '-' indicates thumbnail goes to stdout.
                 // This doesn't make much sense under Windows, so this feature is unix only.
                 ThumbnailFile = stdout;
@@ -719,6 +722,60 @@ void ProcessFile(const char * FileName)
         }
     }
     
+
+    if (ThumbInsertName){
+        if (ImageInfo.ThumbnailOffset && ImageInfo.ThumbnailAtEnd){
+            FILE * ThumbnailFile;
+            char ThumbFileName[PATH_MAX+1];
+
+            // Make a relative name.
+            RelativeName(ThumbFileName, ThumbInsertName, FileName);
+
+            ThumbnailFile = fopen(ThumbFileName,"rb");
+
+            if (ThumbnailFile){
+                int ThumbLen, NewExifSize;
+                Section_t * ExifSection;
+                uchar * ThumbnailPointer;
+
+                ExifSection = FindSection(M_EXIF);
+
+                // get length
+                fseek(ThumbnailFile, 0, SEEK_END);
+
+                ThumbLen = ftell(ThumbnailFile);
+                fseek(ThumbnailFile, 0, SEEK_SET);
+
+                if (ThumbLen + ImageInfo.ThumbnailOffset > 0x10000-20){
+                    ErrFatal("Thumbnail is too large to insert into exif header");
+                }
+
+                NewExifSize = ImageInfo.ThumbnailOffset+8+ThumbLen;
+                ExifSection->Data = (uchar *)realloc(ExifSection->Data, NewExifSize);
+
+                ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
+
+                fread(ThumbnailPointer, ThumbLen, 1, ThumbnailFile);
+
+                ImageInfo.ThumbnailSize = ThumbLen;
+
+                Put32u(ExifSection->Data+ImageInfo.ThumbnailSizeOffset+8, ThumbLen);
+
+                ExifSection->Data[0] = (uchar)(NewExifSize >> 8);
+                ExifSection->Data[1] = (uchar)NewExifSize;
+                ExifSection->Size = NewExifSize;
+
+                Modified = TRUE;
+
+            }else{
+                ErrFatal("Could not read thumbnail file");
+            }
+        }else{
+            // Adding of thumbnail is not possible.
+            printf("Image '%s' contains no thumbnail to replace - add is not possible\n",FileName);
+        }
+    }
+
 
     if (
 #ifdef MATTHIAS
@@ -1000,6 +1057,8 @@ static void Usage (void)
            "             If output file name contains the substring \"&i\" then the\n"
            "             image file name is substitute for the &i.  Note that quotes around\n"
            "             the argument are required for the '&' to be passed to the program.\n"
+           "  -it <name> Replace Exif thumbnail.  Can only be done with headers that\n"
+           "             already contain a thumbnail.\n"
 #ifndef _WIN32
            "             An output name of '-' causes thumbnail to be written to stdout\n"
 #endif
@@ -1134,8 +1193,11 @@ int main (int argc, char **argv)
             TrimExif = TRUE;
             DoModify = TRUE;
         }else if (!strcmp(arg,"-st")){
-            ThumbnailName = argv[++argn];
+            ThumbSaveName = argv[++argn];
             DoReadAction = TRUE;
+        }else if (!strcmp(arg,"-it")){
+            ThumbInsertName = argv[++argn];
+            DoModify = TRUE;
         }else if (!strcmp(arg,"-te")){
             ExifXferScrFile = argv[++argn];
             DoModify = TRUE;
@@ -1284,7 +1346,7 @@ int main (int argc, char **argv)
         ErrFatal("No files to process.  Use -h for help");
     }
 
-    if (ThumbnailName != NULL && strcmp(ThumbnailName, "&i") == 0){
+    if (ThumbSaveName != NULL && strcmp(ThumbSaveName, "&i") == 0){
         printf("Error: By specifying \"&i\" for the thumbail name, your original file\n"
                "       will be overwitten.  If this is what you really want,\n"
                "       specify  -st \"./&i\"  to override this check\n");

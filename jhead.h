@@ -66,7 +66,10 @@ typedef struct {
 
     unsigned ThumbnailOffset;          // Exif offset to thumbnail
     unsigned ThumbnailSize;            // Size of thumbnail.
-    int   ThumbnailAtEnd;              // Exif header ends with the thumbnail
+
+    char  ThumbnailAtEnd;              // Exif header ends with the thumbnail
+                                       // (we can only modify the thumbnail if its at the end)
+    int   ThumbnailSizeOffset;
 
     int  DateTimeOffsets[MAX_DATE_COPIES];
     int  numDateTimeTags;
@@ -97,7 +100,7 @@ void ErrNonfatal(char * msg, int a1, int a2);
 // Prototypes for exif.c functions.
 int Exif2tm(struct tm * timeptr, char * ExifTime);
 void process_EXIF (unsigned char * CharBuf, unsigned int length);
-int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length);
+int RemoveThumbnail(unsigned char * ExifSection);
 void ShowImageInfo(int ShowFileInfo);
 void ShowConciseImageInfo(void);
 const char * ClearOrientation(void);
@@ -106,6 +109,7 @@ double ConvertAnyFormat(void * ValuePtr, int Format);
 int Get16u(void * Short);
 unsigned Get32u(void * Long);
 int Get32s(void * Long);
+void Put32u(void * Value, unsigned PutValue);
 
 //--------------------------------------------------------------------------
 // Exif format descriptor stuff

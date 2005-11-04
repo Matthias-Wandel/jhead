@@ -234,7 +234,7 @@ static const TagTable_t TagTable[] = {
 #define TAG_TABLE_SIZE  (sizeof(TagTable) / sizeof(TagTable_t))
 
 //--------------------------------------------------------------------------
-// Convert a 16 bit unsigned value from file's native byte order
+// Convert a 16 bit unsigned value to file's native byte order
 //--------------------------------------------------------------------------
 static void Put16u(void * Short, unsigned short PutValue)
 {
@@ -270,6 +270,24 @@ int Get32s(void * Long)
     }else{
         return  ((( char *)Long)[3] << 24) | (((uchar *)Long)[2] << 16)
               | (((uchar *)Long)[1] << 8 ) | (((uchar *)Long)[0] << 0 );
+    }
+}
+
+//--------------------------------------------------------------------------
+// Convert a 32 bit unsigned value to file's native byte order
+//--------------------------------------------------------------------------
+void Put32u(void * Value, unsigned PutValue)
+{
+    if (MotorolaOrder){
+        ((uchar *)Value)[0] = (uchar)(PutValue>>24);
+        ((uchar *)Value)[1] = (uchar)(PutValue>>16);
+        ((uchar *)Value)[2] = (uchar)(PutValue>>8);
+        ((uchar *)Value)[3] = (uchar)PutValue;
+    }else{
+        ((uchar *)Value)[0] = (uchar)PutValue;
+        ((uchar *)Value)[1] = (uchar)(PutValue>>8);
+        ((uchar *)Value)[2] = (uchar)(PutValue>>16);
+        ((uchar *)Value)[3] = (uchar)(PutValue>>24);
     }
 }
 
@@ -706,6 +724,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             case TAG_THUMBNAIL_LENGTH:
                 ThumbnailSize = (unsigned)ConvertAnyFormat(ValuePtr, Format);
+                ImageInfo.ThumbnailSizeOffset = ValuePtr-OffsetBase;
                 break;
 
             case TAG_EXIF_OFFSET:
@@ -781,8 +800,8 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         }
     }
 
-    ImageInfo.ThumbnailAtEnd = FALSE;
     if (ThumbnailOffset){
+        ImageInfo.ThumbnailAtEnd = FALSE;
         if (ThumbnailOffset <= ExifLength){
             if (ThumbnailSize > ExifLength-ThumbnailOffset){
                 // If thumbnail extends past exif header, only save the part that
@@ -862,7 +881,7 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
     DirWithThumbnailPtrs = NULL;
 
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
-    ProcessExifDir(ExifSection+8+FirstOffset, ExifSection+8, length-6, 0);
+    ProcessExifDir(ExifSection+8+FirstOffset, ExifSection+8, length-8, 0);
 
     // Compute the CCD width, in millimeters.
     if (FocalplaneXRes != 0){
@@ -921,7 +940,7 @@ const char * ClearOrientation(void)
 //--------------------------------------------------------------------------
 // Remove thumbnail out of the exif image.
 //--------------------------------------------------------------------------
-int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length)
+int RemoveThumbnail(unsigned char * ExifSection)
 {
     if (!DirWithThumbnailPtrs || 
         ImageInfo.ThumbnailOffset == 0 || 
@@ -929,7 +948,7 @@ int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length)
         // No thumbnail, or already deleted it.
         return 0;
     }
-    if (ImageInfo.ThumbnailAtEnd){
+    if (ImageInfo.ThumbnailAtEnd == FALSE){
         ErrNonfatal("Thumbnail is not at end of header, can't chop it off", 0, 0);
         return 0;
     }
@@ -951,10 +970,7 @@ int RemoveThumbnail(unsigned char * ExifSection, unsigned int Length)
                     ErrNonfatal("Can't remove thumbnail", 0, 0);
                     return 0;
                 }
-                DirEntry[8] = 0; 
-                DirEntry[9] = 0; 
-                DirEntry[10] = 0; 
-                DirEntry[11] = 0; 
+                Put32u(DirEntry+8, 0);
             }                    
         }
     }

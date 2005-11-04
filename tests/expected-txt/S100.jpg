@@ -43,12 +43,7 @@ Exif section in Intel order
         ExifImageWidth = 640
         ExifImageLength = 480
         InteroperabilityOffset = 1088
-        Interop Dir:(dir has 4 entries)
-            InteropIndex = "R98"
-            InteropVersion = "0100"
-            RelatedImageWidth = 640
-            RelatedImageLength = 480
-        FocalPlaneXResolution = 640000/206
+        Interop Dir:        FocalPlaneXResolution = 640000/206
         FocalPlaneYResolution = 480000/155
         FocalPlaneResolutionUnit = 2
         SensingMethod = 2

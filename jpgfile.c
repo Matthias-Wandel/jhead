@@ -330,7 +330,7 @@ int TrimExifFunc(void)
     for (a=0;a<SectionsRead-1;a++){
         if (Sections[a].Type == M_EXIF && memcmp(Sections[a].Data+2, "Exif",4)==0){
             unsigned int NewSize;
-            NewSize = RemoveThumbnail(Sections[a].Data, Sections[a].Size);
+            NewSize = RemoveThumbnail(Sections[a].Data);
             // Truncate the thumbnail section of the exif.
             if (Sections[a].Size == NewSize || NewSize == 0) return FALSE; // Nothing removed.
             printf("%d bytes removed\n",Sections[a].Size-NewSize);

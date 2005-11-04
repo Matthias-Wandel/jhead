@@ -235,8 +235,17 @@ Fix up return codes.
 Oct  8 2005
 Preserve file permissions and time when files are modified.
 
+Oct 29 2005
+Read ISO euqivalnt and white balance from canon makernote
+
+
+
 
 to do:
-Renaming - rename associated sound files, and video files for thumbnails.
-Someday - read/write implementation of exif file system.  This will allow
+* Renaming - rename associated sound files, and video files for thumbnails.
+* Someday - read/write implementation of exif file system.  This will allow
           me to add new tags - a feature occasionally requested.
+* thumbnail write back into exif header
+* Rotate rotates thunbmail as well as image
+* Get ISO equivalent from canon images
+* Detect looped and doubly linked directories
