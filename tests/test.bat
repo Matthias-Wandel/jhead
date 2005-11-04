@@ -81,3 +81,19 @@ copy strange-jpegs\olav.jpg results-bin
 jhead -purejpg results-bin\olav.jpg
 jhead -v -nofinfo results-bin\olav.jpg > results-txt\olav.jpg
 
+rem -------------------------------------------------------------------
+rem Test deletion of a thumbnail, and replacing of a thumbnail
+
+copy normal-digicams\fuji-dx10.jpg results-bin\thumb-deleted.jpg
+jhead -dt results-bin\thumb-deleted.jpg
+copy results-bin\thumb-deleted.jpg results-bin\thumb-inserted.jpg
+rem reinsert a different thumbnail
+jhead -it normal-digicams\no-exif.jpg results-bin\thumb-inserted.jpg
+rem replace thumbnail in one step
+copy normal-digicams\olympus.jpg results-bin\thumb-replaced.jpg
+jhead -it normal-digicams\no-exif.jpg results-bin\thumb-replaced.jpg
+jhead -v res*bin\thumb-*.jpg > results-txt\thumb-operations-txt
+
+
+
+

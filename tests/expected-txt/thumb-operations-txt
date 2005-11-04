@@ -1,0 +1,224 @@
+Exif header 864 bytes long
+Exif section in Intel order
+(dir has 11 entries)
+    Make = "FUJIFILM"
+    Model = "DX-10"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "Digital Camera DX-10 Ver1.00"
+    DateTime = "2000:04:01 13:04:48"
+    YCbCrPositioning = 2
+    Copyright = "M.Wandel  "
+    ExifOffset = 258
+    Exif Dir:(dir has 27 entries)
+        FNumber = 42/10
+        ExposureProgram = 2
+        ISOSpeedRatings = 150
+        ExifVersion = "0210"
+        DateTimeOriginal = "2000:04:01 13:04:48"
+        DateTimeDigitized = "2000:04:01 13:04:48"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 2/1
+        ShutterSpeedValue = 33/10
+        ApertureValue = 41/10
+        BrightnessValue = 21/10
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 41/10
+        MeteringMode = 5
+        Flash = 0
+        FocalLength = 58/10
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 640
+        ExifImageLength = 480
+        InteroperabilityOffset = 708
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        FocalPlaneXResolution = 1344/1
+        FocalPlaneYResolution = 1344/1
+        FocalPlaneResolutionUnit = 3
+        SensingMethod = 2
+        FileSource = ""
+        SceneType = ""
+    Continued directory (dir has 8 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 856
+        ThumbnailLength = 0
+        YCbCrPositioning = 2
+Thumbnail size: 0 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 59
+Jpeg section marker 0xc4 size 24
+Jpeg section marker 0xc4 size 36
+File name    : results-bin\thumb-deleted.jpg
+File size    : 4822 bytes
+File date    : 2004:11:28 18:28:45
+Camera make  : FUJIFILM
+Camera model : DX-10
+Date/Time    : 2000:04:01 13:04:48
+Resolution   : 160 x 120
+Flash used   : No
+Focal length :  5.8mm  (35mm equivalent: 44mm)
+CCD width    : 4.76mm
+Exposure time: 0.102 s  (1/10)
+Aperture     : f/4.2
+ISO equiv.   : 150
+Metering Mode: matrix
+Exposure     : program (auto)
+
+Exif header 10854 bytes long
+Exif section in Intel order
+(dir has 11 entries)
+    Make = "FUJIFILM"
+    Model = "DX-10"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "Digital Camera DX-10 Ver1.00"
+    DateTime = "2000:04:01 13:04:48"
+    YCbCrPositioning = 2
+    Copyright = "M.Wandel  "
+    ExifOffset = 258
+    Exif Dir:(dir has 27 entries)
+        FNumber = 42/10
+        ExposureProgram = 2
+        ISOSpeedRatings = 150
+        ExifVersion = "0210"
+        DateTimeOriginal = "2000:04:01 13:04:48"
+        DateTimeDigitized = "2000:04:01 13:04:48"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 2/1
+        ShutterSpeedValue = 33/10
+        ApertureValue = 41/10
+        BrightnessValue = 21/10
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 41/10
+        MeteringMode = 5
+        Flash = 0
+        FocalLength = 58/10
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 640
+        ExifImageLength = 480
+        InteroperabilityOffset = 708
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        FocalPlaneXResolution = 1344/1
+        FocalPlaneYResolution = 1344/1
+        FocalPlaneResolutionUnit = 3
+        SensingMethod = 2
+        FileSource = ""
+        SceneType = ""
+    Continued directory (dir has 8 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 856
+        ThumbnailLength = 9990
+        YCbCrPositioning = 2
+Thumbnail size: 9990 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 59
+Jpeg section marker 0xc4 size 24
+Jpeg section marker 0xc4 size 36
+File name    : results-bin\thumb-inserted.jpg
+File size    : 14812 bytes
+File date    : 2004:11:28 18:28:45
+Camera make  : FUJIFILM
+Camera model : DX-10
+Date/Time    : 2000:04:01 13:04:48
+Resolution   : 160 x 120
+Flash used   : No
+Focal length :  5.8mm  (35mm equivalent: 44mm)
+CCD width    : 4.76mm
+Exposure time: 0.102 s  (1/10)
+Aperture     : f/4.2
+ISO equiv.   : 150
+Metering Mode: matrix
+Exposure     : program (auto)
+
+Exif header 12010 bytes long
+Exif section in Intel order
+(dir has 11 entries)
+    ImageDescription = "OLYMPUS DIGITAL CAMERA         "
+    Make = "OLYMPUS OPTICAL CO.,LTD"
+    Model = "C830L,D340R"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "v85-73"
+    DateTime = "1999:07:18 20:41:25"
+    YCbCrPositioning = 2
+    ExifOffset = 284
+    Exif Dir:(dir has 22 entries)
+        ExposureTime = 1/31
+        FNumber = 28/10
+        ISOSpeedRatings = 100
+        ExifVersion = "0210"
+        DateTimeOriginal = "1999:07:18 20:41:25"
+        DateTimeDigitized = "1999:07:18 20:41:25"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 1/1
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 3/1
+        MeteringMode = 1
+        LightSource = 0
+        Flash = 0
+        FocalLength = 55/10
+        Maker note:  4f 4c 59 4d 50 00 01 00 0b 00 00... (406 bytes)
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 640
+        ExifImageLength = 480
+        InteroperabilityOffset = 862
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        FileSource = ""
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2012
+        ThumbnailLength = 9990
+Thumbnail size: 9990 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 82
+Jpeg section marker 0xc4 size 24
+Jpeg section marker 0xc4 size 39
+File name    : results-bin\thumb-replaced.jpg
+File size    : 15653 bytes
+File date    : 2004:11:28 18:28:45
+Camera make  : OLYMPUS OPTICAL CO.,LTD
+Camera model : C830L,D340R
+Date/Time    : 1999:07:18 20:41:25
+Resolution   : 160 x 120
+Flash used   : No
+Focal length :  5.5mm
+Exposure time: 0.032 s  (1/31)
+Aperture     : f/2.8
+ISO equiv.   : 100
+
