@@ -321,8 +321,50 @@ int ReadJpegFile(const char * FileName, ReadMode_t ReadMode)
     return ret;
 }
 
+
 //--------------------------------------------------------------------------
-// Remove exif thumbnail
+// Replace or remove exif thumbnail
+//--------------------------------------------------------------------------
+int SaveThumbnail(char * ThumbFileName)
+{
+    FILE * ThumbnailFile;
+    char OutFileName[PATH_MAX+1];
+
+    if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailSize == 0){
+        printf("Image contains no thumbnail\n");
+        return FALSE;
+    }
+
+    if (strcmp(ThumbFileName, "-") == 0){
+        // A filename of '-' indicates thumbnail goes to stdout.
+        // This doesn't make much sense under Windows, so this feature is unix only.
+        ThumbnailFile = stdout;
+    }else{
+        ThumbnailFile = fopen(ThumbFileName,"wb");
+    }
+
+    if (ThumbnailFile){
+        char * ThumbnailPointer;
+        Section_t * ExifSection;
+        ExifSection = FindSection(M_EXIF);
+        ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
+
+        fwrite(ThumbnailPointer, ImageInfo.ThumbnailSize ,1, ThumbnailFile);
+        fclose(ThumbnailFile);
+        if (ThumbnailFile != stdout){
+            printf("Created: '%s'\n", OutFileName);
+        }else{
+            // No point in printing to stdout when that is where the thumbnail goes!
+        }
+        return TRUE;
+    }else{
+        ErrFatal("Could not write thumbnail file");
+        return FALSE;
+    }
+}
+
+//--------------------------------------------------------------------------
+// Replace or remove exif thumbnail
 //--------------------------------------------------------------------------
 int ReplaceThumbnail(char * ThumbFileName)
 {

@@ -675,43 +675,11 @@ void ProcessFile(const char * FileName)
     }
 
     if (ThumbSaveName){
-        if (ImageInfo.ThumbnailOffset && ImageInfo.ThumbnailSize){
-            FILE * ThumbnailFile;
-            char OutFileName[PATH_MAX+1];
+        char OutFileName[PATH_MAX+1];
+        // Make a relative name.
+        RelativeName(OutFileName, ThumbSaveName, FileName);
 
-            // Make a relative name.
-            RelativeName(OutFileName, ThumbSaveName, FileName);
-
-#ifndef _WIN32
-            if (strcmp(ThumbSaveName, "-") == 0){
-                // A filename of '-' indicates thumbnail goes to stdout.
-                // This doesn't make much sense under Windows, so this feature is unix only.
-                ThumbnailFile = stdout;
-            }else
-#endif
-            {
-                ThumbnailFile = fopen(OutFileName,"wb");
-            }
-
-            if (ThumbnailFile){
-                char * ThumbnailPointer;
-                Section_t * ExifSection;
-                ExifSection = FindSection(M_EXIF);
-                ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
-
-                fwrite(ThumbnailPointer, ImageInfo.ThumbnailSize ,1, ThumbnailFile);
-                fclose(ThumbnailFile);
-                if (ThumbnailFile != stdout){
-                    printf("Created: '%s'\n", OutFileName);
-                }else{
-                    // No point in printing to stdout when that is where the thumbnail goes!
-                }
-            }else{
-                ErrFatal("Could not write thumbnail file");
-            }
-        }else{
-            printf("Image '%s' contains no thumbnail\n",FileName);
-        }
+        SaveThumbnail(OutFileName);
     }
 
     if (ThumbInsertName){

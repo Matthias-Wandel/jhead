@@ -148,6 +148,7 @@ void DiscardData(void);
 void DiscardAllButExif(void);
 int ReadJpegFile(const char * FileName, ReadMode_t ReadMode);
 int ReplaceThumbnail(char * ThumbFileName);
+int SaveThumbnail(char * ThumbFileName);
 int RemoveSectionType(int SectionType);
 int RemoveUnknownSections(void);
 void WriteJpegFile(const char * FileName);
