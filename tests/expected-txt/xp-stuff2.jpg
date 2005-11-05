@@ -1,0 +1,78 @@
+Exif header 50043 bytes long
+Exif section in Intel order
+(dir has 24 entries)
+    Make = "Asahi Optical Co.,Ltd. "
+    Model = "PENTAX Optio 230   "
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "Optio 230 Ver 1.10 "
+    DateTime = "2005:07:14 12:12:00"
+    YCbCrPositioning = 1
+    ExifOffset = 584
+    Exif Dir:(dir has 26 entries)
+        ExposureTime = 1/60
+        FNumber = 50/10
+        ExifVersion = "0220"
+        DateTimeOriginal = "2005:07:14 12:12:00"
+        DateTimeDigitized = "2005:07:14 12:12:00"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 4/1
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 28/10
+        MeteringMode = 5
+        Flash = 16
+        FocalLength = 174/10
+        Maker note:  41 4f 43 00 20 20 00 29 00 01 00... (40960 bytes)
+        UserComment = "Coppuccino"
+        UserComment = "Coppuccino"
+        UserComment = "Coppuccino"
+        UserComment = "Coppuccino"
+        UserComment = "Coppuccino"
+        UserComment = "Coppuccino"
+        UserComment = "Coppuccino"
+        UserComment = "Coppuccino"
+        UserComment = "Coppuccino"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 1200
+        ExifImageLength = 1600
+    Unknown Tag 9c9b Value = Microsoft Title
+    Unknown Tag 9c9c Value = Microsoft Comment
+    Unknown Tag 9c9d Value = Microsoft Author
+    Unknown Tag 9c9e Value = Microsoft Keyword
+    Unknown Tag 9c9f Value = Microsoft Subject
+    CustomRendered = 0
+    ExposureMode = 0
+    WhiteBalance = 0
+    DigitalZoomRatio = 0/100
+    FocalLengthIn35mmFilm = 114
+    SceneCaptureType = 0
+    Contrast = 0
+    Saturation = 0
+    Sharpness = 0
+    SubjectDistanceRange = 3
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 42152
+        ThumbnailLength = 7883
+Thumbnail size: 7883 bytes
+COM marker comment: Coppuccino
+Jpeg section marker 0xdb size 132
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 418
+Camera make  : Asahi Optical Co.,Ltd. 
+Camera model : PENTAX Optio 230   
+Date/Time    : 2005:07:14 12:12:00
+Resolution   : 160 x 120
+Flash used   : No
+Focal length : 17.4mm  (35mm equivalent: 114mm)
+Exposure time: 0.017 s  (1/60)
+Aperture     : f/5.0
+Whitebalance : Auto
+Metering Mode: matrix
+Comment      : Coppuccino
+
