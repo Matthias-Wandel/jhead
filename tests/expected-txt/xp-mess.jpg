@@ -1,0 +1,116 @@
+Exif header 1231 bytes long
+Exif section in Intel order
+(dir has 21 entries)
+    Make = "FUJIFILM"
+    Model = "FinePix A202  "
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "Digital Camera FinePix A202   Ver1.00"
+    DateTime = "2004:03:27 01:01:14"
+    YCbCrPositioning = 2
+    Copyright = "    "
+    SensingMethod = 2
+    CustomRendered = 0
+    ExposureMode = 0
+    WhiteBalance = 0
+    SceneCaptureType = 0
+    Sharpness = 0
+    SubjectDistanceRange = 0
+    Orientation = 1
+    YCbCrPositioning = 2
+    Unknown Tag 9c9d Value = Recato
+    ExifOffset = 383
+    Exif Dir:(dir has 35 entries)
+        ExposureTime = 10/5500
+        FNumber = 460/100
+        ExposureProgram = 2
+        ISOSpeedRatings = 100
+        ExifVersion = "0220"
+        DateTimeOriginal = "2004:03:27 01:01:14"
+        DateTimeDigitized = "2004:03:27 01:01:14"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 20/10
+        ShutterSpeedValue = 910/100
+        ApertureValue = 440/100
+        BrightnessValue = 875/100
+        ExposureBiasValue = 0/100
+        MaxApertureValue = 440/100
+        MeteringMode = 5
+        LightSource = 0
+        Flash = 24
+        FocalLength = 550/100
+        Maker note:  46 55 4a 49 46 49 4c 4d 0c 00 00... (274 bytes)
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageLength = 1280
+        ExifImageWidth = 960
+        InteroperabilityOffset = 1092
+        Interop Dir:(dir has 0 entries)
+            Continued directory (dir has 0 entries)
+                Continued directory (dir has 35 entries)
+                    ExposureTime = 10/5500
+                    FNumber = 460/100
+                    ExposureProgram = 2
+                    ISOSpeedRatings = 100
+                    ExifVersion = "0220"
+                    DateTimeOriginal = "2004:03:27 01:01:14"
+                    DateTimeDigitized = "2004:03:27 01:01:14"
+                    ComponentsConfiguration = "?"
+                    CompressedBitsPerPixel = 20/10
+                    ShutterSpeedValue = 910/100
+                    ApertureValue = 440/100
+                    BrightnessValue = 875/100
+                    ExposureBiasValue = 0/100
+                    MaxApertureValue = 440/100
+                    MeteringMode = 5
+                    LightSource = 0
+                    Flash = 24
+                    FocalLength = 550/100
+                    Maker note:  46 55 4a 49 46 49 4c 4d 0c 00 00... (274 bytes)
+                    FlashPixVersion = "0100"
+                    ColorSpace = 1
+                    ExifImageLength = 1280
+                    ExifImageWidth = 960
+                    InteroperabilityOffset = 1092
+                    Interop Dir:                    FocalPlaneXResolution = 2462/1
+                    FocalPlaneYResolution = 2462/1
+                    FocalPlaneResolutionUnit = 3
+                    FileSource = ""
+                    SceneType = ""
+                    UserComment = 6
+                    UserComment = 72/1
+                    UserComment = 72/1
+                    UserComment = 2
+                    UserComment = 1240
+                    UserComment = 9965
+                    Continued directory         FocalPlaneXResolution = 2462/1
+        FocalPlaneYResolution = 2462/1
+        FocalPlaneResolutionUnit = 3
+        FileSource = ""
+        SceneType = ""
+        UserComment = 6
+        UserComment = 72/1
+        UserComment = 72/1
+        UserComment = 2
+        UserComment = 1240
+        UserComment = 9965
+        Continued directory Jpeg section marker 0xdb size 132
+JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 418
+Camera make  : FUJIFILM
+Camera model : FinePix A202  
+Date/Time    : 2004:03:27 01:01:14
+Resolution   : 160 x 120
+Flash used   : No (auto)
+Focal length :  5.5mm  (35mm equivalent: 38mm)
+CCD width    : 5.20mm
+Exposure time: 0.0018 s  (1/550)
+Aperture     : f/4.6
+ISO equiv.   : 100
+Whitebalance : Auto
+Metering Mode: matrix
+Exposure     : program (auto)
+Comment      : í&
+
