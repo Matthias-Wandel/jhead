@@ -585,7 +585,7 @@ static int DoAutoRotate(const char * FileName)
                 strcpy(ThumbTempName_out, FileName);
                 strcat(ThumbTempName_out, ".tho");
                 SaveThumbnail(ThumbTempName_in);
-                sprintf(RotateCommand,"jpegtran -%s -outfile  %s  %s",
+                sprintf(RotateCommand,"jpegtran -%s -outfile %s %s",
                     Argument, ThumbTempName_out, ThumbTempName_in);
                 if (system(RotateCommand) == 0){
                     // Put the thumbnail back in the header
