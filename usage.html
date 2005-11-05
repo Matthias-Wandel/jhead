@@ -30,10 +30,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         The program 'jpegtran' is used to perform the rotation.  This program is present in most 
         Linux distributions.  For windows, you need to get a copy of it.
         After rotation, the orientation tag of the Exif header is set to '1' (normal orientation).  
-        The thumbnail is not rotated (that would be much harder).  Other fields of the Exif header, 
+        The exif thumbnail is also rotated.  Other fields of the Exif header, 
         including dimensions are untouched, but the JPEG height/width are adjusted.<br>
-        This feature is especially useful with newer Canon cameras, that set the orientation tag
-        automatically using a gravity sensor.
+        This feature is especially useful with newer digital cameras, which set the orientation
+        field in the exif header automatically using a built in orienttion sensor in the camera.
+
 <tr valign=top>
     <td><b>-norot
     <td>
@@ -42,18 +43,24 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         rotated them with some lossless tool without clearing the rotation tag.
         Now your friendly browser rotates the images on you again because the image rotation
         tag still indicates the image should be rotated.  Use this option to fix this problem.
+
 <tr valign=top>
     <td><b>-dt
     <td>
         Delete thumbnails from the Exif header, but leave the
         interesting parts intact.  This option truncates the thumbnail from the Exif header, provided
         that the thumbnail is the last part of th Exif header (which so far as I know is always the case).
-        Exif headers have a built-in thumbnail, which typically
-        occupies around 10k of space.  This thumbnail is used by digital cameras.  Windows XP may also
-        use this thumbnail if present (but it doesn't need it).  The
-        thumbnails are too small to use even full screen on the digicam's LCD.
-        I have not encountered any adverse side effects of deleting the thumbnails, even from the
-        software provided with my old Olympus digicam.  Use with caution.
+        Exif headers have a built-in thumbnail, which is typically 240x160 and 10k in size.
+        This thumbnail is used by digital cameras.  Windows XP, as well
+        as various photo viewing software may also use this thumbnail if present, but work jsut fine
+        if it isn't.  I have not encountered any adverse side effects of deleting the thumbnails.
+
+<tr valign=top>
+    <td><b>-rt
+    <td>
+        Replace thumbnails from the Exif header.
+        This only works if the exif header already contains a thumbnail, and the thumbnail is at the
+        end of the header (both always the case if the photo came from a digital camera)
 
 <tr valign=top>
     <td><b>-de

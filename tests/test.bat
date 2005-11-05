@@ -88,7 +88,7 @@ copy normal-digicams\fuji-dx10.jpg results-bin\thumb-deleted.jpg
 jhead -dt results-bin\thumb-deleted.jpg
 copy results-bin\thumb-deleted.jpg results-bin\thumb-inserted.jpg
 rem reinsert a different thumbnail
-jhead -it normal-digicams\no-exif.jpg results-bin\thumb-inserted.jpg
+jhead -rt normal-digicams\no-exif.jpg results-bin\thumb-inserted.jpg
 rem replace thumbnail in one step
 copy normal-digicams\olympus.jpg results-bin\thumb-replaced.jpg
 jhead -it normal-digicams\no-exif.jpg results-bin\thumb-replaced.jpg

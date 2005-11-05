@@ -36,7 +36,7 @@ The program
 is used to perform the rotation. This program is present in most 
 Linux distributions.  For windows, you need to get a copy of it.  After rotation, the 
 orientation tag of the Exif header is set to '1' (normal orientation).  The thumbnail 
-is not rotated (that would be much harder). Other fields of the Exif header, including 
+is also rotated. Other fields of the Exif header, including 
 dimensions are untouched, but the JPEG height/width are adjusted.
 This feature is especially useful with newer Canon cameras, that set the orientation 
 tag automatically using a gravity sensor.
@@ -56,6 +56,11 @@ use this thumbnail if present (but it doesn't need it).  The
 thumbnails are too small to use even full screen on the digicam's LCD.
 I have not encountered any adverse side effects of deleting the thumbnails, even from the
 software provided with my old Olympus digicam.  Use with caution.
+.TP
+.B \-rt
+Replace thumbnails from the Exif header.
+This only works if the exif header already contains a thumbnail, and the thumbnail is at the
+end of the header (both always the case if the photo came from a digital camera)
 .TP
 .B \-de
 Delete the Exif header entirely.  This leaves comments in the comment

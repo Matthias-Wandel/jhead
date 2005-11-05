@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.46"
+#define JHEAD_VERSION "2.47"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -1016,7 +1016,7 @@ static void Usage (void)
            "             If output file name contains the substring \"&i\" then the\n"
            "             image file name is substitute for the &i.  Note that quotes around\n"
            "             the argument are required for the '&' to be passed to the program.\n"
-           "  -it <name> Replace Exif thumbnail.  Can only be done with headers that\n"
+           "  -rt <name> Replace Exif thumbnail.  Can only be done with headers that\n"
            "             already contain a thumbnail.\n"
 #ifndef _WIN32
            "             An output name of '-' causes thumbnail to be written to stdout\n"
@@ -1154,7 +1154,7 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-st")){
             ThumbSaveName = argv[++argn];
             DoReadAction = TRUE;
-        }else if (!strcmp(arg,"-it")){
+        }else if (!strcmp(arg,"-rt")){
             ThumbInsertName = argv[++argn];
             DoModify = TRUE;
         }else if (!strcmp(arg,"-te")){
