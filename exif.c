@@ -549,7 +549,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     break;
                 }
                 ImageInfo.DateTimeOffsets[ImageInfo.numDateTimeTags++] = 
-                    (char *)ValuePtr - OffsetBase;
+                    (char *)ValuePtr - (char *)OffsetBase;
                 break;
 
 

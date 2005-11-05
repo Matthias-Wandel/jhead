@@ -356,7 +356,8 @@ int ReplaceThumbnail(char * ThumbFileName)
             ErrFatal("Thumbnail is too large to insert into exif header");
         }
     }else{
-        ThumbLen = 0;
+        ThumbLen = 0;
+        ThumbnailFile = NULL;
     }
 
     ExifSection = FindSection(M_EXIF);
@@ -366,7 +367,7 @@ int ReplaceThumbnail(char * ThumbFileName)
 
     ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
 
-    if (ThumbLen){
+    if (ThumbnailFile){
         fread(ThumbnailPointer, ThumbLen, 1, ThumbnailFile);
     }
 
