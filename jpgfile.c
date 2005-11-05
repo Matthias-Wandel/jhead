@@ -328,7 +328,6 @@ int ReadJpegFile(const char * FileName, ReadMode_t ReadMode)
 int SaveThumbnail(char * ThumbFileName)
 {
     FILE * ThumbnailFile;
-    char OutFileName[PATH_MAX+1];
 
     if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailSize == 0){
         printf("Image contains no thumbnail\n");
@@ -352,7 +351,7 @@ int SaveThumbnail(char * ThumbFileName)
         fwrite(ThumbnailPointer, ImageInfo.ThumbnailSize ,1, ThumbnailFile);
         fclose(ThumbnailFile);
         if (ThumbnailFile != stdout){
-            printf("Created: '%s'\n", OutFileName);
+            printf("Created: '%s'\n", ThumbFileName);
         }else{
             // No point in printing to stdout when that is where the thumbnail goes!
         }
