@@ -324,26 +324,63 @@ int ReadJpegFile(const char * FileName, ReadMode_t ReadMode)
 //--------------------------------------------------------------------------
 // Remove exif thumbnail
 //--------------------------------------------------------------------------
-int TrimExifFunc(void)
+int ReplaceThumbnail(char * ThumbFileName)
 {
-    int a;
-    for (a=0;a<SectionsRead-1;a++){
-        if (Sections[a].Type == M_EXIF && memcmp(Sections[a].Data+2, "Exif",4)==0){
-            unsigned int NewSize;
-            NewSize = RemoveThumbnail(Sections[a].Data);
-            // Truncate the thumbnail section of the exif.
-            if (Sections[a].Size == NewSize || NewSize == 0) return FALSE; // Nothing removed.
-            printf("%d bytes removed\n",Sections[a].Size-NewSize);
-            Sections[a].Size = NewSize;
-            Sections[a].Data[0] = (uchar)(NewSize >> 8);
-            Sections[a].Data[1] = (uchar)NewSize;
-            return TRUE;
-        }
+    FILE * ThumbnailFile;
+    int ThumbLen, NewExifSize;
+    Section_t * ExifSection;
+    uchar * ThumbnailPointer;
+
+    if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailAtEnd == FALSE){
+        // Adding or removing of thumbnail is not possible - that would require rearranging
+        // of the exif header, which is risky, and jhad doesn't know how to do.
+        printf("Image contains no thumbnail to replace - add is not possible\n");
+        return FALSE;
     }
-    // Not an exif image.  Can't remove exif thumbnail.
-    ErrNonfatal("Image is not exif.  No thumbnail to remove",0,0);
-    return FALSE;
+
+    if (ThumbFileName){
+        ThumbnailFile = fopen(ThumbFileName,"rb");
+
+        if (ThumbnailFile == NULL){
+            ErrFatal("Could not read thumbnail file");
+            return FALSE;
+        }
+
+        // get length
+        fseek(ThumbnailFile, 0, SEEK_END);
+
+        ThumbLen = ftell(ThumbnailFile);
+        fseek(ThumbnailFile, 0, SEEK_SET);
+
+        if (ThumbLen + ImageInfo.ThumbnailOffset > 0x10000-20){
+            ErrFatal("Thumbnail is too large to insert into exif header");
+        }
+    }else{
+        ThumbLen = 0;
+    }
+
+    ExifSection = FindSection(M_EXIF);
+
+    NewExifSize = ImageInfo.ThumbnailOffset+8+ThumbLen;
+    ExifSection->Data = (uchar *)realloc(ExifSection->Data, NewExifSize);
+
+    ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
+
+    if (ThumbnailFile){
+        fread(ThumbnailPointer, ThumbLen, 1, ThumbnailFile);
+    }
+
+    ImageInfo.ThumbnailSize = ThumbLen;
+
+    Put32u(ExifSection->Data+ImageInfo.ThumbnailSizeOffset+8, ThumbLen);
+
+    ExifSection->Data[0] = (uchar)(NewExifSize >> 8);
+    ExifSection->Data[1] = (uchar)NewExifSize;
+    ExifSection->Size = NewExifSize;
+
+    return TRUE;
 }
+
 
 //--------------------------------------------------------------------------
 // Discard everything but the exif and comment sections.

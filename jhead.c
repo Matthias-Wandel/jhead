@@ -714,68 +714,20 @@ void ProcessFile(const char * FileName)
         }
     }
 
-    if (TrimExif){
-        if (ImageInfo.ThumbnailOffset && ImageInfo.ThumbnailSize){
-            if (TrimExifFunc()) Modified = TRUE;
-        }else{
-            printf("Image '%s' contains no thumbnail\n",FileName);
-        }
-    }
-    
-
     if (ThumbInsertName){
-        if (ImageInfo.ThumbnailOffset && ImageInfo.ThumbnailAtEnd){
-            FILE * ThumbnailFile;
-            char ThumbFileName[PATH_MAX+1];
+        char ThumbFileName[PATH_MAX+1];
+        // Make a relative name.
+        RelativeName(ThumbFileName, ThumbInsertName, FileName);
 
-            // Make a relative name.
-            RelativeName(ThumbFileName, ThumbInsertName, FileName);
-
-            ThumbnailFile = fopen(ThumbFileName,"rb");
-
-            if (ThumbnailFile){
-                int ThumbLen, NewExifSize;
-                Section_t * ExifSection;
-                uchar * ThumbnailPointer;
-
-                ExifSection = FindSection(M_EXIF);
-
-                // get length
-                fseek(ThumbnailFile, 0, SEEK_END);
-
-                ThumbLen = ftell(ThumbnailFile);
-                fseek(ThumbnailFile, 0, SEEK_SET);
-
-                if (ThumbLen + ImageInfo.ThumbnailOffset > 0x10000-20){
-                    ErrFatal("Thumbnail is too large to insert into exif header");
-                }
-
-                NewExifSize = ImageInfo.ThumbnailOffset+8+ThumbLen;
-                ExifSection->Data = (uchar *)realloc(ExifSection->Data, NewExifSize);
-
-                ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
-
-                fread(ThumbnailPointer, ThumbLen, 1, ThumbnailFile);
-
-                ImageInfo.ThumbnailSize = ThumbLen;
-
-                Put32u(ExifSection->Data+ImageInfo.ThumbnailSizeOffset+8, ThumbLen);
-
-                ExifSection->Data[0] = (uchar)(NewExifSize >> 8);
-                ExifSection->Data[1] = (uchar)NewExifSize;
-                ExifSection->Size = NewExifSize;
-
-                Modified = TRUE;
-
-            }else{
-                ErrFatal("Could not read thumbnail file");
-            }
-        }else{
-            // Adding of thumbnail is not possible.
-            printf("Image '%s' contains no thumbnail to replace - add is not possible\n",FileName);
+        if (ReplaceThumbnail(ThumbFileName)){
+            Modified = TRUE;
+        }
+    }else if (TrimExif){
+        // Deleting thumbnail is just replacing it with a null thumbnail.
+        if (ReplaceThumbnail(NULL)){
+            Modified = TRUE;
         }
     }
-
 
     if (
 #ifdef MATTHIAS
