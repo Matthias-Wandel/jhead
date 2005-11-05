@@ -350,11 +350,6 @@ int SaveThumbnail(char * ThumbFileName)
 
         fwrite(ThumbnailPointer, ImageInfo.ThumbnailSize ,1, ThumbnailFile);
         fclose(ThumbnailFile);
-        if (ThumbnailFile != stdout){
-            printf("Created: '%s'\n", ThumbFileName);
-        }else{
-            // No point in printing to stdout when that is where the thumbnail goes!
-        }
         return TRUE;
     }else{
         ErrFatal("Could not write thumbnail file");
@@ -375,6 +370,7 @@ int ReplaceThumbnail(char * ThumbFileName)
     if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailAtEnd == FALSE){
         // Adding or removing of thumbnail is not possible - that would require rearranging
         // of the exif header, which is risky, and jhad doesn't know how to do.
+
         printf("Image contains no thumbnail to replace - add is not possible\n");
         return FALSE;
     }
@@ -505,7 +501,8 @@ void WriteJpegFile(const char * FileName)
 Section_t * FindSection(int SectionType)
 {
     int a;
-    for (a=0;a<SectionsRead-1;a++){
+
+    for (a=0;a<SectionsRead;a++){
         if (Sections[a].Type == SectionType){
             return &Sections[a];
         }

@@ -54,9 +54,9 @@ rem test rotate command stuff
 copy normal-digicams\rotate.jpg results-bin
 jhead -norot -ft results-bin\rotate.jpg
 jhead results-bin\rotate.jpg > results-txt\rotate.txt
-copy normal-digicams\rotate.jpg results-bin
-jhead -autorot -ft results-bin\rotate.jpg
-jhead -nofinfo results-bin\rotate.jpg >> results-txt\rotate.txt
+copy normal-digicams\rotate*.jpg results-bin
+jhead -autorot -ft results-bin\rotate*.jpg
+jhead -nofinfo results-bin\rotate*.jpg >> results-txt\rotate.txt
 
 rem test with two orientation  tags.
 copy normal-digicams\two-orientation.jpg results-bin

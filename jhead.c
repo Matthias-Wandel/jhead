@@ -134,7 +134,7 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
 {
     FILE * file;
     int a;
-    char QuotedPath[300];
+    char QuotedPath[PATH_MAX];
 
     file = fopen(TempFileName, "w");
     if (file == NULL){
@@ -302,7 +302,7 @@ static int AutoResizeCmdStuff(void)
 //--------------------------------------------------------------------------
 // Apply the specified command to the JPEG file.
 //--------------------------------------------------------------------------
-static void DoCommand(const char * FileName)
+static void DoCommand(const char * FileName, int ShowIt)
 {
     int a,e;
     char ExecString[400];
@@ -338,7 +338,7 @@ static void DoCommand(const char * FileName)
         if (ApplyCommand[a] == 0) break;
     }
 
-    printf("Cmd:%s\n",ExecString);
+    if (ShowIt) printf("Cmd:%s\n",ExecString);
 
     errno = 0;
     a = system(ExecString);
@@ -413,7 +413,7 @@ static void RelativeName(char * OutFileName, const char * NamePattern, const cha
 //--------------------------------------------------------------------------
 // Handle renaming of files by date.
 //--------------------------------------------------------------------------
-void DoFileRenaming(const char * FileName)
+static void DoFileRenaming(const char * FileName)
 {
     int NumAlpha = 0;
     int NumDigit = 0;
@@ -551,6 +551,55 @@ void DoFileRenaming(const char * FileName)
     }
 }
 
+//--------------------------------------------------------------------------
+// Rotate the thumbnail
+//--------------------------------------------------------------------------
+static int DoAutoRotate(const char * FileName)
+{
+    if (ImageInfo.Orientation >= 2 && ImageInfo.Orientation <= 8){
+        const char * Argument;
+        Argument = ClearOrientation();
+
+        if (!ZeroRotateTagOnly){
+            char RotateCommand[PATH_MAX*2+50];
+            if (Argument == NULL){
+                ErrFatal("Orientation screwup");
+            }
+
+            sprintf(RotateCommand, "jpegtran -%s -outfile &o &i", Argument);
+            ApplyCommand = RotateCommand;
+            DoCommand(FileName, FALSE);
+            ApplyCommand = NULL;
+
+            // Now rotate the thumbnail, if there is one.
+            if (ImageInfo.ThumbnailOffset && 
+                ImageInfo.ThumbnailSize && 
+                ImageInfo.ThumbnailAtEnd){
+                // Must have a thumbnail that exists and is modifieable.
+
+                char ThumbTempName_in[PATH_MAX+4];
+                char ThumbTempName_out[PATH_MAX+4];
+
+                strcpy(ThumbTempName_in, FileName);
+                strcat(ThumbTempName_in, ".thi");
+                strcpy(ThumbTempName_out, FileName);
+                strcat(ThumbTempName_out, ".tho");
+                SaveThumbnail(ThumbTempName_in);
+                sprintf(RotateCommand,"jpegtran -%s -outfile  %s  %s",
+                    Argument, ThumbTempName_out, ThumbTempName_in);
+                if (system(RotateCommand) == 0){
+                    // Put the thumbnail back in the header
+                    ReplaceThumbnail(ThumbTempName_out);
+                }
+
+                unlink(ThumbTempName_in);
+                unlink(ThumbTempName_out);
+            }
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
 
 //--------------------------------------------------------------------------
 // Do selected operations to one file at a time.
@@ -616,25 +665,11 @@ void ProcessFile(const char * FileName)
         DiscardAllButExif();
 
         if (AutoRotate){
-            if (ImageInfo.Orientation >= 2 && ImageInfo.Orientation <= 8){
-                const char * Argument;
-                Argument = ClearOrientation();
-
-                if (!ZeroRotateTagOnly){
-                    char RotateCommand[50];
-                    if (Argument == NULL){
-                        ErrFatal("Orientation screwup");
-                    }
-                    sprintf(RotateCommand, "jpegtran -%s -outfile &o &i", Argument);
-                    ApplyCommand = RotateCommand;
-                    DoCommand(FileName);
-                    ApplyCommand = NULL;
-                }
-
+            if (DoAutoRotate(FileName)){
                 Modified = TRUE;
             }
         }else{
-            DoCommand(FileName);
+            DoCommand(FileName, TRUE);
             Modified = TRUE;
         }
         ReadMode = READ_IMAGE;   // Don't re-read exif section again on next read.
@@ -679,7 +714,11 @@ void ProcessFile(const char * FileName)
         // Make a relative name.
         RelativeName(OutFileName, ThumbSaveName, FileName);
 
-        SaveThumbnail(OutFileName);
+        if (SaveThumbnail(OutFileName)){
+            if (OutFileName != "-"){
+                printf("Created: '%s'\n", OutFileName);
+            }
+        }
     }
 
     if (ThumbInsertName){

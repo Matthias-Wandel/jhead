@@ -1,10 +1,23 @@
 File name    : results-bin\rotate.jpg
-File size    : 10555 bytes
+File size    : 10248 bytes
 File date    : 2004:01:08 22:00:22
 Camera make  : Canon
 Camera model : Canon PowerShot S40
 Date/Time    : 2004:01:08 22:00:22
 Resolution   : 160 x 120
+Flash used   : No
+Focal length :  7.1mm  (35mm equivalent: 36mm)
+CCD width    : 7.11mm
+Exposure time: 0.100 s  (1/10)
+Aperture     : f/2.8
+Focus dist.  : 1.77m
+ISO equiv.   : 100
+Metering Mode: center weight
+
+Camera make  : Canon
+Camera model : Canon PowerShot S40
+Date/Time    : 2004:01:08 22:00:22
+Resolution   : 120 x 160
 Flash used   : No
 Focal length :  7.1mm  (35mm equivalent: 36mm)
 CCD width    : 7.11mm
