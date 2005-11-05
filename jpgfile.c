@@ -406,7 +406,7 @@ int ReplaceThumbnail(char * ThumbFileName)
 
     if (ThumbnailFile){
         fread(ThumbnailPointer, ThumbLen, 1, ThumbnailFile);
-        fclose(ThumbnailPointer);
+        fclose(ThumbnailFile);
     }
 
     ImageInfo.ThumbnailSize = ThumbLen;
