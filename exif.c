@@ -638,7 +638,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 ImageInfo.Orientation = (int)ConvertAnyFormat(ValuePtr, Format);
                 OrientationPtr = ValuePtr;
                 OrientationNumFormat = Format;
-                if (ImageInfo.Orientation < 1 || ImageInfo.Orientation > 8){
+                if (ImageInfo.Orientation < 0 || ImageInfo.Orientation > 8){
                     ErrNonfatal("Undefined rotation value %d", ImageInfo.Orientation, 0);
                     ImageInfo.Orientation = 0;
                 }
