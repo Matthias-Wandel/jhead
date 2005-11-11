@@ -91,7 +91,7 @@ rem reinsert a different thumbnail
 jhead -rt normal-digicams\no-exif.jpg results-bin\thumb-inserted.jpg
 rem replace thumbnail in one step
 copy normal-digicams\olympus.jpg results-bin\thumb-replaced.jpg
-jhead -it normal-digicams\no-exif.jpg results-bin\thumb-replaced.jpg
+jhead -rt normal-digicams\no-exif.jpg results-bin\thumb-replaced.jpg
 jhead -v res*bin\thumb-*.jpg > results-txt\thumb-operations-txt
 
 

@@ -1,0 +1,102 @@
+Exif header 7543 bytes long
+Exif section in Intel order
+(dir has 9 entries)
+    Make = "Canon"
+    Model = "Canon EOS DIGITAL REBEL"
+    Orientation = 0
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2005:08:11 19:47:59"
+    YCbCrPositioning = 1
+    ExifOffset = 188
+    Exif Dir:(dir has 31 entries)
+        ExposureTime = 1/60
+        FNumber = 50/10
+        ISOSpeedRatings = 200
+        ExifVersion = "0221"
+        DateTimeOriginal = "2005:08:11 19:47:59"
+        DateTimeDigitized = "2005:08:11 19:47:59"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 3/1
+        ShutterSpeedValue = 719848704/256
+        ApertureValue = 304340/65536
+        ExposureBiasValue = -16777217/50331648
+        MaxApertureValue = 236894/65536
+        MeteringMode = 5
+        Flash = 9
+        FocalLength = 18/1
+        Maker note: (dir has 26 entries)
+            Canon maker tag 0001 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 0002 Value = 0, 0, 0, 0
+            Canon maker tag 0003 Value = 0, 0, 0, 0
+            Canon maker tag 0004 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 0093 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0
+            Canon maker tag 0006 Value = ""
+            Canon maker tag 0007 Value = ""
+            Canon maker tag 000c Value = 660102539
+            Canon maker tag 0015 Value = -1879048192
+            Canon maker tag 0008 Value = 2252559
+            Canon maker tag 0009 Value = "ýÓF`Þ’"
+            Canon maker tag 0010 Value = -2147483280
+            Canon maker tag 000e Value = 2354142
+            Canon maker tag 000d Value = 14, 10, 00, 00, 73, 0d, 00, 00, 99, 20, 00, 00, 52, 2a, 00, 00, ...
+            Canon maker tag 0000 Value = 0, 16698, 4, 1536, 0, 1024, 0, 43672, 31, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 00c0 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            Canon maker tag 00c1 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            Canon maker tag 00aa Value = 0, 0, 0, 0, 0
+            Canon maker tag 00a8 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            Canon maker tag 00a9 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 00ae Value = 5200
+            Canon maker tag 00b4 Value = 1
+            Canon maker tag 0012 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 0013 Value = 0, 0, 0, 0
+            Canon maker tag 0000 Value = 0, 0, 0, 0, 0
+            Canon maker tag 00b6 Value = 0, 0, 0, 0, 3072000, 892, 2048000, 595, 65540, 262146, 961675264, 131128
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 3072
+        ExifImageLength = 2048
+        InteroperabilityOffset = 2358
+        Interop Dir:(dir has 4 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+            RelatedImageWidth = 3072
+            RelatedImageLength = 2048
+        FocalPlaneXResolution = 3072000/892
+        FocalPlaneYResolution = 2048000/595
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = ""
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 0
+        SceneCaptureType = 0
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2506
+        ThumbnailLength = 5029
+Thumbnail size: 5029 bytes
+Jpeg section marker 0xed size 220
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xc4 size 418
+JPEG image is 3072w * 2048h, 3 color components, 8 bits per sample
+Camera make  : Canon
+Camera model : Canon EOS DIGITAL REBEL
+Date/Time    : 2005:08:11 19:47:59
+Resolution   : 3072 x 2048
+Flash used   : Yes (manual)
+Focal length : 18.0mm  (35mm equivalent: 29mm)
+CCD width    : 22.66mm
+Exposure time: 0.017 s  (1/60)
+Aperture     : f/5.0
+ISO equiv.   : 200
+Exposure bias: -0.33
+Whitebalance : Auto
+Metering Mode: matrix
+
