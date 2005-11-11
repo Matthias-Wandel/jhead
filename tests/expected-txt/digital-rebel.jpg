@@ -81,15 +81,14 @@ Exif section in Intel order
         ThumbnailOffset = 2506
         ThumbnailLength = 5029
 Thumbnail size: 5029 bytes
-Jpeg section marker 0xed size 220
 Jpeg section marker 0xdb size 67
 Jpeg section marker 0xdb size 67
 Jpeg section marker 0xc4 size 418
-JPEG image is 3072w * 2048h, 3 color components, 8 bits per sample
+JPEG image is 160w * 112h, 3 color components, 8 bits per sample
 Camera make  : Canon
 Camera model : Canon EOS DIGITAL REBEL
 Date/Time    : 2005:08:11 19:47:59
-Resolution   : 3072 x 2048
+Resolution   : 160 x 112
 Flash used   : Yes (manual)
 Focal length : 18.0mm  (35mm equivalent: 29mm)
 CCD width    : 22.66mm
