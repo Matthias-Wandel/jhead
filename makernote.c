@@ -32,11 +32,13 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
         unsigned char * DirEnd;
         DirEnd = DIR_ENTRY_ADDR(DirStart, NumDirEntries);
         if (DirEnd > (OffsetBase+ExifLength)){
-            // Note: Files that had thumbnails trimmed with jhead 1.3 or earlier
-            // might trigger this.
             ErrNonfatal("Illegally sized directory",0,0);
             return;
         }
+
+        #ifdef EXIF_MAP
+            printf("Map: %05d-%05d: Directory (makernote)\n",DirStart-OffsetBase, DirEnd-OffsetBase);
+        #endif
     }
 
     if (ShowTags){
@@ -72,6 +74,10 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
                 continue;
             }
             ValuePtr = OffsetBase+OffsetVal;
+
+            #ifdef EXIF_MAP
+                printf("Map: %05d-%05d:   Data for makernote tag %04x\n",OffsetVal, OffsetVal+ByteCount, Tag);
+            #endif
         }else{
             // 4 bytes or less and value is in the dir entry itself
             ValuePtr = DirEntry+8;

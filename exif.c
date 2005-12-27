@@ -14,7 +14,6 @@
 #include <errno.h>
 #include <ctype.h>
 
-
 #ifdef _WIN32
     #include <sys/utime.h>
 #else
@@ -26,6 +25,7 @@
 #endif
 
 #include "jhead.h"
+
 
 static unsigned char * DirWithThumbnailPtrs;
 static double FocalplaneXRes;
@@ -414,6 +414,11 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 return;
             }
         }
+        #ifdef EXIF_MAP
+            printf("Map: %05d-%05d: Directory\n",DirStart-OffsetBase, DirEnd+4-OffsetBase);
+        #endif
+
+
     }
 
     if (ShowTags){
@@ -449,6 +454,10 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 continue;
             }
             ValuePtr = OffsetBase+OffsetVal;
+
+            #ifdef EXIF_MAP
+                printf("Map: %05d-%05d:   Data for tag %04x\n",OffsetVal, OffsetVal+ByteCount, Tag);
+            #endif
         }else{
             // 4 bytes or less and value is in the dir entry itself
             ValuePtr = DirEntry+8;
@@ -802,6 +811,11 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
     if (ThumbnailOffset){
         ImageInfo.ThumbnailAtEnd = FALSE;
+
+        #ifdef EXIF_MAP
+            printf("Map: %05d-%05d: Thumbnail\n",ThumbnailOffset, ThumbnailOffset+ThumbnailSize);
+        #endif
+
         if (ThumbnailOffset <= ExifLength){
             if (ThumbnailSize > ExifLength-ThumbnailOffset){
                 // If thumbnail extends past exif header, only save the part that
@@ -882,6 +896,19 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
 
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
     ProcessExifDir(ExifSection+8+FirstOffset, ExifSection+8, length-8, 0);
+    #ifdef EXIF_MAP
+    {
+        unsigned a,b;
+        printf("Map: %05d  End of exif\n",length-8);
+        for (a=0;a<length-8;a+= 10){
+            printf("Map: %05d ",a);
+            for (b=0;b<10;b++) printf(" %02x",*(ExifSection+8+a+b));
+            printf("\n");
+        }
+    }
+    #endif
+
+
 
     // Compute the CCD width, in millimeters.
     if (FocalplaneXRes != 0){
