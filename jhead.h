@@ -6,8 +6,6 @@
 // where they get used as possible, so include files only get stuff that 
 // gets used in more than one file.
 //--------------------------------------------------------------------------
-//#define EXIF_MAP 1
-
 typedef unsigned char uchar;
 
 #ifndef TRUE
@@ -30,6 +28,8 @@ typedef struct {
 }Section_t;
 
 int ExifSectionIndex;
+
+int DumpExifMap;
 
 #define MAX_DATE_COPIES 10
 

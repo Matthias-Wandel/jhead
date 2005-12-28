@@ -36,9 +36,9 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
             return;
         }
 
-        #ifdef EXIF_MAP
+        if (DumpExifMap){
             printf("Map: %05d-%05d: Directory (makernote)\n",DirStart-OffsetBase, DirEnd-OffsetBase);
-        #endif
+        }
     }
 
     if (ShowTags){
@@ -75,9 +75,9 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
             }
             ValuePtr = OffsetBase+OffsetVal;
 
-            #ifdef EXIF_MAP
+            if (DumpExifMap){
                 printf("Map: %05d-%05d:   Data for makernote tag %04x\n",OffsetVal, OffsetVal+ByteCount, Tag);
-            #endif
+            }
         }else{
             // 4 bytes or less and value is in the dir entry itself
             ValuePtr = DirEntry+8;

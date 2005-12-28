@@ -2,13 +2,13 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.46
+// Version 2.48
 //
 //
-// Compiling under Windows:  Use microsoft's compiler.  from command line:
-// cl -Ox jhead.c exif.c myglob.c
+// Compiling under Windows:  
+//   Make sure you have microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Nov 2005
+// Dec 1999 - Dec 2005
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -22,11 +22,11 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.47"
+#define JHEAD_VERSION "2.48"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-//#define MATTHIAS
+#define MATTHIAS
 
 #ifdef _WIN32
     #include <process.h>
@@ -58,6 +58,7 @@ static int Exif2FileTime  = FALSE;
 static int DoModify     = FALSE;
 static int DoReadAction = FALSE;
        int ShowTags     = FALSE;    // Do not show raw by default.
+       int DumpExifMap  = FALSE;
 static int ShowConcise  = FALSE;
 static char * ApplyCommand = NULL;  // Apply this command to all images.
 static char * FilterModel = NULL;
@@ -1026,6 +1027,7 @@ static void Usage (void)
            "  -dt        Remove exif integral thumbnails.   Typically trims 10k\n"
            "  -h         help (this text)\n"
            "  -v         even more verbose output\n"
+           "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
            "  -se        Supress error messages relating to corrupt exif header structure\n"
            "  -c         concise output\n"
            "  -nofinfo   Don't show file info (name/size/date)\n"
@@ -1145,6 +1147,8 @@ int main (int argc, char **argv)
         if (arg[0] != '-') break; // Filenames from here on.
         if (!strcmp(arg,"-v")){
             ShowTags = TRUE;
+        }else if (!strcmp(arg,"-exifmap")){
+            DumpExifMap = TRUE;
         }else if (!strcmp(arg,"-V")){
             printf("Jhead version: "JHEAD_VERSION"   Compiled: "__DATE__"\n");
             exit(0);
