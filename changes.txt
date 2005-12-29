@@ -242,6 +242,8 @@ Nov 5 2005
 Added -rt (replace thumbnail) feature, and rotate the thumbnail also
 when using the -autorot feature
 
+Dec 28 2005
+Added -rgt (regenerate thumbnail) feature.
 
 
 to do:

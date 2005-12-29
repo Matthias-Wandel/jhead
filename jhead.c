@@ -75,6 +75,8 @@ static char * ThumbSaveName = NULL; // If not NULL, use this string to make up
 static char * ThumbInsertName = NULL; // If not NULL, use this string to make up
                                     // the filename to retrieve the thumbnail from.
 
+static int RegenThumbnail = 0;
+
 static char * ExifXferScrFile = NULL;// Extract Exif header from this file, and
                                     // put it into the Jpegs processed.
 
@@ -553,7 +555,7 @@ static void DoFileRenaming(const char * FileName)
 }
 
 //--------------------------------------------------------------------------
-// Rotate the thumbnail
+// Rotate the image and its thumbnail
 //--------------------------------------------------------------------------
 static int DoAutoRotate(const char * FileName)
 {
@@ -600,6 +602,29 @@ static int DoAutoRotate(const char * FileName)
         return TRUE;
     }
     return FALSE;
+}
+
+//--------------------------------------------------------------------------
+// Regenerate the thumbnail using mogrify
+//--------------------------------------------------------------------------
+static int RegenerateThumbnail(const char * FileName)
+{
+    char ThumbnailGenCommand[PATH_MAX*2+50];
+    if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailAtEnd == FALSE){
+        // There is no thumbnail, or the thumbnail is not at the end.
+        return FALSE;
+    }
+
+    sprintf(ThumbnailGenCommand, "mogrify -thumbnail %dx%d \"%s\"", 
+        RegenThumbnail, RegenThumbnail, FileName);
+
+    if (system(ThumbnailGenCommand) == 0){
+        // Put the thumbnail back in the header
+        return ReplaceThumbnail(FileName);
+    }else{
+        ErrFatal("Unable to run 'mogrify' command");
+        return FALSE;
+    }
 }
 
 //--------------------------------------------------------------------------
@@ -720,6 +745,11 @@ void ProcessFile(const char * FileName)
                 printf("Created: '%s'\n", OutFileName);
             }
         }
+    }
+
+    if (RegenThumbnail){
+        RegenerateThumbnail(FileName);
+        Modified = TRUE;
     }
 
     if (ThumbInsertName){
@@ -1019,6 +1049,9 @@ static void Usage (void)
            "             the argument are required for the '&' to be passed to the program.\n"
            "  -rt <name> Replace Exif thumbnail.  Can only be done with headers that\n"
            "             already contain a thumbnail.\n"
+           "  -rgt[size] Regnerate exif thumbnail.  Only works if image already\n"
+           "             contains a thumbail.  size specifies maximum height or width of\n"
+           "             thumbnail.  Relies on 'mogrify' programs to be on path\n"
 #ifndef _WIN32
            "             An output name of '-' causes thumbnail to be written to stdout\n"
 #endif
@@ -1160,6 +1193,13 @@ int main (int argc, char **argv)
             DoReadAction = TRUE;
         }else if (!strcmp(arg,"-rt")){
             ThumbInsertName = argv[++argn];
+            DoModify = TRUE;
+        }else if (!memcmp(arg,"-rgt", 4)){
+            RegenThumbnail = 160;
+            sscanf(arg+4, "%d", &RegenThumbnail);
+            if (RegenThumbnail > 320){
+                ErrFatal("Specified thumbnail geometry too big!\n");
+            }
             DoModify = TRUE;
         }else if (!strcmp(arg,"-te")){
             ExifXferScrFile = argv[++argn];
@@ -1314,7 +1354,13 @@ int main (int argc, char **argv)
                "       will be overwitten.  If this is what you really want,\n"
                "       specify  -st \"./&i\"  to override this check\n");
         exit(0);
-        
+    }
+
+    if (RegenThumbnail){
+        if (ThumbSaveName || ThumbInsertName){
+            printf("Error: Cannot regen and save or insert thumbnail in same run\n");
+            exit(0);
+        }
     }
 
     if (EditComment){
@@ -1344,14 +1390,12 @@ int main (int argc, char **argv)
                     if (argv[argn][a] == '/') argv[argn][a] = '\\';
                 }
             }
-
             // Use my globbing module to do fancier wildcard expansion with recursive
             // subdirectories under Windows.
-
             MyGlob(argv[argn], ProcessFile);
         #else
             // Under linux, don't do any extra fancy globbing - shell globbing is 
-            // pretty fancy as it is.
+            // pretty fancy as it is - although not as good as myglob.c
             ProcessFile(argv[argn]);
         #endif
 

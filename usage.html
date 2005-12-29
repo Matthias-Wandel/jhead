@@ -52,15 +52,22 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         that the thumbnail is the last part of th Exif header (which so far as I know is always the case).
         Exif headers have a built-in thumbnail, which is typically 240x160 and 10k in size.
         This thumbnail is used by digital cameras.  Windows XP, as well
-        as various photo viewing software may also use this thumbnail if present, but work jsut fine
-        if it isn't.  I have not encountered any adverse side effects of deleting the thumbnails.
+        as various photo viewing software may also use this thumbnail if present, but work just fine
+        if it isn't.
 
 <tr valign=top>
     <td><b>-rt
     <td>
         Replace thumbnails from the Exif header.
-        This only works if the exif header already contains a thumbnail, and the thumbnail is at the
-        end of the header (both always the case if the photo came from a digital camera)
+        This only works if the exif header already contains a thumbnail.
+
+<tr valign=top>
+    <td><b>-rgt[size]
+    <td>
+        Regnerate exif thumbnail.
+        'size' specifies maximum height or width of thumbnail.
+        Relies on 'mogrify' program (from ImageMagick) to regenerate the thumbnail.
+        This only works if the image already contains a thumbail.  
 
 <tr valign=top>
     <td><b>-de
@@ -203,6 +210,13 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         Skip all files that don't have an Exif header.  This skips all files that did not
         come directly from the digital camera, as most photo editing software does not 
         preserve the Exif header when saving pictures.
+        <p>
+
+<tr valign=top>
+    <td><b>-exifmap
+    <td>
+        Show a map of the bytes in the exif header.  Useful when analyzing strange exif headers,
+        not of much use to non software developers.
         <p>
 
 <tr valign=top>

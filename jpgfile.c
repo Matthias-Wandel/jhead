@@ -360,7 +360,7 @@ int SaveThumbnail(char * ThumbFileName)
 //--------------------------------------------------------------------------
 // Replace or remove exif thumbnail
 //--------------------------------------------------------------------------
-int ReplaceThumbnail(char * ThumbFileName)
+int ReplaceThumbnail(const char * ThumbFileName)
 {
     FILE * ThumbnailFile;
     int ThumbLen, NewExifSize;
