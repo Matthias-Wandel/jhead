@@ -67,6 +67,7 @@ typedef struct {
 
     unsigned ThumbnailOffset;          // Exif offset to thumbnail
     unsigned ThumbnailSize;            // Size of thumbnail.
+    unsigned LargestExifOffset;        // Last exif data referenced (to check if thumbnail is at end)
 
     char  ThumbnailAtEnd;              // Exif header ends with the thumbnail
                                        // (we can only modify the thumbnail if its at the end)

@@ -40,7 +40,7 @@ Focus dist.  : 1.77m
 ISO equiv.   : 100
 Metering Mode: center weight
 
-Exif header 34737 bytes long
+Exif header 34540 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
     ImageDescription = "KONICA MINOLTA DIGITAL CAMERA"
@@ -100,9 +100,9 @@ Exif section in Motorola order
         YResolution = 72/1
         ResolutionUnit = 2
         ThumbnailOffset = 31404
-        ThumbnailLength = 3085
+        ThumbnailLength = 3128
         YCbCrPositioning = 1
-Thumbnail size: 3085 bytes
+Thumbnail size: 3128 bytes
 Jpeg section marker 0xdb size 67
 Jpeg section marker 0xdb size 67
 JPEG image is 120w * 160h, 3 color components, 8 bits per sample

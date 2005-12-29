@@ -455,6 +455,10 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             }
             ValuePtr = OffsetBase+OffsetVal;
 
+            if (OffsetVal > ImageInfo.LargestExifOffset){
+                ImageInfo.LargestExifOffset = OffsetVal;
+            }
+
             if (DumpExifMap){
                 printf("Map: %05d-%05d:   Data for tag %04x\n",OffsetVal, OffsetVal+ByteCount, Tag);
             }
@@ -803,6 +807,9 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                         ProcessExifDir(SubdirStart, OffsetBase, ExifLength, NestingLevel+1);
                     }
                 }
+                if (Offset > ImageInfo.LargestExifOffset){
+                    ImageInfo.LargestExifOffset = Offset;
+                }
             }
         }else{
             // The exif header ends before the last next directory pointer.
@@ -831,10 +838,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             if (ShowTags){
                 printf("Thumbnail size: %d bytes\n",ThumbnailSize);
-            }
-
-            if (ThumbnailOffset+ThumbnailSize == ExifLength){
-                ImageInfo.ThumbnailAtEnd = TRUE;
             }
         }
     }
@@ -896,6 +899,8 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
 
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
     ProcessExifDir(ExifSection+8+FirstOffset, ExifSection+8, length-8, 0);
+
+    ImageInfo.ThumbnailAtEnd = ImageInfo.ThumbnailOffset >= ImageInfo.LargestExifOffset ? TRUE : FALSE;
 
     if (DumpExifMap){
         unsigned a,b;
