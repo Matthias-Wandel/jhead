@@ -12,8 +12,12 @@ FOR %%I IN (strange-jpegs\*.jpg) DO jhead -v -nofinfo %%I > results-txt\%%~nI.jp
 
 rem -------------------------------------------------------------------
 rem test compact view
-jhead -c normal-digicams\*.jpg > results-txt\compact-txt
+echo Normal digicams > results-txt\compact-txt
+jhead -c normal-digicams\*.jpg >> results-txt\compact-txt
+echo Strange jpegs >> results-txt\compact-txt
 jhead -c strange-jpegs\*.jpg >> results-txt\compact-txt
+echo Portrait only option test >> results-txt\compact-txt
+jhead -c -se -orp normal-digicams\*.jpg >> results-txt\compact-txt
 
 rem -------------------------------------------------------------------
 rem test odd date format

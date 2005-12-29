@@ -63,6 +63,7 @@ static int ShowConcise  = FALSE;
 static char * ApplyCommand = NULL;  // Apply this command to all images.
 static char * FilterModel = NULL;
 static int    ExifOnly    = FALSE;
+static int    PortraitOnly = 0;
 static time_t ExifTimeAdjust = 0;   // Timezone adjust
 static time_t ExifTimeSet = 0;      // Set exif time to a value.
 
@@ -385,6 +386,14 @@ static int CheckFileSkip(void)
         if (FindSection(M_EXIF) == NULL){
             return TRUE;
         }
+    }
+
+    if (PortraitOnly == 1){
+        if (ImageInfo.Width > ImageInfo.Height) return TRUE;
+    }
+
+    if (PortraitOnly == -1){
+        if (ImageInfo.Width < ImageInfo.Height) return TRUE;
     }
 
     return FALSE;
@@ -748,8 +757,9 @@ void ProcessFile(const char * FileName)
     }
 
     if (RegenThumbnail){
-        RegenerateThumbnail(FileName);
-        Modified = TRUE;
+        if (RegenerateThumbnail(FileName)){
+            Modified = TRUE;
+        }
     }
 
     if (ThumbInsertName){
@@ -1021,7 +1031,12 @@ static void Usage (void)
 
     printf("Usage: %s [options] files\n", progname);
     printf("Where:\n"
+           " files       path/filenames with or without wildcards\n"
+
            "[options] are:\n"
+           "\nGENERAL METADATA:\n"
+           "  -te <name> Transfer exif header from another image file <name>\n"
+           "             Uses same name mangling as '-st' option\n"
            "  -dc        Delete comment field (as left by progs like Photoshop & Compupic)\n"
            "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
            "  -du        Delete non image sections except for Exif and comment sections\n"
@@ -1033,42 +1048,30 @@ static void Usage (void)
            "  -ci <name> Insert comment section from a file.  -cs and -ci use same naming\n"
            "             scheme as used by the -st option\n"
            "  -cl string Insert literal comment string\n"
-           "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
-           "             Note: Windows users must get jpegtran for this to work\n"
-           "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
-           "             rotating the image again after you rotated it but neglected to\n"
-           "             clear the rotation tag\n"
-#ifdef MATTHIAS
-           "  -cr        Remove comment tag (my way)\n"
-           "  -ca        Add comment tag (my way)\n"
-           "  -ar        Auto resize to fit in 800x800, but never less than half\n"
-#endif //MATTHIAS
+
+           "\nTHUMBNAIL MANIPULATION:\n"
+           "  -dt        Remove exif integral thumbnails.   Typically trims 10k\n"
            "  -st <name> Save Exif thumbnail, if there is one, in file <name>\n"
            "             If output file name contains the substring \"&i\" then the\n"
            "             image file name is substitute for the &i.  Note that quotes around\n"
            "             the argument are required for the '&' to be passed to the program.\n"
+#ifndef _WIN32
+           "             An output name of '-' causes thumbnail to be written to stdout\n"
+#endif
            "  -rt <name> Replace Exif thumbnail.  Can only be done with headers that\n"
            "             already contain a thumbnail.\n"
            "  -rgt[size] Regnerate exif thumbnail.  Only works if image already\n"
            "             contains a thumbail.  size specifies maximum height or width of\n"
            "             thumbnail.  Relies on 'mogrify' programs to be on path\n"
-#ifndef _WIN32
-           "             An output name of '-' causes thumbnail to be written to stdout\n"
-#endif
-           "  -te <name> Transfer exif header from another image file <name>\n"
-           "             Uses same name mangling as '-st' option\n"
-           "  -dt        Remove exif integral thumbnails.   Typically trims 10k\n"
-           "  -h         help (this text)\n"
-           "  -v         even more verbose output\n"
-           "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
-           "  -se        Supress error messages relating to corrupt exif header structure\n"
-           "  -c         concise output\n"
-           "  -nofinfo   Don't show file info (name/size/date)\n"
-           "  -model model\n"
-           "             Only process files from digicam containing model substring in\n"
-           "             camera model description\n"
-           "  -exonly    Skip all files that don't have an exif header (skip all jpegs that\n"
-           "             were not created by digicam)\n"
+
+           "\nROTATION TAG MANIPULATION:\n"
+           "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
+           "             Note: Windows users must get jpegtran for this to work\n"
+           "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
+           "             rotating the image again after you rotated it but neglected to\n"
+           "             clear the rotation tag\n"
+
+           "\nDATE / TIME MANIPULATION:\n"
            "  -ft        Set file modification time to Exif time.\n"
            "  -n[format-string]\n"
            "             Rename files according to date.  Uses exif date if present, file\n"
@@ -1104,6 +1107,21 @@ static void Usage (void)
            "             and time in the format yyyy:mmm:dd/hh:mm:ss\n"
            "  -ts<time>  Set the Exif internal time to <time>.  <time> is in the format\n"
            "             yyyy:mm:dd-hh:mm:ss\n"
+
+           "\nOUTPUT VERBOSITY CONTROL:\n"
+           "  -h         help (this text)\n"
+           "  -v         even more verbose output\n"
+           "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
+           "  -se        Supress error messages relating to corrupt exif header structure\n"
+           "  -c         concise output\n"
+           "  -nofinfo   Don't show file info (name/size/date)\n"
+
+           "\nFILE MATCHING AND SELECTION:\n"
+           "  -model model\n"
+           "             Only process files from digicam containing model substring in\n"
+           "             camera model description\n"
+           "  -exonly    Skip all files that don't have an exif header (skip all jpegs that\n"
+           "             were not created by digicam)\n"
            "  -cmd command\n"
            "             Apply 'command' to every file, then re-insert exif and command\n"
            "             sections into the image. &i will be substituted for the input file\n"
@@ -1119,6 +1137,8 @@ static void Usage (void)
            "                jhead -cmd \"jpegtran -progressive &i &o\" *.jpg\n"
            "             to convert jpegs to progressive jpegs (Unix jpegtran syntax\n"
            "             differs slightly)\n"
+           "  -orp       Only operate on 'portrait' aspect ratio images\n"
+           "  -orl       Only operate on 'landscape' aspect ratio images\n"
 #ifdef _WIN32
            "  -r         No longer supported.  Use the ** wildcard to recurse directories\n"
            "             with instead.\n"
@@ -1126,7 +1146,16 @@ static void Usage (void)
            "                 jhead **/*.jpg\n"
            "                 jhead \"c:\\my photos\\**\\*.jpg\"\n"
 #endif
-           " files       path/filenames with or without wildcards\n"
+
+
+#ifdef MATTHIAS
+           "\n"
+           "  -cr        Remove comment tag (my way)\n"
+           "  -ca        Add comment tag (my way)\n"
+           "  -ar        Auto resize to fit in 1024x1024, but never less than half\n"
+#endif //MATTHIAS
+
+
            );
 
     exit(EXIT_FAILURE);
@@ -1287,6 +1316,10 @@ int main (int argc, char **argv)
             FilterModel = argv[++argn];
         }else if (!strcmp(arg,"-exonly")){
             ExifOnly = 1;
+        }else if (!strcmp(arg,"-orp")){
+            PortraitOnly = 1;
+        }else if (!strcmp(arg,"-orl")){
+            PortraitOnly = -1;
         }else if (!strcmp(arg,"-c")){
             ShowConcise = TRUE;
         }else if (!strcmp(arg,"-h")){
