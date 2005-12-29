@@ -375,6 +375,8 @@ static int CheckFileSkip(void)
 
     if (FilterModel){
         // Filtering processing by camera model.
+        // This feature is useful when pictures from multiple cameras are colated, 
+        // the its found that one of the cameras has the time set incorrectly.
         if (strstr(ImageInfo.CameraModel, FilterModel) == NULL){
             // Skip.
             return TRUE;
@@ -704,7 +706,14 @@ void ProcessFile(const char * FileName)
                 Modified = TRUE;
             }
         }else{
+            struct stat dummy;
             DoCommand(FileName, TRUE);
+
+            if (stat(FileName, &dummy)){
+                // The file is not there anymore. Perhaps the command
+                // was a delete or a move.  So we are all done.
+                return;
+            }
             Modified = TRUE;
         }
         ReadMode = READ_IMAGE;   // Don't re-read exif section again on next read.
@@ -1049,28 +1058,6 @@ static void Usage (void)
            "             scheme as used by the -st option\n"
            "  -cl string Insert literal comment string\n"
 
-           "\nTHUMBNAIL MANIPULATION:\n"
-           "  -dt        Remove exif integral thumbnails.   Typically trims 10k\n"
-           "  -st <name> Save Exif thumbnail, if there is one, in file <name>\n"
-           "             If output file name contains the substring \"&i\" then the\n"
-           "             image file name is substitute for the &i.  Note that quotes around\n"
-           "             the argument are required for the '&' to be passed to the program.\n"
-#ifndef _WIN32
-           "             An output name of '-' causes thumbnail to be written to stdout\n"
-#endif
-           "  -rt <name> Replace Exif thumbnail.  Can only be done with headers that\n"
-           "             already contain a thumbnail.\n"
-           "  -rgt[size] Regnerate exif thumbnail.  Only works if image already\n"
-           "             contains a thumbail.  size specifies maximum height or width of\n"
-           "             thumbnail.  Relies on 'mogrify' programs to be on path\n"
-
-           "\nROTATION TAG MANIPULATION:\n"
-           "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
-           "             Note: Windows users must get jpegtran for this to work\n"
-           "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
-           "             rotating the image again after you rotated it but neglected to\n"
-           "             clear the rotation tag\n"
-
            "\nDATE / TIME MANIPULATION:\n"
            "  -ft        Set file modification time to Exif time.\n"
            "  -n[format-string]\n"
@@ -1108,9 +1095,32 @@ static void Usage (void)
            "  -ts<time>  Set the Exif internal time to <time>.  <time> is in the format\n"
            "             yyyy:mm:dd-hh:mm:ss\n"
 
+           "\nTHUMBNAIL MANIPULATION:\n"
+           "  -dt        Remove exif integral thumbnails.   Typically trims 10k\n"
+           "  -st <name> Save Exif thumbnail, if there is one, in file <name>\n"
+           "             If output file name contains the substring \"&i\" then the\n"
+           "             image file name is substitute for the &i.  Note that quotes around\n"
+           "             the argument are required for the '&' to be passed to the program.\n"
+#ifndef _WIN32
+           "             An output name of '-' causes thumbnail to be written to stdout\n"
+#endif
+           "  -rt <name> Replace Exif thumbnail.  Can only be done with headers that\n"
+           "             already contain a thumbnail.\n"
+           "  -rgt[size] Regnerate exif thumbnail.  Only works if image already\n"
+           "             contains a thumbail.  size specifies maximum height or width of\n"
+           "             thumbnail.  Relies on 'mogrify' programs to be on path\n"
+
+           "\nROTATION TAG MANIPULATION:\n"
+           "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
+           "             Note: Windows users must get jpegtran for this to work\n"
+           "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
+           "             rotating the image again after you rotated it but neglected to\n"
+           "             clear the rotation tag\n"
+
            "\nOUTPUT VERBOSITY CONTROL:\n"
            "  -h         help (this text)\n"
            "  -v         even more verbose output\n"
+           "  -V         Show jhead version\n"
            "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
            "  -se        Supress error messages relating to corrupt exif header structure\n"
            "  -c         concise output\n"
@@ -1207,13 +1217,56 @@ int main (int argc, char **argv)
     for (argn=1;argn<argc;argn++){
         arg = argv[argn];
         if (arg[0] != '-') break; // Filenames from here on.
-        if (!strcmp(arg,"-v")){
+
+    // General metadata options:
+        if (!strcmp(arg,"-te")){
+            ExifXferScrFile = argv[++argn];
+            DoModify = TRUE;
+        }else if (!strcmp(arg,"-dc")){
+            DeleteComments = TRUE;
+            DoModify = TRUE;
+        }else if (!strcmp(arg,"-de")){
+            DeleteExif = TRUE;
+            DoModify = TRUE;
+        }else if (!strcmp(arg, "-du")){
+            DeleteUnknown = TRUE;
+            DoModify = TRUE;
+        }else if (!strcmp(arg, "-purejpg")){
+            DeleteExif = TRUE;
+            DeleteComments = TRUE;
+            DeleteUnknown = TRUE;
+            DoModify = TRUE;
+        }else if (!strcmp(arg,"-ce")){
+            EditComment = TRUE;
+            DoModify = TRUE;
+        }else if (!strcmp(arg,"-cs")){
+            CommentSavefileName = argv[++argn];
+            DoModify = TRUE;
+        }else if (!strcmp(arg,"-ci")){
+            CommentInsertfileName = argv[++argn];
+            DoModify = TRUE;
+        }else if (!strcmp(arg,"-cl")){
+            CommentInsertLiteral = argv[++argn];
+            DoModify = TRUE;
+
+    // Output verbosity control
+        }else if (!strcmp(arg,"-h")){
+            Usage();
+        }else if (!strcmp(arg,"-v")){
             ShowTags = TRUE;
-        }else if (!strcmp(arg,"-exifmap")){
-            DumpExifMap = TRUE;
         }else if (!strcmp(arg,"-V")){
             printf("Jhead version: "JHEAD_VERSION"   Compiled: "__DATE__"\n");
             exit(0);
+        }else if (!strcmp(arg,"-exifmap")){
+            DumpExifMap = TRUE;
+        }else if (!strcmp(arg,"-se")){
+            SupressNonFatalErrors = TRUE;
+        }else if (!strcmp(arg,"-c")){
+            ShowConcise = TRUE;
+        }else if (!strcmp(arg,"-nofinfo")){
+            ShowFileInfo = 0;
+
+    // Thumbnail manipulation options
         }else if (!strcmp(arg,"-dt")){
             TrimExif = TRUE;
             DoModify = TRUE;
@@ -1230,9 +1283,8 @@ int main (int argc, char **argv)
                 ErrFatal("Specified thumbnail geometry too big!\n");
             }
             DoModify = TRUE;
-        }else if (!strcmp(arg,"-te")){
-            ExifXferScrFile = argv[++argn];
-            DoModify = TRUE;
+
+    // Rotation tag manipulation
         }else if (!strcmp(arg,"-autorot")){
             AutoRotate = 1;
             DoModify = TRUE;
@@ -1240,8 +1292,8 @@ int main (int argc, char **argv)
             AutoRotate = 1;
             ZeroRotateTagOnly = 1;
             DoModify = TRUE;
-        }else if (!strcmp(arg,"-nofinfo")){
-            ShowFileInfo = 0;
+
+    // Date/Time manipulation options
         }else if (!memcmp(arg,"-n",2)){
             RenameToDate = 1;
             DoReadAction = TRUE; // Rename doesn't modify file, so count as read action.
@@ -1307,10 +1359,7 @@ int main (int argc, char **argv)
             if ((int)ExifTimeSet == -1) ErrFatal("Time specified is out of range");
             DoModify = TRUE;
 
-        }else if (!strcmp(arg,"-cmd")){
-            if (argn+1 >= argc) Usage(); // No extra argument.
-            ApplyCommand = argv[++argn];
-            DoModify = TRUE;
+    // File matching and selection
         }else if (!strcmp(arg,"-model")){
             if (argn+1 >= argc) Usage(); // No extra argument.
             FilterModel = argv[++argn];
@@ -1320,38 +1369,11 @@ int main (int argc, char **argv)
             PortraitOnly = 1;
         }else if (!strcmp(arg,"-orl")){
             PortraitOnly = -1;
-        }else if (!strcmp(arg,"-c")){
-            ShowConcise = TRUE;
-        }else if (!strcmp(arg,"-h")){
-            Usage();
-        }else if (!strcmp(arg,"-dc")){
-            DeleteComments = TRUE;
+        }else if (!strcmp(arg,"-cmd")){
+            if (argn+1 >= argc) Usage(); // No extra argument.
+            ApplyCommand = argv[++argn];
             DoModify = TRUE;
-        }else if (!strcmp(arg,"-de")){
-            DeleteExif = TRUE;
-            DoModify = TRUE;
-        }else if (!strcmp(arg, "-du")){
-            DeleteUnknown = TRUE;
-            DoModify = TRUE;
-        }else if (!strcmp(arg, "-purejpg")){
-            DeleteExif = TRUE;
-            DeleteComments = TRUE;
-            DeleteUnknown = TRUE;
-            DoModify = TRUE;
-        }else if (!strcmp(arg,"-ce")){
-            EditComment = TRUE;
-            DoModify = TRUE;
-        }else if (!strcmp(arg,"-cs")){
-            CommentSavefileName = argv[++argn];
-            DoModify = TRUE;
-        }else if (!strcmp(arg,"-ci")){
-            CommentInsertfileName = argv[++argn];
-            DoModify = TRUE;
-        }else if (!strcmp(arg,"-cl")){
-            CommentInsertLiteral = argv[++argn];
-            DoModify = TRUE;
-        }else if (!strcmp(arg,"-se")){
-            SupressNonFatalErrors = TRUE;
+
 #ifdef MATTHIAS
         }else if (!strcmp(arg,"-ca")){
             // Its a literal comment.  Add.
@@ -1373,7 +1395,7 @@ int main (int argc, char **argv)
             exit(-1);
         }
         if (argn >= argc){
-            // Used an extr argument - becuase the last argument 
+            // Used an extra argument - becuase the last argument 
             // used up an extr argument.
             ErrFatal("Extra argument required");
         }
@@ -1443,4 +1465,5 @@ int main (int argc, char **argv)
         return EXIT_SUCCESS;
     }
 }
+
 
