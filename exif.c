@@ -1092,7 +1092,7 @@ void ShowImageInfo(int ShowFileInfo)
 	            case 0x47:printf(" (red eye reduction mode return light  detected)"); break;
 	            case 0x49:printf(" (manual, red eye reduction mode)"); break;
 	            case 0x4d:printf(" (manual, red eye reduction mode, return light not detected)"); break;
-	            case 0x4f:printf(" (red eye reduction mode, red eye reduction mode, return light detected)"); break;
+	            case 0x4f:printf(" (red eye reduction mode, return light detected)"); break;
 	            case 0x59:printf(" (auto, red eye reduction mode)"); break;
 	            case 0x5d:printf(" (auto, red eye reduction mode, return light not detected)"); break;
 	            case 0x5f:printf(" (auto, red eye reduction mode, return light detected)"); break;
