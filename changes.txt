@@ -244,6 +244,9 @@ when using the -autorot feature
 
 Dec 28 2005
 Added -rgt (regenerate thumbnail) feature.
+Added -orp and -orl options
+
+-------Released version 2.5 -- Jan 8 2006 --------
 
 
 to do:
