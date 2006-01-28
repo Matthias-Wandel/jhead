@@ -329,7 +329,8 @@ void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
         ByteCount -= s;
         if (ByteCount <= 0) break;
         printf(", ");
-        ((char *)ValuePtr) += s;
+        ValuePtr = (void *)((char *)ValuePtr + s);
+
     }
     if (n >= 16) printf("...");
 }
