@@ -2,13 +2,13 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.48
+// Version 2.51
 //
 //
 // Compiling under Windows:  
 //   Make sure you have microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Jan 2006
+// Dec 1999 - Feb 2006
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.5"
+#define JHEAD_VERSION "2.51"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -1034,7 +1034,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jan 8 2006.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Feb 6 2006.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
