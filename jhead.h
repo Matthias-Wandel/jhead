@@ -27,9 +27,9 @@ typedef struct {
     unsigned Size;
 }Section_t;
 
-int ExifSectionIndex;
+extern int ExifSectionIndex;
 
-int DumpExifMap;
+extern int DumpExifMap;
 
 #define MAX_DATE_COPIES 10
 
