@@ -1300,7 +1300,11 @@ void ShowConciseImageInfo(void)
     printf(" %dx%d",ImageInfo.Width, ImageInfo.Height);
 
     if (ImageInfo.ExposureTime){
-        printf(" (1/%d)",(int)(0.5 + 1/ImageInfo.ExposureTime));
+        if (ImageInfo.ExposureTime <= 0.5){
+            printf(" (1/%d)",(int)(0.5 + 1/ImageInfo.ExposureTime));
+        }else{
+            printf(" (%1.1f)",ImageInfo.ExposureTime);
+        }
     }
 
     if (ImageInfo.ApertureFNumber){
