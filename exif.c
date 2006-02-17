@@ -1084,7 +1084,7 @@ void ShowImageInfo(int ShowFileInfo)
 	            case 0x7: printf(" (Strobe light detected) "); break;
 	            case 0x9: printf(" (manual)"); break;
 	            case 0xd: printf(" (manual, return light not detected)"); break;
-	            case 0xf: printf(" (maual, return light  detected)"); break;
+	            case 0xf: printf(" (manual, return light  detected)"); break;
 	            case 0x19:printf(" (auto)"); break;
 	            case 0x1d:printf(" (auto, return light not detected)"); break;
 	            case 0x1f:printf(" (auto, return light detected)"); break;
