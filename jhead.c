@@ -26,7 +26,7 @@
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-//#define MATTHIAS
+#define MATTHIAS
 
 #ifdef _WIN32
     #include <process.h>
@@ -194,7 +194,7 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
 static char KnownTags[][10] = {"date", "orig_path", "desc","scan_date","author",
                                "mwnum", "crop", "rotate", "subpic", 
                                "related", "infopic", "keyword","videograb",
-                               "show_raw","panorama","uid",""};
+                               "show_raw","panorama","uid","titlepix",""};
 
 static int ModifyDescriptComment(char * OutComment, char * SrcComment)
 {
@@ -931,7 +931,7 @@ void ProcessFile(const char * FileName)
             ExifSection = FindSection(M_EXIF);
 
             for (a = 0; a < ImageInfo.numDateTimeTags; a++) {
-                char * Pointer;
+                uchar * Pointer;
                 Pointer = ExifSection->Data+ImageInfo.DateTimeOffsets[a]+8;
                 memcpy(Pointer, TempBuf, 19);
             }

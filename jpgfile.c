@@ -343,7 +343,7 @@ int SaveThumbnail(char * ThumbFileName)
     }
 
     if (ThumbnailFile){
-        char * ThumbnailPointer;
+        uchar * ThumbnailPointer;
         Section_t * ExifSection;
         ExifSection = FindSection(M_EXIF);
         ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
