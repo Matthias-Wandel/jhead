@@ -2,13 +2,13 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.51
+// Version 2.52
 //
 //
 // Compiling under Windows:  
 //   Make sure you have microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Feb 2006
+// Dec 1999 - March 2006
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -22,11 +22,11 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.51"
+#define JHEAD_VERSION "2.52"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-#define MATTHIAS
+i//#define MATTHIAS
 
 #ifdef _WIN32
     #include <process.h>

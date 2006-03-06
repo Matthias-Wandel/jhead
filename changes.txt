@@ -247,7 +247,17 @@ Added -rgt (regenerate thumbnail) feature.
 Added -orp and -orl options
 
 -------Released version 2.5 -- Jan 8 2006 --------
+Jan 28 2006
+Fix typecast issue run itno with GCC 4
 
+Feb 17 2006
+Fix shutter speed display in '-c' mode for very long shutter speeds
+
+Feb 26 2006
+Fix some nitpicks from Debian folks
+
+Mar 6 2006
+Fix a bug in autorot when rotating filenames with spaces in them.
 
 to do:
 * Renaming - rename associated sound files, and video files for thumbnails.
