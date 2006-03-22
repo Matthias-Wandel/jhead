@@ -1220,7 +1220,7 @@ void ShowImageInfo(int ShowFileInfo)
             printf("Exposure     : shutter priority (semi-auto)\n");
             break;
         case 5:
-            printf("Exposure     : Creative Program (based towards depth of field\n"); 
+            printf("Exposure     : Creative Program (based towards depth of field)\n"); 
             break;
         case 6:
             printf("Exposure     : Action program (based towards fast shutter speed)\n");
