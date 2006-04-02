@@ -4,7 +4,7 @@
 //
 // This module parses the very complicated exif structures.
 //
-// Matthias Wandel,  Dec 1999 - Dec 2002 
+// Matthias Wandel
 //--------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
