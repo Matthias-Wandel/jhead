@@ -443,11 +443,12 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             continue;
         }
 
-        ByteCount = Components * BytesPerFormat[Format];
         if ((unsigned)Components > 0x10000){
             ErrNonfatal("Illegal number of components %d for tag %04x", Components, Tag);
             continue;
         }
+
+        ByteCount = Components * BytesPerFormat[Format];
 
         if (ByteCount > 4){
             unsigned OffsetVal;

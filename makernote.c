@@ -62,6 +62,11 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
             continue;
         }
 
+        if ((unsigned)Components > 0x10000){
+            ErrNonfatal("Illegal number of components %d for tag %04x", Components, Tag);
+            continue;
+        }
+
         ByteCount = Components * BytesPerFormat[Format];
 
         if (ByteCount > 4){
