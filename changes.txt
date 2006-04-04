@@ -11,13 +11,13 @@ No longer clip comment length at 200 characters on display
 Jul 16 2001
 Follow TIFF link correctly
 Save thumbnail option added
-    (Thanks Michal D Hughes for his help mdh@logcabin.woods.bridge.com)
+    (Thanks Michal D Hughes for his help mdh(a)logcabin.woods.bridge.com)
 
 Aug 8 & 9 2001
 Transfer exif header option added.
 Moved relative path & discard all but jpeg stuff in separate functions
 Changed ISO heuristic to deal with ISo < 80 better
-    (Thanks Harry TsaiHarryTsai@alum.mit.edu)
+    (Thanks Harry TsaiHarryTsai(a)alum.mit.edu)
 
 Agust 12 2001
 Testing under Linux, minor fixups.
@@ -26,7 +26,7 @@ Testing under Linux, minor fixups.
 
 August 26 2001
 Fixed problem where thumbnails in big endian files were not saved right.
-    (thanks Joe Steele [joe@madewell.com])
+    (thanks Joe Steele [joe(a)madewell.com])
 
 Sept 1 2001
 Added command line option to remove exif section entirely.
@@ -39,9 +39,9 @@ Change name of SetFileTime variable to not conflict with windows.
 Oct 9 2001
 Added option to set exif timestamp to absolute time
 Added option to save thumbnail to stdout (unix only)
-    (thanks Nathan Schmidt [mailto:nathan@cs.stanford.edu])
+    (thanks Nathan Schmidt [mailto:nathan(a)cs.stanford.edu])
 Fixed bug in parsing truncated exif headers 
-    (thanks Joachim.Geyer@djh-freeweb.de)
+    (thanks Joachim.Geyer(a)djh-freeweb.de)
 Got rid of strnprintf (not avilable on FreeBSD 4.4)
   
 -------Released version 1.4-------
@@ -52,7 +52,7 @@ by -dt option in older versions of this program.
 
 Oct 18 2001
 Fixed bug in -ts option where '-' causes scanf to treat parms as negative.
-    (thanks Pete Ashdon [mailto:pashdown@xmission.com])
+    (thanks Pete Ashdon [mailto:pashdown(a)xmission.com])
 
 Oct 25 2001
 Added -ce option
@@ -65,7 +65,7 @@ Added -exonly (exif only) option
 
 
 Jan 2 2002:
-Fixed lots of typos (Thanks, David Baker [mailto:dave@dsb3.com])
+Fixed lots of typos (Thanks, David Baker [mailto:dave(a)dsb3.com])
 
 Jan 12: 2002
 Use EDITOR environment variable to pick which editor (Instead of notpead or VI)
@@ -259,8 +259,13 @@ Fix some nitpicks from Debian folks
 Mar 6 2006
 Fix a bug in autorot when rotating filenames with spaces in them.
 
+April 2 2006
+Improved handling of corrupt exif linkages in exif header
+
+April 3 2006
+Added -a (rename associated files) options
+
 to do:
-* Renaming - rename associated sound files, and video files for thumbnails.
 * Someday - read/write implementation of exif file system.  This will allow
           me to add new tags - a feature occasionally requested.
 * Detect looped and doubly linked exif directories

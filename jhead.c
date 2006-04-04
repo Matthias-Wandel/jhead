@@ -53,6 +53,7 @@ static const char * progname;   // program name for error messages
 // Command line options flags
 static int TrimExif = FALSE;        // Cut off exif beyond interesting data.
 static int RenameToDate = FALSE;
+static int RenameAssociatedFiles = FALSE;
 static char * strftime_args = NULL; // Format for new file name.
 static int Exif2FileTime  = FALSE;
 static int DoModify     = FALSE;
@@ -423,6 +424,60 @@ static void RelativeName(char * OutFileName, const char * NamePattern, const cha
 }
 
 
+#ifdef _WIN32
+//--------------------------------------------------------------------------
+// Rename associated files
+//--------------------------------------------------------------------------
+void RenameAssociated(const char * FileName, char * NewBaseName)
+{
+    int a;
+    int PathLen;
+    int ExtPos;
+    char FilePattern[_MAX_PATH];
+    char NewName[_MAX_PATH];
+    struct _finddata_t finddata;
+    long find_handle;
+
+    for(ExtPos = strlen(FileName);FileName[ExtPos-1] != '.';){
+        if (--ExtPos == 0) return; // No extension!
+    }
+
+    memcpy(FilePattern, FileName, ExtPos);
+    FilePattern[ExtPos] = '*';
+    FilePattern[ExtPos+1] = '\0';
+
+    for(PathLen = strlen(FileName);FileName[PathLen-1] != '\\';){
+        if (--PathLen == 0) break;
+    }
+
+    find_handle = _findfirst(FilePattern, &finddata);
+
+    for (;;){
+        if (find_handle == -1) break;
+
+        // Eliminate the obvious patterns.
+        if (!memcmp(finddata.name, ".",2)) goto next_file;
+        if (!memcmp(finddata.name, "..",3)) goto next_file;
+        if (finddata.attrib & _A_SUBDIR) goto next_file;
+
+        strcpy(FilePattern+PathLen, finddata.name); // full name with path
+
+        strcpy(NewName, NewBaseName);
+        for(a = strlen(finddata.name);finddata.name[a] != '.';){
+            if (--a == 0) goto next_file;
+        }
+        strcat(NewName, finddata.name+a); // add extension to new name
+
+        if (rename(FilePattern, NewName) == 0){
+            printf("%s --> %s\n",FilePattern, NewName);
+        }
+
+        next_file:
+        if (_findnext(find_handle, &finddata) != 0) break;
+    }
+    _findclose(find_handle);
+}
+#endif
 
 //--------------------------------------------------------------------------
 // Handle renaming of files by date.
@@ -552,6 +607,12 @@ static void DoFileRenaming(const char * FileName)
             // This name does not pre-exist.
             if (rename(FileName, NewName) == 0){
                 printf("%s --> %s\n",FileName, NewName);
+#ifdef _WIN32
+                if (RenameAssociatedFiles){
+                    sprintf(NewName, "%s%s", NewBaseName, NameExtra);
+                    RenameAssociated(FileName, NewName);
+                }
+#endif
             }else{
                 printf("Error: Couldn't rename '%s' to '%s'\n",FileName, NewName);
             }
@@ -1078,6 +1139,9 @@ static void Usage (void)
            "             the end of the name to make it unique.\n"
            "  -nf[format-string]\n"
            "             Same as -n, but rename regardless of original name\n"
+           "  -a         (Windows only) Rename files with same name but different extension\n"
+           "             Use together with -n to rename .AVI files from exif in .THM files\n"
+           "             for example\n"
            "  -ta<+|->h[:mm[:ss]]\n"
            "             Adjust time by h:mm backwards or forwards.  Useful when having\n"
            "             taken pictures with the wrong time set on the camera, such as when\n"
@@ -1281,7 +1345,7 @@ int main (int argc, char **argv)
             RegenThumbnail = 160;
             sscanf(arg+4, "%d", &RegenThumbnail);
             if (RegenThumbnail > 320){
-                ErrFatal("Specified thumbnail geometry too big!\n");
+                ErrFatal("Specified thumbnail geometry too big!");
             }
             DoModify = TRUE;
 
@@ -1308,6 +1372,11 @@ int main (int argc, char **argv)
                 strftime_args = arg;
                 //printf("strftime_args = %s\n",arg);
             }
+        }else if (!strcmp(arg,"-a")){
+            RenameAssociatedFiles = TRUE;
+            #ifndef _WIN32
+                ErrFatal("Error: -a only supported in Windows version");
+            #endif 
         }else if (!strcmp(arg,"-ft")){
             Exif2FileTime = TRUE;
             DoReadAction = TRUE;
@@ -1316,12 +1385,12 @@ int main (int argc, char **argv)
             int hours, minutes, seconds, n;
             minutes = seconds = 0;
             if (arg[3] != '-' && arg[3] != '+'){
-                ErrFatal("Error: -ta must be followed by +/- and a time\n");
+                ErrFatal("Error: -ta must be followed by +/- and a time");
             }
             n = sscanf(arg+4, "%d:%d:%d", &hours, &minutes, &seconds);
 
             if (n < 1){
-                ErrFatal("Error: -ta must be immediately followed by time\n");
+                ErrFatal("Error: -ta must be immediately followed by time");
             }
             if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
             ExifTimeAdjust = hours*3600 + minutes*60 + seconds;
@@ -1352,7 +1421,7 @@ int main (int argc, char **argv)
             
             if (!Exif2tm(&tm, arg+3)){
                 ErrFatal("-ts option must be followed by time in format yyyy:mmm:dd-hh:mm:ss\n"
-                        "Example: jhead -ts2001:01:01-12:00:00 foo.jpg\n");
+                        "Example: jhead -ts2001:01:01-12:00:00 foo.jpg");
             }
 
             ExifTimeSet  = mktime(&tm);
@@ -1430,7 +1499,7 @@ int main (int argc, char **argv)
     if (ExifXferScrFile){
         if (FilterModel || ApplyCommand){
             ErrFatal("Error: Filter by model and/or applying command to files\n"
-            "   invalid while transfering Exif headers\n");
+            "   invalid while transfering Exif headers");
         }
     }
 

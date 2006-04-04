@@ -138,6 +138,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top><td><b>-nf
 <td>Same as '-n' but renames files regardless of original file name.
 
+<tr valign=top><td><b>-a
+<td>(Windows only option).  Rename files with the same name but different extension as well.
+    This is useful for renaming .AVI files based on exif file in .THM, or to rename sound annotation
+    files or raw files with jpeg files.  Use together with '-n' option.
+
 <tr valign=top><td><b>-ta&lt;timediff&gt;
 <td>Adjust time stored in the Exif header by h:mm backwards or forwards.  Useful when having
     taken pictures with the wrong time set on the camera, such as after travelling across
@@ -437,9 +442,9 @@ There's a fancier version, with pre-built Windows binaries and a lossless croppi
 <ul>
 <a href="http://www.xnview.com">XnView</a> is an excellent free graphical image browser, cross platform.  
 I use it mostly instead of Compupic nowadays.
-Unlike compupic, it makes use of jpeg thumbnails for the thumbnail view.  On account of xnview, I added
-options to fix the thumbnails to jhead - this because copupic and jpegtran do not rotate the thumbail
-on doing lossless rotation, which can be annoying in Xnview.
+Unlike Compupic, it makes use of jpeg thumbnails for the thumbnail view.  On account of Xnview, I added
+options to fix or regenerate the thumbnails to jhead - this because copupic and jpegtran do not rotate 
+the thumbail on doing lossless rotation, which can be annoying in Xnview.
 </ul>
 
 <b>CompuPic</b><br>
