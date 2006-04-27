@@ -192,10 +192,9 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
 // Modify one of the lines in the comment field.
 // This very specific to the photo album program stuff.
 //--------------------------------------------------------------------------
-static char KnownTags[][10] = {"date", "orig_path", "desc","scan_date","author",
-                               "mwnum", "crop", "rotate", "subpic", 
-                               "related", "infopic", "keyword","videograb",
-                               "show_raw","panorama","uid","titlepix",""};
+static char KnownTags[][10] = {"date", "desc","scan_date","author",
+                               "keyword","videograb",
+                               "show_raw","panorama","titlepix",""};
 
 static int ModifyDescriptComment(char * OutComment, char * SrcComment)
 {
