@@ -265,6 +265,9 @@ Improved handling of corrupt exif linkages in exif header
 April 3 2006
 Added -a (rename associated files) options
 
+-------Released version 2.6 -- April 29 2006 --------
+
+
 to do:
 * Someday - read/write implementation of exif file system.  This will allow
           me to add new tags - a feature occasionally requested.

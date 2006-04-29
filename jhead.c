@@ -2,7 +2,7 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.53
+// Version 2.6
 //
 //
 // Compiling under Windows:  
@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.53"
+#define JHEAD_VERSION "2.6"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
