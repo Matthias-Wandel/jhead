@@ -4,7 +4,7 @@
 //
 // This module handles basic Jpeg file handling
 //
-// Matthias Wandel,  Dec 1999 - Dec 2002 
+// Matthias Wandel,  Dec 1999 - Sept 2006
 //--------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,8 +34,8 @@
 ImageInfo_t ImageInfo;
 
 
-#define MAX_SECTIONS 100
-static Section_t Sections[MAX_SECTIONS];
+static Section_t * Sections = NULL;
+static int SectionsAllocated;
 static int SectionsRead;
 static int HaveAll;
 
@@ -116,6 +116,22 @@ static void process_SOFn (const uchar * Data, int marker)
 }
 
 
+//--------------------------------------------------------------------------
+// Process a SOFn marker.  This is useful for the image dimensions
+//--------------------------------------------------------------------------
+void CheckSectionsAllocated(void)
+{
+    if (SectionsRead > SectionsAllocated){
+        ErrFatal("allocation screwup");
+    }
+    if (SectionsRead >= SectionsAllocated){
+        SectionsAllocated += SectionsAllocated/2;
+        Sections = (Section_t *)realloc(Sections, sizeof(Section_t)*SectionsAllocated);
+        if (Sections == NULL){
+            ErrFatal("could not allocate data for entire image");
+        }
+    }
+}
 
 
 //--------------------------------------------------------------------------
@@ -128,7 +144,6 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
     a = fgetc(infile);
 
-
     if (a != 0xff || fgetc(infile) != M_SOI){
         return FALSE;
     }
@@ -138,9 +153,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         int ll,lh, got;
         uchar * Data;
 
-        if (SectionsRead >= MAX_SECTIONS){
-            ErrFatal("Too many sections in jpg file");
-        }
+        CheckSectionsAllocated();
 
         for (a=0;a<7;a++){
             marker = fgetc(infile);
@@ -210,6 +223,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                         ErrFatal("could not read the rest of the image");
                     }
 
+                    CheckSectionsAllocated();
                     Sections[SectionsRead].Data = Data;
                     Sections[SectionsRead].Size = size;
                     Sections[SectionsRead].Type = PSEUDO_IMAGE_MARKER;
@@ -284,9 +298,11 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 void DiscardData(void)
 {
     int a;
+
     for (a=0;a<SectionsRead;a++){
         free(Sections[a].Data);
     }
+
     memset(&ImageInfo, 0, sizeof(ImageInfo));
     SectionsRead = 0;
     HaveAll = 0;
@@ -444,9 +460,11 @@ void DiscardAllButExif(void)
     }
     SectionsRead = 0;
     if (ExifKeeper.Type){
+        CheckSectionsAllocated();
         Sections[SectionsRead++] = ExifKeeper;
     }
     if (CommentKeeper.Type){
+        CheckSectionsAllocated();
         Sections[SectionsRead++] = CommentKeeper;
     }
 }    
@@ -592,10 +610,8 @@ Section_t * CreateSection(int SectionType, unsigned char * Data, int Size)
     if (SectionsRead < 2){
         ErrFatal("Too few sections!");
     }
-    if (SectionsRead >= MAX_SECTIONS){
-        ErrFatal("Too many sections!");
-    }
 
+    CheckSectionsAllocated();
     for (a=SectionsRead;a>2;a--){
         Sections[a] = Sections[a-1];          
     }
@@ -616,7 +632,11 @@ Section_t * CreateSection(int SectionType, unsigned char * Data, int Size)
 //--------------------------------------------------------------------------
 void ResetJpgfile(void)
 {
-    memset(&Sections, 0, sizeof(Sections));
+    if (Sections == NULL){
+        Sections = (Section_t *)malloc(sizeof(Section_t)*5);
+        SectionsAllocated = 5;
+    }
+
     SectionsRead = 0;
     HaveAll = 0;
 }
