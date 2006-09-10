@@ -20,7 +20,7 @@ echo Portrait only option test >> results-txt\compact-txt
 jhead -c -se -orp normal-digicams\*.jpg >> results-txt\compact-txt
 
 rem -------------------------------------------------------------------
-rem test odd date format
+rem test date minaipulation
 copy normal-digicams\3dmsc.jpg time.jpg
 jhead -ta+2:00 time.jpg
 jhead -ft time.jpg
@@ -29,6 +29,10 @@ jhead -ta-0:00:20 time.jpg
 jhead -nofinfo time.jpg >> results-txt\time.txt
 jhead -da+2005:05:01/01:01-2004:05:01 time.jpg
 jhead -nofinfo time.jpg >> results-txt\time.txt
+copy strange-jpegs\badyear.jpg badyear.jpg
+jhead -nofinfo badyear.jpg >> results-txt\time.txt
+jhead -ds2006:01 -ta+1:00 badyear.jpg >> results-txt\time.txt
+jhead -nofinfo badyear.jpg >> results-txt\time.txt
 
 rem -------------------------------------------------------------------
 rem test comment manipulation
@@ -77,7 +81,7 @@ mkdir temp
 copy normal-digicams\*.jpg temp
 del temp\no-exif.jpg
 jhead -nf%%02i-%%H-%%f temp\*.jpg
-ls temp >> results-txt\new-names-txt
+dir /b temp >> results-txt\new-names-txt
 
 rem -------------------------------------------------------------------
 rem test -purejpg with an image that I used to corrupt.
@@ -96,7 +100,7 @@ jhead -rt normal-digicams\no-exif.jpg results-bin\thumb-inserted.jpg
 rem replace thumbnail in one step
 copy normal-digicams\olympus.jpg results-bin\thumb-replaced.jpg
 jhead -rt normal-digicams\no-exif.jpg results-bin\thumb-replaced.jpg
-jhead -v res*bin\thumb-*.jpg > results-txt\thumb-operations-txt
+jhead -v -nofinfo res*bin\thumb-*.jpg > results-txt\thumb-operations-txt
 
 
 

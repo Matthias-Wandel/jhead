@@ -1,4 +1,4 @@
-.TH JHEAD 1 "29 April 2006" "jhead 2.6"
+.TH JHEAD 1 "10 Sept 2006" "jhead 2.62"
 .SH NAME
 jhead \- Digicam JPEG Exif header manipulation tool
 .SH SYNOPSIS
@@ -286,9 +286,14 @@ jhead -da2005:05:29+11:21-2002:01:01
 .TP
 .B \-ts
 Sets the time stored in the Exif header to what is specified on the command line.
-This option only changes the "DateTimeOriginal" (tar 0x9003) field, but leaves the 
-"DateTimeDigitized" (tag 0x9004) field alone.  Time must be specified as:
+Time must be specified as:
 .I yyyy:mm:dd-hh:mm:ss
+.TP
+.B \-ds
+Sets the date stored in the Exif header to what is specified on the command line.
+Can be used to set date, just year and month, or just year.
+Date is specified as: 
+.I yyyy:mm:dd,  yyyy:mm, or yyyy
 .TP
 .B \-ft
 Sets the file's system time stamp to what is stored in the Exif header.
@@ -349,10 +354,11 @@ implementation of the file system contained in the Exif header.  For example, th
 to replace the thumbnail or edit the Exif comment in the Exif header.  There is also no way
 to create minimal exif headers.
 .PP
-Some CANON digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
+Some Canon digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
 than full resolution, causing jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
-focal length.  Jhead usually gets blamed for this bug, but it is in fact a camera bug, and jhead 
-can't do much about it, and I'm not about to add camera bug specific hacks to it. 
+focal length.  The same can result from resizing photos with Photoshop, which will manipulate
+parts of the exif header.
+This is often reported as a bug in Jhead, but Jhead can't do much about incorrect data.
 .PP
 Send bug reports to mwandel at sentex dot net.
 

@@ -267,6 +267,13 @@ Added -a (rename associated files) options
 
 -------Released version 2.6 -- April 29 2006 --------
 
+Sept 9 2006
+Remove maximum jpeg sections limit
+
+Sept 10 2006
+Added -ds option
+  
+
 
 to do:
 * Someday - read/write implementation of exif file system.  This will allow

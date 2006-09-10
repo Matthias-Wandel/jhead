@@ -8,7 +8,7 @@ Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
 (or DOS prompt under Win95/98/Me)
 
-<h3>Jhead v2.6 program Features</h3>
+<h3>Jhead v2.62 program Features</h3>
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to set and/or adjust the Exif time field
@@ -165,7 +165,9 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top><td><b>-da&lt;date&gt;-&lt;date&gt;
 <td>Works like -ta, but for specifying large date offsets, to be used when fixing dates from 
     cameras where the date was set incorrectly, such as having date and time reset by battery
-    removal on some cameras
+    removal on some cameras.  This feature is best for adjusting dates on pictures taken
+    over a large range of dates.  For pictures all taken the same date, the "-ds" option
+    is often easier to use.
     <p>
     Because different months and years have different numbers of days in them, a simple offset
     for months, days, years would lead to unexpected results at times.  The time offset is
@@ -182,11 +184,16 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <ul>jhead -da2005:05:29/11:21-2002:01:01</ul>
 
 <tr valign=top><td><b>-ts&lt;date-time&gt;
-<td>Sets the time stored in the Exif header to what is specified on the command line.
-    This option changes all the date fields in the Exif header.  Version 2.0 and earlier
-    only changed the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
-    this was a bug.  Time must be specified as:<br>
+<td>Sets the date and time stored in the Exif header to what is specified on the command line.
+    This option changes all the date fields in the Exif header.
+    Time must be specified as:<br>
     <font face=courier> &nbsp &nbsp yyyy:mm:dd-hh:mm:ss</font><p>
+
+<tr valign=top><td><b>-ds&lt;date-time&gt;
+<td>Sets the date stored in the Exif header to what is specified on the command line.
+    Can be used to set date, just year and month, or just year.
+    Date is specified as:<br>
+    <font face=courier> &nbsp &nbsp yyyy:mm:dd,  yyyy:mm, or yyyy</font><p>
 
 </table>
 <h3>Thumbnail manipulation options</h3>
@@ -386,10 +393,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     to create minimal Exif headers.
     <p>
 
-    Some CANON digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
+    Some Canon digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
     than full resolution, causing jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
-    focal length.  Jhead usually gets blamed for this bug, but it is in fact a camera bug, and jhead 
-    can't do much about it, and I'm not about to add camera bug specific hacks to it. 
+    focal length.  The same can result from resizing photos with Photoshop, which will manipulate
+    parts of the exif header.
+    This is often reported as a bug in Jhead, but Jhead can't do much about incorrect data.
 </ul>
 
 <h3>Name globbing and recursive directories under Windows</h3>
@@ -464,5 +472,5 @@ Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updateed: April 29 2006
+Last Updateed: Sept 10 2006
 

@@ -2,12 +2,12 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.61
+// Version 2.62
 //
 // Compiling under Windows:  
-//   Make sure you have microsoft's compiler on the path, then run make.bat
+//   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - May 2006
+// Dec 1999 - Sep 2006
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -21,7 +21,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.61"
+#define JHEAD_VERSION "2.62"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -66,6 +66,8 @@ static int    ExifOnly    = FALSE;
 static int    PortraitOnly = 0;
 static time_t ExifTimeAdjust = 0;   // Timezone adjust
 static time_t ExifTimeSet = 0;      // Set exif time to a value.
+static char DateSet[11];
+static unsigned DateSetChars = 0;
 
 static int DeleteComments = FALSE;
 static int DeleteExif = FALSE;
@@ -708,13 +710,6 @@ void ProcessFile(const char * FileName)
     CurrentFile = FileName;
     FilesMatched = 1; 
 
-    if (DoModify || RenameToDate || Exif2FileTime){
-        if (access(FileName, 2 /*W_OK*/)){
-            printf("Skipping readonly file '%s'\n",FileName);
-            return;
-        }
-    }
-
     ResetJpgfile();
 
     // Start with an empty image information structure.
@@ -731,6 +726,13 @@ void ProcessFile(const char * FileName)
             ImageInfo.FileSize = st.st_size;
         }else{
             ErrFatal("No such file");
+        }
+    }
+
+    if (DoModify || RenameToDate || Exif2FileTime){
+        if (access(FileName, 2 /*W_OK*/)){
+            printf("Skipping readonly file '%s'\n",FileName);
+            return;
         }
     }
 
@@ -959,19 +961,20 @@ void ProcessFile(const char * FileName)
         }
     }
 
-
-    if (ExifTimeAdjust || ExifTimeSet){
+    if (ExifTimeAdjust || ExifTimeSet || DateSetChars){
        if (ImageInfo.numDateTimeTags){
             struct tm tm;
             time_t UnixTime;
             char TempBuf[50];
             int a;
             Section_t * ExifSection;
-
             if (ExifTimeSet){
                 // A time to set was specified.
                 UnixTime = ExifTimeSet;
             }else{
+                if (DateSetChars){
+                    memcpy(ImageInfo.DateTime, DateSet, DateSetChars);
+                }
                 // A time offset to adjust by was specified.
                 if (!Exif2tm(&tm, ImageInfo.DateTime)) goto badtime;
 
@@ -983,10 +986,11 @@ void ProcessFile(const char * FileName)
             tm = *localtime(&UnixTime);
 
             // Print to temp buffer first to avoid putting null termination in destination.
-            // snprintf() would do the trick ,but not available everywhere (like FreeBSD 4.4)
+            // snprintf() would do the trick, hbut not available everywhere (like FreeBSD 4.4)
             sprintf(TempBuf, "%04d:%02d:%02d %02d:%02d:%02d",
                 tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
                 tm.tm_hour, tm.tm_min, tm.tm_sec);
+            
 
             ExifSection = FindSection(M_EXIF);
 
@@ -1157,6 +1161,8 @@ static void Usage (void)
            "             and time in the format yyyy:mmm:dd/hh:mm:ss\n"
            "  -ts<time>  Set the Exif internal time to <time>.  <time> is in the format\n"
            "             yyyy:mm:dd-hh:mm:ss\n"
+           "  -ds<date>  Set the Exif internal date.  <date> is in the format YYYY:MM:DD\n"
+           "             or YYYY:MM or YYYY\n"
 
            "\nTHUMBNAIL MANIPULATION:\n"
            "  -dt        Remove exif integral thumbnails.   Typically trims 10k\n"
@@ -1406,6 +1412,16 @@ int main (int argc, char **argv)
             }
             if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
             ExifTimeAdjust = NewDate-OldDate;
+            DoModify = TRUE;
+        }else if (!memcmp(arg,"-ds",3)){
+            // Set date feature
+            DateSetChars = strlen(arg)-3;
+            strcpy(DateSet, "0000:01:01");
+            if (DateSetChars < 4 || DateSetChars > 10){
+                ErrFatal("Date must be in format YYYY, YYYY:MM, or YYYY:MM:DD");
+            }
+            memcpy(DateSet, arg+3, DateSetChars);
+            // Set date feature
             DoModify = TRUE;
         }else if (!memcmp(arg,"-ts",3)){
             // Set the exif time.
