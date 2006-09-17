@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
-#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
