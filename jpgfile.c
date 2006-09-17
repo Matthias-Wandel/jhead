@@ -160,7 +160,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             if (marker != 0xff) break;
 
             if (a >= 6){
-                printf("too many padding bytes\n");
+                fprintf(stderr,"too many padding bytes\n");
                 return FALSE;
             }
         }
@@ -233,7 +233,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 return TRUE;
 
             case M_EOI:   // in case it's a tables-only JPEG stream
-                printf("No image in jpeg!\n");
+                fprintf(stderr,"No image in jpeg!\n");
                 return FALSE;
 
             case M_COM: // Comment section
@@ -326,7 +326,7 @@ int ReadJpegFile(const char * FileName, ReadMode_t ReadMode)
     // Scan the JPEG headers.
     ret = ReadJpegSections(infile, ReadMode);
     if (!ret){
-        printf("Not JPEG: %s\n",FileName);
+        fprintf(stderr,"Not JPEG: %s\n",FileName);
     }
 
     fclose(infile);
@@ -346,7 +346,7 @@ int SaveThumbnail(char * ThumbFileName)
     FILE * ThumbnailFile;
 
     if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailSize == 0){
-        printf("Image contains no thumbnail\n");
+        fprintf(stderr,"Image contains no thumbnail\n");
         return FALSE;
     }
 
@@ -387,7 +387,7 @@ int ReplaceThumbnail(const char * ThumbFileName)
         // Adding or removing of thumbnail is not possible - that would require rearranging
         // of the exif header, which is risky, and jhad doesn't know how to do.
 
-        printf("Image contains no thumbnail to replace - add is not possible\n");
+        fprintf(stderr,"Image contains no thumbnail to replace - add is not possible\n");
         return FALSE;
     }
 
