@@ -131,6 +131,9 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     &nbsp &nbsp jhead -n%Y%m%d-%H%M%S *.jpg<p>
     This will rename files matched by *.jpg according to YYYYMMDD-HHMMSS
     <p>
+    Note to Windows batch file users:  '%' is used to deliminate macros in Windows batch files.  You must
+    use %% to get one % passed to the program.  So from a batch file, you would have to write "jhead -n%%Y%%m%%d-%%H%%M%%S *.jpg"
+    <p>
     For a full listing of strftime arguments, look up the strftime function.  Note that some arguments
     to the strftime function (not listed here) produce strings with characters such as '/' and ':' that
     may not be valid as part of a filename on various systems.
