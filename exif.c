@@ -34,8 +34,9 @@ static int ExifImageWidth;
 static int MotorolaOrder = 0;
 
 // for fixing the rotation.
-static void * OrientationPtr;
-static int    OrientationNumFormat; 
+static void * OrientationPtr[2];
+static int    OrientationNumFormat[2];
+int NumOrientations = 0;
 
 typedef struct {
     unsigned short Tag;
@@ -649,18 +650,22 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 break;
 
             case TAG_ORIENTATION:
-                if (OrientationPtr){
-                    // Already have orientation.  The second orientation is likely
-                    // to be that of the thumbnail image.
+                if (NumOrientations >= 2){
+                    // Can have another orientation tag for the thumbnail, but if there's
+                    // a third one, things are stringae.
+                    ErrNonfatal("More than two orientation tags!",0,0);
                     break;
                 }
-                ImageInfo.Orientation = (int)ConvertAnyFormat(ValuePtr, Format);
-                OrientationPtr = ValuePtr;
-                OrientationNumFormat = Format;
+                OrientationPtr[NumOrientations] = ValuePtr;
+                OrientationNumFormat[NumOrientations] = Format;
+                if (NumOrientations == 0){
+                    ImageInfo.Orientation = (int)ConvertAnyFormat(ValuePtr, Format);
+                }
                 if (ImageInfo.Orientation < 0 || ImageInfo.Orientation > 8){
                     ErrNonfatal("Undefined rotation value %d", ImageInfo.Orientation, 0);
                     ImageInfo.Orientation = 0;
                 }
+                NumOrientations += 1;
                 break;
 
             case TAG_EXIF_IMAGELENGTH:
@@ -860,8 +865,7 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
     FocalplaneXRes = 0;
     FocalplaneUnits = 0;
     ExifImageWidth = 0;
-    OrientationPtr = NULL;
-
+    NumOrientations = 0;
 
     if (ShowTags){
         printf("Exif header %d bytes long\n",length);
@@ -937,36 +941,37 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
 
 //--------------------------------------------------------------------------
 // Cler the rotation tag in the exif header to 1.
-// Note: The thumbnail is NOT rotated.  That would be really hard, especially
-// stuffing it back into the exif header, because its size might change.
 //--------------------------------------------------------------------------
 const char * ClearOrientation(void)
 {
-    if (OrientationPtr == NULL) return NULL;
-    
-    switch(OrientationNumFormat){
-        case FMT_SBYTE:
-        case FMT_BYTE:      
-            *(uchar *)OrientationPtr = 1;
-            break;
+    int a;
+    if (NumOrientations == 0) return NULL;
 
-        case FMT_USHORT:    
-            Put16u(OrientationPtr, 1);                
-            break;
+    for (a=0;a<NumOrientations;a++){
+        switch(OrientationNumFormat[a]){
+            case FMT_SBYTE:
+            case FMT_BYTE:      
+                *(uchar *)(OrientationPtr[a]) = 1;
+                break;
 
-        case FMT_ULONG:     
-        case FMT_SLONG:     
-            memset(OrientationPtr, 0, 4);
-            // Can't be bothered to write  generic Put32 if I only use it once.
-            if (MotorolaOrder){
-                ((uchar *)OrientationPtr)[3] = 1;
-            }else{
-                ((uchar *)OrientationPtr)[0] = 1;
-            }
-            break;
+            case FMT_USHORT:    
+                Put16u(OrientationPtr[a], 1);                
+                break;
 
-        default:
-            return NULL;
+            case FMT_ULONG:     
+            case FMT_SLONG:     
+                memset(OrientationPtr, 0, 4);
+                // Can't be bothered to write  generic Put32 if I only use it once.
+                if (MotorolaOrder){
+                    ((uchar *)OrientationPtr[a])[3] = 1;
+                }else{
+                    ((uchar *)OrientationPtr[a])[0] = 1;
+                }
+                break;
+
+            default:
+                return NULL;
+        }
     }
 
     return OrientTab[ImageInfo.Orientation];

@@ -95,7 +95,7 @@ Exif section in Motorola order
     Unknown Tag c4a5 Value = "PrintIM?0250?.?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'"
     Continued directory (dir has 8 entries)
         Compression = 6
-        Orientation = 8
+        Orientation = 1
         XResolution = 72/1
         YResolution = 72/1
         ResolutionUnit = 2

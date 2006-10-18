@@ -272,6 +272,10 @@ Remove maximum jpeg sections limit
 
 Sept 10 2006
 Added -ds option
+
+Oct 18 2006
+On clearing rotation, clear the image and the optinoal thumbnail rotation tags.
+(some viewers use the wrong tag)
   
 
 
