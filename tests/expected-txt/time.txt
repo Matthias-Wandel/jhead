@@ -34,7 +34,7 @@ ISO equiv.   : 100
 Camera make  : Canon
 Camera model : Canon PowerShot Pro1
 Date/Time    : 2106:12:23 17:13:31
-Resolution   : 1632 x 1224
+Resolution   : 267 x 200
 Flash used   : No
 Focal length : 38.0mm  (35mm equivalent: 155mm)
 CCD width    : 8.81mm
@@ -49,7 +49,7 @@ Modified: badyear.jpg
 Camera make  : Canon
 Camera model : Canon PowerShot Pro1
 Date/Time    : 2006:01:23 18:13:31
-Resolution   : 1632 x 1224
+Resolution   : 267 x 200
 Flash used   : No
 Focal length : 38.0mm  (35mm equivalent: 155mm)
 CCD width    : 8.81mm
