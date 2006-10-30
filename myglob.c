@@ -48,7 +48,7 @@ static void CatPath(char * dest, const char * p1, const char * p2)
     if (!l){
         strcpy(dest, p2);
     }else{
-        if (l+strlen(p2) > 200){
+        if (l+strlen(p2) > _MAX_PATH-2){
             fprintf(stderr,"Path too long\n");
             exit(-1);
         }
