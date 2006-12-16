@@ -820,9 +820,7 @@ void ProcessFile(const char * FileName)
         RelativeName(OutFileName, ThumbSaveName, FileName);
 
         if (SaveThumbnail(OutFileName)){
-            if (OutFileName != "-"){
-                printf("Created: '%s'\n", OutFileName);
-            }
+            printf("Created: '%s'\n", OutFileName);
         }
     }
 
