@@ -117,7 +117,7 @@ static void process_SOFn (const uchar * Data, int marker)
 
 
 //--------------------------------------------------------------------------
-// Process a SOFn marker.  This is useful for the image dimensions
+// Check sections array to see if it needs to be increased in size.
 //--------------------------------------------------------------------------
 void CheckSectionsAllocated(void)
 {
@@ -597,27 +597,31 @@ int RemoveUnknownSections(void)
 
 //--------------------------------------------------------------------------
 // Add a section (assume it doesn't already exist) - used for 
-// adding comment sections.
+// adding comment sections and exif sections
 //--------------------------------------------------------------------------
 Section_t * CreateSection(int SectionType, unsigned char * Data, int Size)
 {
     Section_t * NewSection;
     int a;
+    int NewIndex;
+    NewIndex = 2;
+
+    if (SectionType == M_EXIF) NewIndex = 0; // Exif alwas goes first!
 
     // Insert it in third position - seems like a safe place to put 
     // things like comments.
 
-    if (SectionsRead < 2){
+    if (SectionsRead < NewIndex){
         ErrFatal("Too few sections!");
     }
 
     CheckSectionsAllocated();
-    for (a=SectionsRead;a>2;a--){
+    for (a=SectionsRead;a>NewIndex;a--){
         Sections[a] = Sections[a-1];          
     }
     SectionsRead += 1;
 
-    NewSection = Sections+2;
+    NewSection = Sections+NewIndex;
 
     NewSection->Type = SectionType;
     NewSection->Size = Size;

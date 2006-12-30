@@ -98,6 +98,7 @@ typedef enum {
 // prototypes for jhead.c functions
 void ErrFatal(char * msg);
 void ErrNonfatal(char * msg, int a1, int a2);
+void FileTimeAsString(char * TimeStr);
 
 // Prototypes for exif.c functions.
 int Exif2tm(struct tm * timeptr, char * ExifTime);
@@ -112,6 +113,7 @@ int Get16u(void * Short);
 unsigned Get32u(void * Long);
 int Get32s(void * Long);
 void Put32u(void * Value, unsigned PutValue);
+void create_EXIF(void);
 
 //--------------------------------------------------------------------------
 // Exif format descriptor stuff

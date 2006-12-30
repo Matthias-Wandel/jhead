@@ -58,6 +58,13 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     metadata that various applications may have left in the image.  A combination of 
     the -de -dc and -du options.
 
+<tr valign=top><td><b>-mkexif
+<td>Creates minimal exif header.  Exif header contains date/time, and empty thumbnail
+    fields only.  Date/time set to file time by default.
+    use with -rgt option if you want the exif header to contain a thumbnail.
+    Note that exif header creation is very limited at this time, and no other fields
+    can be added to the exif header this way.
+
 <tr valign=top><td><b>-ce
 <td>Edit the JPEG header comment field (note, this comment field is outside the Exif structure
     and can be part of Exif and non Exif style JPEG images).
@@ -82,7 +89,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <table cellpadding=5>
 
 <tr valign=top><td><b>-ft
-  <td>Sets the file's system time stamp to what is stored in the Exif header.
+<td>Sets the file's system time stamp to what is stored in the Exif header.
+
+<tr valign=top><td><b>-dsft
+<td>Sets the Exif timestamp to the file's timestamp.  Requires an Exif header to pre-exist.
+    Use -mkexif option to create one if needed.
 
 <tr valign=top><td><b>-n[&lt;fmt-string&gt;]
 <td>This option causes files to be renamed according to the Exif header "DateTimeOriginal" field.

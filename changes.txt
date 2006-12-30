@@ -276,7 +276,9 @@ Added -ds option
 Oct 18 2006
 On clearing rotation, clear the image and the optinoal thumbnail rotation tags.
 (some viewers use the wrong tag)
-  
+
+Dec 29 2006
+Add -mkexif option to make a new exif header.  
 
 
 to do:

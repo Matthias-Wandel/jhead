@@ -2,12 +2,12 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.62
+// Version 2.63
 //
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Sep 2006
+// Dec 1999 - Dec 2006
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -20,7 +20,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define JHEAD_VERSION "2.62"
+#define JHEAD_VERSION "2.63"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -59,14 +59,16 @@ static int DoReadAction = FALSE;
        int ShowTags     = FALSE;    // Do not show raw by default.
        int DumpExifMap  = FALSE;
 static int ShowConcise  = FALSE;
+static int CreateExifSection = FALSE;
 static char * ApplyCommand = NULL;  // Apply this command to all images.
 static char * FilterModel = NULL;
 static int    ExifOnly    = FALSE;
-static int    PortraitOnly = 0;
+static int    PortraitOnly = FALSE;
 static time_t ExifTimeAdjust = 0;   // Timezone adjust
 static time_t ExifTimeSet = 0;      // Set exif time to a value.
 static char DateSet[11];
 static unsigned DateSetChars = 0;
+static unsigned FileTimeToExif = FALSE;
 
 static int DeleteComments = FALSE;
 static int DeleteExif = FALSE;
@@ -77,7 +79,7 @@ static char * ThumbSaveName = NULL; // If not NULL, use this string to make up
 static char * ThumbInsertName = NULL; // If not NULL, use this string to make up
                                     // the filename to retrieve the thumbnail from.
 
-static int RegenThumbnail = 0;
+static int RegenThumbnail = FALSE;
 
 static char * ExifXferScrFile = NULL;// Extract Exif header from this file, and
                                     // put it into the Jpegs processed.
@@ -89,10 +91,10 @@ static char * CommentSavefileName = NULL; // Save comment to this file.
 static char * CommentInsertfileName = NULL; // Insert comment from this file.
 static char * CommentInsertLiteral = NULL;  // Insert this comment (from command line)
 
-static int AutoRotate = 0;
-static int ZeroRotateTagOnly = 0;
+static int AutoRotate = FALSE;
+static int ZeroRotateTagOnly = FALSE;
 
-static int ShowFileInfo = 1;        // Indicates to show standard file info
+static int ShowFileInfo = TRUE;     // Indicates to show standard file info
                                     // (file name, file size, file date)
 
 
@@ -700,6 +702,16 @@ static int RegenerateThumbnail(const char * FileName)
 }
 
 //--------------------------------------------------------------------------
+// Set file time as exif time.
+//--------------------------------------------------------------------------
+void FileTimeAsString(char * TimeStr)
+{
+    struct tm ts;
+    ts = *localtime(&ImageInfo.FileDateTime);
+    strftime(TimeStr, 20, "%Y:%m:%d %H:%M:%S", &ts);
+}
+
+//--------------------------------------------------------------------------
 // Do selected operations to one file at a time.
 //--------------------------------------------------------------------------
 void ProcessFile(const char * FileName)
@@ -822,6 +834,12 @@ void ProcessFile(const char * FileName)
         if (SaveThumbnail(OutFileName)){
             printf("Created: '%s'\n", OutFileName);
         }
+    }
+
+    if (CreateExifSection){
+        // Make a new minimal exif section
+        create_EXIF();
+        Modified = TRUE;
     }
 
     if (RegenThumbnail){
@@ -958,7 +976,7 @@ void ProcessFile(const char * FileName)
         }
     }
 
-    if (ExifTimeAdjust || ExifTimeSet || DateSetChars){
+    if (ExifTimeAdjust || ExifTimeSet || DateSetChars || FileTimeToExif){
        if (ImageInfo.numDateTimeTags){
             struct tm tm;
             time_t UnixTime;
@@ -969,6 +987,9 @@ void ProcessFile(const char * FileName)
                 // A time to set was specified.
                 UnixTime = ExifTimeSet;
             }else{
+                if (FileTimeToExif){
+                    FileTimeAsString(ImageInfo.DateTime);
+                }
                 if (DateSetChars){
                     memcpy(ImageInfo.DateTime, DateSet, DateSetChars);
                 }
@@ -1111,6 +1132,7 @@ static void Usage (void)
            "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
            "  -du        Delete non image sections except for Exif and comment sections\n"
            "  -purejpg   Strip all unnecessary data from jpeg (combines -dc -de and -du)\n"
+           "  -mkexif    Create new minimal exif section (overwrites pre-existing exif)\n"
            "  -ce        Edit comment field.  Uses environment variable 'editor' to\n"
            "             determine which editor to use.  If editor not set, uses VI\n"
            "             under Unix and notepad with windows\n"
@@ -1120,7 +1142,8 @@ static void Usage (void)
            "  -cl string Insert literal comment string\n"
 
            "\nDATE / TIME MANIPULATION:\n"
-           "  -ft        Set file modification time to Exif time.\n"
+           "  -ft        Set file modification time to Exif time\n"
+           "  -dsft      Set Exif time to file modification time\n"
            "  -n[format-string]\n"
            "             Rename files according to date.  Uses exif date if present, file\n"
            "             date otherwise.  If the optional format-string is not supplied,\n"
@@ -1313,6 +1336,9 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-cl")){
             CommentInsertLiteral = argv[++argn];
             DoModify = TRUE;
+        }else if (!strcmp(arg,"-mkexif")){
+            CreateExifSection = TRUE;
+            DoModify = TRUE;
 
     // Output verbosity control
         }else if (!strcmp(arg,"-h")){
@@ -1409,6 +1435,9 @@ int main (int argc, char **argv)
             }
             if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
             ExifTimeAdjust = NewDate-OldDate;
+            DoModify = TRUE;
+        }else if (!memcmp(arg,"-dsft",3)){
+            FileTimeToExif = TRUE;
             DoModify = TRUE;
         }else if (!memcmp(arg,"-ds",3)){
             // Set date feature

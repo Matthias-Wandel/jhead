@@ -234,6 +234,7 @@ static const TagTable_t TagTable[] = {
 
 #define TAG_TABLE_SIZE  (sizeof(TagTable) / sizeof(TagTable_t))
 
+
 //--------------------------------------------------------------------------
 // Convert a 16 bit unsigned value to file's native byte order
 //--------------------------------------------------------------------------
@@ -362,7 +363,7 @@ double ConvertAnyFormat(void * ValuePtr, int Format)
                     Value = 0;
                 }else{
                     Value = (double)Num/Den;
-                }
+w                }
                 break;
             }
 
@@ -795,7 +796,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
     {
         // In addition to linking to subdirectories via exif tags, 
         // there's also a potential link to another directory at the end of each
-        // directory.  this has got to be the result of a comitee!
+        // directory.  this has got to be the result of a committee!
         unsigned char * SubdirStart;
         unsigned Offset;
 
@@ -854,6 +855,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
     }
 }
 
+
 //--------------------------------------------------------------------------
 // Process a EXIF marker
 // Describes all the drivel that most digital cameras include...
@@ -900,12 +902,12 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
 
     FirstOffset = Get32u(ExifSection+12);
     if (FirstOffset < 8 || FirstOffset > 16){
-        // I used to ensure this was set to 8 (website I used indicated its 8)
-        // but PENTAX Optio 230 has it set differently, and uses it as offset. (Sept 11 2002)
+        // Usually set to 8, but other values valid too.
         ErrNonfatal("Suspicious offset of first IFD value",0,0);
     }
 
     DirWithThumbnailPtrs = NULL;
+
 
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
     ProcessExifDir(ExifSection+8+FirstOffset, ExifSection+8, length-8, 0);
@@ -936,6 +938,118 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
             // already got it explicitly from a tag.
             ImageInfo.FocalLength35mmEquiv = (int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*36 + 0.5);
         }
+    }
+}
+
+
+//--------------------------------------------------------------------------
+// Create minimal exif header - just date and thumbnail pointers,
+// so that date and thumbnail may be filled later.
+//--------------------------------------------------------------------------
+void create_EXIF(void)
+{
+    char Buffer[256];
+
+    unsigned short NumEntries;
+    int DataWriteIndex;
+    int DirIndex;
+
+    MotorolaOrder = 0;
+
+    memcpy(Buffer+2, "Exif\0\0II",8);
+    Put16u(Buffer+10, 0x2a);
+
+    DataWriteIndex = 16;
+    Put32u(Buffer+12, DataWriteIndex-8); // first IFD offset.  Means start 16 bytes in.
+
+    {
+        DirIndex = DataWriteIndex;
+        NumEntries = 2;
+        DataWriteIndex += 2 + NumEntries*12 + 4;
+
+        Put16u(Buffer+DirIndex, NumEntries); // Number of entries
+        DirIndex += 2;
+        // Entries go here....
+        {
+            // Date/time entry
+            Put16u(Buffer+DirIndex, TAG_DATETIME);         // Tag
+            Put16u(Buffer+DirIndex + 2, FMT_STRING);       // Format
+            Put32u(Buffer+DirIndex + 4, 19);               // Components
+            Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
+            DirIndex += 12;
+
+            if (ImageInfo.numDateTimeTags){
+                // If we had a pre-existing exif header, use time from that.
+                memcpy(Buffer+DataWriteIndex, ImageInfo.DateTime, 19);
+            }else{
+                // Oterwise, use the file's timestamp.
+                FileTimeAsString(Buffer+DataWriteIndex);
+            }
+            DataWriteIndex += 20;
+        }
+        {
+            // Link to exif dir entry
+            Put16u(Buffer+DirIndex, TAG_EXIF_OFFSET);         // Tag
+            Put16u(Buffer+DirIndex + 2, FMT_BYTE);       // Format
+            Put32u(Buffer+DirIndex + 4, 0);               // Components
+            Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
+            DirIndex += 12;
+        }
+
+        // End of directory - contains optional link to continued directory.
+        Put32u(Buffer+DirIndex, 0);
+    }
+
+
+    {
+        DirIndex = DataWriteIndex;
+        NumEntries = 2;
+        DataWriteIndex += 2 + NumEntries*12 + 4;
+
+        Put16u(Buffer+DirIndex, NumEntries); // Number of entries
+        DirIndex += 2;
+        {
+            // Link to exif dir entry
+            Put16u(Buffer+DirIndex, TAG_THUMBNAIL_OFFSET);         // Tag
+            Put16u(Buffer+DirIndex + 2, FMT_ULONG);       // Format
+            Put32u(Buffer+DirIndex + 4, 1);               // Components
+            Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
+            DirIndex += 12;
+        }
+
+        {
+            // Link to exif dir entry
+            Put16u(Buffer+DirIndex, TAG_THUMBNAIL_LENGTH);         // Tag
+            Put16u(Buffer+DirIndex + 2, FMT_ULONG);       // Format
+            Put32u(Buffer+DirIndex + 4, 1);               // Components
+            Put32u(Buffer+DirIndex + 8, 0); // Pointer or value.
+            DirIndex += 12;
+        }
+
+        // End of directory - contains optional link to continued directory.
+        Put32u(Buffer+DirIndex, 0);
+    }
+
+    Buffer[0] = (unsigned char)(DataWriteIndex >> 8);
+    Buffer[1] = (unsigned char)DataWriteIndex;
+
+    // Remove old exif section, if there was one.
+    RemoveSectionType(M_EXIF);
+
+    {
+        // Sections need malloced buffers, so do that now, especially because
+        // we now know how big it needs to be allocated.
+        unsigned char * NewBuf = malloc(DataWriteIndex);
+        if (NewBuf == NULL){
+            ErrFatal("Could not allocate memory");
+        }
+        memcpy(NewBuf, Buffer, DataWriteIndex);
+
+        CreateSection(M_EXIF, NewBuf, DataWriteIndex);
+
+        // Re-parse new exif section, now that its in place
+        // otherwise, we risk touching data that has already been freed.
+        process_EXIF(NewBuf, DataWriteIndex);
     }
 }
 
@@ -976,6 +1090,7 @@ const char * ClearOrientation(void)
 
     return OrientTab[ImageInfo.Orientation];
 }
+
 
 
 //--------------------------------------------------------------------------
@@ -1049,6 +1164,7 @@ int Exif2tm(struct tm * timeptr, char * ExifTime)
     return FALSE; // Wasn't in Exif date format.
 }
 
+
 //--------------------------------------------------------------------------
 // Show the collected image info, displaying camera F-stop and shutter speed
 // in a consistent and legible fashion.
@@ -1061,9 +1177,7 @@ void ShowImageInfo(int ShowFileInfo)
 
         {
             char Temp[20];
-            struct tm ts;
-            ts = *localtime(&ImageInfo.FileDateTime);
-            strftime(Temp, 20, "%Y:%m:%d %H:%M:%S", &ts);
+            FileTimeAsString(Temp);
             printf("File date    : %s\n",Temp);
         }
     }
