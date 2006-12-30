@@ -1436,7 +1436,8 @@ int main (int argc, char **argv)
             if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
             ExifTimeAdjust = NewDate-OldDate;
             DoModify = TRUE;
-        }else if (!memcmp(arg,"-dsft",3)){
+        }else if (!memcmp(arg,"-dsft",5)){
+            // Set file time to date/time in exif
             FileTimeToExif = TRUE;
             DoModify = TRUE;
         }else if (!memcmp(arg,"-ds",3)){
@@ -1447,7 +1448,6 @@ int main (int argc, char **argv)
                 ErrFatal("Date must be in format YYYY, YYYY:MM, or YYYY:MM:DD");
             }
             memcpy(DateSet, arg+3, DateSetChars);
-            // Set date feature
             DoModify = TRUE;
         }else if (!memcmp(arg,"-ts",3)){
             // Set the exif time.
