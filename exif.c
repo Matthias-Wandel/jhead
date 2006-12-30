@@ -974,13 +974,14 @@ void create_EXIF(void)
             // Date/time entry
             Put16u(Buffer+DirIndex, TAG_DATETIME);         // Tag
             Put16u(Buffer+DirIndex + 2, FMT_STRING);       // Format
-            Put32u(Buffer+DirIndex + 4, 19);               // Components
+            Put32u(Buffer+DirIndex + 4, 20);               // Components
             Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
             DirIndex += 12;
 
             if (ImageInfo.numDateTimeTags){
                 // If we had a pre-existing exif header, use time from that.
                 memcpy(Buffer+DataWriteIndex, ImageInfo.DateTime, 19);
+                Buffer[DataWriteIndex+19] = '\0';
             }else{
                 // Oterwise, use the file's timestamp.
                 FileTimeAsString(Buffer+DataWriteIndex);
@@ -989,9 +990,9 @@ void create_EXIF(void)
         }
         {
             // Link to exif dir entry
-            Put16u(Buffer+DirIndex, TAG_EXIF_OFFSET);         // Tag
-            Put16u(Buffer+DirIndex + 2, FMT_BYTE);       // Format
-            Put32u(Buffer+DirIndex + 4, 0);               // Components
+            Put16u(Buffer+DirIndex, TAG_EXIF_OFFSET);      // Tag
+            Put16u(Buffer+DirIndex + 2, FMT_ULONG);        // Format
+            Put32u(Buffer+DirIndex + 4, 1);                // Components
             Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
             DirIndex += 12;
         }
