@@ -363,7 +363,7 @@ double ConvertAnyFormat(void * ValuePtr, int Format)
                     Value = 0;
                 }else{
                     Value = (double)Num/Den;
-w                }
+                }
                 break;
             }
 
