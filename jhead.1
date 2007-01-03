@@ -1,4 +1,4 @@
-.TH JHEAD 1 "10 Sept 2006" "jhead 2.62"
+.TH JHEAD 1 "3 Jan 2007" "jhead 2.63"
 .SH NAME
 jhead \- Digicam JPEG Exif header manipulation tool
 .SH SYNOPSIS
@@ -27,54 +27,40 @@ deleted the Exif header.
 can also be used to launch other programs, similar in style to the UNIX
 .B find 
 command, but much simpler.
-.SH OPTIONS
+
+
+.SH GENERAL METADATA OPTIONS
 .TP
-.B \-autorot
-Using the 'Orientation' tag of the Exif header, rotate the image so that it is upright. 
-The program 
-.B jpegtran 
-is used to perform the rotation. This program is present in most 
-Linux distributions.  For windows, you need to get a copy of it.  After rotation, the 
-orientation tag of the Exif header is set to '1' (normal orientation).  The thumbnail 
-is also rotated. Other fields of the Exif header, including 
-dimensions are untouched, but the JPEG height/width are adjusted.
-This feature is especially useful with newer Canon cameras, that set the orientation 
-tag automatically using a gravity sensor.
-.TP
-.B \-norot
-Clears the rotation field in the Exif header without altering the image.  Useful if
-the images were previously rotated without clearing the Exif rotation tag, as some
-image browsers will auto rotate images when the rotation tag is set.
-.TP
-.B \-dt
-Delete thumbnails from the Exif header, but leave the
-interesting parts intact.  This option truncates the thumbnail from the Exif header, provided
-that the thumbnail is the last part of the Exif header (which so far as I know is always the case).
-Exif headers have a built-in thumbnail, which typically
-occupies around 10k of space.  This thumbnail is used by digital cameras.  Windows XP may also
-use this thumbnail if present (but it doesn't need it).  The
-thumbnails are too small to use even full screen on the digicam's LCD.
-I have not encountered any adverse side effects of deleting the thumbnails, even from the
-software provided with my old Olympus digicam.  Use with caution.
-.TP
-.B \-rt
-Replace thumbnails from the Exif header.
-This only works if the exif header already contains a thumbnail, and the thumbnail is at the
-end of the header (both always the case if the photo came from a digital camera)
-.TP
-.B \-rgt
-Regnerate exif thumbnail.
-'size' specifies maximum height or width of thumbnail.
-Relies on 'mogrify' program (from ImageMagick) to regenerate the thumbnail.
-This only works if the image already contains a thumbail.  
-.TP
-.B \-de
-Delete the Exif header entirely.  This leaves comments in the comment
-section intact.
+.BI \-\^te \ file
+Transplant Exif header from a JPEG (with Exif header) in 
+.I file
+into the image that is manipulated.  This option is
+useful if you like to edit the photos but still want the Exif header on your photos.
+As most photo editing programs will wipe out the Exif header, this option can be used
+to re-copy them back from original copies after editing the photos.
+
+
+This feature has an interesting 'relative path' option for specifying the 
+thumbnail name.  Whenever the <name> contains the characters '&i', jhead 
+will substitute the original  filename for this name. This allows creating a 
+'relative name' when doing a whole batch  of files. For example, the 
+incantation:
+
+.B jhead -te "originals\&i" *.jpg
+
+would transfer the exif header for each .jpg file in the originals directory by 
+the same name, Both Win32 and most Unix shells treat the '&' character in a 
+special way, so you have to put quotes around that command line option for the 
+'&' to even be passed to the program.
+
 .TP
 .B \-dc
 Delete comment field from the JPEG header.  Note that the comment
 is not part of the Exif header.
+.TP
+.B \-de
+Delete the Exif header entirely.  This leaves comments in the comment
+section intact.
 .TP
 .B \-du
 Delete sections of jpeg that are not Exif, not comment, and otherwise not 
@@ -84,6 +70,13 @@ contributing to the image either - such as data that photoshop might leave in th
 Delete all JPEG sections that aren't necessary for rendering the image.  Strips any
 metadata that various applications may have left in the image.  A combintion of 
 the -de -dc and -du options.
+.TP
+.B \-mkexif
+Creates minimal exif header. Exif header contains date/time, and empty thumbnail 
+fields only. Date/time set to file time by default. use with -rgt option if you 
+want the exif header to contain a thumbnail. Note that exif header creation is 
+very limited at this time, and no other fields can be added to the exif header 
+this way.
 .TP
 .B \-ce
 Edit the JPEG header comment field (note, this comment field is outside the Exif structure
@@ -105,87 +98,18 @@ Replace comment with text from
 .BI \-\^cl \ string
 Replace comment with specified string from command line
 .IR file
-.TP
-.BI \-\^st \ file
-Save the integral thumbnail to 
-.I file
-The thumbnail lives
-inside the Exif header, and is a very low-res JPEG image.  Note that making
-any changes to a photo, except for with some programs, generally wipes out the Exif header
-and with it the thumbnail.
 
-The thumbnail is too low res to really use for anything.
 
-This feature has an interesting 'relative path' option for specifying the thumbnail name.
-Whenever the name for 
-.I file 
-contains the characters  '&i',
-.B jhead 
-will substitute the original
-filename for this name.  This allows creating a 'relative name' when doing a whole
-batch of files.  For example, the incantation:
 
-.B jhead -st "thumbnails/&i" *.jpg
+.SH DATE / TIME MANIPULATION OPTIONS
 
-would create a thumbnail for each .jpg file in the thumbnails directory by the same name,
-(provided that the thumbnails directory exists, of course).
-Both Win32 and UNIX shells treat the '&'character in a special way, so you have to
-put quotes around that command line option for the '&' to even be passed to the program.
-
-If a '-' is specified for the output file, the thumbnail is sent to stdout. (UNIX build only)
 .TP
-.BI \-\^te \ file
-Transplant Exif header from a JPEG (with Exif header) in 
-.I file
-into the image that is manipulated.  This option is
-useful if you like to edit the photos but still want the Exif header on your photos.
-As most photo editing programs will wipe out the Exif header, this option can be used
-to re-copy them back from original copies after editing the photos.
-
-Like the '-st' option, this option uses a 'relative path', which is useful for doing
-a batch of photos at a time.  For example, if you have a directory full of digital camera
-photos, before editing them, you could copy them into the subdirectory 'originals.
-Then edit them.  After editing, you can put the
-original Exif headers back in to the whole directory of images at a time using the
-incantation:
-.B jhead -te "originals/&i" *.jpg
+.B \-ft
+Sets the file's system time stamp to what is stored in the Exif header.
 .TP
-.B \-h
-Displays summary of command line options.
-.TP
-.B \-v
-Makes the program even more verbose than it already is.  Like DOS programs, and unlike
-UNIX programs, Jhead gives feedback as to what it is doing, even when nothing goes wrong.
-Windows user that I am, when something doesn't give me feedback for 20 seconds, I assume
-its crashed.
-.TP
-.B \-se
-Suppress error messages relating to corrupt Exif header structure.
-.TP
-.B \-V
-Print version info and compilation date.
-.TP
-.B \-c
-Concise output.  This causes picture info to be summarized on one line instead of several.
-Useful for grep-ing through images, as well as importing into spread sheets (data is space
-delimited with quotes as text qualifier).
-.TP
-.B \-model
-Restricts processing of files to those whose camera model, as indicated by the Exif image
-information, contains the substring specified in the argument after '-model'.
-For example, the following command will list only images that are from an S100 camera:
-
-.B jhead -model S100 *.jpg
-
-.B jhead -model S100 *.jpg
-
-I use this option to restrict my JPEG recompensing to those images that came from my 
-Cannon S100 digicam, (see the -cmd option).
-.TP
-.B \-exonly
-Skip all files that don't have an Exif header.  This skips all files that did not
-come directly from the digital camera, as most photo editing software does not 
-preserve the Exif header when saving pictures.
+.B \-dsft
+Sets the Exif timestamp to the file's timestamp. Requires an Exif header to 
+pre-exist. Use -mkexif option to create one if needed.
 .TP
 .BI \-\^n [format_string]
 This option causes files to be renamed using the date information from the Exif header 
@@ -248,11 +172,14 @@ For a full listing of strftime arguments, look up the strftime in them man pages
 Note that some arguments
 to the strftime function (not listed here) produce strings with characters such as '/' and ':' that
 may not be valid as part of a filename on various systems.
+
 .TP
 .B \-nf
 Same as '-n' but renames files regardless of original file name.
+
+
 .TP
-.B \-ta<+|->[timediff]
+.B \-ta<+|-><timediff>
 Adjust time stored in the Exif header by h:mm backwards or forwards.  Useful when having
 taken pictures with the wrong time set on the camera, such as after travelling across
 time zones, or when daylight savings time has changed.
@@ -294,9 +221,126 @@ Sets the date stored in the Exif header to what is specified on the command line
 Can be used to set date, just year and month, or just year.
 Date is specified as: 
 .I yyyy:mm:dd,  yyyy:mm, or yyyy
+
+
+.SH THUMBNAIL MANIPULATION OPTIONS
+
 .TP
-.B \-ft
-Sets the file's system time stamp to what is stored in the Exif header.
+.B \-dt
+Delete thumbnails from the Exif header, but leave the
+interesting parts intact.  This option truncates the thumbnail from the Exif header, provided
+that the thumbnail is the last part of the Exif header (which so far as I know is always the case).
+Exif headers have a built-in thumbnail, which typically
+occupies around 10k of space.  This thumbnail is used by digital cameras.  Windows XP may also
+use this thumbnail if present (but it doesn't need it).  The
+thumbnails are too small to use even full screen on the digicam's LCD.
+I have not encountered any adverse side effects of deleting the thumbnails, even from the
+software provided with my old Olympus digicam.  Use with caution.
+
+.TP
+.BI \-\^st \ file
+Save the integral thumbnail to 
+.I file
+The thumbnail lives
+inside the Exif header, and is a very low-res JPEG image.  Note that making
+any changes to a photo, except for with some programs, generally wipes out the Exif header
+and with it the thumbnail.
+
+The thumbnail is too low res to really use for very much.
+
+This feature has an interesting 'relative path' option for specifying the thumbnail name.
+Whenever the name for 
+.I file 
+contains the characters  '&i',
+.B jhead 
+will substitute the original
+filename for this name.  This allows creating a 'relative name' when doing a whole
+batch of files.  For example, the incantation:
+
+.B jhead -st "thumbnails/&i" *.jpg
+
+would create a thumbnail for each .jpg file in the thumbnails directory by the same name,
+(provided that the thumbnails directory exists, of course).
+Both Win32 and UNIX shells treat the '&'character in a special way, so you have to
+put quotes around that command line option for the '&' to even be passed to the program.
+
+If a '-' is specified for the output file, the thumbnail is sent to stdout. (UNIX build only)
+
+.TP
+.B \-rt
+Replace thumbnails from the Exif header.
+This only works if the exif header already contains a thumbnail, and the thumbnail is at the
+end of the header (both always the case if the photo came from a digital camera)
+.TP
+.BI \-\^rgt \ size
+Regnerate exif thumbnail.
+'size' specifies maximum height or width of thumbnail.
+Relies on 'mogrify' program (from ImageMagick) to regenerate the thumbnail.
+This only works if the image already contains a thumbail.  
+
+.SH ROTATION OPTIONS
+.TP
+.B \-autorot
+Using the 'Orientation' tag of the Exif header, rotate the image so that it is upright. 
+The program 
+.B jpegtran 
+is used to perform the rotation. This program is present in most 
+Linux distributions.  For windows, you need to get a copy of it.  After rotation, the 
+orientation tag of the Exif header is set to '1' (normal orientation).  The thumbnail 
+is also rotated. Other fields of the Exif header, including 
+dimensions are untouched, but the JPEG height/width are adjusted.
+This feature is especially useful with newer Canon cameras, that set the orientation 
+tag automatically using a gravity sensor.
+.TP
+.B \-norot
+Clears the rotation field in the Exif header without altering the image.  Useful if
+the images were previously rotated without clearing the Exif rotation tag, as some
+image browsers will auto rotate images when the rotation tag is set.
+Sometimes, thunbails and rotation  tags can get very out of sync from manipulation
+with various tools.  To reset it all use -norot with -rgt to clear this out.
+
+.SH OUTPUT VERBOSITY CONTROL
+.TP
+.B \-h
+Displays summary of command line options.
+.TP
+.B \-v
+Makes the program even more verbose than it already is.  Like DOS programs, and unlike
+UNIX programs, Jhead gives feedback as to what it is doing, even when nothing goes wrong.
+Windows user that I am, when something doesn't give me feedback for 20 seconds, I assume
+its crashed.
+.TP
+.B \-V
+Print version info and compilation date.
+.B \-exifmap
+Show a map of the bytes in the exif header. Useful when analyzing strange exif headers, 
+not of much use to non software developers.
+.TP
+.B \-se
+Suppress error messages relating to corrupt Exif header structure.
+.TP
+.B \-c
+Concise output.  This causes picture info to be summarized on one line instead of several.
+Useful for grep-ing through images, as well as importing into spread sheets (data is space
+delimited with quotes as text qualifier).
+
+.SH FILE MATCHING OPTIONS
+.TP
+.B \-model
+Restricts processing of files to those whose camera model, as indicated by the Exif image
+information, contains the substring specified in the argument after '-model'.
+For example, the following command will list only images that are from an S100 camera:
+
+.B jhead -model S100 *.jpg
+
+.B jhead -model S100 *.jpg
+
+I use this option to restrict my JPEG recompensing to those images that came from my 
+Cannon S100 digicam, (see the -cmd option).
+.TP
+.B \-exonly
+Skip all files that don't have an Exif header.  Photos straight from a digital camera
+have an Exif header, whereas many photo manipulation tools discard the Exif header.
 .TP
 .B \-cmd
 Executes the specified command on each Jepg file to be processed.
@@ -338,6 +382,7 @@ JPEG images is a lossless process that typically makes image files 5% smaller.
 Keeping the Exif header information is important to me, as I like to check things like the
 shutter speed for some of my photos, and my HTML index generating program uses the Exif tags
 to display the JPEG images in order of taking.
+
 .SH SEE ALSO
 .BR jpegtran (1),
 .BR mogrify (1),

@@ -8,7 +8,7 @@ Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
 (or DOS prompt under Win95/98/Me)
 
-<h3>Jhead v2.62 program Features</h3>
+<h3>Jhead v2.63 program Features</h3>
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to set and/or adjust the Exif time field
@@ -32,13 +32,14 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     As most photo editing programs will wipe out the Exif header, this option can be used
     to re-transplant them back in after editing the photos.
     <br>
-    Like the '-st' option, this option uses a 'relative path', which is useful for doing
-    a batch of photos at a time.  For example, if you have a directory full of digital camera
-    photos, before editing them, you could copy them into the subdirectory 'originals.
-    Then edit them (or batch convert them using mogrify).  After editing, you can put the
-    original Exif headers back in to the whole directory of images at a time using the
-    incantation:
-    <ul> jhead -te "originals\&i" *.jpg</ul>
+    This feature has an interesting 'relative path' option for specifying the thumbnail name.
+    Whenever the &lt;name&gt; contains the characters '&i', jhead will substitute the original
+    filename for this name.  This allows creating a 'relative name' when doing a whole
+    batch of files.  For example, the incantation:
+    <ul>jhead -te "originals\&i" *.jpg</ul>
+    would transfer the exif header for each .jpg file in the originals directory by the same name,
+    Both Win32 and most Unix shells treat the '&' character in a special way, so you have to
+    put quotes around that command line option for the '&' to even be passed to the program.
 
 
 <tr valign=top><td><b>-dc
@@ -80,7 +81,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top><td><b>-ci &lt;name&gt;
 <td>Replace comment with text from file.
 
-<tr valign=top><td><b>-cl &lt;comment&gt;
+<tr valign=top><td><b>-cl&nbsp&lt;comment&gt;
 <td>Replace comment with comment from command line.
 </table>
 
@@ -232,7 +233,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     built in thumbnails to be all that useful - too low res.  However, now you can see for
     yourself.  I always generate my thumbnails using ImageMagick (see end of this page).
     <br>
-    This feature has an interesting 'relative path' option for specifying the thumbnail name.
+    Like the '-te' option, this feature has an interesting 'relative path' option for 
+    specifying the thumbnail name.
     Whenever the &lt;name&gt; contains the characters '&i', jhead will substitute the original
     filename for this name.  This allows creating a 'relative name' when doing a whole
     batch of files.  For example, the incantation:
