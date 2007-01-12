@@ -4,7 +4,7 @@
 //
 // This module handles basic Jpeg file handling
 //
-// Matthias Wandel,  Dec 1999 - Sept 2006
+// Matthias Wandel
 //--------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
