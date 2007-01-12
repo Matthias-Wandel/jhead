@@ -280,7 +280,7 @@ On clearing rotation, clear the image and the optinoal thumbnail rotation tags.
 Dec 29 2006
 Add -mkexif option to make a new exif header.
 
--------Released version 2.7 -- Jan 11 2006 --------
+-------Released version 2.7 -- Jan 11 2007 --------
 
 to do:
 * Someday - read/write implementation of exif file system.  This will allow
