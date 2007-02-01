@@ -1364,7 +1364,9 @@ void ShowImageInfo(int ShowFileInfo)
         case 0: // Automatic (not worth cluttering up output for)
             break;
         case 1: printf("Exposure Mode: Manual\n");
+            break;
         case 2: printf("Exposure Mode: Auto bracketing\n");
+            break;
     }
 
 
