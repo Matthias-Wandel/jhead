@@ -12,7 +12,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to set and/or adjust the Exif time field
-<li>Manipulation (extrac, replace, regenerate) of Exif integral thumbnails
+<li>Manipulation (extract, replace, regenerate) of Exif integral thumbnails
 <li>Transplant Exif image header from one JPEG to another
 <li>Edit JPEG comment fields
 <li>Automatically rotate images upright (using jpegtran) according to "orientation" tag.
@@ -37,8 +37,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     filename for this name.  This allows creating a 'relative name' when doing a whole
     batch of files.  For example, the incantation:
     <ul>jhead -te "originals\&i" *.jpg</ul>
-    would transfer the exif header for each .jpg file in the originals directory by the same name,
-    Both Win32 and most Unix shells treat the '&' character in a special way, so you have to
+    would transfer the Exif header for each .jpg file in the originals directory by the same name,
+    Both Win32 and most UNIX shells treat the '&' character in a special way, so you have to
     put quotes around that command line option for the '&' to even be passed to the program.
 
 
@@ -60,11 +60,11 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     the -de -dc and -du options.
 
 <tr valign=top><td><b>-mkexif
-<td>Creates minimal exif header.  Exif header contains date/time, and empty thumbnail
+<td>Creates minimal Exif header.  Exif header contains date/time, and empty thumbnail
     fields only.  Date/time set to file time by default.
-    use with -rgt option if you want the exif header to contain a thumbnail.
-    Note that exif header creation is very limited at this time, and no other fields
-    can be added to the exif header this way.
+    use with -rgt option if you want the Exif header to contain a thumbnail.
+    Note that Exif header creation is very limited at this time, and no other fields
+    can be added to the Exif header this way.
 
 <tr valign=top><td><b>-ce
 <td>Edit the JPEG header comment field (note, this comment field is outside the Exif structure
@@ -72,7 +72,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <br>
     A temporary file containing the comment is created and a text editor is launched to edit
     the file.  The editor is specified in the EDITOR environment variable.  If none is specified
-    notpead or vi are used under Windows and Unix respectively.  After the editor exits,
+    notepad or vi are used under Windows and UNIX respectively.  After the editor exits,
     the data is transferred back into the image, and the temporary file deleted.
 
 <tr valign=top><td><b>-cs &lt;name&gt;
@@ -155,7 +155,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
 <tr valign=top><td><b>-a
 <td>(Windows only option).  Rename files with the same name but different extension as well.
-    This is useful for renaming .AVI files based on exif file in .THM, or to rename sound annotation
+    This is useful for renaming .AVI files based on Exif file in .THM, or to rename sound annotation
     files or raw files with jpeg files.  Use together with '-n' option.
 
 <tr valign=top><td><b>-ta&lt;timediff&gt;
@@ -241,24 +241,24 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <ul>jhead -st "thumbnails\&i" *.jpg</ul>
     would create a thumbnail for each .jpg file in the thumbnails directory by the same name,
     (provided that the thumbnails directory exists, of course).
-    Both Win32 and most Unix shells treat the '&' character in a special way, so you have to
+    Both Win32 and most UNIX shells treat the '&' character in a special way, so you have to
     put quotes around that command line option for the '&' to even be passed to the program.
     <p>
     If a '-' is specified for the output file, the thumbnail is sent to stdout. (UNIX build only)
 
 <tr valign=top><td><b>-rt &lt;name&gt;
 <td>Replace thumbnails from the Exif header.
-    This only works if the exif header already contains an exif header a thumbnail.
+    This only works if the Exif header already contains an Exif header a thumbnail.
 
 <tr valign=top><td><b>-rgt[size]    
-<td>Regnerate exif thumbnail.
+<td>Regnerate Exif thumbnail.
     'size' specifies maximum height or width of thumbnail.
     I added this option because I had a lot of images that I had rotated with various tools that don't
-    update the exif header.  But newer image browsers such as XnView make use of the Exif thumbnail,
+    update the Exif header.  But newer image browsers such as XnView make use of the Exif thumbnail,
     and so the thumbnails would be different from the image itself.  Note that the rotation tag also
     needed to be cleared (-norot option).
     <br>
-    Typically, only images that are shot in portait orientation are afflicted with this.  You can use
+    Typically, only images that are shot in portrait orientation are afflicted with this.  You can use
     the -orp option to tell jhead to only operate on images that are upright.
     <p>
 
@@ -276,10 +276,10 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         The program 'jpegtran' is used to perform the rotation.  This program is present in most 
         Linux distributions.  For windows, you need to get a copy of it.
         After rotation, the orientation tag of the Exif header is set to '1' (normal orientation).  
-        The exif thumbnail is also rotated as of Jhead version 2.5.   Other fields of the Exif header, 
+        The Exif thumbnail is also rotated as of Jhead version 2.5.   Other fields of the Exif header, 
         including dimensions are untouched, but the JPEG height/width are adjusted.<br>
         This feature is especially useful with newer digital cameras, which set the orientation
-        field in the Exif header automatically using a built in orienttion sensor in the camera.
+        field in the Exif header automatically using a built in orientation sensor in the camera.
 
 <tr valign=top>
     <td><b>-norot
@@ -302,15 +302,15 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
 <tr valign=top><td><b>-v
 <td>Makes the program even more verbose than it already is.  Like DOS programs, and unlike
-    Unix programs, Jhead gives feedback as to what it is doing, even when nothing goes wrong.
+    UNIX programs, Jhead gives feedback as to what it is doing, even when nothing goes wrong.
     Windows user that I am, when something doesn't give me feedback for 20 seconds, I assume
     its crashed.
 
 <tr valign=top><td><b>-V
 <td>Print version info and compilation date.
 
-<tr valign=top><td><b>-exifmap
-<td>Show a map of the bytes in the exif header.  Useful when analyzing strange exif headers,
+<tr valign=top><td><b>-Exifmap
+<td>Show a map of the bytes in the Exif header.  Useful when analyzing strange Exif headers,
     not of much use to non software developers.
 
 <tr valign=top><td><b>-se
@@ -386,9 +386,9 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
 <tr valign=top><td><b>-orp -orl
 <td>Operate only on images with portrait (-orp) or landscape (-orl) aspect ratio.<br>
-    Please note that this is soley based on jpeg with and height values.  Some browsers may auto
-    rotate the image on displaying it based on the exif orientation tag, so that images shot
-    in portrait mode are displayed as portrait.  Howwever, the image itself may not be stored in
+    Please note that this is solely based on jpeg with and height values.  Some browsers may auto
+    rotate the image on displaying it based on the Exif orientation tag, so that images shot
+    in portrait mode are displayed as portrait.  However, the image itself may not be stored in
     portrait orientation.
     The -autorot and -norot options are useful for dealing with rotion issues.
                                                                                
@@ -412,7 +412,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     Some Canon digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
     than full resolution, causing jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
     focal length.  The same can result from resizing photos with Photoshop, which will manipulate
-    parts of the exif header.
+    parts of the Exif header.
     This is often reported as a bug in Jhead, but Jhead can't do much about incorrect data.
 </ul>
 
@@ -438,8 +438,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     The <font size = 2 face="courier">'**'</font>
     recursive expansion is ONLY supported on the Windows version.   The code is in the module 'myglob.c',
     if you want to reuse it (I certainly intend to reuse that code for other applications).
-    Under Unix, the shell's wildcard expansion is
-    pretty decent already, and dealing with the convoluted nature of some Unix file layouts,
+    Under UNIX, the shell's wildcard expansion is
+    pretty decent already, and dealing with the convoluted nature of some UNIX file layouts,
     doing better would have been much more of a challenge.
 </ul>
 
@@ -467,7 +467,7 @@ There's a fancier version, with pre-built Windows binaries and a lossless croppi
 <a href="http://www.xnview.com">XnView</a> is an excellent free graphical image browser, cross platform.  
 I use it mostly instead of Compupic nowadays.
 Unlike Compupic, it makes use of jpeg thumbnails for the thumbnail view.  On account of Xnview, I added
-options to fix or regenerate the thumbnails to jhead - this because copupic and jpegtran do not rotate 
+options to fix or regenerate the thumbnails to jhead - this because CompuPic and jpegtran do not rotate 
 the thumbail on doing lossless rotation, which can be annoying in Xnview.
 </ul>
 
@@ -489,4 +489,5 @@ Linux distributions as part of the libjpg package (along with jpegtran)
 <p><br>
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
 Last Updateed: Jan 11 2007
+
 
