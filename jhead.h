@@ -193,3 +193,4 @@ extern int ShowTags;
 #define M_DQT   0xDB
 #define M_DHT   0xC4
 #define M_DRI   0xDD
+#define M_IPTC  0xED            // IPTC marker

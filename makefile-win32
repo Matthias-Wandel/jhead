@@ -15,6 +15,7 @@ OBJECTS_JHEAD = $(OBJ)\jhead.obj  \
                 $(OBJ)\jpgfile.obj \
                 $(OBJ)\myglob.obj \
                 $(OBJ)\exif.obj \
+                $(OBJ)\iptc.obj \
                 $(OBJ)\gpsinfo.obj \
                 $(OBJ)\makernote.obj
 

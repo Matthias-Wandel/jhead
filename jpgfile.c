@@ -29,6 +29,7 @@
 #endif
 
 #include "jhead.h"
+#include "iptc.h"
 
 // Storage for simplified info extracted from file.
 ImageInfo_t ImageInfo;
@@ -266,6 +267,14 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 }
                 break;
 
+            case M_IPTC:
+printf("iptc = %d bytes\n");
+                if (process_IPTC(Data, itemlen) == FALSE) {
+                    // Discard this section.
+                    free(Sections[--SectionsRead].Data);
+                }
+                break;
+            
             case M_SOF0: 
             case M_SOF1: 
             case M_SOF2: 
