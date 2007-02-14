@@ -282,6 +282,14 @@ Add -mkexif option to make a new exif header.
 
 -------Released version 2.7 -- Jan 11 2007 --------
 
+Feb 10 2007
+Added IPTC handling
+
+Feb 11 2007
+Added -q option
+
+
+
 to do:
 * Someday - read/write implementation of exif file system.  This will allow
           me to add new tags - a feature occasionally requested.
