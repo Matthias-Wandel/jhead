@@ -54,7 +54,6 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
     unsigned char * pos    = Data + sizeof(short);   // position data pointer after length field
     unsigned char * maxpos = Data+itemlen;
     char  headerLen = 0;
-    long  length;
 
     if (itemlen < 25) goto corrupt;
 
