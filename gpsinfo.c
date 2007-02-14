@@ -3,17 +3,6 @@
 //
 // Matthias Wandel,  Dec 1999 - Dec 2002 
 //--------------------------------------------------------------------------
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include <time.h>
-#include <errno.h>
-#include <ctype.h>
-
-#ifndef _WIN32
-    #include <limits.h>
-#endif
 #include "jhead.h"
 
 #define MAX_GPS_TAG 0x1e

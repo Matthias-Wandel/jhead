@@ -11,14 +11,9 @@
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory.h>
-#include <string.h>
-#include <time.h>
+#include "jhead.h"
+
 #include <sys/stat.h>
-#include <errno.h>
-#include <ctype.h>
 
 #define JHEAD_VERSION "2.71"
 
@@ -27,19 +22,8 @@
 #define MATTHIAS
 
 #ifdef _WIN32
-    #include <process.h>
     #include <io.h>
-    #include <sys/utime.h>
-#else
-    #include <utime.h>
-    #include <sys/types.h>
-    #include <unistd.h>
-    #include <errno.h>
-    #include <limits.h>
 #endif
-
-#include "jhead.h"
-#include "iptc.h"
 
 static int FilesMatched;
 static int FileSequence;
@@ -73,6 +57,7 @@ static unsigned FileTimeToExif = FALSE;
 
 static int DeleteComments = FALSE;
 static int DeleteExif = FALSE;
+static int DeleteIptc = FALSE;
 static int DeleteUnknown = FALSE;
 static char * ThumbSaveName = NULL; // If not NULL, use this string to make up
                                     // the filename to store the thumbnail to.
@@ -824,7 +809,16 @@ void ProcessFile(const char * FileName)
     }else{
         if (!(DoModify || DoReadAction) || ShowTags){
             ShowImageInfo(ShowFileInfo);
-            ShowIptcInfo();
+
+            {
+                // if IPTC section is present, show it also.
+                Section_t * IptcSection;
+                IptcSection = FindSection(M_IPTC);
+            
+                if (IptcSection){
+                    show_IPTC(IptcSection->Data, IptcSection->Size);
+                }
+            }
         }
     }
 
@@ -1031,6 +1025,9 @@ void ProcessFile(const char * FileName)
     }
     if (DeleteExif){
         if (RemoveSectionType(M_EXIF)) Modified = TRUE;
+    }
+    if (DeleteIptc){
+        if (RemoveSectionType(M_IPTC)) Modified = TRUE;
     }
     if (DeleteUnknown){
         if (RemoveUnknownSections()) Modified = TRUE;
@@ -1325,6 +1322,7 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg, "-purejpg")){
             DeleteExif = TRUE;
             DeleteComments = TRUE;
+            DeleteIptc = TRUE;
             DeleteUnknown = TRUE;
             DoModify = TRUE;
         }else if (!strcmp(arg,"-ce")){

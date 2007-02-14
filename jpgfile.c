@@ -6,30 +6,7 @@
 //
 // Matthias Wandel
 //--------------------------------------------------------------------------
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <sys/stat.h>
-#include <errno.h>
-#include <ctype.h>
-
-#ifdef _WIN32
-    #include <process.h>
-    #include <io.h>
-    #include <sys/utime.h>
-#else
-    #include <utime.h>
-    #include <sys/types.h>
-    #include <unistd.h>
-    #include <errno.h>
-    #include <limits.h>
-#endif
-
 #include "jhead.h"
-#include "iptc.h"
 
 // Storage for simplified info extracted from file.
 ImageInfo_t ImageInfo;
@@ -268,13 +245,13 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 break;
 
             case M_IPTC:
-printf("iptc = %d bytes\n");
-                if (process_IPTC(Data, itemlen) == FALSE) {
-                    // Discard this section.
-                    free(Sections[--SectionsRead].Data);
+                if (ShowTags){
+                    printf("Image cotains IPTC section, %d bytes long\n", itemlen);
                 }
+                // Note: We just store the IPTC section.  Its relatively straightforward
+                // and we don't act on any part of it, so just display it at parse time.
                 break;
-            
+           
             case M_SOF0: 
             case M_SOF1: 
             case M_SOF2: 
@@ -589,6 +566,7 @@ int RemoveUnknownSections(void)
             case  M_DQT:
             case  M_DHT:
             case  M_DRI:
+            case  M_IPTC:
                 // keep.
                 a++;
                 break;

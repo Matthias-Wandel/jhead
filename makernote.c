@@ -2,19 +2,8 @@
 // Parse some maker specific onformation.
 // (Very limited right now - add maker specific stuff to this module)
 //--------------------------------------------------------------------------
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include <time.h>
-#include <errno.h>
-#include <ctype.h>
-
-#ifndef _WIN32
-    #include <limits.h>
-#endif
-
 #include "jhead.h"
+
 //--------------------------------------------------------------------------
 // Process exif format directory, as used by Cannon maker note
 //--------------------------------------------------------------------------

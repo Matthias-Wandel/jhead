@@ -1,24 +1,7 @@
 //--------------------------------------------------------------------------
 //  Process IPTC data.
 //--------------------------------------------------------------------------
-#define _CRT_SECURE_NO_DEPRECATE 1
-#include <stdio.h>
-#include <stdlib.h>
-
-#ifdef _WIN32
-    #include <process.h>
-    #include <io.h>
-    #include <sys/utime.h>
-#else
-    #include <utime.h>
-    #include <sys/types.h>
-    #include <unistd.h>
-    #include <errno.h>
-    #include <limits.h>
-#endif
-
 #include "jhead.h"
-#include "iptc.h"
 
 // Supported IPTC entry types
 #define IPTC_SUPLEMENTAL_CATEGORIES 0x14
@@ -43,10 +26,8 @@
 #define IPTC_COUNTRY_CODE           0x64
 #define IPTC_REFERENCE_SERVICE      0x2D
 
-static unsigned char numIptcEntries = 0;
-
 //--------------------------------------------------------------------------
-//  Process IPTC marker. Return FALSE if unable to process marker.
+//  Process and display IPTC marker.
 //
 //  IPTC block consists of:
 //      - Marker:               1 byte      (0xED)
@@ -64,25 +45,31 @@ static unsigned char numIptcEntries = 0;
 //              - entry data    'entry length' bytes
 //
 //--------------------------------------------------------------------------
-int process_IPTC (unsigned char* Data, unsigned int itemlen)
+void show_IPTC (unsigned char* Data, unsigned int itemlen)
 {
-    const char IptcSignature1[] = "Photoshop 3.0";
-    const char IptcSignature2[] = "8BIM";
-    const char IptcSignature3[] = {0x04, 0x04};
+    const char IptcSig1[] = "Photoshop 3.0";
+    const char IptcSig2[] = "8BIM";
+    const char IptcSig3[] = {0x04, 0x04};
 
-    char* pos       = Data + sizeof(short);   // position data pointer after length field
+    unsigned char* pos       = Data + sizeof(short);   // position data pointer after length field
     char  headerLen = 0;
     long  length;
 
     // Check IPTC signatures
-    if (memcmp(pos, IptcSignature1, strlen(IptcSignature1)) != 0) return FALSE;
-    pos += strlen(IptcSignature1) + 1;      // move data pointer to the next field
+    if (memcmp(pos, IptcSig1, sizeof(IptcSig1)-1) != 0) goto badsig;
+    pos += sizeof(IptcSig1);      // move data pointer to the next field
 
-    if (memcmp(pos, IptcSignature2, strlen(IptcSignature2)) != 0) return FALSE;
-    pos += strlen(IptcSignature2);          // move data pointer to the next field
+    if (memcmp(pos, IptcSig2, sizeof(IptcSig2)-1) != 0) goto badsig;
+    pos += sizeof(IptcSig2)-1;          // move data pointer to the next field
 
-    if (memcmp(pos, IptcSignature3, sizeof(IptcSignature3)) != 0) return FALSE;
-    pos += sizeof(IptcSignature3);          // move data pointer to the next field
+    if (memcmp(pos, IptcSig3, sizeof(IptcSig3)) != 0){
+badsig:
+        if (ShowTags){
+            printf("IPTC signature mismatch\n");
+        }
+        return;
+    }
+    pos += sizeof(IptcSig3);          // move data pointer to the next field
 
     // IPTC section found
 
@@ -91,11 +78,12 @@ int process_IPTC (unsigned char* Data, unsigned int itemlen)
     pos += headerLen + 1 - (headerLen % 2); // move data pointer to the next field (Header is padded to even length, counting the length byte)
 
     // Get length (from motorola format)
-    length = Get32u(pos);
+    length = (*pos << 24) | (*(pos+1) << 16) | (*(pos+2) << 8) | *(pos+3);
     pos += sizeof(long);                    // move data pointer to the next field
 
+    printf("=======IPTC data=======\n");
+
     // Now read IPTC data
-    numIptcEntries = 0;
     while (pos < (Data + itemlen-5)) {
         short signature = (*pos << 8) + (*(pos+1));
         char  type = 0;
@@ -133,51 +121,30 @@ int process_IPTC (unsigned char* Data, unsigned int itemlen)
             case IPTC_REFERENCE_SERVICE:       description = "CountryCode"; break;
             case IPTC_COUNTRY_CODE:            description = "Ref.Service"; break;
             default:
-//                printf("Unrecognised IPTC tag: 0x%02x \n", type);
+                if (ShowTags){
+                    printf("Unrecognised IPTC tag: 0x%02x \n", type);
+                }
             break;
         }
         if (description != NULL) {
-            if (numIptcEntries < MAX_NUM_IPTC_ENTRIES) {
-                char* value = (char *)malloc(length+1);
-                sprintf(value, "%*.*s", length, length, pos);
-
-                IptcInfo[numIptcEntries].tag = description;
-                IptcInfo[numIptcEntries].val = value;
-                numIptcEntries++;
-            }
-            else {
-                printf("Too many IPTC entries!!!!\n\n");
-            }
+            char TempBuf[32];
+            memset(TempBuf, 0, sizeof(TempBuf));
+            memset(TempBuf, ' ', 13);
+            memcpy(TempBuf, description, strlen(description));
+            strcat(TempBuf, ":"); 
+            printf("%s %*.*s\n", TempBuf, length, length, pos);
         }
         pos += length;
     }
-    return TRUE;
 }
 
 
-//--------------------------------------------------------------------------
-// Display IPTC info
-//--------------------------------------------------------------------------
-void ShowIptcInfo (void)
-{
-    unsigned i;
-    if (numIptcEntries == 0) return;
-
-    for (i=0; i<numIptcEntries; i++) {
-        if (IptcInfo[i].tag == NULL) {
-            break;
-        }
-        printf("%-13s: %s\n", IptcInfo[i].tag, IptcInfo[i].val);
-    }
-    printf("\n");
-}
 
 /*
 To do:
-Just store iptc, and parese on display of it
-Make sure iptc gets cleared
-Include file reorg, and _CRT_SECURE_NO_DEPRECATE
+include test with "OriginalTransmissionReference" tag
 Option to delete iptc only
+Add option to be silent on success.
 
 Much later:
   iptc transplant

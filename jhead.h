@@ -6,6 +6,28 @@
 // where they get used as possible, so include files only get stuff that 
 // gets used in more than one file.
 //--------------------------------------------------------------------------
+#define _CRT_SECURE_NO_DEPRECATE 1
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <errno.h>
+#include <ctype.h>
+
+//--------------------------------------------------------------------------
+
+#ifdef _WIN32
+    #include <sys/utime.h>
+#else
+    #include <utime.h>
+    #include <sys/types.h>
+    #include <unistd.h>
+    #include <errno.h>
+    #include <limits.h>
+#endif
+
+
 typedef unsigned char uchar;
 
 #ifndef TRUE
@@ -142,6 +164,8 @@ extern void ProcessMakerNote(unsigned char * DirStart, int ByteCount,
 void ProcessGpsInfo(unsigned char * ValuePtr, int ByteCount, 
                 unsigned char * OffsetBase, unsigned ExifLength);
 
+// iptc.c prototpyes
+void    show_IPTC (unsigned char * CharBuf, unsigned int length);
 
 // Prototypes for myglob.c module
 extern void MyGlob(const char * Pattern , void (*FileFuncParm)(const char * FileName));
