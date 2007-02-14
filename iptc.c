@@ -51,9 +51,12 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
     const char IptcSig2[] = "8BIM";
     const char IptcSig3[] = {0x04, 0x04};
 
-    unsigned char* pos       = Data + sizeof(short);   // position data pointer after length field
+    unsigned char * pos    = Data + sizeof(short);   // position data pointer after length field
+    unsigned char * maxpos = Data+itemlen;
     char  headerLen = 0;
     long  length;
+
+    if (itemlen < 25) goto corrupt;
 
     // Check IPTC signatures
     if (memcmp(pos, IptcSig1, sizeof(IptcSig1)-1) != 0) goto badsig;
@@ -65,11 +68,13 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
     if (memcmp(pos, IptcSig3, sizeof(IptcSig3)) != 0){
 badsig:
         if (ShowTags){
-            printf("IPTC signature mismatch\n");
+            ErrNonfatal("IPTC type signature mismatch\n",0,0);
         }
         return;
     }
     pos += sizeof(IptcSig3);          // move data pointer to the next field
+
+    if (pos >= maxpos) goto corrupt;
 
     // IPTC section found
 
@@ -77,26 +82,36 @@ badsig:
     headerLen = *pos++;                     // get header length and move data pointer to the next field
     pos += headerLen + 1 - (headerLen % 2); // move data pointer to the next field (Header is padded to even length, counting the length byte)
 
+    if (pos+4 >= maxpos) goto corrupt;
+
     // Get length (from motorola format)
-    length = (*pos << 24) | (*(pos+1) << 16) | (*(pos+2) << 8) | *(pos+3);
+    //length = (*pos << 24) | (*(pos+1) << 16) | (*(pos+2) << 8) | *(pos+3);
+
     pos += sizeof(long);                    // move data pointer to the next field
 
     printf("======= IPTC data: =======\n");
 
     // Now read IPTC data
     while (pos < (Data + itemlen-5)) {
-        short signature = (*pos << 8) + (*(pos+1));
-        char  type = 0;
-        short length = 0;
-        char* description = NULL;
+        short  signature;
+        char   type = 0;
+        short  length = 0;
+        char * description = NULL;
 
+        if (pos+5 > maxpos) goto corrupt;
+
+        signature = (*pos << 8) + (*(pos+1));
         pos += sizeof(short);
-        if (signature != 0x1C02)
+
+        if (signature != 0x1C02){
             break;
+        }
 
         type    = *pos++;
         length  = (*pos << 8) + (*(pos+1));
         pos    += sizeof(short);                // Skip tag length
+
+        if (pos+length > maxpos) goto corrupt;
         // Process tag here
         switch (type) {
             case IPTC_SUPLEMENTAL_CATEGORIES:  description = "SuplementalCategories"; break;
@@ -136,17 +151,7 @@ badsig:
         }
         pos += length;
     }
+    return;
+corrupt:
+    ErrNonfatal("Pointer corruption in IPTC\n",0,0);
 }
-
-
-
-/*
-To do:
-Add option to be silent on success.
-
-Much later:
-  iptc transplant
-  iptc modify
-
-
-*/ 
