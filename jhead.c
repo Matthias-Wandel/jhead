@@ -7,7 +7,7 @@
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Jan 2007
+// Dec 1999 - Feb 2007
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -42,6 +42,7 @@ static int Exif2FileTime  = FALSE;
 static int DoModify     = FALSE;
 static int DoReadAction = FALSE;
        int ShowTags     = FALSE;    // Do not show raw by default.
+static int Quiet        = FALSE;    // Be quiet on success (like unix programs)
        int DumpExifMap  = FALSE;
 static int ShowConcise  = FALSE;
 static int CreateExifSection = FALSE;
@@ -456,7 +457,9 @@ void RenameAssociated(const char * FileName, char * NewBaseName)
         strcat(NewName, finddata.name+a); // add extension to new name
 
         if (rename(FilePattern, NewName) == 0){
-            printf("%s --> %s\n",FilePattern, NewName);
+            if (!Quiet){
+                printf("%s --> %s\n",FilePattern, NewName);
+            }
         }
 
         next_file:
@@ -703,7 +706,7 @@ void FileTimeAsString(char * TimeStr)
 void ProcessFile(const char * FileName)
 {
     int Modified = FALSE;
-    ReadMode_t ReadMode = READ_EXIF;
+    ReadMode_t ReadMode = READ_METADATA;
     CurrentFile = FileName;
     FilesMatched = 1; 
 
@@ -740,7 +743,7 @@ void ProcessFile(const char * FileName)
         // Applying a command is special - the headers from the file have to be
         // pre-read, then the command executed, and then the image part of the file read.
 
-        if (!ReadJpegFile(FileName, READ_EXIF)) return;
+        if (!ReadJpegFile(FileName, READ_METADATA)) return;
 
         #ifdef MATTHIAS
             if (AutoResize){
@@ -766,7 +769,7 @@ void ProcessFile(const char * FileName)
             }
         }else{
             struct stat dummy;
-            DoCommand(FileName, TRUE);
+            DoCommand(FileName, Quiet ? FALSE : TRUE);
 
             if (stat(FileName, &dummy)){
                 // The file is not there anymore. Perhaps the command
@@ -783,7 +786,7 @@ void ProcessFile(const char * FileName)
         // Make a relative name.
         RelativeName(RelativeExifName, ExifXferScrFile, FileName);
 
-        if(!ReadJpegFile(RelativeExifName, READ_EXIF)) return;
+        if(!ReadJpegFile(RelativeExifName, READ_METADATA)) return;
 
         DiscardAllButExif();    // Don't re-read exif section again on next read.
 
@@ -819,6 +822,7 @@ void ProcessFile(const char * FileName)
                     show_IPTC(IptcSection->Data, IptcSection->Size);
                 }
             }
+            printf("\n");
         }
     }
 
@@ -1038,7 +1042,7 @@ void ProcessFile(const char * FileName)
         char BackupName[400];
         struct stat buf;
 
-        printf("Modified: %s\n",FileName);
+        if (!Quiet) printf("Modified: %s\n",FileName);
 
         strcpy(BackupName, FileName);
         strcat(BackupName, ".t");
@@ -1089,7 +1093,7 @@ void ProcessFile(const char * FileName)
             if (utime(FileName, &mtime) != 0){
                 printf("Error: Could not change time of file '%s'\n",FileName);
             }else{
-                printf("%s\n",FileName);
+                if (!Quiet) printf("%s\n",FileName);
             }
         }else{
             printf("File '%s' contains no Exif timestamp\n", FileName);
@@ -1129,6 +1133,7 @@ static void Usage (void)
            "             Uses same name mangling as '-st' option\n"
            "  -dc        Delete comment field (as left by progs like Photoshop & Compupic)\n"
            "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
+           "  -di        Delete IPTC section (from Photoshop, or Picasa)\n"
            "  -du        Delete non image sections except for Exif and comment sections\n"
            "  -purejpg   Strip all unnecessary data from jpeg (combines -dc -de and -du)\n"
            "  -mkexif    Create new minimal exif section (overwrites pre-existing exif)\n"
@@ -1208,6 +1213,7 @@ static void Usage (void)
            "\nOUTPUT VERBOSITY CONTROL:\n"
            "  -h         help (this text)\n"
            "  -v         even more verbose output\n"
+           "  -q         Quiet (no messages on success, like Unix)\n"
            "  -V         Show jhead version\n"
            "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
            "  -se        Supress error messages relating to corrupt exif header structure\n"
@@ -1316,6 +1322,9 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-de")){
             DeleteExif = TRUE;
             DoModify = TRUE;
+        }else if (!strcmp(arg,"-di")){
+            DeleteIptc = TRUE;
+            DoModify = TRUE;
         }else if (!strcmp(arg, "-du")){
             DeleteUnknown = TRUE;
             DoModify = TRUE;
@@ -1345,6 +1354,8 @@ int main (int argc, char **argv)
             Usage();
         }else if (!strcmp(arg,"-v")){
             ShowTags = TRUE;
+        }else if (!strcmp(arg,"-q")){
+            Quiet = TRUE;
         }else if (!strcmp(arg,"-V")){
             printf("Jhead version: "JHEAD_VERSION"   Compiled: "__DATE__"\n");
             exit(0);

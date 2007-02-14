@@ -111,7 +111,7 @@ typedef struct {
 
 // jpgfile.c functions
 typedef enum {
-    READ_EXIF = 1,
+    READ_METADATA = 1,
     READ_IMAGE = 2,
     READ_ALL = 3
 }ReadMode_t;

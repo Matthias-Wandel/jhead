@@ -1,0 +1,87 @@
+Exif header 6582 bytes long
+Exif section in Intel order
+(dir has 12 entries)
+    ImageDescription = "OLYMPUS DIGITAL CAMERA         "
+    Make = "OLYMPUS CORPORATION    "
+    Model = "u10D,S300D,u300D"
+    Orientation = 0
+    XResolution = 144/1
+    YResolution = 144/1
+    ResolutionUnit = 2
+    Software = "22-1014                        "
+    DateTime = "2007:01:04 13:08:28"
+    YCbCrPositioning = 2
+    ExifOffset = 543
+    Exif Dir:(dir has 31 entries)
+        ExposureTime = 1/640
+        FNumber = 52/10
+        ExposureProgram = 2
+        ISOSpeedRatings = 80
+        ExifVersion = "0220"
+        DateTimeOriginal = "2007:01:04 13:08:28"
+        DateTimeDigitized = "2007:01:04 13:08:28"
+        ComponentsConfiguration = "?"
+        ExposureBiasValue = 0/167772160
+        MaxApertureValue = 326/100
+        MeteringMode = 5
+        LightSource = 0
+        Flash = 24
+        FocalLength = 1740/100
+        Maker note:  4f 4c 59 4d 50 00 01 00 3e 00 00... (758 bytes)
+        UserComment = "?                                                                                                                     "
+        FlashPixVersion = "0100"
+        ColorSpace = 65535
+        ExifImageWidth = 1101
+        ExifImageLength = 1934
+        InteroperabilityOffset = 1892
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        FileSource = ""
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 0
+        DigitalZoomRatio = 100/100
+        SceneCaptureType = 0
+        GainControl = 0
+        Contrast = 0
+        Saturation = 0
+        Sharpness = 0
+    Unknown Tag c4a5 Value = "PrintIM?0250?ˆ?Ð?è?ÿ?ƒ?ƒ?ƒ?ƒ?ƒ?€€€?€?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?"
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2016
+        ThumbnailLength = 4558
+Thumbnail size: 4558 bytes
+Image cotains IPTC section, 150 bytes long
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 182w * 320h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 29
+Jpeg section marker 0xc4 size 78
+Jpeg section marker 0xc4 size 26
+Jpeg section marker 0xc4 size 45
+Camera make  : OLYMPUS CORPORATION    
+Camera model : u10D,S300D,u300D
+Date/Time    : 2007:01:04 13:08:28
+Resolution   : 182 x 320
+Flash used   : No (auto)
+Focal length : 17.4mm
+Exposure time: 0.0016 s  (1/640)
+Aperture     : f/5.2
+ISO equiv.   : 80
+Whitebalance : Auto
+Metering Mode: matrix
+Exposure     : program (auto)
+======= IPTC data: =======
+Unrecognised IPTC tag: 0x00 
+Byline       :  Picasa 2.0
+City         : Canberra
+State        : ACT
+Country      : Australia
+Caption      : View out of the Parliament House
+Author       : Dejan, Ana
+

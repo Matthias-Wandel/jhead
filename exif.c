@@ -1396,7 +1396,6 @@ void ShowImageInfo(int ShowFileInfo)
         }
         printf("\n");
     }
-    printf("\n");
 }
 
 

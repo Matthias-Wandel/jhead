@@ -81,7 +81,7 @@ badsig:
     length = (*pos << 24) | (*(pos+1) << 16) | (*(pos+2) << 8) | *(pos+3);
     pos += sizeof(long);                    // move data pointer to the next field
 
-    printf("=======IPTC data=======\n");
+    printf("======= IPTC data: =======\n");
 
     // Now read IPTC data
     while (pos < (Data + itemlen-5)) {
@@ -142,8 +142,6 @@ badsig:
 
 /*
 To do:
-include test with "OriginalTransmissionReference" tag
-Option to delete iptc only
 Add option to be silent on success.
 
 Much later:
@@ -151,4 +149,4 @@ Much later:
   iptc modify
 
 
-*/
+*/ 

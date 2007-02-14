@@ -113,3 +113,10 @@ rem Test regenerating using file time for timestamp.  also create thumnail.
 jhead -mkexif -rgt results-bin\exif-regen.jpg
 jhead -v -nofinfo results-bin\exif-regen.jpg >> results-txt\exif-regen-txt
 
+rem -------------------------------------------------------------------
+rem Test IPTC manipulation
+copy strange-jpegs\iptc?.jpg results-bin\
+jhead -di results-bin\iptc1.jpg
+rem test removal and restoration of iptc section
+jhead -de -cmd "jhead -purejpg &i" results-bin\iptc2.jpg
+jhead results-bin\iptc?.jpg > results-txt\iptc-txt

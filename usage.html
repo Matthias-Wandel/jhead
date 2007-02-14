@@ -6,9 +6,9 @@ JPEG files that most digital cameras produce.</h3><p>
 
 Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it with the mouse from Windows 
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
-(or DOS prompt under Win95/98/Me)
+(or DOS prompt under Win9x)
 
-<h3>Jhead v2.7 program Features</h3>
+<h3>Jhead v2.71 program Features</h3>
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to set and/or adjust the Exif time field
@@ -49,6 +49,9 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top><td><b>-de
 <td>Delete the Exif header entirely.  This leaves comments in the comment
     section intact.
+
+<tr valign=top><td><b>-di
+<td>Delete IPTC section (if present).  Leaves Exif and commen sections intact.
 
 <tr valign=top><td><b>-du
 <td>Delete sections of jpeg that are not Exif, not comment, and otherwise not 
@@ -306,6 +309,9 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     Windows user that I am, when something doesn't give me feedback for 20 seconds, I assume
     its crashed.
 
+<tr valign=top><td><b>-q
+<td>Makes the progran mot spit out messages on success - more like the "Silence is golden" Unix way.    its crashed.
+
 <tr valign=top><td><b>-V
 <td>Print version info and compilation date.
 
@@ -315,7 +321,6 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
 <tr valign=top><td><b>-se
 <td>Suppress error messages relating to corrupt Exif header structure.
-
 
 <tr valign=top><td><b>-c
 <td>Concise output.  This causes picture info to be summarized on one line instead of several.
@@ -488,6 +493,6 @@ Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updateed: Jan 11 2007
+Last Updateed: Feb 11 2007
 
 

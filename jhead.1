@@ -1,4 +1,4 @@
-.TH JHEAD 1 "11 Jan 2007" "jhead 2.7"
+.TH JHEAD 1 "11 Feb 2007" "jhead 2.71"
 .SH NAME
 jhead \- Digicam JPEG Exif header manipulation tool
 .SH SYNOPSIS
@@ -61,6 +61,9 @@ is not part of the Exif header.
 .B \-de
 Delete the Exif header entirely.  This leaves comments in the comment
 section intact.
+.TP
+.B \-di
+Delete the IPTC section, if preent.  Leaves Exif and comments intact.
 .TP
 .B \-du
 Delete sections of jpeg that are not Exif, not comment, and otherwise not 
@@ -309,6 +312,9 @@ Makes the program even more verbose than it already is.  Like DOS programs, and 
 UNIX programs, Jhead gives feedback as to what it is doing, even when nothing goes wrong.
 Windows user that I am, when something doesn't give me feedback for 20 seconds, I assume
 its crashed.
+.TP
+.B \-q
+No output on success, more like Unix programs.
 .TP
 .B \-V
 Print version info and compilation date.

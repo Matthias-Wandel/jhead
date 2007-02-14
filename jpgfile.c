@@ -215,7 +215,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 return FALSE;
 
             case M_COM: // Comment section
-                if (HaveCom || ((ReadMode & READ_EXIF) == 0)){
+                if (HaveCom || ((ReadMode & READ_METADATA) == 0)){
                     // Discard this section.
                     free(Sections[--SectionsRead].Data);
                 }else{
@@ -236,7 +236,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 // Seen files from some 'U-lead' software with Vivitar scanner
                 // that uses marker 31 for non exif stuff.  Thus make sure 
                 // it says 'Exif' in the section before treating it as exif.
-                if ((ReadMode & READ_EXIF) && memcmp(Data+2, "Exif", 4) == 0){
+                if ((ReadMode & READ_METADATA) && memcmp(Data+2, "Exif", 4) == 0){
                     process_EXIF(Data, itemlen);
                 }else{
                     // Discard this section.
@@ -245,11 +245,15 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 break;
 
             case M_IPTC:
-                if (ShowTags){
-                    printf("Image cotains IPTC section, %d bytes long\n", itemlen);
+                if (ReadMode & READ_METADATA){
+                    if (ShowTags){
+                        printf("Image cotains IPTC section, %d bytes long\n", itemlen);
+                    }
+                    // Note: We just store the IPTC section.  Its relatively straightforward
+                    // and we don't act on any part of it, so just display it at parse time.
+                }else{
+                    free(Sections[--SectionsRead].Data);
                 }
-                // Note: We just store the IPTC section.  Its relatively straightforward
-                // and we don't act on any part of it, so just display it at parse time.
                 break;
            
             case M_SOF0: 
@@ -430,16 +434,20 @@ void DiscardAllButExif(void)
 {
     Section_t ExifKeeper;
     Section_t CommentKeeper;
+    Section_t IptcKeeper;
     int a;
 
     memset(&ExifKeeper, 0, sizeof(ExifKeeper));
     memset(&CommentKeeper, 0, sizeof(CommentKeeper));
+    memset(&IptcKeeper, 0, sizeof(IptcKeeper));
 
     for (a=0;a<SectionsRead;a++){
         if (Sections[a].Type == M_EXIF && ExifKeeper.Type == 0){
             ExifKeeper = Sections[a];
         }else if (Sections[a].Type == M_COM && CommentKeeper.Type == 0){
             CommentKeeper = Sections[a];
+        }else if (Sections[a].Type == M_IPTC && IptcKeeper.Type == 0){
+            IptcKeeper = Sections[a];
         }else{
             free(Sections[a].Data);
         }
@@ -452,6 +460,10 @@ void DiscardAllButExif(void)
     if (CommentKeeper.Type){
         CheckSectionsAllocated();
         Sections[SectionsRead++] = CommentKeeper;
+    }
+    if (IptcKeeper.Type){
+        CheckSectionsAllocated();
+        Sections[SectionsRead++] = IptcKeeper;
     }
 }    
 
