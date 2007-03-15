@@ -1,0 +1,84 @@
+Exif header 30299 bytes long
+Exif section in Intel order
+(dir has 13 entries)
+    ImageDescription = "                               "
+    Make = "NIKON CORPORATION"
+    Model = "NIKON D1X"
+    Orientation = 1
+    XResolution = 300/1
+    YResolution = 300/1
+    ResolutionUnit = 2
+    Software = "OfotoNow v3.0"
+    DateTime = "2002:11:15 10:52:46"
+    YCbCrPositioning = 2
+    ExifOffset = 463
+    Exif Dir:(dir has 26 entries)
+        ExposureTime = 10/1250
+        FNumber = 28/10
+        ExposureProgram = 4
+        ExifVersion = "0210"
+        DateTimeOriginal = "2002:11:15 10:52:46"
+        DateTimeDigitized = "2002:11:15 10:52:46"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 4/1
+        ExposureBiasValue = 0/6
+        MaxApertureValue = 30/10
+        MeteringMode = 2
+        FocalLength = 1200/10
+        Maker note:  00 1b 00 01 00 07 00 00 00 04 30... (29366 bytes)
+        UserComment = "?"
+        SubSecTime = "53"
+        SubSecTimeOriginal = "53"
+        SubSecTimeDigitized = "53"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 1960
+        ExifImageLength = 3008
+        InteroperabilityOffset = 30080
+        Interop Dir:        SensingMethod = 2
+        FileSource = ""
+        SceneType = ""
+        Unknown Tag a302 Value = "?"
+    GPS Dir offset = 30110
+    GPS info dir:(dir has 40704 entries)
+    UserComment = "&lt;?xml version="1.0"?&gt;&lt;on:exif_data version="3.0"&gt;    &lt;on:picture_id&gt;0&lt;/on:picture_id&gt;    &lt;on:file_checksum&gt;0&lt;/on:file_checksum&gt;&lt;/on:exif_data&gt;"
+Image cotains IPTC section, 6062 bytes long
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 246h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 69
+Jpeg section marker 0xc4 size 26
+Jpeg section marker 0xc4 size 48
+Camera make  : NIKON CORPORATION
+Camera model : NIKON D1X
+Date/Time    : 2002:11:15 10:52:46
+Resolution   : 160 x 246
+Focal length : 120.0mm
+Exposure time: 0.0080 s  (1/125)
+Aperture     : f/2.8
+Metering Mode: center weight
+Exposure     : shutter priority (semi-auto)
+GPS Latitude : ? ?
+GPS Longitude: ? ?
+Comment      : &lt;?xml version="1.0"?&gt;&lt;on:exif_data version="3.0"&gt;    &lt;on:picture_id&gt;0&lt;/on:picture_id&gt;    &lt;on:file_checksum&gt;0&lt;/on:file_checksum&gt;&lt;/on:exif_data&gt;
+======= IPTC data: =======
+Unrecognised IPTC tag: 0x00 
+Caption      : 11/14/02, NEW YORK CITY, NEW YORK, UNITED STATES --- Heidi Klum helps kick off the 2002 holiday season by walking the runway at Victoria's Secret's 8th Annual Runway Show. --- Photo by Steve Sands/New York Newswire/Corbis Sygma
+Author       : UM
+Headline     : Victoria's Secret's 8th Annual Runway Show
+Byline       : Steve Sands/New York Newswire
+Credit       : Corbis Sygma
+Source       : Sygma NY
+ObjectName   : 20 Ent - Heidi Klum
+DateCreated  : 20021114
+City         : New York City
+State        : New York
+Country      : United States
+Category     : ACE
+SuplementalCategories: Arts, Culture & Entertainment
+Keywords     : FASHION
+Keywords     : UNDERWEAR
+Keywords     : FULL-LENGTH PORTRAITS
+Unrecognised IPTC tag: 0xffffff82 
+

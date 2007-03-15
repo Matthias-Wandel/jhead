@@ -79,6 +79,11 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
         unsigned char * DirEntry;
         DirEntry = DIR_ENTRY_ADDR(DirStart, de);
 
+        if (DirEntry+12 > OffsetBase+ExifLength){
+            ErrNonfatal("GPS info directory goes past end of exif",0,0);
+            return;
+        }
+
         Tag = Get16u(DirEntry);
         Format = Get16u(DirEntry+2);
         Components = Get32u(DirEntry+4);
