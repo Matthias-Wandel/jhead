@@ -288,6 +288,11 @@ Added IPTC handling
 Feb 11 2007
 Added -q option
 
+Feb 17 2007
+Fix handling of corrupted GPS directory.
+
+Feb 18 2007
+Extract focus distance from canon makernote.
 
 
 to do:
