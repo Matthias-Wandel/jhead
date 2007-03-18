@@ -2,7 +2,7 @@ Exif header 96 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2000:04:01 13:04:48"
-    ExifOffset = 3a
+    ExifOffset = 58
     Exif Dir:(dir has 2 entries)
         ThumbnailOffset = 88
         ThumbnailLength = 0
@@ -21,7 +21,7 @@ Exif header 4068 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2000:04:01 13:04:48"
-    ExifOffset = 3a
+    ExifOffset = 58
     Exif Dir:(dir has 2 entries)
         ThumbnailOffset = 88
         ThumbnailLength = 3972

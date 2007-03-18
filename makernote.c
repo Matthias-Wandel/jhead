@@ -116,22 +116,34 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
                     printf("\n");
                 }
         }
-        if (Tag == 1 && ByteCount >= 17*sizeof(unsigned short)){
+        if (Tag == 1 && Components > 16){
             int IsoCode = Get16u(ValuePtr + 16*sizeof(unsigned short));
             if (IsoCode >= 16 && IsoCode <= 24){
                 ImageInfo.ISOequivalent = 50 << (IsoCode-16);
             } 
         }
 
-        if (Tag == 4 && ByteCount >= 8*sizeof(unsigned short)){
-            int WhiteBalance = Get16u(ValuePtr + 7*sizeof(unsigned short));
-            switch(WhiteBalance){
-                // 0=Auto, 6=Custom
-                case 1: ImageInfo.LightSource = 1; break; // Sunny
-                case 2: ImageInfo.LightSource = 1; break; // Cloudy
-                case 3: ImageInfo.LightSource = 3; break; // Thungsten
-                case 4: ImageInfo.LightSource = 2; break; // Fourescent
-                case 5: ImageInfo.LightSource = 4; break; // Flash
+        if (Tag == 4 && Format == FMT_USHORT){
+            if (Components > 7){
+                int WhiteBalance = Get16u(ValuePtr + 7*sizeof(unsigned short));
+                switch(WhiteBalance){
+                    // 0=Auto, 6=Custom
+                    case 1: ImageInfo.LightSource = 1; break; // Sunny
+                    case 2: ImageInfo.LightSource = 1; break; // Cloudy
+                    case 3: ImageInfo.LightSource = 3; break; // Thungsten
+                    case 4: ImageInfo.LightSource = 2; break; // Fourescent
+                    case 5: ImageInfo.LightSource = 4; break; // Flash
+                }
+            }
+            if (Components > 19 && ImageInfo.Distance <= 0) {
+                // Inidcates the distance the autofocus camera is focused to.
+                // Tends to be less accurate as distance increases.
+                int temp_dist = Get16u(ValuePtr + 19*sizeof(unsigned short));
+                if (temp_dist != 65535){
+                    ImageInfo.Distance = (float)temp_dist/100;
+                }else{
+                    ImageInfo.Distance = -1 /* infinity */;
+                }
             }
         }
     }

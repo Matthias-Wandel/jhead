@@ -40,6 +40,7 @@ Focal length : 38.0mm  (35mm equivalent: 155mm)
 CCD width    : 8.81mm
 Exposure time: 0.0040 s  (1/250)
 Aperture     : f/4.0
+Focus dist.  : 5.76m
 ISO equiv.   : 400
 Whitebalance : Manual
 Light Source : Daylight
@@ -55,6 +56,7 @@ Focal length : 38.0mm  (35mm equivalent: 155mm)
 CCD width    : 8.81mm
 Exposure time: 0.0040 s  (1/250)
 Aperture     : f/4.0
+Focus dist.  : 5.76m
 ISO equiv.   : 400
 Whitebalance : Manual
 Light Source : Daylight
