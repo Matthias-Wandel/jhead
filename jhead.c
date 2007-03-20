@@ -992,6 +992,12 @@ void ProcessFile(const char * FileName)
                 }
                 if (DateSetChars){
                     memcpy(ImageInfo.DateTime, DateSet, DateSetChars);
+                    a = 1970;
+                    sscanf(DateSet, "%d", &a);
+                    if (a < 1970){
+                        strcpy(TempBuf, ImageInfo.DateTime);
+                        goto skip_unixtime;
+                    }
                 }
                 // A time offset to adjust by was specified.
                 if (!Exif2tm(&tm, ImageInfo.DateTime)) goto badtime;
@@ -1009,7 +1015,7 @@ void ProcessFile(const char * FileName)
                 tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
                 tm.tm_hour, tm.tm_min, tm.tm_sec);
             
-
+skip_unixtime:         
             ExifSection = FindSection(M_EXIF);
 
             for (a = 0; a < ImageInfo.numDateTimeTags; a++) {
@@ -1453,12 +1459,27 @@ int main (int argc, char **argv)
             DoModify = TRUE;
         }else if (!memcmp(arg,"-ds",3)){
             // Set date feature
-            DateSetChars = strlen(arg)-3;
+            int a;
+            // Check date validity and copy it.  Could be incompletely specified.
             strcpy(DateSet, "0000:01:01");
-            if (DateSetChars < 4 || DateSetChars > 10){
+            for (a=0;arg[a+3];a++){
+                if (isdigit(DateSet[a])){
+                    if (!isdigit(arg[a+3])){
+                        a = 0;
+                        break;
+                    }
+                }else{
+                    if (arg[a+3] != ':'){
+                        a=0;
+                        break;
+                    }
+                }
+                DateSet[a] = arg[a+3];
+            }
+            if (a < 4 || a > 10){
                 ErrFatal("Date must be in format YYYY, YYYY:MM, or YYYY:MM:DD");
             }
-            memcpy(DateSet, arg+3, DateSetChars);
+            DateSetChars = a;
             DoModify = TRUE;
         }else if (!memcmp(arg,"-ts",3)){
             // Set the exif time.
