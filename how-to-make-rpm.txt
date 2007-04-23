@@ -5,6 +5,7 @@ Don't forget to check version in:
 * changes.txt
 * jhead.c
 * jhead.spec
+* command line help (and date!)
 
 Also uncomment #define MATTIAS!
 
