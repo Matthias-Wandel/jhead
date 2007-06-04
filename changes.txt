@@ -294,6 +294,9 @@ Fix handling of corrupted GPS directory.
 Feb 18 2007
 Extract focus distance from canon makernote.
 
+Jun 3 2007
+Extract subject range (pentax and fuji cameras)
+
 
 to do:
 * Someday - read/write implementation of exif file system.  This will allow
