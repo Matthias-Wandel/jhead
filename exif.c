@@ -112,6 +112,7 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_WHITEBALANCE       0xa403
 #define TAG_DIGITALZOOMRATIO   0xA404
 #define TAG_FOCALLENGTH_35MM   0xa405
+#define TAG_DISTANCE_RANGE     0xa40c
 
 static const TagTable_t TagTable[] = {
   { 0x001,   "InteropIndex"},
@@ -772,6 +773,12 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 // computing it from sensor geometry and actual focal length.
                 ImageInfo.FocalLength35mmEquiv = (unsigned)ConvertAnyFormat(ValuePtr, Format);
                 break;
+
+            case TAG_DISTANCE_RANGE:
+                // Three possible standard values:
+                //   1 = macro, 2 = close, 3 = distant
+                ImageInfo.DistanceRange = (int)ConvertAnyFormat(ValuePtr, Format);
+                break;
         }
     }
 
@@ -1351,6 +1358,23 @@ void ShowImageInfo(int ShowFileInfo)
         case 2: printf("Exposure Mode: Auto bracketing\n");
             break;
     }
+
+    if (ImageInfo.DistanceRange) {
+        printf("Focus range  : ");
+        switch(ImageInfo.DistanceRange) {
+            case 1:
+                printf("macro");
+                break;
+            case 2:
+                printf("close");
+                break;
+            case 3:
+                printf("distant");
+                break;
+        }
+        printf("\n");
+    }
+
 
 
     if (ImageInfo.Process != M_SOF0){

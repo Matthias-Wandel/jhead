@@ -85,6 +85,7 @@ typedef struct {
     int   ExposureMode;
     int   ISOequivalent;
     int   LightSource;
+    int   DistanceRange;
     char  Comments[MAX_COMMENT];
 
     unsigned ThumbnailOffset;          // Exif offset to thumbnail
