@@ -1023,6 +1023,7 @@ skip_unixtime:
                 Pointer = ExifSection->Data+ImageInfo.DateTimeOffsets[a]+8;
                 memcpy(Pointer, TempBuf, 19);
             }
+            memcpy(ImageInfo.DateTime, TempBuf, 19);
 
             Modified = TRUE;
         }else{
