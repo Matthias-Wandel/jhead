@@ -1,3 +1,150 @@
+"Trying to remove nonexistent:" 
+replace thumbnail with '(null)'
+Exif header 6690 bytes long
+Exif section in Intel order
+(dir has 10 entries)
+    Make = "Panasonic"
+    Model = "DMC-FZ20"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    DateTime = "2007:03:11 15:23:53"
+    YCbCrPositioning = 2
+    ExifOffset = 398
+    Exif Dir:(dir has 34 entries)
+        ExposureTime = 10/1250
+        FNumber = 37/10
+        ExposureProgram = 2
+        ISOSpeedRatings = 80
+        ExifVersion = "0220"
+        DateTimeOriginal = "2007:03:11 15:23:53"
+        DateTimeDigitized = "2007:03:11 15:23:53"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 4/1
+        ExposureBiasValue = 0/100
+        MaxApertureValue = 30/10
+        MeteringMode = 5
+        LightSource = 0
+        Flash = 16
+        FocalLength = 326/10
+        Maker note:  50 61 6e 61 73 6f 6e 69 63 00 00... (5744 bytes)
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 1920
+        ExifImageLength = 2560
+        InteroperabilityOffset = 6652
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        SensingMethod = 2
+        FileSource = ""
+        SceneType = ""
+        CustomRendered = 1
+        ExposureMode = 0
+        WhiteBalance = 1
+        DigitalZoomRatio = 0/10
+        FocalLengthIn35mmFilm = 196
+        SceneCaptureType = 0
+        GainControl = 0
+        Contrast = 0
+        Saturation = 0
+        Sharpness = 0
+    Unknown Tag c4a5 Value = "PrintIM?0250?d?¬?Ä?€?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?"
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 150w * 200h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 60
+Jpeg section marker 0xc4 size 25
+Jpeg section marker 0xc4 size 41
+Camera make  : Panasonic
+Camera model : DMC-FZ20
+Date/Time    : 2007:03:11 15:23:53
+Resolution   : 150 x 200
+Flash used   : No
+Focal length : 32.6mm  (35mm equivalent: 196mm)
+Exposure time: 0.0080 s  (1/125)
+Aperture     : f/3.7
+ISO equiv.   : 80
+Whitebalance : Manual
+Metering Mode: matrix
+Exposure     : program (auto)
+
+"Trying to replacde with no pointers:" 
+Argument '-rtt' not understood
+Use jhead -h for list of arguments
+Exif header 6690 bytes long
+Exif section in Intel order
+(dir has 10 entries)
+    Make = "Panasonic"
+    Model = "DMC-FZ20"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    DateTime = "2007:03:11 15:23:53"
+    YCbCrPositioning = 2
+    ExifOffset = 398
+    Exif Dir:(dir has 34 entries)
+        ExposureTime = 10/1250
+        FNumber = 37/10
+        ExposureProgram = 2
+        ISOSpeedRatings = 80
+        ExifVersion = "0220"
+        DateTimeOriginal = "2007:03:11 15:23:53"
+        DateTimeDigitized = "2007:03:11 15:23:53"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 4/1
+        ExposureBiasValue = 0/100
+        MaxApertureValue = 30/10
+        MeteringMode = 5
+        LightSource = 0
+        Flash = 16
+        FocalLength = 326/10
+        Maker note:  50 61 6e 61 73 6f 6e 69 63 00 00... (5744 bytes)
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 1920
+        ExifImageLength = 2560
+        InteroperabilityOffset = 6652
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        SensingMethod = 2
+        FileSource = ""
+        SceneType = ""
+        CustomRendered = 1
+        ExposureMode = 0
+        WhiteBalance = 1
+        DigitalZoomRatio = 0/10
+        FocalLengthIn35mmFilm = 196
+        SceneCaptureType = 0
+        GainControl = 0
+        Contrast = 0
+        Saturation = 0
+        Sharpness = 0
+    Unknown Tag c4a5 Value = "PrintIM?0250?d?¬?Ä?€?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?"
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 150w * 200h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 60
+Jpeg section marker 0xc4 size 25
+Jpeg section marker 0xc4 size 41
+Camera make  : Panasonic
+Camera model : DMC-FZ20
+Date/Time    : 2007:03:11 15:23:53
+Resolution   : 150 x 200
+Flash used   : No
+Focal length : 32.6mm  (35mm equivalent: 196mm)
+Exposure time: 0.0080 s  (1/125)
+Aperture     : f/3.7
+ISO equiv.   : 80
+Whitebalance : Manual
+Metering Mode: matrix
+Exposure     : program (auto)
+
 Exif header 864 bytes long
 Exif section in Intel order
 (dir has 11 entries)

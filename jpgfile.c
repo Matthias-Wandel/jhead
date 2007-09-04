@@ -374,9 +374,14 @@ int ReplaceThumbnail(const char * ThumbFileName)
     uchar * ThumbnailPointer;
 
     if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailAtEnd == FALSE){
+        if (ThumbFileName == NULL){
+            // Delete of nonexistent thumbnail (not even pointers present)
+            // No action, no error.
+            return FALSE;
+        }
+
         // Adding or removing of thumbnail is not possible - that would require rearranging
         // of the exif header, which is risky, and jhad doesn't know how to do.
-
         fprintf(stderr,"Image contains no thumbnail to replace - add is not possible\n");
         return FALSE;
     }
@@ -399,6 +404,10 @@ int ReplaceThumbnail(const char * ThumbFileName)
             ErrFatal("Thumbnail is too large to insert into exif header");
         }
     }else{
+        if (ImageInfo.ThumbnailSize == 0){
+             return FALSE;
+        }
+
         ThumbLen = 0;
         ThumbnailFile = NULL;
     }

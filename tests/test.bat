@@ -91,16 +91,28 @@ jhead -v -nofinfo results-bin\olav.jpg > results-txt\olav.jpg
 
 rem -------------------------------------------------------------------
 rem Test deletion of a thumbnail, and replacing of a thumbnail
+del results-txt\thumb-operations-txt
 
 copy normal-digicams\fuji-dx10.jpg results-bin\thumb-deleted.jpg
 jhead -dt -ft results-bin\thumb-deleted.jpg
 copy results-bin\thumb-deleted.jpg results-bin\thumb-inserted.jpg
+
 rem reinsert a different thumbnail
 jhead -rt normal-digicams\no-exif.jpg results-bin\thumb-inserted.jpg
+
 rem replace thumbnail in one step
 copy normal-digicams\olympus.jpg results-bin\thumb-replaced.jpg
 jhead -rt normal-digicams\no-exif.jpg results-bin\thumb-replaced.jpg
-jhead -v -nofinfo res*bin\thumb-*.jpg > results-txt\thumb-operations-txt
+
+rem try manipulating a header with no thumbnail pointers.
+copy strange-jpegs\no-thumb-pointer.jpg results-bin
+echo "Trying to remove nonexistent:" >> results-txt\thumb-operations-txt
+jhead -dt results-bin\no-thumb-pointer.jpg >> results-txt\thumb-operations-txt
+jhead -v -nofinfo res*bin\no-thumb-pointer.jpg >> results-txt\thumb-operations-txt
+echo "Trying to replacde with no pointers:" >> results-txt\thumb-operations-txt
+jhead -rtt results-bin\no-thumb-pointer.jpg >> results-txt\thumb-operations-txt
+
+jhead -v -nofinfo res*bin\*thumb-*.jpg >> results-txt\thumb-operations-txt
 
 rem -------------------------------------------------------------------
 rem Test generating a thumbnail
