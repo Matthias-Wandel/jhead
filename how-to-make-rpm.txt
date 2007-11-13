@@ -6,6 +6,7 @@ Don't forget to check version in:
 * jhead.c
 * jhead.spec
 * command line help (and date!)
+* rpmprep
 
 Also uncomment #define MATTIAS!
 

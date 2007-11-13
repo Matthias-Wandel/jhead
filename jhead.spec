@@ -13,7 +13,7 @@
 Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		2.7
+Version:		2.8
 Release:		0
 
 Group:			Libraries
@@ -72,6 +72,13 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
+* Tue Nov 13 2007 - 2.8
+- Limited IPTC handling
+- Added -q option
+- Fix handling of corrupted GPS directory.
+- Extract focus distance from canon makernote.
+- Extract subject range (pentax and fuji cameras)
+
 * Thu Jan 11 2007 - 2.7
 - Release version 2.7
 
