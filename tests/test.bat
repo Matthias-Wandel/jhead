@@ -120,7 +120,7 @@ copy normal-digicams\fuji-dx10.jpg results-bin\exif-regen.jpg
 jhead -mkexif results-bin\exif-regen.jpg
 rem Test regenerating using old exif date
 jhead -v -nofinfo results-bin\exif-regen.jpg > results-txt\exif-regen-txt
-jhead -ft -de restuls-bin\exif-regen.jpg
+jhead -ft -de results-bin\exif-regen.jpg
 rem Test regenerating using file time for timestamp.  also create thumnail.
 jhead -mkexif -rgt results-bin\exif-regen.jpg
 jhead -v -nofinfo results-bin\exif-regen.jpg >> results-txt\exif-regen-txt
