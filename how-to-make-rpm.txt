@@ -1,7 +1,7 @@
 Don't forget to check version in:
 * Manpage
 * usage.html
-* index.html
+* index.html (2 places!)
 * changes.txt
 * jhead.c
 * jhead.spec
