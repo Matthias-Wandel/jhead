@@ -26,6 +26,9 @@
 #define IPTC_COUNTRY_CODE           0x64
 #define IPTC_REFERENCE_SERVICE      0x2D
 
+#define IPTC_TIME_CREATED           0x3C
+#define IPTC_SUB_LOCATION           0x5C
+
 //--------------------------------------------------------------------------
 //  Process and display IPTC marker.
 //
@@ -118,32 +121,37 @@ badsig:
             case IPTC_CAPTION:                 description = "Caption"; break;
             case IPTC_AUTHOR:                  description = "Author"; break;
             case IPTC_HEADLINE:                description = "Headline"; break;
-            case IPTC_SPECIAL_INSTRUCTIONS:    description = "Spec.Instr."; break;
+            case IPTC_SPECIAL_INSTRUCTIONS:    description = "Spec. Instr."; break;
             case IPTC_CATEGORY:                description = "Category"; break;
             case IPTC_BYLINE:                  description = "Byline"; break;
-            case IPTC_BYLINE_TITLE:            description = "BylineTitle"; break;
+            case IPTC_BYLINE_TITLE:            description = "Byline Title"; break;
             case IPTC_CREDIT:                  description = "Credit"; break;
             case IPTC_SOURCE:                  description = "Source"; break;
             case IPTC_COPYRIGHT_NOTICE:        description = "(C)Notice"; break;
-            case IPTC_OBJECT_NAME:             description = "ObjectName"; break;
+            case IPTC_OBJECT_NAME:             description = "Object Name"; break;
             case IPTC_CITY:                    description = "City"; break;
             case IPTC_STATE:                   description = "State"; break;
             case IPTC_COUNTRY:                 description = "Country"; break;
             case IPTC_TRANSMISSION_REFERENCE:  description = "OriginalTransmissionReference"; break;
             case IPTC_DATE:                    description = "DateCreated"; break;
             case IPTC_COPYRIGHT:               description = "(C)Flag"; break;
-            case IPTC_REFERENCE_SERVICE:       description = "CountryCode"; break;
-            case IPTC_COUNTRY_CODE:            description = "Ref.Service"; break;
+            case IPTC_REFERENCE_SERVICE:       description = "Country Code"; break;
+            case IPTC_COUNTRY_CODE:            description = "Ref. Service"; break;
+
+            case IPTC_TIME_CREATED:            description = "Time Created"; break;
+            case IPTC_SUB_LOCATION:            description = "Sub Location"; break;
+
+
             default:
                 if (ShowTags){
-                    printf("Unrecognised IPTC tag: 0x%02x \n", type);
+                    printf("Unrecognised IPTC tag: %d \n", type);
                 }
             break;
         }
         if (description != NULL) {
             char TempBuf[32];
             memset(TempBuf, 0, sizeof(TempBuf));
-            memset(TempBuf, ' ', 13);
+            memset(TempBuf, ' ', 14);
             memcpy(TempBuf, description, strlen(description));
             strcat(TempBuf, ":"); 
             printf("%s %*.*s\n", TempBuf, length, length, pos);
