@@ -132,3 +132,8 @@ jhead -di results-bin\iptc1.jpg
 rem test removal and restoration of iptc section
 jhead -de -cmd "jhead -purejpg &i" results-bin\iptc2.jpg
 jhead -nofinfo results-bin\iptc?.jpg > results-txt\iptc-txt
+
+rem test XMP non-delete
+copy strange-jpegs\with_xmp.jpg results-bin\
+jhead -ta+1:00 results-bin\with_xmp.jpg > results-txt\with_xmp.jpg
+jhead -v results-bin\with_xmp.jpg >> results-txt\with_xmp.jpg

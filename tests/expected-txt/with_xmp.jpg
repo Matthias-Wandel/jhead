@@ -1,0 +1,128 @@
+Modified: results-bin\with_xmp.jpg
+Exif header 10488 bytes long
+Exif section in Intel order
+(dir has 11 entries)
+    Make = "Canon"
+    Model = "Canon PowerShot A95"
+    Orientation = 1
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2007:06:30 15:02:24"
+    YCbCrPositioning = 1
+    Copyright = "Michael G. Lee"
+    ExifOffset = 224
+    Exif Dir:(dir has 32 entries)
+        ExposureTime = 1/320
+        FNumber = 50/10
+        ISOSpeedRatings = 50
+        ExifVersion = "0220"
+        DateTimeOriginal = "2007:06:30 15:02:24"
+        DateTimeDigitized = "2007:06:30 15:02:24"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 5/1
+        ShutterSpeedValue = 266/32
+        ApertureValue = 149/32
+        ExposureBiasValue = 0/3
+        MaxApertureValue = 95/32
+        MeteringMode = 5
+        Flash = 16
+        FocalLength = 250/32
+        Maker note: (dir has 18 entries)
+            Canon maker tag 0001 Value = 92, 2, 0, 5, 0, 0, 0, 4, 0, 1, 0, 1, 0, 0, 0, 0, ...
+            Canon maker tag 0002 Value = 2, 250, 290, 217
+            Canon maker tag 0003 Value = 0, 0, 0, 0
+            Canon maker tag 0004 Value = 68, 0, 128, 286, 149, 266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 0000 Value = 0, 0, 0, 0, 0, 0
+            Canon maker tag 0000 Value = 0, 0, 0, 0
+            Canon maker tag 0012 Value = 9, 1, 2592, 1944, 2592, 216, 467, 39, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 0013 Value = 0, 0, 0, 0
+            Canon maker tag 0006 Value = "IMG:PowerShot A95 JPEG"
+            Canon maker tag 0007 Value = "Firmware Version 1.00"
+            Canon maker tag 0008 Value = 1626262
+            Canon maker tag 0009 Value = "Michael G. Lee"
+            Canon maker tag 0010 Value = 22216704
+            Canon maker tag 0017 Value = 0
+            Canon maker tag 0018 Value = 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, ...
+            Canon maker tag 0019 Value = 1
+            Canon maker tag 001c Value = 0
+            Canon maker tag 000d Value = 72, 9, 405, 32769, 32769, 32769, 32769, 32769, 32769, 32769, 32769, 64, 0, 0, 36, 4, ...
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 2592
+        ExifImageLength = 1944
+        InteroperabilityOffset = 1912
+        Interop Dir:(dir has 4 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+            RelatedImageWidth = 2592
+            RelatedImageLength = 1944
+        FocalPlaneXResolution = 2592000/283
+        FocalPlaneYResolution = 1944000/212
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = ""
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 0
+        DigitalZoomRatio = 2592/2592
+        SceneCaptureType = 0
+    GPS Dir offset = 1966
+    GPS info dir:(dir has 10 entries)
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =42/1, 16/1, 90446/2493, 16/1, 90446/2493, 83/1, 90446/2493, 83/1, 42/1
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =83/1, 42/1, 12465/5006, 42/1, 12465/5006, 227/1, 12465/5006, 227/1, 14/1
+        GPSAltitudeRef      =00
+        GPSAltitude         =227/1
+        GPSTimeStamp        =14/1, 2/1, 24/1, 2/1, 24/1, 760432471/13368, 24/1, 760432471/13368, 925904946/976629818
+        GPSSatellites       ="0"
+        GPSMapDatum         ="WGS-84"
+        GPSDateStamp        ="2007:06:30"
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2286
+        ThumbnailLength = 8194
+Thumbnail size: 8194 bytes
+Image cotains IPTC section, 128 bytes long
+Image cotains XMP section, 3675 bytes long
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 200w * 150h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 31
+Jpeg section marker 0xc4 size 181
+Jpeg section marker 0xc4 size 31
+Jpeg section marker 0xc4 size 181
+File name    : results-bin\with_xmp.jpg
+File size    : 34102 bytes
+File date    : 2008:02:14 16:22:26
+Camera make  : Canon
+Camera model : Canon PowerShot A95
+Date/Time    : 2007:06:30 15:02:24
+Resolution   : 200 x 150
+Flash used   : No
+Focal length :  7.8mm  (35mm equivalent: 39mm)
+CCD width    : 7.19mm
+Exposure time: 0.0031 s  (1/320)
+Aperture     : f/5.0
+Focus dist.  : 3.52m
+ISO equiv.   : 50
+Whitebalance : Auto
+Metering Mode: matrix
+GPS Latitude : N 42d 16m 36.2800s
+GPS Longitude: W 83d 42m  2.4900s
+GPS Altitude :  227m
+======= IPTC data: =======
+Record vers.  : 4
+City          : Ann Arbor
+Sub Location  : Geddes
+State         : Michigan
+Ref. Service  : USA
+Country       : United States
+DateCreated   : 20070630
+Time Created  : 140224+0000
+

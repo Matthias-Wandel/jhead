@@ -4,6 +4,7 @@
 #include "jhead.h"
 
 // Supported IPTC entry types
+#define IPTC_RECORD_VERSION         0x00
 #define IPTC_SUPLEMENTAL_CATEGORIES 0x14
 #define IPTC_KEYWORDS               0x19
 #define IPTC_CAPTION                0x78
@@ -25,9 +26,9 @@
 #define IPTC_COPYRIGHT              0x0A
 #define IPTC_COUNTRY_CODE           0x64
 #define IPTC_REFERENCE_SERVICE      0x2D
-
 #define IPTC_TIME_CREATED           0x3C
 #define IPTC_SUB_LOCATION           0x5C
+#define IPTC_IMAGE_TYPE             0x82
 
 //--------------------------------------------------------------------------
 //  Process and display IPTC marker.
@@ -96,7 +97,7 @@ badsig:
     // Now read IPTC data
     while (pos < (Data + itemlen-5)) {
         short  signature;
-        char   type = 0;
+        unsigned char   type = 0;
         short  length = 0;
         char * description = NULL;
 
@@ -116,6 +117,10 @@ badsig:
         if (pos+length > maxpos) goto corrupt;
         // Process tag here
         switch (type) {
+            case IPTC_RECORD_VERSION:
+                printf("Record vers.  : %d\n", (*pos << 8) + (*(pos+1)));
+                break;
+
             case IPTC_SUPLEMENTAL_CATEGORIES:  description = "SuplementalCategories"; break;
             case IPTC_KEYWORDS:                description = "Keywords"; break;
             case IPTC_CAPTION:                 description = "Caption"; break;
@@ -137,14 +142,13 @@ badsig:
             case IPTC_COPYRIGHT:               description = "(C)Flag"; break;
             case IPTC_REFERENCE_SERVICE:       description = "Country Code"; break;
             case IPTC_COUNTRY_CODE:            description = "Ref. Service"; break;
-
             case IPTC_TIME_CREATED:            description = "Time Created"; break;
             case IPTC_SUB_LOCATION:            description = "Sub Location"; break;
-
+            case IPTC_IMAGE_TYPE:              description = "Image type"; break;
 
             default:
                 if (ShowTags){
-                    printf("Unrecognised IPTC tag: %d \n", type);
+                    printf("Unrecognised IPTC tag: %d\n", type );
                 }
             break;
         }

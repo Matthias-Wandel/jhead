@@ -13,31 +13,32 @@ Exposure     : program (auto)
 
 Resolution   : 182 x 320
 ======= IPTC data: =======
-Byline       :  Picasa 2.0
-City         : Canberra
-State        : ACT
-Country      : Australia
+Record vers.  : 2
+Byline        :  Picasa 2.0
+City          : Canberra
+State         : ACT
+Country       : Australia
 OriginalTransmissionReference: View out of the Parliament House
-Author       : Dejan, Ana
+Author        : Dejan, Ana
 
 Resolution   : 110 x 100
 ======= IPTC data: =======
-Category     : Supl. Category2
-Category     : Supl. Category1
-Category     : Cat
-(C)Notice    : Copyright
-Spec.Instr.  : Special Instr.
-Headline     : Headline
-Author       : CaptionWriter
-Caption      : Caption
+Category      : Supl. Category2
+Category      : Supl. Category1
+Category      : Cat
+(C)Notice     : Copyright
+Spec. Instr.  : Special Instr.
+Headline      : Headline
+Author        : CaptionWriter
+Caption       : Caption
 OriginalTransmissionReference: Transmission
-Country      : Country
-State        : State
-City         : City
-DateCreated  : 20000101
-ObjectName   : ObjectName
-Source       : Source
-Credit       : Credits
-BylineTitle  : BylineTitle
-Byline       : Byline
+Country       : Country
+State         : State
+City          : City
+DateCreated   : 20000101
+Object Name   : ObjectName
+Source        : Source
+Credit        : Credits
+Byline Title  : BylineTitle
+Byline        : Byline
 
