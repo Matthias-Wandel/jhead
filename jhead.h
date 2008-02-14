@@ -213,7 +213,7 @@ extern int ShowTags;
 #define M_EOI   0xD9            // End Of Image (end of datastream)
 #define M_SOS   0xDA            // Start Of Scan (begins compressed data)
 #define M_JFIF  0xE0            // Jfif marker
-#define M_EXIF  0xE1            // Exif marker
+#define M_EXIF  0xE1            // Exif marker.  Also used for XMP data!
 #define M_COM   0xFE            // COMment 
 #define M_DQT   0xDB
 #define M_DHT   0xC4

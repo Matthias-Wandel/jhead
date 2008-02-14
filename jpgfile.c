@@ -233,15 +233,20 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 break;
 
             case M_EXIF:
-                // Seen files from some 'U-lead' software with Vivitar scanner
-                // that uses marker 31 for non exif stuff.  Thus make sure 
-                // it says 'Exif' in the section before treating it as exif.
-                if ((ReadMode & READ_METADATA) && memcmp(Data+2, "Exif", 4) == 0){
-                    process_EXIF(Data, itemlen);
-                }else{
-                    // Discard this section.
-                    free(Sections[--SectionsRead].Data);
+                // There can be different section using the same marker.
+                if (ReadMode & READ_METADATA){
+                    if (memcmp(Data+2, "Exif", 4) == 0){
+                        process_EXIF(Data, itemlen);
+                        break;
+                    }else if (memcmp(Data+2, "http:", 5) == 0){
+                        if (ShowTags){
+                            printf("Image cotains XMP section, %d bytes long\n", itemlen);
+                        }
+                        break;
+                    }
                 }
+                // Oterwise, discard this section.
+                free(Sections[--SectionsRead].Data);
                 break;
 
             case M_IPTC:
