@@ -1,10 +1,12 @@
-Exif header 96 bytes long
+Exif header 134 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2000:04:01 13:04:48"
     ExifOffset = 58
-    Exif Dir:(dir has 2 entries)
-        ThumbnailOffset = 88
+    Exif Dir:(dir has 1 entries)
+        DateTimeOriginal = "2000:04:01 13:04:48"
+    Continued directory (dir has 2 entries)
+        ThumbnailOffset = 126
         ThumbnailLength = 0
 Thumbnail size: 0 bytes
 Jpeg section marker 0xdb size 67
@@ -17,13 +19,15 @@ Jpeg section marker 0xc4 size 36
 Date/Time    : 2000:04:01 13:04:48
 Resolution   : 160 x 120
 
-Exif header 4068 bytes long
+Exif header 4106 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2000:04:01 13:04:48"
     ExifOffset = 58
-    Exif Dir:(dir has 2 entries)
-        ThumbnailOffset = 88
+    Exif Dir:(dir has 1 entries)
+        DateTimeOriginal = "2000:04:01 13:04:48"
+    Continued directory (dir has 2 entries)
+        ThumbnailOffset = 126
         ThumbnailLength = 3972
 Thumbnail size: 3972 bytes
 Jpeg section marker 0xdb size 67

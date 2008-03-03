@@ -942,8 +942,10 @@ void create_EXIF(void)
 
     unsigned short NumEntries;
     int DataWriteIndex;
+    int DateIndex;
     int DirIndex;
-
+    int DirContinuation;
+    
     MotorolaOrder = 0;
 
     memcpy(Buffer+2, "Exif\0\0II",8);
@@ -959,7 +961,8 @@ void create_EXIF(void)
 
         Put16u(Buffer+DirIndex, NumEntries); // Number of entries
         DirIndex += 2;
-        // Entries go here....
+  
+        // Enitreis go here...
         {
             // Date/time entry
             Put16u(Buffer+DirIndex, TAG_DATETIME);         // Tag
@@ -968,6 +971,7 @@ void create_EXIF(void)
             Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
             DirIndex += 12;
 
+            DateIndex = DataWriteIndex;
             if (ImageInfo.numDateTimeTags){
                 // If we had a pre-existing exif header, use time from that.
                 memcpy(Buffer+DataWriteIndex, ImageInfo.DateTime, 19);
@@ -977,8 +981,7 @@ void create_EXIF(void)
                 FileTimeAsString(Buffer+DataWriteIndex);
             }
             DataWriteIndex += 20;
-        }
-        {
+        
             // Link to exif dir entry
             Put16u(Buffer+DirIndex, TAG_EXIF_OFFSET);      // Tag
             Put16u(Buffer+DirIndex + 2, FMT_ULONG);        // Format
@@ -988,11 +991,34 @@ void create_EXIF(void)
         }
 
         // End of directory - contains optional link to continued directory.
+        DirContinuation = DirIndex;
+    }
+
+    {
+        DirIndex = DataWriteIndex;
+        NumEntries = 1;
+        DataWriteIndex += 2 + NumEntries*12 + 4;
+
+        Put16u(Buffer+DirIndex, NumEntries); // Number of entries
+        DirIndex += 2;
+
+        // Original date/time entry
+        Put16u(Buffer+DirIndex, TAG_DATETIME_ORIGINAL);         // Tag
+        Put16u(Buffer+DirIndex + 2, FMT_STRING);       // Format
+        Put32u(Buffer+DirIndex + 4, 20);               // Components
+        Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
+        DirIndex += 12;
+
+        memcpy(Buffer+DataWriteIndex, Buffer+DateIndex, 20);
+        DataWriteIndex += 20;
+        
+        // End of directory - contains optional link to continued directory.
         Put32u(Buffer+DirIndex, 0);
     }
 
-
     {
+        //Continuation which links to this directory;
+        Put32u(Buffer+DirContinuation, DataWriteIndex-8);
         DirIndex = DataWriteIndex;
         NumEntries = 2;
         DataWriteIndex += 2 + NumEntries*12 + 4;
@@ -1021,6 +1047,7 @@ void create_EXIF(void)
         Put32u(Buffer+DirIndex, 0);
     }
 
+    
     Buffer[0] = (unsigned char)(DataWriteIndex >> 8);
     Buffer[1] = (unsigned char)DataWriteIndex;
 
