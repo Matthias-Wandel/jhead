@@ -962,7 +962,7 @@ void create_EXIF(void)
         Put16u(Buffer+DirIndex, NumEntries); // Number of entries
         DirIndex += 2;
   
-        // Enitreis go here...
+        // Enitries go here...
         {
             // Date/time entry
             Put16u(Buffer+DirIndex, TAG_DATETIME);         // Tag

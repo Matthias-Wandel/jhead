@@ -47,15 +47,17 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     is not part of the Exif header.
 
 <tr valign=top><td><b>-de
-<td>Delete the Exif header entirely.  This leaves comments in the comment
-    section intact.
+<td>Delete the Exif header entirely.  This leaves other sections (IPTC, XMP, comment) intact
 
 <tr valign=top><td><b>-di
-<td>Delete IPTC section (if present).  Leaves Exif and commen sections intact.
+<td>Delete IPTC section (if present).  Leaves other sections intact.
+
+<tr valign=top><td><b>-dx
+<td>Delete XMP section (if present).  Leaves other sections intact.
 
 <tr valign=top><td><b>-du
-<td>Delete sections of jpeg that are not Exif, not comment, and otherwise not 
-    contributing to the image either - such as data that Photoshop might leave in the image.
+<td>Delete any sections that jhead doesn't know about.  Leaves Exif, XMP, IPTC and comment
+    sections intact.
 
 <tr valign=top><td><b>-purejpg
 <td>Delete all JPEG sections that aren't necessary for rendering the image.  Strips any

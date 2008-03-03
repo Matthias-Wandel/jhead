@@ -303,8 +303,7 @@ Feb 14 2007
 Fix it so it no longer deletex XMP sections
 Improve IPTC handling a little
 
+March 3 2007
+Change how date is encoded with -mkexif section to make it more compatible.
+Make jhead aware of XMP data and not delete it.
 
-to do:
-* Some day - read/write implementation of exif file system.  This will allow
-          me to add new tags - a feature occasionally requested.
-* Detect looped and doubly linked exif directories

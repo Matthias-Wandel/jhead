@@ -239,8 +239,13 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                         process_EXIF(Data, itemlen);
                         break;
                     }else if (memcmp(Data+2, "http:", 5) == 0){
+                        Sections[SectionsRead-1].Type = M_XMP; // Change tag for internal purposes.
                         if (ShowTags){
+                            int a;
                             printf("Image cotains XMP section, %d bytes long\n", itemlen);
+                            if (ShowTags){
+                                ShowXmp(Sections[SectionsRead-1]);
+                            }
                         }
                         break;
                     }
@@ -449,15 +454,19 @@ void DiscardAllButExif(void)
     Section_t ExifKeeper;
     Section_t CommentKeeper;
     Section_t IptcKeeper;
+    Section_t XmpKeeper;
     int a;
 
     memset(&ExifKeeper, 0, sizeof(ExifKeeper));
     memset(&CommentKeeper, 0, sizeof(CommentKeeper));
     memset(&IptcKeeper, 0, sizeof(IptcKeeper));
+    memset(&XmpKeeper, 0, sizeof(IptcKeeper));
 
     for (a=0;a<SectionsRead;a++){
         if (Sections[a].Type == M_EXIF && ExifKeeper.Type == 0){
-            ExifKeeper = Sections[a];
+           ExifKeeper = Sections[a];
+        }else if (Sections[a].Type == M_XMP && XmpKeeper.Type == 0){
+           XmpKeeper = Sections[a];
         }else if (Sections[a].Type == M_COM && CommentKeeper.Type == 0){
             CommentKeeper = Sections[a];
         }else if (Sections[a].Type == M_IPTC && IptcKeeper.Type == 0){
@@ -478,6 +487,11 @@ void DiscardAllButExif(void)
     if (IptcKeeper.Type){
         CheckSectionsAllocated();
         Sections[SectionsRead++] = IptcKeeper;
+    }
+
+    if (XmpKeeper.Type){
+        CheckSectionsAllocated();
+        Sections[SectionsRead++] = XmpKeeper;
     }
 }    
 
@@ -515,7 +529,7 @@ void WriteJpegFile(const char * FileName)
     // Write all the misc sections
     for (a=0;a<SectionsRead-1;a++){
         fputc(0xff,outfile);
-        fputc(Sections[a].Type, outfile);
+        fputc((unsigned char)Sections[a].Type, outfile);
         fwrite(Sections[a].Data, Sections[a].Size, 1, outfile);
     }
 
@@ -588,6 +602,7 @@ int RemoveUnknownSections(void)
             case  M_SOS:
             case  M_JFIF:
             case  M_EXIF:
+            case  M_XMP:
             case  M_COM:
             case  M_DQT:
             case  M_DHT:

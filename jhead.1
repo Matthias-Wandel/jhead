@@ -59,11 +59,13 @@ Delete comment field from the JPEG header.  Note that the comment
 is not part of the Exif header.
 .TP
 .B \-de
-Delete the Exif header entirely.  This leaves comments in the comment
-section intact.
+Delete the Exif header entirely.  Leaves other metadata sections intact.
 .TP
 .B \-di
-Delete the IPTC section, if preent.  Leaves Exif and comments intact.
+Delete the IPTC section, if preent.  Leaves other metadata sections intact.
+.TP
+.B \-dx
+Delete the XMP section, if preent.  Leaves other metadata sections intact.
 .TP
 .B \-du
 Delete sections of jpeg that are not Exif, not comment, and otherwise not 

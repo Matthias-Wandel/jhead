@@ -1,9 +1,9 @@
 //--------------------------------------------------------------------------
-//  Process IPTC data.
+//  Process IPTC data and XMP data.
 //--------------------------------------------------------------------------
 #include "jhead.h"
 
-// Supported IPTC entry types
+// IPTC entry types known to Jhead (there's many more defined)
 #define IPTC_RECORD_VERSION         0x00
 #define IPTC_SUPLEMENTAL_CATEGORIES 0x14
 #define IPTC_KEYWORDS               0x19
@@ -165,4 +165,41 @@ badsig:
     return;
 corrupt:
     ErrNonfatal("Pointer corruption in IPTC\n",0,0);
+}
+
+
+
+//--------------------------------------------------------------------------
+// Dump contents of XMP section
+//--------------------------------------------------------------------------
+void ShowXmp(Section_t XmpSection)
+{
+    char * Data;
+    char OutLine[101];
+    int OutLineChars;
+    int NonBlank;
+    unsigned a;
+    NonBlank = 0;
+    Data = XmpSection.Data;
+    OutLineChars = 0;
+
+
+    for (a=0;a<XmpSection.Size;a++){
+        if (Data[a] >= 32){
+            OutLine[OutLineChars++] = Data[a];
+            if (Data[a] != ' ') NonBlank |= 1;
+        }else{
+            if (Data[a] != '\n'){
+                OutLine[OutLineChars++] = '?';
+            }
+        }
+        if (Data[a] == '\n' || OutLineChars >= 100){
+            OutLine[OutLineChars] = 0;
+            if (NonBlank){
+                puts(OutLine);
+            }
+            NonBlank = (NonBlank & 1) << 1;
+            OutLineChars = 0;
+        }
+    }
 }

@@ -59,6 +59,7 @@ static unsigned FileTimeToExif = FALSE;
 static int DeleteComments = FALSE;
 static int DeleteExif = FALSE;
 static int DeleteIptc = FALSE;
+static int DeleteXmp = FALSE;
 static int DeleteUnknown = FALSE;
 static char * ThumbSaveName = NULL; // If not NULL, use this string to make up
                                     // the filename to store the thumbnail to.
@@ -1040,6 +1041,9 @@ skip_unixtime:
     if (DeleteIptc){
         if (RemoveSectionType(M_IPTC)) Modified = TRUE;
     }
+    if (DeleteXmp){
+        if (RemoveSectionType(M_XMP)) Modified = TRUE;
+    }
     if (DeleteUnknown){
         if (RemoveUnknownSections()) Modified = TRUE;
     }
@@ -1141,6 +1145,7 @@ static void Usage (void)
            "  -dc        Delete comment field (as left by progs like Photoshop & Compupic)\n"
            "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
            "  -di        Delete IPTC section (from Photoshop, or Picasa)\n"
+           "  -dx        Deletex XMP section\n"
            "  -du        Delete non image sections except for Exif and comment sections\n"
            "  -purejpg   Strip all unnecessary data from jpeg (combines -dc -de and -du)\n"
            "  -mkexif    Create new minimal exif section (overwrites pre-existing exif)\n"
@@ -1331,6 +1336,9 @@ int main (int argc, char **argv)
             DoModify = TRUE;
         }else if (!strcmp(arg,"-di")){
             DeleteIptc = TRUE;
+            DoModify = TRUE;
+        }else if (!strcmp(arg,"-dx")){
+            DeleteXmp = TRUE;
             DoModify = TRUE;
         }else if (!strcmp(arg, "-du")){
             DeleteUnknown = TRUE;

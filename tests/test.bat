@@ -137,3 +137,7 @@ rem test XMP non-delete
 copy strange-jpegs\with_xmp.jpg results-bin\
 jhead -ta+1:00 results-bin\with_xmp.jpg > results-txt\with_xmp.jpg
 jhead -v results-bin\with_xmp.jpg >> results-txt\with_xmp.jpg
+jhead -cmd "jhead -purejpg &i"  results-bin\with_xmp.jpg >> results-txt\with_xmp.jpg
+jhead -v results-bin\with_xmp.jpg >> results-txt\with_xmp.jpg
+jhead -dx esults-bin\with_xmp.jpg
+jhead -v results-bin\with_xmp.jpg >> results-txt\with_xmp.jpg
