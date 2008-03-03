@@ -241,7 +241,6 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                     }else if (memcmp(Data+2, "http:", 5) == 0){
                         Sections[SectionsRead-1].Type = M_XMP; // Change tag for internal purposes.
                         if (ShowTags){
-                            int a;
                             printf("Image cotains XMP section, %d bytes long\n", itemlen);
                             if (ShowTags){
                                 ShowXmp(Sections[SectionsRead-1]);
