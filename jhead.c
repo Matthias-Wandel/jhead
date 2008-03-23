@@ -871,7 +871,7 @@ void ProcessFile(const char * FileName)
                    EditComment || CommentInsertfileName || CommentInsertLiteral){
 
         Section_t * CommentSec;
-        char Comment[1001];
+        char Comment[MAX_COMMENT_SIZE+1];
         int CommentSize;
 
         CommentSec = FindSection(M_COM);
@@ -887,9 +887,9 @@ void ProcessFile(const char * FileName)
         }
 
         CommentSize = CommentSec->Size-2;
-        if (CommentSize > 1000){
-            fprintf(stderr, "Truncating comment at 1000 chars\n");
-            CommentSize = 1000;
+        if (CommentSize > MAX_COMMENT_SIZE){
+            fprintf(stderr, "Truncating comment at %d chars\n",MAX_COMMENT_SIZE);
+            CommentSize = MAX_COMMENT_SIZE;
         }
 
         if (CommentInsertfileName){
@@ -911,11 +911,11 @@ void ProcessFile(const char * FileName)
                 if (CommentSize < 0) CommentSize = 0;
             }
         }else if (CommentInsertLiteral){
-            strncpy(Comment, CommentInsertLiteral, 1000);
+            strncpy(Comment, CommentInsertLiteral, MAX_COMMENT_SIZE);
             CommentSize = strlen(Comment);
         }else{
 #ifdef MATTHIAS
-            char CommentZt[1001];
+            char CommentZt[MAX_COMMENT_SIZE+1];
             memcpy(CommentZt, (char *)CommentSec->Data+2, CommentSize);
             CommentZt[CommentSize] = '\0';
             if (ModifyDescriptComment(Comment, CommentZt)){
@@ -1130,7 +1130,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Mar 3 2008.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Mar 23 2008.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 

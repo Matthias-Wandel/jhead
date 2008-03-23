@@ -37,13 +37,13 @@ static int Get16m(const void * Short)
 static void process_COM (const uchar * Data, int length)
 {
     int ch;
-    char Comment[MAX_COMMENT+1];
+    char Comment[MAX_COMMENT_SIZE+1];
     int nch;
     int a;
 
     nch = 0;
 
-    if (length > MAX_COMMENT) length = MAX_COMMENT; // Truncate if it won't fit in our structure.
+    if (length > MAX_COMMENT_SIZE) length = MAX_COMMENT_SIZE; // Truncate if it won't fit in our structure.
 
     for (a=2;a<length;a++){
         ch = Data[a];

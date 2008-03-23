@@ -1431,7 +1431,7 @@ void ShowImageInfo(int ShowFileInfo)
     if (ImageInfo.Comments[0]){
         int a,c;
         printf("Comment      : ");
-        for (a=0;a<MAX_COMMENT;a++){
+        for (a=0;a<MAX_COMMENT_SIZE;a++){
             c = ImageInfo.Comments[a];
             if (c == '\0') break;
             if (c == '\n'){
