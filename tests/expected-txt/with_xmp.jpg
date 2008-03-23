@@ -406,37 +406,6 @@ Exif section in Intel order
         ThumbnailLength = 8194
 Thumbnail size: 8194 bytes
 Image cotains IPTC section, 128 bytes long
-Image cotains XMP section, 3675 bytes long
-?[http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>
-<x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='Image::ExifTool 7.13'>
-<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
-
- <rdf:Description rdf:about=''
-  xmlns:Iptc4xmpCore='http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/'>
-  <Iptc4xmpCore:CountryCode>USA</Iptc4xmpCore:CountryCode>
-  <Iptc4xmpCore:Location>Geddes</Iptc4xmpCore:Location>
- </rdf:Description>
-
- <rdf:Description rdf:about=''
-  xmlns:exif='http://ns.adobe.com/exif/1.0/'>
-  <exif:DateTimeOriginal>2007-06-30T14:02:24Z</exif:DateTimeOriginal>
-  <exif:GPSAltitude>227/1</exif:GPSAltitude>
-  <exif:GPSAltitudeRef>0</exif:GPSAltitudeRef>
-  <exif:GPSLatitude>42,16.604666N</exif:GPSLatitude>
-  <exif:GPSLongitude>83,42.041500W</exif:GPSLongitude>
-  <exif:GPSTimeStamp>2007-06-30T14:02:24Z</exif:GPSTimeStamp>
- </rdf:Description>
-
- <rdf:Description rdf:about=''
-  xmlns:photoshop='http://ns.adobe.com/photoshop/1.0/'>
-  <photoshop:City>Ann Arbor</photoshop:City>
-  <photoshop:Country>United States</photoshop:Country>
-  <photoshop:DateCreated>2007-06-30T14:02:24Z</photoshop:DateCreated>
-  <photoshop:State>Michigan</photoshop:State>
- </rdf:Description>
-</rdf:RDF>
-</x:xmpmeta>
-                                                                                                    
 Jpeg section marker 0xdb size 67
 Jpeg section marker 0xdb size 67
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample
@@ -445,7 +414,7 @@ Jpeg section marker 0xc4 size 181
 Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
 File name    : results-bin\with_xmp.jpg
-File size    : 34102 bytes
+File size    : 30425 bytes
 File date    : 2008:02:14 16:22:26
 Camera make  : Canon
 Camera model : Canon PowerShot A95
