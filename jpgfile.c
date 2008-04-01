@@ -137,15 +137,10 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             marker = fgetc(infile);
             if (marker != 0xff) break;
 
-            if (a >= 6){
+            if (a >= 32){
                 fprintf(stderr,"too many padding bytes\n");
                 return FALSE;
             }
-        }
-
-        if (marker == 0xff){
-            // 0xff is legal padding, but if we get that many, something's wrong.
-            ErrFatal("too many padding bytes!");
         }
 
         Sections[SectionsRead].Type = marker;
