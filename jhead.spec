@@ -13,7 +13,7 @@
 Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		2.8
+Version:		2.82
 Release:		0
 
 Group:			Libraries
@@ -72,6 +72,12 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
+
+* Thu Apr 03 2008 - 2.82
+- No longer delete XMP section on some operations
+- Improve IPTC display
+- Minor tweaks and cleanups
+
 * Tue Nov 13 2007 - 2.8
 - Limited IPTC handling
 - Added -q option

@@ -307,3 +307,4 @@ March 3 2007
 Change how date is encoded with -mkexif section to make it more compatible.
 Make jhead aware of XMP data and not delete it.
 
+-------Released version 2.82 -- Apr 03 2008 --------
