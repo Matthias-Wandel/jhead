@@ -299,11 +299,11 @@ Extract subject range (pentax and fuji cameras)
 
 -------Released version 2.8 -- Nov 13 2007 --------
 
-Feb 14 2007
+Feb 14 2008
 Fix it so it no longer deletex XMP sections
 Improve IPTC handling a little
 
-March 3 2007
+March 3 2008
 Change how date is encoded with -mkexif section to make it more compatible.
 Make jhead aware of XMP data and not delete it.
 
