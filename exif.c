@@ -77,143 +77,206 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 //--------------------------------------------------------------------------
 // Describes tag values
 
-#define TAG_MAKE               0x010F
-#define TAG_MODEL              0x0110
-#define TAG_ORIENTATION        0x0112
-#define TAG_DATETIME           0x0132
-#define TAG_THUMBNAIL_OFFSET   0x0201
-#define TAG_THUMBNAIL_LENGTH   0x0202
-#define TAG_EXPOSURETIME       0x829A
-#define TAG_FNUMBER            0x829D
-#define TAG_EXIF_OFFSET        0x8769
-#define TAG_EXPOSURE_PROGRAM   0x8822
-#define TAG_GPSINFO            0x8825
-#define TAG_ISO_EQUIVALENT     0x8827
-#define TAG_DATETIME_ORIGINAL  0x9003
-#define TAG_DATETIME_DIGITIZED 0x9004
-#define TAG_SHUTTERSPEED       0x9201
-#define TAG_APERTURE           0x9202
-#define TAG_EXPOSURE_BIAS      0x9204
-#define TAG_MAXAPERTURE        0x9205
-#define TAG_SUBJECT_DISTANCE   0x9206
-#define TAG_METERING_MODE      0x9207
-#define TAG_LIGHT_SOURCE       0x9208
-#define TAG_FLASH              0x9209
-#define TAG_FOCALLENGTH        0x920A
-#define TAG_MAKER_NOTE         0x927C
-#define TAG_USERCOMMENT        0x9286
-#define TAG_EXIF_IMAGEWIDTH    0xa002
-#define TAG_EXIF_IMAGELENGTH   0xa003
-#define TAG_INTEROP_OFFSET     0xa005
-#define TAG_FOCALPLANEXRES     0xa20E
-#define TAG_FOCALPLANEUNITS    0xa210
-#define TAG_EXPOSURE_INDEX     0xa215
-#define TAG_EXPOSURE_MODE      0xa402
-#define TAG_WHITEBALANCE       0xa403
-#define TAG_DIGITALZOOMRATIO   0xA404
-#define TAG_FOCALLENGTH_35MM   0xa405
-#define TAG_DISTANCE_RANGE     0xa40c
+#define TAG_INTEROP_INDEX          0x0001
+#define TAG_INTEROP_VERSION        0x0002
+#define TAG_IMAGE_WIDTH            0x0100
+#define TAG_IMAGE_LENGTH           0x0101
+#define TAG_BITS_PER_SAMPLE        0x0102
+#define TAG_COMPRESSION            0x0103
+#define TAG_PHOTOMETRIC_INTERP     0x0106
+#define TAG_FILL_ORDER             0x010A
+#define TAG_DOCUMENT_NAME          0x010D
+#define TAG_IMAGE_DESCRIPTION      0x010E
+#define TAG_MAKE                   0x010F
+#define TAG_MODEL                  0x0110
+#define TAG_SRIP_OFFSET            0x0111
+#define TAG_ORIENTATION            0x0112
+#define TAG_SAMPLES_PER_PIXEL      0x0115
+#define TAG_ROWS_PER_STRIP         0x0116
+#define TAG_STRIP_BYTE_COUNTS      0x0117
+#define TAG_X_RESOLUTION           0x011A
+#define TAG_Y_RESOLUTION           0x011B
+#define TAG_PLANAR_CONFIGURATION   0x011C
+#define TAG_RESOLUTION_UNIT        0x0128
+#define TAG_TRANSFER_FUNCTION      0x012D
+#define TAG_SOFTWARE               0x0131
+#define TAG_DATETIME               0x0132
+#define TAG_ARTIST                 0x013B
+#define TAG_WHITE_POINT            0x013E
+#define TAG_PRIMARY_CHROMATICITIES 0x013F
+#define TAG_TRANSFER_RANGE         0x0156
+#define TAG_JPEG_PROC              0x0200
+#define TAG_THUMBNAIL_OFFSET       0x0201
+#define TAG_THUMBNAIL_LENGTH       0x0202
+#define TAG_Y_CB_CR_COEFFICIENTS   0x0211
+#define TAG_Y_CB_CR_SUB_SAMPLING   0x0212
+#define TAG_Y_CB_CR_POSITIONING    0x0213
+#define TAG_REFERENCE_BLACK_WHITE  0x0214
+#define TAG_RELATED_IMAGE_WIDTH    0x1001
+#define TAG_RELATED_IMAGE_LENGTH   0x1002
+#define TAG_CFA_REPEAT_PATTERN_DIM 0x828D
+#define TAG_CFA_PATTERN1           0x828E
+#define TAG_BATTERY_LEVEL          0x828F
+#define TAG_COPYRIGHT              0x8298
+#define TAG_EXPOSURETIME           0x829A
+#define TAG_FNUMBER                0x829D
+#define TAG_IPTC_NAA               0x83BB
+#define TAG_EXIF_OFFSET            0x8769
+#define TAG_INTER_COLOR_PROFILE    0x8773
+#define TAG_EXPOSURE_PROGRAM       0x8822
+#define TAG_SPECTRAL_SENSITIVITY   0x8824
+#define TAG_GPSINFO                0x8825
+#define TAG_ISO_EQUIVALENT         0x8827
+#define TAG_OECF                   0x8828
+#define TAG_EXIF_VERSION           0x9000
+#define TAG_DATETIME_ORIGINAL      0x9003
+#define TAG_DATETIME_DIGITIZED     0x9004
+#define TAG_COMPONENTS_CONFIG      0x9101
+#define TAG_CPRS_BITS_PER_PIXEL    0x9102
+#define TAG_SHUTTERSPEED           0x9201
+#define TAG_APERTURE               0x9202
+#define TAG_BRIGHTNESS_VALUE       0x9203
+#define TAG_EXPOSURE_BIAS          0x9204
+#define TAG_MAXAPERTURE            0x9205
+#define TAG_SUBJECT_DISTANCE       0x9206
+#define TAG_METERING_MODE          0x9207
+#define TAG_LIGHT_SOURCE           0x9208
+#define TAG_FLASH                  0x9209
+#define TAG_FOCALLENGTH            0x920A
+#define TAG_MAKER_NOTE             0x927C
+#define TAG_USERCOMMENT            0x9286
+#define TAG_SUBSEC_TIME            0x9290
+#define TAG_SUBSEC_TIME_ORIG       0x9291
+#define TAG_SUBSEC_TIME_DIG        0x9292
+#define TAG_FLASH_PIX_VERSION      0xA000
+#define TAG_COLOR_SPACE            0xA001
+#define TAG_EXIF_IMAGEWIDTH        0xA002
+#define TAG_EXIF_IMAGELENGTH       0xA003
+#define TAG_RELATED_AUDIO_FILE     0xA004
+#define TAG_INTEROP_OFFSET         0xA005
+#define TAG_FLASH_ENERGY           0xA20B
+#define TAG_SPATIAL_FREQ_RESP      0xA20C
+#define TAG_FOCAL_PLANE_XRES       0xA20E
+#define TAG_FOCAL_PLANE_YRES       0xA20F
+#define TAG_FOCAL_PLANE_UNITS      0xA210
+#define TAG_SUBJECT_LOCATION       0xA214
+#define TAG_EXPOSURE_INDEX         0xA215
+#define TAG_SENSING_METHOD         0xA217
+#define TAG_FILE_SOURCE            0xA300
+#define TAG_SCENE_TYPE             0xA301
+#define TAG_CFA_PATTERN            0xA302
+#define TAG_CUSTOM_RENDERED        0xA401
+#define TAG_EXPOSURE_MODE          0xA402
+#define TAG_WHITEBALANCE           0xA403
+#define TAG_DIGITALZOOMRATIO       0xA404
+#define TAG_FOCALLENGTH_35MM       0xA405
+#define TAG_SCENE_CAPTURE_TYPE     0xA406
+#define TAG_GAIN_CONTROL           0xA407
+#define TAG_CONTRAST               0xA408
+#define TAG_SATURATION             0xA409
+#define TAG_SHARPNESS              0xA40A
+#define TAG_DISTANCE_RANGE         0xA40C
 
 static const TagTable_t TagTable[] = {
-  { 0x001,   "InteropIndex"},
-  { 0x002,   "InteropVersion"},
-  { 0x100,   "ImageWidth"},
-  { 0x101,   "ImageLength"},
-  { 0x102,   "BitsPerSample"},
-  { 0x103,   "Compression"},
-  { 0x106,   "PhotometricInterpretation"},
-  { 0x10A,   "FillOrder"},
-  { 0x10D,   "DocumentName"},
-  { 0x10E,   "ImageDescription"},
-  { 0x10F,   "Make"},
-  { 0x110,   "Model"},
-  { 0x111,   "StripOffsets"},
-  { 0x112,   "Orientation"},
-  { 0x115,   "SamplesPerPixel"},
-  { 0x116,   "RowsPerStrip"},
-  { 0x117,   "StripByteCounts"},
-  { 0x11A,   "XResolution"},
-  { 0x11B,   "YResolution"},
-  { 0x11C,   "PlanarConfiguration"},
-  { 0x128,   "ResolutionUnit"},
-  { 0x12D,   "TransferFunction"},
-  { 0x131,   "Software"},
-  { 0x132,   "DateTime"},
-  { 0x13B,   "Artist"},
-  { 0x13E,   "WhitePoint"},
-  { 0x13F,   "PrimaryChromaticities"},
-  { 0x156,   "TransferRange"},
-  { 0x200,   "JPEGProc"},
-  { 0x201,   "ThumbnailOffset"},
-  { 0x202,   "ThumbnailLength"},
-  { 0x211,   "YCbCrCoefficients"},
-  { 0x212,   "YCbCrSubSampling"},
-  { 0x213,   "YCbCrPositioning"},
-  { 0x214,   "ReferenceBlackWhite"},
-  { 0x1001,  "RelatedImageWidth"},
-  { 0x1002,  "RelatedImageLength"},
-  { 0x828D,  "CFARepeatPatternDim"},
-  { 0x828E,  "CFAPattern"},
-  { 0x828F,  "BatteryLevel"},
-  { 0x8298,  "Copyright"},
-  { 0x829A,  "ExposureTime"},
-  { 0x829D,  "FNumber"},
-  { 0x83BB,  "IPTC/NAA"},
-  { 0x8769,  "ExifOffset"},
-  { 0x8773,  "InterColorProfile"},
-  { 0x8822,  "ExposureProgram"},
-  { 0x8824,  "SpectralSensitivity"},
-  { 0x8825,  "GPS Dir offset"},
-  { 0x8827,  "ISOSpeedRatings"},
-  { 0x8828,  "OECF"},
-  { 0x9000,  "ExifVersion"},
-  { 0x9003,  "DateTimeOriginal"},
-  { 0x9004,  "DateTimeDigitized"},
-  { 0x9101,  "ComponentsConfiguration"},
-  { 0x9102,  "CompressedBitsPerPixel"},
-  { 0x9201,  "ShutterSpeedValue"},
-  { 0x9202,  "ApertureValue"},
-  { 0x9203,  "BrightnessValue"},
-  { 0x9204,  "ExposureBiasValue"},
-  { 0x9205,  "MaxApertureValue"},
-  { 0x9206,  "SubjectDistance"},
-  { 0x9207,  "MeteringMode"},
-  { 0x9208,  "LightSource"},
-  { 0x9209,  "Flash"},
-  { 0x920A,  "FocalLength"},
-  { 0x927C,  "MakerNote"},
-  { 0x9286,  "UserComment"},
-  { 0x9290,  "SubSecTime"},
-  { 0x9291,  "SubSecTimeOriginal"},
-  { 0x9292,  "SubSecTimeDigitized"},
-  { 0xA000,  "FlashPixVersion"},
-  { 0xA001,  "ColorSpace"},
-  { 0xA002,  "ExifImageWidth"},
-  { 0xA003,  "ExifImageLength"},
-  { 0xA004,  "RelatedAudioFile"},
-  { 0xA005,  "InteroperabilityOffset"},
-  { 0xA20B,  "FlashEnergy"},              
-  { 0xA20C,  "SpatialFrequencyResponse"}, 
-  { 0xA20E,  "FocalPlaneXResolution"},    
-  { 0xA20F,  "FocalPlaneYResolution"},    
-  { 0xA210,  "FocalPlaneResolutionUnit"}, 
-  { 0xA214,  "SubjectLocation"},          
-  { 0xA215,  "ExposureIndex"},            
-  { 0xA217,  "SensingMethod"},            
-  { 0xA300,  "FileSource"},
-  { 0xA301,  "SceneType"},
-  { 0xA301,  "CFA Pattern"},
-  { 0xA401,  "CustomRendered"},
-  { 0xA402,  "ExposureMode"},
-  { 0xA403,  "WhiteBalance"},
-  { 0xA404,  "DigitalZoomRatio"},
-  { 0xA405,  "FocalLengthIn35mmFilm"},
-  { 0xA406,  "SceneCaptureType"},
-  { 0xA407,  "GainControl"},
-  { 0xA408,  "Contrast"},
-  { 0xA409,  "Saturation"},
-  { 0xA40a,  "Sharpness"},
-  { 0xA40c,  "SubjectDistanceRange"},
+  { TAG_INTEROP_INDEX,          "InteropIndex"},
+  { TAG_INTEROP_VERSION,        "InteropVersion"},
+  { TAG_IMAGE_WIDTH,            "ImageWidth"},
+  { TAG_IMAGE_LENGTH,           "ImageLength"},
+  { TAG_BITS_PER_SAMPLE,        "BitsPerSample"},
+  { TAG_COMPRESSION,            "Compression"},
+  { TAG_PHOTOMETRIC_INTERP,     "PhotometricInterpretation"},
+  { TAG_FILL_ORDER,             "FillOrder"},
+  { TAG_DOCUMENT_NAME,          "DocumentName"},
+  { TAG_IMAGE_DESCRIPTION,      "ImageDescription"},
+  { TAG_MAKE,                   "Make"},
+  { TAG_MODEL,                  "Model"},
+  { TAG_SRIP_OFFSET,            "StripOffsets"},
+  { TAG_ORIENTATION,            "Orientation"},
+  { TAG_SAMPLES_PER_PIXEL,      "SamplesPerPixel"},
+  { TAG_ROWS_PER_STRIP,         "RowsPerStrip"},
+  { TAG_STRIP_BYTE_COUNTS,      "StripByteCounts"},
+  { TAG_X_RESOLUTION,           "XResolution"},
+  { TAG_Y_RESOLUTION,           "YResolution"},
+  { TAG_PLANAR_CONFIGURATION,   "PlanarConfiguration"},
+  { TAG_RESOLUTION_UNIT,        "ResolutionUnit"},
+  { TAG_TRANSFER_FUNCTION,      "TransferFunction"},
+  { TAG_SOFTWARE,               "Software"},
+  { TAG_DATETIME,               "DateTime"},
+  { TAG_ARTIST,                 "Artist"},
+  { TAG_WHITE_POINT,            "WhitePoint"},
+  { TAG_PRIMARY_CHROMATICITIES, "PrimaryChromaticities"},
+  { TAG_TRANSFER_RANGE,         "TransferRange"},
+  { TAG_JPEG_PROC,              "JPEGProc"},
+  { TAG_THUMBNAIL_OFFSET,       "ThumbnailOffset"},
+  { TAG_THUMBNAIL_LENGTH,       "ThumbnailLength"},
+  { TAG_Y_CB_CR_COEFFICIENTS,   "YCbCrCoefficients"},
+  { TAG_Y_CB_CR_SUB_SAMPLING,   "YCbCrSubSampling"},
+  { TAG_Y_CB_CR_POSITIONING,    "YCbCrPositioning"},
+  { TAG_REFERENCE_BLACK_WHITE,  "ReferenceBlackWhite"},
+  { TAG_RELATED_IMAGE_WIDTH,    "RelatedImageWidth"},
+  { TAG_RELATED_IMAGE_LENGTH,   "RelatedImageLength"},
+  { TAG_CFA_REPEAT_PATTERN_DIM, "CFARepeatPatternDim"},
+  { TAG_CFA_PATTERN1,           "CFAPattern"},
+  { TAG_BATTERY_LEVEL,          "BatteryLevel"},
+  { TAG_COPYRIGHT,              "Copyright"},
+  { TAG_EXPOSURETIME,           "ExposureTime"},
+  { TAG_FNUMBER,                "FNumber"},
+  { TAG_IPTC_NAA,               "IPTC/NAA"},
+  { TAG_EXIF_OFFSET,            "ExifOffset"},
+  { TAG_INTER_COLOR_PROFILE,    "InterColorProfile"},
+  { TAG_EXPOSURE_PROGRAM,       "ExposureProgram"},
+  { TAG_SPECTRAL_SENSITIVITY,   "SpectralSensitivity"},
+  { TAG_GPSINFO,                "GPS Dir offset"},
+  { TAG_ISO_EQUIVALENT,         "ISOSpeedRatings"},
+  { TAG_OECF,                   "OECF"},
+  { TAG_EXIF_VERSION,           "ExifVersion"},
+  { TAG_DATETIME_ORIGINAL,      "DateTimeOriginal"},
+  { TAG_DATETIME_DIGITIZED,     "DateTimeDigitized"},
+  { TAG_COMPONENTS_CONFIG,      "ComponentsConfiguration"},
+  { TAG_CPRS_BITS_PER_PIXEL,    "CompressedBitsPerPixel"},
+  { TAG_SHUTTERSPEED,           "ShutterSpeedValue"},
+  { TAG_APERTURE,               "ApertureValue"},
+  { TAG_BRIGHTNESS_VALUE,       "BrightnessValue"},
+  { TAG_EXPOSURE_BIAS,          "ExposureBiasValue"},
+  { TAG_MAXAPERTURE,            "MaxApertureValue"},
+  { TAG_SUBJECT_DISTANCE,       "SubjectDistance"},
+  { TAG_METERING_MODE,          "MeteringMode"},
+  { TAG_LIGHT_SOURCE,           "LightSource"},
+  { TAG_FLASH,                  "Flash"},
+  { TAG_FOCALLENGTH,            "FocalLength"},
+  { TAG_MAKER_NOTE,             "MakerNote"},
+  { TAG_USERCOMMENT,            "UserComment"},
+  { TAG_SUBSEC_TIME,            "SubSecTime"},
+  { TAG_SUBSEC_TIME_ORIG,       "SubSecTimeOriginal"},
+  { TAG_SUBSEC_TIME_DIG,        "SubSecTimeDigitized"},
+  { TAG_FLASH_PIX_VERSION,      "FlashPixVersion"},
+  { TAG_COLOR_SPACE,            "ColorSpace"},
+  { TAG_EXIF_IMAGEWIDTH,        "ExifImageWidth"},
+  { TAG_EXIF_IMAGELENGTH,       "ExifImageLength"},
+  { TAG_RELATED_AUDIO_FILE,     "RelatedAudioFile"},
+  { TAG_INTEROP_OFFSET,         "InteroperabilityOffset"},
+  { TAG_FLASH_ENERGY,           "FlashEnergy"},              
+  { TAG_SPATIAL_FREQ_RESP,      "SpatialFrequencyResponse"}, 
+  { TAG_FOCAL_PLANE_XRES,       "FocalPlaneXResolution"},    
+  { TAG_FOCAL_PLANE_YRES,       "FocalPlaneYResolution"},    
+  { TAG_FOCAL_PLANE_UNITS,      "FocalPlaneResolutionUnit"}, 
+  { TAG_SUBJECT_LOCATION,       "SubjectLocation"},          
+  { TAG_EXPOSURE_INDEX,         "ExposureIndex"},            
+  { TAG_SENSING_METHOD,         "SensingMethod"},            
+  { TAG_FILE_SOURCE,            "FileSource"},
+  { TAG_SCENE_TYPE,             "SceneType"},
+  { TAG_CFA_PATTERN,            "CFA Pattern"},
+  { TAG_CUSTOM_RENDERED,        "CustomRendered"},
+  { TAG_EXPOSURE_MODE,          "ExposureMode"},
+  { TAG_WHITEBALANCE,           "WhiteBalance"},
+  { TAG_DIGITALZOOMRATIO,       "DigitalZoomRatio"},
+  { TAG_FOCALLENGTH_35MM,       "FocalLengthIn35mmFilm"},
+  { TAG_SCENE_CAPTURE_TYPE,     "SceneCaptureType"},
+  { TAG_GAIN_CONTROL,           "GainControl"},
+  { TAG_CONTRAST,               "Contrast"},
+  { TAG_SATURATION,             "Saturation"},
+  { TAG_SHARPNESS,              "Sharpness"},
+  { TAG_DISTANCE_RANGE,         "SubjectDistanceRange"},
 } ;
 
 #define TAG_TABLE_SIZE  (sizeof(TagTable) / sizeof(TagTable_t))
@@ -661,11 +724,11 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 if (ExifImageWidth < a) ExifImageWidth = a;
                 break;
 
-            case TAG_FOCALPLANEXRES:
+            case TAG_FOCAL_PLANE_XRES:
                 FocalplaneXRes = ConvertAnyFormat(ValuePtr, Format);
                 break;
 
-            case TAG_FOCALPLANEUNITS:
+            case TAG_FOCAL_PLANE_UNITS:
                 switch((int)ConvertAnyFormat(ValuePtr, Format)){
                     case 1: FocalplaneUnits = 25.4; break; // inch
                     case 2: 
