@@ -38,7 +38,7 @@ Exif section in Intel order
         Interop Dir:        SensingMethod = 2
         FileSource = ""
         SceneType = ""
-        Unknown Tag a302 Value = "?"
+        CFA Pattern = "?"
     GPS Dir offset = 30110
     GPS info dir:(dir has 40704 entries)
     UserComment = "&lt;?xml version="1.0"?&gt;&lt;on:exif_data version="3.0"&gt;    &lt;on:picture_id&gt;0&lt;/on:picture_id&gt;    &lt;on:file_checksum&gt;0&lt;/on:file_checksum&gt;&lt;/on:exif_data&gt;"

@@ -43,7 +43,7 @@ Exif section in Motorola order
         SensingMethod = 2
         FileSource = ""
         SceneType = ""
-        Unknown Tag a302 Value = "?"
+        CFA Pattern = "?"
         CustomRendered = 0
         ExposureMode = 0
         WhiteBalance = 0

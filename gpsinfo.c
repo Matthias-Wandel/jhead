@@ -160,7 +160,8 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
                 break;
 
             case TAG_GPS_ALT:
-                sprintf(ImageInfo.GpsAlt + 1, "%dm", Get32s(ValuePtr));
+                sprintf(ImageInfo.GpsAlt + 1, "%.2fm", 
+                    ConvertAnyFormat(ValuePtr+a*ComponentSize, Format));
                 break;
         }
 
@@ -172,7 +173,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
                 // Show unknown tag
                 printf("        Illegal GPS tag %04x=", Tag);
             }
-    
+
             switch(Format){
                 case FMT_UNDEFINED:
                     // Undefined is typically an ascii string.

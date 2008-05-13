@@ -127,9 +127,6 @@ Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
 Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
-File name    : results-bin\with_xmp.jpg
-File size    : 34102 bytes
-File date    : 2008:02:14 16:22:26
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 15:02:24
@@ -145,7 +142,7 @@ Whitebalance : Auto
 Metering Mode: matrix
 GPS Latitude : N 42d 16m 36.2800s
 GPS Longitude: W 83d 42m  2.4900s
-GPS Altitude :  227m
+GPS Altitude :  14.00m
 ======= IPTC data: =======
 Record vers.  : 4
 City          : Ann Arbor
@@ -287,9 +284,6 @@ Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
 Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
-File name    : results-bin\with_xmp.jpg
-File size    : 34102 bytes
-File date    : 2008:02:14 16:22:26
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 15:02:24
@@ -305,7 +299,7 @@ Whitebalance : Auto
 Metering Mode: matrix
 GPS Latitude : N 42d 16m 36.2800s
 GPS Longitude: W 83d 42m  2.4900s
-GPS Altitude :  227m
+GPS Altitude :  14.00m
 ======= IPTC data: =======
 Record vers.  : 4
 City          : Ann Arbor
@@ -413,9 +407,6 @@ Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
 Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
-File name    : results-bin\with_xmp.jpg
-File size    : 30425 bytes
-File date    : 2008:02:14 16:22:26
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 15:02:24
@@ -431,7 +422,7 @@ Whitebalance : Auto
 Metering Mode: matrix
 GPS Latitude : N 42d 16m 36.2800s
 GPS Longitude: W 83d 42m  2.4900s
-GPS Altitude :  227m
+GPS Altitude :  14.00m
 ======= IPTC data: =======
 Record vers.  : 4
 City          : Ann Arbor
