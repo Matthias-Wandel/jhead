@@ -482,6 +482,7 @@ static void DoFileRenaming(const char * FileName)
     int a;
     struct tm tm;
     char NewBaseName[PATH_MAX*2];
+    int AddLetter = 0;
 
     for (a=0;FileName[a];a++){
         if (FileName[a] == '/' || FileName[a] == '\\'){
@@ -569,6 +570,7 @@ static void DoFileRenaming(const char * FileName)
              tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     }
 
+    AddLetter = isdigit(NewBaseName[strlen(NewBaseName)-1]);
     for (a=0;;a++){
         char NewName[PATH_MAX];
         char NameExtra[3];
@@ -580,7 +582,7 @@ static void DoFileRenaming(const char * FileName)
             // it.  This to avoid using a separator character - this because any good separator
             // is before the '.' in ascii, and so sorting the names would put the later name before
             // the name without suffix, causing the pictures to more likely be out of order.
-            if (isdigit(NewBaseName[strlen(NewBaseName)-1])){
+            if (AddLetter){
                 NameExtra[0] = (char)('a'-1+a); // Try a,b,c,d... for suffix if it ends in a letter.
             }else{
                 NameExtra[0] = (char)('0'-1+a); // Try 1,2,3,4... for suffix if it ends in a char.
@@ -610,7 +612,7 @@ static void DoFileRenaming(const char * FileName)
             break;
         }
 
-        if (a >= 9){
+        if (a > 25 || (!AddLetter && a > 9)){
             printf("Possible new names for for '%s' already exist\n",FileName);
             break;
         }
