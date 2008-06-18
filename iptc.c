@@ -90,7 +90,7 @@ badsig:
     // Get length (from motorola format)
     //length = (*pos << 24) | (*(pos+1) << 16) | (*(pos+2) << 8) | *(pos+3);
 
-    pos += sizeof(long);                    // move data pointer to the next field
+    pos += 4;                    // move data pointer to the next field
 
     printf("======= IPTC data: =======\n");
 
@@ -104,7 +104,7 @@ badsig:
         if (pos+5 > maxpos) goto corrupt;
 
         signature = (*pos << 8) + (*(pos+1));
-        pos += sizeof(short);
+        pos += 2;
 
         if (signature != 0x1C02){
             break;
@@ -112,7 +112,7 @@ badsig:
 
         type    = *pos++;
         length  = (*pos << 8) + (*(pos+1));
-        pos    += sizeof(short);                // Skip tag length
+        pos    += 2;                          // Skip tag length
 
         if (pos+length > maxpos) goto corrupt;
         // Process tag here
