@@ -20,7 +20,7 @@ Exif section in Intel order
     SubjectDistanceRange = 0
     Orientation = 1
     YCbCrPositioning = 2
-    Unknown Tag 9c9d Value = Recato
+    Windows XP author = Recato
     ExifOffset = 383
     Exif Dir:(dir has 35 entries)
         ExposureTime = 10/5500
@@ -81,21 +81,32 @@ Exif section in Intel order
                     SceneType = ""
                     UserComment = 6
                     UserComment = 72/1
+Multiple comments in exif header
                     UserComment = 72/1
+Multiple comments in exif header
                     UserComment = 2
+Multiple comments in exif header
                     UserComment = 1240
+Multiple comments in exif header
                     UserComment = 9965
+Multiple comments in exif header
                     Continued directory         FocalPlaneXResolution = 2462/1
         FocalPlaneYResolution = 2462/1
         FocalPlaneResolutionUnit = 3
         FileSource = ""
         SceneType = ""
         UserComment = 6
+Multiple comments in exif header
         UserComment = 72/1
+Multiple comments in exif header
         UserComment = 72/1
+Multiple comments in exif header
         UserComment = 2
+Multiple comments in exif header
         UserComment = 1240
+Multiple comments in exif header
         UserComment = 9965
+Multiple comments in exif header
         Continued directory Jpeg section marker 0xdb size 132
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
 Jpeg section marker 0xc4 size 418
@@ -112,5 +123,5 @@ ISO equiv.   : 100
 Whitebalance : Auto
 Metering Mode: matrix
 Exposure     : program (auto)
-Comment      : í&
+Comment      : 
 

@@ -64,6 +64,7 @@ static void process_COM (const uchar * Data, int length)
     }
 
     strcpy(ImageInfo.Comments,Comment);
+    ImageInfo.CommentWidchars = 0;
 }
 
  

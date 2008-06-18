@@ -26,22 +26,31 @@ Exif section in Intel order
         Maker note:  41 4f 43 00 20 20 00 29 00 01 00... (40960 bytes)
         UserComment = "Coppuccino"
         UserComment = "Coppuccino"
+Multiple comments in exif header
         UserComment = "Coppuccino"
+Multiple comments in exif header
         UserComment = "Coppuccino"
+Multiple comments in exif header
         UserComment = "Coppuccino"
+Multiple comments in exif header
         UserComment = "Coppuccino"
+Multiple comments in exif header
         UserComment = "Coppuccino"
+Multiple comments in exif header
         UserComment = "Coppuccino"
+Multiple comments in exif header
         UserComment = "Coppuccino"
+Multiple comments in exif header
         FlashPixVersion = "0100"
         ColorSpace = 1
         ExifImageWidth = 1200
         ExifImageLength = 1600
     Unknown Tag 9c9b Value = Microsoft Title
-    Unknown Tag 9c9c Value = Microsoft Comment
-    Unknown Tag 9c9d Value = Microsoft Author
-    Unknown Tag 9c9e Value = Microsoft Keyword
-    Unknown Tag 9c9f Value = Microsoft Subject
+    Windows XP comment = Microsoft Comment
+Windows XP commend and other comment in header
+    Windows XP author = Microsoft Author
+    Windows XP keywords = Microsoft Keyword
+    Windows XP subject = Microsoft Subject
     CustomRendered = 0
     ExposureMode = 0
     WhiteBalance = 0

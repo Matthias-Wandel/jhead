@@ -148,6 +148,12 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_SUBSEC_TIME            0x9290
 #define TAG_SUBSEC_TIME_ORIG       0x9291
 #define TAG_SUBSEC_TIME_DIG        0x9292
+
+#define TAG_WINXP_COMMENT          0x9c9c // Windows XP - not part of exif standard.
+#define TAG_WINXP_AUTHOR           0x9c9d // Windows XP - not part of exif standard.
+#define TAG_WINXP_KEYWORDS         0x9c9e // Windows XP - not part of exif standard.
+#define TAG_WINXP_SUBJECT          0x9c9f // Windows XP - not part of exif standard.
+
 #define TAG_FLASH_PIX_VERSION      0xA000
 #define TAG_COLOR_SPACE            0xA001
 #define TAG_EXIF_IMAGEWIDTH        0xA002
@@ -249,6 +255,10 @@ static const TagTable_t TagTable[] = {
   { TAG_SUBSEC_TIME,            "SubSecTime"},
   { TAG_SUBSEC_TIME_ORIG,       "SubSecTimeOriginal"},
   { TAG_SUBSEC_TIME_DIG,        "SubSecTimeDigitized"},
+  { TAG_WINXP_COMMENT,          "Windows XP comment"},
+  { TAG_WINXP_AUTHOR,           "Windows XP author"},
+  { TAG_WINXP_KEYWORDS,         "Windows XP keywords"},
+  { TAG_WINXP_SUBJECT,          "Windows XP subject"},
   { TAG_FLASH_PIX_VERSION,      "FlashPixVersion"},
   { TAG_COLOR_SPACE,            "ColorSpace"},
   { TAG_EXIF_IMAGEWIDTH,        "ExifImageWidth"},
@@ -620,9 +630,29 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     (char *)ValuePtr - (char *)OffsetBase;
                 break;
 
+            case TAG_WINXP_COMMENT:
+                if (ImageInfo.Comments[0]){ // We already have a jpeg comment.
+                    // Already have a comment (probably windows comment), skip this one.
+                    if (ShowTags) printf("Windows XP commend and other comment in header\n");
+                    break; // Already have a windows comment, skip this one.
+                }
+
+                if (ByteCount > 1){
+                    int l = ByteCount;
+                    if (ByteCount > MAX_COMMENT_SIZE) ByteCount = MAX_COMMENT_SIZE;
+                    memcpy(ImageInfo.Comments, ValuePtr, ByteCount);
+                    ImageInfo.CommentWidchars = ByteCount/2;
+                }
+                break;
 
             case TAG_USERCOMMENT:
-                // Olympus has this padded with trailing spaces.  Remove these first.
+                if (ImageInfo.Comments[0]){ // We already have a jpeg comment.
+                    // Already have a comment (probably windows comment), skip this one.
+                    if (ShowTags) printf("Multiple comments in exif header\n");
+                    break; // Already have a windows comment, skip this one.
+                }
+
+                // Comment is often padded with trailing spaces.  Remove these first.
                 for (a=ByteCount;;){
                     a--;
                     if ((ValuePtr)[a] == ' '){
@@ -643,9 +673,8 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                             break;
                         }
                     }
-                    
                 }else{
-                    strncpy(ImageInfo.Comments, (char *)ValuePtr, 199);
+                    strncpy(ImageInfo.Comments, (char *)ValuePtr, MAX_COMMENT_SIZE-1);
                 }
                 break;
 
@@ -1494,21 +1523,25 @@ void ShowImageInfo(int ShowFileInfo)
     if (ImageInfo.Comments[0]){
         int a,c;
         printf("Comment      : ");
-        for (a=0;a<MAX_COMMENT_SIZE;a++){
-            c = ImageInfo.Comments[a];
-            if (c == '\0') break;
-            if (c == '\n'){
-                // Do not start a new line if the string ends with a carriage return.
-                if (ImageInfo.Comments[a+1] != '\0'){
-                    printf("\nComment      : ");
+        if (!ImageInfo.CommentWidchars){
+            for (a=0;a<MAX_COMMENT_SIZE;a++){
+                c = ImageInfo.Comments[a];
+                if (c == '\0') break;
+                if (c == '\n'){
+                    // Do not start a new line if the string ends with a carriage return.
+                    if (ImageInfo.Comments[a+1] != '\0'){
+                        printf("\nComment      : ");
+                    }else{
+                        printf("\n");
+                    }
                 }else{
-                    printf("\n");
+                    putchar(c);
                 }
-            }else{
-                putchar(c);
             }
+            printf("\n");
+        }else{
+            printf("%.*ls\n", ImageInfo.CommentWidchars, (wchar_t *)ImageInfo.Comments);
         }
-        printf("\n");
     }
 }
 

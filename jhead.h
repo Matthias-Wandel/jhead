@@ -86,7 +86,9 @@ typedef struct {
     int   ISOequivalent;
     int   LightSource;
     int   DistanceRange;
+
     char  Comments[MAX_COMMENT_SIZE];
+    int   CommentWidchars; // If nonzer, widechar comment, indicates number of chars.
 
     unsigned ThumbnailOffset;          // Exif offset to thumbnail
     unsigned ThumbnailSize;            // Size of thumbnail.
