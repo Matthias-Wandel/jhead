@@ -9,6 +9,7 @@
 #include "jhead.h"
 
 #include <math.h>
+#include <wchar.h>
 
 static unsigned char * DirWithThumbnailPtrs;
 static double FocalplaneXRes;
@@ -561,7 +562,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             switch(Format){
                 case FMT_BYTE:
                     if(ByteCount>1){
-                        printf("%.*ls\n", ByteCount/2, (wchar_t *)ValuePtr);
+                        wprintf(L"%.*s\n", ByteCount/2, (wchar_t *)ValuePtr);
                     }else{
                         PrintFormatNumber(ValuePtr, Format, ByteCount);
                         printf("\n");
@@ -640,7 +641,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 }
 
                 if (ByteCount > 1){
-                    int l = ByteCount;
                     if (ByteCount > MAX_COMMENT_SIZE) ByteCount = MAX_COMMENT_SIZE;
                     memcpy(ImageInfo.Comments, ValuePtr, ByteCount);
                     ImageInfo.CommentWidchars = ByteCount/2;
@@ -1542,7 +1542,7 @@ void ShowImageInfo(int ShowFileInfo)
             }
             printf("\n");
         }else{
-            printf("%.*ls\n", ImageInfo.CommentWidchars, (wchar_t *)ImageInfo.Comments);
+            wprintf(L"%.*s\n", ImageInfo.CommentWidchars, (wchar_t *)ImageInfo.Comments);
         }
     }
 }
