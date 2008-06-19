@@ -45,12 +45,12 @@ Multiple comments in exif header
         ColorSpace = 1
         ExifImageWidth = 1200
         ExifImageLength = 1600
-    Unknown Tag 9c9b Value = Microsoft Title
-    Windows XP comment = Microsoft Comment
+    Windows-XP Title = Microsoft Title
+    Windows-XP comment = Microsoft Comment
 Windows XP commend and other comment in header
-    Windows XP author = Microsoft Author
-    Windows XP keywords = Microsoft Keyword
-    Windows XP subject = Microsoft Subject
+    Windows-XP author = Microsoft Author
+    Windows-XP keywords = Microsoft Keyword
+    Windows-XP subject = Microsoft Subject
     CustomRendered = 0
     ExposureMode = 0
     WhiteBalance = 0

@@ -20,7 +20,7 @@ Exif section in Intel order
     SubjectDistanceRange = 0
     Orientation = 1
     YCbCrPositioning = 2
-    Windows XP author = Recato
+    Windows-XP author = Recato
     ExifOffset = 383
     Exif Dir:(dir has 35 entries)
         ExposureTime = 10/5500

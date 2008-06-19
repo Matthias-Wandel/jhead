@@ -149,6 +149,7 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_SUBSEC_TIME_ORIG       0x9291
 #define TAG_SUBSEC_TIME_DIG        0x9292
 
+#define TAG_WINXP_TITLE            0x9c9b // Windows XP - not part of exif standard.
 #define TAG_WINXP_COMMENT          0x9c9c // Windows XP - not part of exif standard.
 #define TAG_WINXP_AUTHOR           0x9c9d // Windows XP - not part of exif standard.
 #define TAG_WINXP_KEYWORDS         0x9c9e // Windows XP - not part of exif standard.
@@ -255,10 +256,11 @@ static const TagTable_t TagTable[] = {
   { TAG_SUBSEC_TIME,            "SubSecTime"},
   { TAG_SUBSEC_TIME_ORIG,       "SubSecTimeOriginal"},
   { TAG_SUBSEC_TIME_DIG,        "SubSecTimeDigitized"},
-  { TAG_WINXP_COMMENT,          "Windows XP comment"},
-  { TAG_WINXP_AUTHOR,           "Windows XP author"},
-  { TAG_WINXP_KEYWORDS,         "Windows XP keywords"},
-  { TAG_WINXP_SUBJECT,          "Windows XP subject"},
+  { TAG_WINXP_TITLE,            "Windows-XP Title"},
+  { TAG_WINXP_COMMENT,          "Windows-XP comment"},
+  { TAG_WINXP_AUTHOR,           "Windows-XP author"},
+  { TAG_WINXP_KEYWORDS,         "Windows-XP keywords"},
+  { TAG_WINXP_SUBJECT,          "Windows-XP subject"},
   { TAG_FLASH_PIX_VERSION,      "FlashPixVersion"},
   { TAG_COLOR_SPACE,            "ColorSpace"},
   { TAG_EXIF_IMAGEWIDTH,        "ExifImageWidth"},
