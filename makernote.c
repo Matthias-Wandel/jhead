@@ -21,7 +21,7 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
         unsigned char * DirEnd;
         DirEnd = DIR_ENTRY_ADDR(DirStart, NumDirEntries);
         if (DirEnd > (OffsetBase+ExifLength)){
-            ErrNonfatal("Illegally sized directory",0,0);
+            ErrNonfatal("Illegally sized exif makernote subdir (%d entries)",NumDirEntries,0);
             return;
         }
 

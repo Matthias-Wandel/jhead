@@ -472,7 +472,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 // Version 1.3 of jhead would truncate a bit too much.
                 // This also caught later on as well.
             }else{
-                ErrNonfatal("Illegally sized directory",0,0);
+                ErrNonfatal("Illegally sized exif subdirectory (%d entries)",NumDirEntries,0);
                 return;
             }
         }

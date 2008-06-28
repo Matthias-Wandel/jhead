@@ -102,7 +102,7 @@ static int ShowFileInfo = TRUE;     // Indicates to show standard file info
 //--------------------------------------------------------------------------
 void ErrFatal(char * msg)
 {
-    fprintf(stderr,"Error : %s\n", msg);
+    fprintf(stderr,"\nError : %s\n", msg);
     if (CurrentFile) fprintf(stderr,"in file '%s'\n",CurrentFile);
     exit(EXIT_FAILURE);
 } 
@@ -115,7 +115,7 @@ void ErrNonfatal(char * msg, int a1, int a2)
 {
     if (SupressNonFatalErrors) return;
 
-    fprintf(stderr,"Nonfatal Error : ");
+    fprintf(stderr,"\nNonfatal Error : ");
     if (CurrentFile) fprintf(stderr,"'%s' ",CurrentFile);
     fprintf(stderr, msg, a1, a2);
     fprintf(stderr, "\n");
