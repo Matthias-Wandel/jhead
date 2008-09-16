@@ -299,8 +299,8 @@ static int AutoResizeCmdStuff(void)
 static void DoCommand(const char * FileName, int ShowIt)
 {
     int a,e;
-    char ExecString[400];
-    char TempName[200];
+    char ExecString[PATH_MAX*2];
+    char TempName[PATH_MAX+1];
     int TempUsed = FALSE;
 
     e = 0;
