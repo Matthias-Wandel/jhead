@@ -73,6 +73,11 @@ rm -rf %{buildroot}
 # -----------------------------------------------------
 %changelog
 
+* Mon Sep 23 2003 - 2.84
+- decode more exif tags in -v mode
+- Fix gpsinfo altitude bug
+- Fix several potential stirng overflows
+
 * Thu Apr 03 2008 - 2.82
 - No longer delete XMP section on some operations
 - Improve IPTC display
