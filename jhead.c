@@ -19,7 +19,7 @@
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-//#define MATTHIAS
+#define MATTHIAS
 
 #ifdef _WIN32
     #include <io.h>
@@ -129,7 +129,7 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
 {
     FILE * file;
     int a;
-    char QuotedPath[PATH_MAX+1];
+    char QuotedPath[PATH_MAX+10];
 
     file = fopen(TempFileName, "w");
     if (file == NULL){
@@ -143,8 +143,9 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
     fflush(stdout); // So logs are contiguous.
 
     {
-    char * Editor;
-    Editor = getenv("EDITOR");
+        char * Editor;
+        Editor = getenv("EDITOR");
+        if (strlen(Editor) > PATH_MAX) ErrFatal("env too long");
         if (Editor == NULL){
 #ifdef _WIN32
             Editor = "notepad";
@@ -270,7 +271,7 @@ static int ModifyDescriptComment(char * OutComment, char * SrcComment)
 //--------------------------------------------------------------------------
 static int AutoResizeCmdStuff(void)
 {
-    static char CommandString[500];
+    static char CommandString[PATH_MAX+1];
     double scale;
 
     ApplyCommand = CommandString;
@@ -547,14 +548,17 @@ static void DoFileRenaming(const char * FileName)
                 }else if (pattern[a] == 'i'){
                     if (ppos >= 0 && a<ppos+4){
                         // Replace this part with a number.
-                        char pat[8];
-                        char num[16];
+                        char pat[8], num[16];
+                        int l,nl;
                         memcpy(pat, pattern+ppos, 4);
                         pat[a-ppos] = 'd'; // Replace 'i' with 'd' for '%d'
                         pat[a-ppos+1] = '\0';
                         sprintf(num, pat, FileSequence); // let printf do the number formatting.
-                        memmove(pattern+ppos+strlen(num), pattern+a+1, strlen(pattern+a+1)+1);
-                        memcpy(pattern+ppos, num, strlen(num));
+                        nl = strlen(num);
+                        l = strlen(pattern+a+1);
+                        if (ppos+nl+l+1 >= PATH_MAX) ErrFatal("str overflow");
+                        memmove(pattern+ppos+nl, pattern+a+1, l+1);
+                        memcpy(pattern+ppos, num, nl);
                         break;
                     }
                 }else if (!isdigit(pattern[a])){
@@ -572,7 +576,7 @@ static void DoFileRenaming(const char * FileName)
 
     AddLetter = isdigit(NewBaseName[strlen(NewBaseName)-1]);
     for (a=0;;a++){
-        char NewName[PATH_MAX];
+        char NewName[PATH_MAX+10];
         char NameExtra[3];
         struct stat dummy;
 

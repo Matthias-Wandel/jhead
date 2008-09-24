@@ -640,7 +640,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 }
 
                 if (ByteCount > 1){
-                    int l = ByteCount;
                     if (ByteCount > MAX_COMMENT_SIZE) ByteCount = MAX_COMMENT_SIZE;
                     memcpy(ImageInfo.Comments, ValuePtr, ByteCount);
                     ImageInfo.CommentWidchars = ByteCount/2;
