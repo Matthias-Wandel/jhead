@@ -75,7 +75,7 @@ void MyGlob(const char * Pattern , void (*FileFuncParm)(const char * FileName))
 {
     char BasePattern[_MAX_PATH];
     char MatchPattern[_MAX_PATH];
-    char PatCopy[_MAX_PATH*2];
+    char PatCopy[_MAX_PATH*2+1];
 
     int a;
 
@@ -199,12 +199,12 @@ DoRecursion:
 
         // Use the list.
         for (a=0;a<NumHave;a++){
-            char CombinedName[_MAX_PATH*2];
+            char CombinedName[_MAX_PATH*2+1];
             if (FileList[a].attrib & _A_SUBDIR){
                 if (MatchDirs){
                     // Need more directories.
                     CatPath(CombinedName, BasePattern, FileList[a].Name);
-                    strcat(CombinedName, PatCopy+PatternEnd);
+                    strncat(CombinedName, PatCopy+PatternEnd, _MAX_PATH*2-strlen(CombinedName));
                     MyGlob(CombinedName,FileFuncParm);
                 }
             }else{
@@ -222,8 +222,8 @@ DoRecursion:
     if(RecurseAt >= 0){
         strcpy(MatchPattern, PatCopy+RecurseAt);
         PatCopy[RecurseAt] = 0;
-        strcpy(PatCopy+RecurseAt, "*\\**\\");
-        strcat(PatCopy, MatchPattern);
+        strncpy(PatCopy+RecurseAt, "*\\**\\", _MAX_PATH*2-RecurseAt);
+        strncat(PatCopy, MatchPattern, _MAX_PATH*2-strlen(PatCopy));
        
         #ifdef DEBUGGING
             printf("Recurse with '%s'\n",PatCopy);
