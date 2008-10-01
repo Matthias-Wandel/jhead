@@ -1361,6 +1361,7 @@ int main (int argc, char **argv)
             DeleteComments = TRUE;
             DeleteIptc = TRUE;
             DeleteUnknown = TRUE;
+            DeleteXmp = TRUE;
             DoModify = TRUE;
         }else if (!strcmp(arg,"-ce")){
             EditComment = TRUE;
