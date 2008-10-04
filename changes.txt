@@ -312,13 +312,11 @@ Make jhead aware of XMP data and not delete it.
 May 8 2008
 Decode more exif tags for '-v' mode.
 
-May 13 2008
-Fix GPS altitude decode bug.
-
 Sep 23 2008
 Fix a bunch of potential string overflows
 
 Oct 1 2008
 Fix bug where IPTC sction was not deleted by -purejpg
+Fix GPS altitude decode bug
 
 -------Released version 2.84 -- Oct 4 2008 --------

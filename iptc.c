@@ -174,7 +174,7 @@ corrupt:
 //--------------------------------------------------------------------------
 void ShowXmp(Section_t XmpSection)
 {
-    char * Data;
+    unsigned char * Data;
     char OutLine[101];
     int OutLineChars;
     int NonBlank;
@@ -185,7 +185,7 @@ void ShowXmp(Section_t XmpSection)
 
 
     for (a=0;a<XmpSection.Size;a++){
-        if (Data[a] >= 32){
+        if (Data[a] >= 32 && Data[a] < 128){
             OutLine[OutLineChars++] = Data[a];
             if (Data[a] != ' ') NonBlank |= 1;
         }else{

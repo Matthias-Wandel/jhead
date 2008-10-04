@@ -131,7 +131,6 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
                     ErrNonfatal("Inappropriate format (%d) for GPS coordinates!", Format, 0);
                 }
                 strcpy(FmtString, "%0.0fd %0.0fm %0.0fs");
-
                 for (a=0;a<3;a++){
                     int den, digits;
 
@@ -145,7 +144,8 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
                     FmtString[3+a*7] = (char)('0'+digits);
 
                     Values[a] = ConvertAnyFormat(ValuePtr+a*ComponentSize, Format);
-                }
+                }
+
                 sprintf(TempString, FmtString, Values[0], Values[1], Values[2]);
 
                 if (Tag == TAG_GPS_LAT){
@@ -161,7 +161,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
 
             case TAG_GPS_ALT:
                 sprintf(ImageInfo.GpsAlt + 1, "%.2fm", 
-                    ConvertAnyFormat(ValuePtr+a*ComponentSize, Format));
+                    ConvertAnyFormat(ValuePtr, Format));
                 break;
         }
 
