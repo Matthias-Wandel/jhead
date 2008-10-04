@@ -318,4 +318,7 @@ Fix GPS altitude decode bug.
 Sep 23 2008
 Fix a bunch of potential string overflows
 
--------Released version 2.82 -- Sep ?? 2008 --------
+Oct 1 2008
+Fix bug where IPTC sction was not deleted by -purejpg
+
+-------Released version 2.84 -- Oct 4 2008 --------

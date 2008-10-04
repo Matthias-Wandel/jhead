@@ -7,7 +7,7 @@
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Sept 2008
+// Dec 1999 - Oct 2008
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -1143,7 +1143,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Sep 23 2008.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Oct 4 2008.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
