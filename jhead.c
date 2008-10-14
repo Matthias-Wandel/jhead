@@ -638,7 +638,7 @@ static int DoAutoRotate(const char * FileName)
                 ErrFatal("Orientation screwup");
             }
 
-            sprintf(RotateCommand, "jpegtran -%s -outfile &o &i", Argument);
+            sprintf(RotateCommand, "jpegtran -trim -%s -outfile &o &i", Argument);
             ApplyCommand = RotateCommand;
             DoCommand(FileName, FALSE);
             ApplyCommand = NULL;
@@ -657,7 +657,7 @@ static int DoAutoRotate(const char * FileName)
                 strcpy(ThumbTempName_out, FileName);
                 strcat(ThumbTempName_out, ".tho");
                 SaveThumbnail(ThumbTempName_in);
-                sprintf(RotateCommand,"jpegtran -%s -outfile \"%s\" \"%s\"",
+                sprintf(RotateCommand,"jpegtran -trim -%s -outfile \"%s\" \"%s\"",
                     Argument, ThumbTempName_out, ThumbTempName_in);
 
                 if (system(RotateCommand) == 0){
