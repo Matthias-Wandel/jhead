@@ -295,22 +295,53 @@ static int AutoResizeCmdStuff(void)
 
 
 //--------------------------------------------------------------------------
+// Escape an argument such that it is interpreted literally by the shell
+// (returns the number of written characters)
+//--------------------------------------------------------------------------
+static int shellescape(char* to, const char* from)
+{
+    int i, j;
+    i = j = 0;
+
+    // Enclosing characters in double quotes preserves the literal value of
+    // all characters within the quotes, with the exception of $, `, and \.
+    to[j++] = '"';
+    while(from[i])
+    {
+#ifdef _WIN32
+        // Under WIN32, there isn't really anything dangerous you can do with 
+        // escape characters, plus windows users aren't as sercurity paranoid.
+        // Hence, no need to do fancy escaping.
+        to[j++] = from[i++];
+#else
+        switch(from[i]) {
+            case '"':
+            case '$':
+            case '`':
+            case '\\':
+                to[j++] = '\\';
+            default:
+                to[j++] = from[i++];
+        }
+#endif 
+        if (j >= _MAX_PATH) ErrFatal("max path exceeded");
+    }
+    to[j++] = '"';
+    return j;
+}
+
+
+//--------------------------------------------------------------------------
 // Apply the specified command to the JPEG file.
 //--------------------------------------------------------------------------
 static void DoCommand(const char * FileName, int ShowIt)
 {
     int a,e;
-    char ExecString[PATH_MAX*2];
-    char TempName[PATH_MAX+1];
+    char ExecString[PATH_MAX*3];
+    char TempName[PATH_MAX+10];
     int TempUsed = FALSE;
 
     e = 0;
-
-//    // Make a temporary file in the destination directory by changing last char.
-//    strcpy(TempName, FileName);
-//    a = strlen(TempName)-1;
-//    TempName[a] = (char)(TempName[a] == 't' ? 'z' : 't');
-
 
     // Generate an unused temporary file name in the destination directory
     // (a is the number of characters to copy from FileName)
@@ -330,13 +361,13 @@ static void DoCommand(const char * FileName, int ShowIt)
         if (ApplyCommand[a] == '&'){
             if (ApplyCommand[a+1] == 'i'){
                 // Input file.
-                e += sprintf(ExecString+e, "\"%s\"",FileName);
+                e += shellescape(ExecString+e, FileName);
                 a += 1;
                 continue;
             }
             if (ApplyCommand[a+1] == 'o'){
                 // Needs an output file distinct from the input file.
-                e += sprintf(ExecString+e, "\"%s\"",TempName);
+                e += shellescape(ExecString+e, TempName);
                 a += 1;
                 TempUsed = TRUE;
                 continue;
