@@ -2,12 +2,12 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.84
+// Version 2.85
 //
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Oct 2008
+// Dec 1999 - Nov 2008
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "2.84"
+#define JHEAD_VERSION "2.85"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -306,10 +306,24 @@ static void DoCommand(const char * FileName, int ShowIt)
 
     e = 0;
 
-    // Make a temporary file in the destination directory by changing last char.
-    strcpy(TempName, FileName);
-    a = strlen(TempName)-1;
-    TempName[a] = (char)(TempName[a] == 't' ? 'z' : 't');
+//    // Make a temporary file in the destination directory by changing last char.
+//    strcpy(TempName, FileName);
+//    a = strlen(TempName)-1;
+//    TempName[a] = (char)(TempName[a] == 't' ? 'z' : 't');
+
+
+    // Generate an unused temporary file name in the destination directory
+    // (a is the number of characters to copy from FileName)
+    a = strlen(FileName)-1;
+    while(a > 0 && FileName[a-1] != '/') a--;
+    memcpy(TempName, FileName, a);
+    strcpy(TempName+a, "XXXXXX");
+    mktemp(TempName);
+    if(!TempName[0]) {
+        ErrFatal("Cannot find available temporary file name");
+    }
+
+
 
     // Build the exec string.  &i and &o in the exec string get replaced by input and output files.
     for (a=0;;a++){
@@ -325,7 +339,6 @@ static void DoCommand(const char * FileName, int ShowIt)
                 e += sprintf(ExecString+e, "\"%s\"",TempName);
                 a += 1;
                 TempUsed = TRUE;
-                unlink(TempName);// Remove any pre-existing temp file
                 continue;
             }
         }
@@ -1143,7 +1156,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Oct 4 2008.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Nov 3 2008.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
