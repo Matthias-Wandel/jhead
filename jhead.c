@@ -324,7 +324,7 @@ static int shellescape(char* to, const char* from)
                 to[j++] = from[i++];
         }
 #endif 
-        if (j >= _MAX_PATH) ErrFatal("max path exceeded");
+        if (j >= PATH_MAX) ErrFatal("max path exceeded");
     }
     to[j++] = '"';
     return j;
@@ -349,7 +349,7 @@ static void DoCommand(const char * FileName, int ShowIt)
     while(a > 0 && FileName[a-1] != '/') a--;
     memcpy(TempName, FileName, a);
     strcpy(TempName+a, "XXXXXX");
-    mktemp(TempName);
+    mkstemp(TempName);
     if(!TempName[0]) {
         ErrFatal("Cannot find available temporary file name");
     }
@@ -376,7 +376,7 @@ static void DoCommand(const char * FileName, int ShowIt)
         ExecString[e++] = ApplyCommand[a];
         if (ApplyCommand[a] == 0) break;
     }
-
+ShowIt = 1;
     if (ShowIt) printf("Cmd:%s\n",ExecString);
 
     errno = 0;
