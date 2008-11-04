@@ -349,7 +349,7 @@ static void DoCommand(const char * FileName, int ShowIt)
     while(a > 0 && FileName[a-1] != '/') a--;
     memcpy(TempName, FileName, a);
     strcpy(TempName+a, "XXXXXX");
-    mkstemp(TempName);
+    mktemp(TempName);
     if(!TempName[0]) {
         ErrFatal("Cannot find available temporary file name");
     }
