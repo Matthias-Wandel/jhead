@@ -24,5 +24,6 @@ cp gpsinfo.c $fdir
 cp makernote.c $fdir
 cp iptc.c $fdir
 cp jhead.h $fdir
+cp jhead.spec $fdir
 
 tar -czvf $fdir.tar.gz $fdir
