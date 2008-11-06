@@ -42,16 +42,16 @@ to re-copy them back from original copies after editing the photos.
 
 This feature has an interesting 'relative path' option for specifying the 
 thumbnail name.  Whenever the <name> contains the characters '&i', jhead 
-will substitute the original  filename for this name. This allows creating a 
-'relative name' when doing a whole batch  of files. For example, the 
-incantation:
+will substitute the original  filename for this name. This allows
+creating a 'relative name' when doing a whole batch  of files. For
+example, the incantation:
 
 .B jhead -te "originals\&i" *.jpg
 
 would transfer the exif header for each .jpg file in the originals directory by 
 the same name, Both Win32 and most Unix shells treat the '&' character in a 
-special way, so you have to put quotes around that command line option for the 
-'&' to even be passed to the program.
+special way, so you have to put quotes around that command line option
+for the '&' to even be passed to the program.
 
 .TP
 .B \-dc
@@ -210,11 +210,11 @@ Examples:
 
 Year on camera was set to 2005 instead of 2004 for pictures taken in April
 .br
-jhead -da2005:03:01-2004:03:01
+jhead -da2004:03:01-2005:03:01
 
 Default camera date is 2002:01:01, and date was reset on 2005:05:29 at 11:21 am
 .br
-jhead -da2005:05:29+11:21-2002:01:01
+jhead -da2005:05:29/11:21-2002:01:01
 .TP
 .B \-ts
 Sets the time stored in the Exif header to what is specified on the command line.
@@ -278,10 +278,10 @@ This only works if the exif header already contains a thumbnail, and the thumbna
 end of the header (both always the case if the photo came from a digital camera)
 .TP
 .BI \-\^rgt \ size
-Regnerate exif thumbnail.
-'size' specifies maximum height or width of thumbnail.
-Relies on 'mogrify' program (from ImageMagick) to regenerate the thumbnail.
-This only works if the image already contains a thumbail.  
+Regenerate exif thumbnail.  'size' specifies maximum height or width of
+thumbnail.  Relies on 'mogrify' program (from ImageMagick) to regenerate
+the thumbnail.  This only works if the image already contains a
+thumbnail.  
 
 .SH ROTATION OPTIONS
 .TP

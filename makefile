@@ -14,3 +14,9 @@ $(OBJ)/%.o:$(SRC)/%.c
 
 jhead: $(objs) jhead.h
 	${CC} -o jhead $(objs) -lm
+
+clean:
+	rm -f $(objs) jhead
+
+install:
+	cp jhead ${DESTDIR}/usr/bin/

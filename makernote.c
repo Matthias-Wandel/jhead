@@ -26,7 +26,7 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
         }
 
         if (DumpExifMap){
-            printf("Map: %05d-%05d: Directory (makernote)\n",DirStart-OffsetBase, DirEnd-OffsetBase);
+            printf("Map: %05ld-%05ld: Directory (makernote)\n",DirStart-OffsetBase, DirEnd-OffsetBase);
         }
     }
 
@@ -136,7 +136,7 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
                 }
             }
             if (Components > 19 && ImageInfo.Distance <= 0) {
-                // Inidcates the distance the autofocus camera is focused to.
+                // Indicates the distance the autofocus camera is focused to.
                 // Tends to be less accurate as distance increases.
                 int temp_dist = Get16u(ValuePtr + 19*sizeof(unsigned short));
                 if (temp_dist != 65535){

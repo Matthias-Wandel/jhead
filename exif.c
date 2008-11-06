@@ -477,7 +477,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             }
         }
         if (DumpExifMap){
-            printf("Map: %05d-%05d: Directory\n",DirStart-OffsetBase, DirEnd+4-OffsetBase);
+            printf("Map: %05ld-%05ld: Directory\n",DirStart-OffsetBase, DirEnd+4-OffsetBase);
         }
 
 
