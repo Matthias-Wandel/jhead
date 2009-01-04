@@ -134,11 +134,11 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
         CheckSectionsAllocated();
 
-        for (a=0;a<7;a++){
+        for (a=0;a<=16;a++){
             marker = fgetc(infile);
             if (marker != 0xff) break;
 
-            if (a >= 32){
+            if (a >= 16){
                 fprintf(stderr,"too many padding bytes\n");
                 return FALSE;
             }
