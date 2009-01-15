@@ -86,7 +86,7 @@ static int ShowFileInfo = TRUE;     // Indicates to show standard file info
                                     // (file name, file size, file date)
 
 
-
+#define MATTHIAS
 #ifdef MATTHIAS
     // This #ifdef to take out less than elegant stuff for editing
     // the comments in a JPEG.  The programs rdjpgcom and wrjpgcom
@@ -145,7 +145,6 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
     {
         char * Editor;
         Editor = getenv("EDITOR");
-        if (strlen(Editor) > PATH_MAX) ErrFatal("env too long");
         if (Editor == NULL){
 #ifdef _WIN32
             Editor = "notepad";
@@ -153,11 +152,12 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
             Editor = "vi";
 #endif
         }
+        if (strlen(Editor) > PATH_MAX) ErrFatal("env too long");
 
         sprintf(QuotedPath, "%s \"%s\"",Editor, TempFileName);
         a = system(QuotedPath);
     }
-    
+
     if (a != 0){
         perror("Editor failed to launch");
         exit(-1);
@@ -376,7 +376,7 @@ static void DoCommand(const char * FileName, int ShowIt)
         ExecString[e++] = ApplyCommand[a];
         if (ApplyCommand[a] == 0) break;
     }
-ShowIt = 1;
+
     if (ShowIt) printf("Cmd:%s\n",ExecString);
 
     errno = 0;
