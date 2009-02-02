@@ -324,3 +324,7 @@ Fix GPS altitude decode bug
 Jan 15 2008
 Fix bug with -ce introduced as a result of putting all the security
 checks the debian people wanted.
+
+Feb 2 2008
+Added the ability to move files with the -n option. (makes directories if necessary)
+

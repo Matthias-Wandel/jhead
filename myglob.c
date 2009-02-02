@@ -41,7 +41,7 @@ void ShowName(const char * FileName)
 //--------------------------------------------------------------------------------
 // Simple path splicing (assumes no '\' in either part)
 //--------------------------------------------------------------------------------
-static void CatPath(char * dest, const char * p1, const char * p2)
+static void SplicePath(char * dest, const char * p1, const char * p2)
 {
     int l;
     l = strlen(p1);
@@ -203,14 +203,14 @@ DoRecursion:
             if (FileList[a].attrib & _A_SUBDIR){
                 if (MatchDirs){
                     // Need more directories.
-                    CatPath(CombinedName, BasePattern, FileList[a].Name);
+                    SplicePath(CombinedName, BasePattern, FileList[a].Name);
                     strncat(CombinedName, PatCopy+PatternEnd, _MAX_PATH*2-strlen(CombinedName));
                     MyGlob(CombinedName,FileFuncParm);
                 }
             }else{
                 if (MatchFiles){
                     // We need files at this level.
-                    CatPath(CombinedName, BasePattern, FileList[a].Name);
+                    SplicePath(CombinedName, BasePattern, FileList[a].Name);
                     FileFuncParm(CombinedName);
                 }
             }

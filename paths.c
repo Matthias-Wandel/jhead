@@ -10,7 +10,13 @@
 #include <ctype.h>
 #include <ctype.h>
 #include <sys/stat.h>
-#include <direct.h> // for mkdir under windows.
+#ifdef _WIN32
+    #include <direct.h> // for mkdir under windows.
+    #define mkdir(dir,mode) mkdir(dir)
+    #define S_ISDIR(z)   (a & _S_IFDIR)
+
+#endif
+
 #include "jhead.h"
 
 //--------------------------------------------------------------------------------
@@ -38,7 +44,7 @@ int EnsurePathExists(const char * FileName)
             struct stat dummy;
             NewPath[a] = 0;
             if (stat(NewPath, &dummy) == 0){
-                if (dummy.st_mode & _S_IFDIR){
+                if (S_ISDIR(dummy.st_mode)){
                     // Break out of loop, and go forward along path making
                     // the directories.
                     if (LastSlash == 0){
@@ -64,7 +70,7 @@ int EnsurePathExists(const char * FileName)
             if (a == LastSlash) break;
             NewPath[a] = FileName[a];
             printf("make dir '%s'\n",NewPath);
-            if (mkdir(NewPath)){
+            if (mkdir(NewPath,0777)){
                 fprintf(stderr,"Could not create directory '%s'\n",NewPath);
                 // Failed to create directory.
                 return 0;

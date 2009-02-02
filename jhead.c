@@ -1504,10 +1504,11 @@ int main (int argc, char **argv)
                 //printf("strftime_args = %s\n",arg);
             }
         }else if (!strcmp(arg,"-a")){
-            RenameAssociatedFiles = TRUE;
             #ifndef _WIN32
                 ErrFatal("Error: -a only supported in Windows version");
-            #endif 
+            #else
+                RenameAssociatedFiles = TRUE;
+            #endif
         }else if (!strcmp(arg,"-ft")){
             Exif2FileTime = TRUE;
             DoReadAction = TRUE;
