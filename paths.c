@@ -13,8 +13,7 @@
 #ifdef _WIN32
     #include <direct.h> // for mkdir under windows.
     #define mkdir(dir,mode) mkdir(dir)
-    #define S_ISDIR(z)   (a & _S_IFDIR)
-
+    #define S_ISDIR(a)   (a & _S_IFDIR)
 #endif
 
 #include "jhead.h"
@@ -36,7 +35,6 @@ int EnsurePathExists(const char * FileName)
     for (;;){
         a--;
         if (a == 0){
-            printf("a = 0\n");
             NewPath[0] = 0;
             break;    
         }
@@ -69,7 +67,10 @@ int EnsurePathExists(const char * FileName)
         if (FileName[a] == SLASH || a == 0){
             if (a == LastSlash) break;
             NewPath[a] = FileName[a];
-            printf("make dir '%s'\n",NewPath);
+            //printf("make dir '%s'\n",NewPath);
+            #ifdef _WIN32
+                if (NewPath[1] == ':' && strlen(NewPath) == 2) continue;
+            #endif
             if (mkdir(NewPath,0777)){
                 fprintf(stderr,"Could not create directory '%s'\n",NewPath);
                 // Failed to create directory.
@@ -94,7 +95,7 @@ void CatPath(char * BasePath, const char * FilePath)
         l = 0;
     }
 
-    if (FilePath[0] == SLASH || l == 0){
+    if (FilePath[0] == SLASH || FilePath[0] == '.' || l == 0){
         // Its an absolute path, or there was no base path.
         strcpy(BasePath, FilePath);
         return;

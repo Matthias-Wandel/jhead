@@ -84,6 +84,26 @@ jhead -nf%%02i-%%H-%%f temp\*.jpg
 dir /b temp >> results-txt\new-names-txt
 
 rem -------------------------------------------------------------------
+rem test file move / rename feature
+rm -rf movetest
+md movetest
+copy normal-digicams\*.jpg movetest
+
+@echo ---Test move/rename abs rel path --- >> results-txt\new-names-txt
+jhead -nf./movetest/%%Y/%%f- -de movetest/*.jpg
+jhead -c movetest/**/*.jpg >> results-txt\new-names-txt
+
+@echo ---Test move/rename to abs path --- >> results-txt\new-names-txt
+rm -rf c:\jtest
+jhead -nfc:\jtest\foobar\%%H movetest/*005/*
+dir /s /b c:\jtest >> results-txt\new-names-txt
+rm -rf c:\jtest
+
+@echo ---Test move/rename relative path --- >> results-txt\new-names-txt
+jhead -nf%%i/%f movetest/2004/d*g 
+jhead -c movetest/2004/?/*.jpg >> results-txt\new-names-txt
+
+rem -------------------------------------------------------------------
 rem test -purejpg with an image that I used to corrupt.
 copy strange-jpegs\olav.jpg results-bin
 jhead -purejpg results-bin\olav.jpg
@@ -141,3 +161,6 @@ jhead -cmd "jhead -purejpg &i"  results-bin\with_xmp.jpg >> results-txt\with_xmp
 jhead -v -nofinfo results-bin\with_xmp.jpg >> results-txt\with_xmp.jpg
 jhead -dx results-bin\with_xmp.jpg
 jhead -v -nofinfo results-bin\with_xmp.jpg >> results-txt\with_xmp.jpg
+
+rem -------------------------------------------------------------------
+rem Test 
