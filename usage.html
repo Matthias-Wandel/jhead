@@ -117,6 +117,9 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     strftime function for formatting.  In addition, if the format string contains '%f', this will
     substitute the original name of the file (minus extension).
     <br>
+    If the name includes '/' or '\' (under windows), this is interpreted as a new path for
+    the file.  If the new path does not exist, the path will be created.
+    <br>
     A sequence number may also be included by including '%i' in the format string.  Leading
     zeros can be specified.  '%03i' for example will pad the numbers to '001', '002'...
     this works just like printf in C, but with '%i' instead of '%d'.
@@ -126,8 +129,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <br>
     This feature is especially useful if more than one digital camera was used to take pictures
     of an event.  By renaming them to a scheme according to date, they will automatically
-    appear in order of taking when viewed with some sort of viewer like Compupic or AcdSee, and
-    sorted by name.  Or you could use the -ft option and sort by date.
+    appear in order of taking when viewed with some sort of viewer like Xnview or AcdSee, and
+    sorted by name.  Or you could use the -ft option and view the images sorted by date.
     <p>
     <b>Some of the more useful arguments for strftime are:</b>
 

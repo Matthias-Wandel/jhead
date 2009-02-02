@@ -15,7 +15,7 @@
 #include <errno.h>
 #include <ctype.h>
 #include <io.h>
-
+#include "jhead.h"
 
 #define TRUE 1
 #define FALSE 0
@@ -234,6 +234,18 @@ DoRecursion:
         goto DoRecursion;
     }
 }
+
+//--------------------------------------------------------------------------------
+// Flip slashes to native OS representation (for Windows)
+//--------------------------------------------------------------------------------
+void SlashToNative(char * Path)
+{
+    int a;
+    for (a=0;Path[a];a++){
+        if (Path[a] == '/') Path[a] = SLASH;
+    }
+}
+
 
 #ifdef DEBUGGING
 //--------------------------------------------------------------------------------

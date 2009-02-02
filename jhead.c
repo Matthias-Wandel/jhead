@@ -2,12 +2,12 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.85
+// Version 2.86
 //
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Nov 2008
+// Dec 1999 - Feb 2009
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "2.85"
+#define JHEAD_VERSION "2.86"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -35,8 +35,10 @@ static const char * progname;   // program name for error messages
 //--------------------------------------------------------------------------
 // Command line options flags
 static int TrimExif = FALSE;        // Cut off exif beyond interesting data.
-static int RenameToDate = FALSE;
+static int RenameToDate = 0;        // 1=rename, 2=rename all.
+#ifdef _WIN32
 static int RenameAssociatedFiles = FALSE;
+#endif
 static char * strftime_args = NULL; // Format for new file name.
 static int Exif2FileTime  = FALSE;
 static int DoModify     = FALSE;
@@ -320,6 +322,7 @@ static int shellescape(char* to, const char* from)
             case '`':
             case '\\':
                 to[j++] = '\\';
+                // Fallthru...
             default:
                 to[j++] = from[i++];
         }
@@ -346,7 +349,7 @@ static void DoCommand(const char * FileName, int ShowIt)
     // Generate an unused temporary file name in the destination directory
     // (a is the number of characters to copy from FileName)
     a = strlen(FileName)-1;
-    while(a > 0 && FileName[a-1] != '/') a--;
+    while(a > 0 && FileName[a-1] != SLASH) a--;
     memcpy(TempName, FileName, a);
     strcpy(TempName+a, "XXXXXX");
     mktemp(TempName);
@@ -480,7 +483,7 @@ void RenameAssociated(const char * FileName, char * NewBaseName)
     FilePattern[ExtPos] = '*';
     FilePattern[ExtPos+1] = '\0';
 
-    for(PathLen = strlen(FileName);FileName[PathLen-1] != '\\';){
+    for(PathLen = strlen(FileName);FileName[PathLen-1] != SLASH;){
         if (--PathLen == 0) break;
     }
 
@@ -522,15 +525,17 @@ static void DoFileRenaming(const char * FileName)
 {
     int NumAlpha = 0;
     int NumDigit = 0;
-    int PrefixPart = 0;
-    int ExtensionPart = strlen(FileName);
+    int PrefixPart = 0; // Where the actual filename starts.
+    int ExtensionPart;  // Where the file extension starts.
     int a;
     struct tm tm;
     char NewBaseName[PATH_MAX*2];
     int AddLetter = 0;
+    char NewName[PATH_MAX+2];
 
+    ExtensionPart = strlen(FileName);
     for (a=0;FileName[a];a++){
-        if (FileName[a] == '/' || FileName[a] == '\\'){
+        if (FileName[a] == SLASH){
             // Don't count path component.
             NumAlpha = 0;
             NumDigit = 0;
@@ -557,7 +562,7 @@ static void DoFileRenaming(const char * FileName)
     }
     
 
-    strcpy(NewBaseName, FileName); // Get path component of name.
+    strncpy(NewBaseName, FileName, PATH_MAX); // Get path component of name.
 
     if (strftime_args){
         // Complicated scheme for flexibility.  Just pass the args to strftime.
@@ -610,13 +615,15 @@ static void DoFileRenaming(const char * FileName)
                 }
             }
         }
-
-        strftime(NewBaseName+PrefixPart, PATH_MAX, pattern, &tm);
+        strftime(NewName, PATH_MAX, pattern, &tm);
     }else{
         // My favourite scheme.
-        sprintf(NewBaseName+PrefixPart, "%02d%02d-%02d%02d%02d",
+        sprintf(NewName, "%02d%02d-%02d%02d%02d",
              tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     }
+
+    NewBaseName[PrefixPart] = 0;
+    CatPath(NewBaseName, NewName);
 
     AddLetter = isdigit(NewBaseName[strlen(NewBaseName)-1]);
     for (a=0;;a++){
@@ -631,9 +638,9 @@ static void DoFileRenaming(const char * FileName)
             // is before the '.' in ascii, and so sorting the names would put the later name before
             // the name without suffix, causing the pictures to more likely be out of order.
             if (AddLetter){
-                NameExtra[0] = (char)('a'-1+a); // Try a,b,c,d... for suffix if it ends in a letter.
+                NameExtra[0] = (char)('a'-1+a); // Try a,b,c,d... for suffix if it ends in a number.
             }else{
-                NameExtra[0] = (char)('0'-1+a); // Try 1,2,3,4... for suffix if it ends in a char.
+                NameExtra[0] = (char)('0'-1+a); // Try 0,1,2,3... for suffix if it ends in a latter.
             }
             NameExtra[1] = 0;
         }else{
@@ -644,8 +651,16 @@ static void DoFileRenaming(const char * FileName)
 
         if (!strcmp(FileName, NewName)) break; // Skip if its already this name.
 
+        if (!EnsurePathExists(NewBaseName)){
+            break;
+        }
+
+
         if (stat(NewName, &dummy)){
             // This name does not pre-exist.
+printf("Rename '%s' --> '%s'\n",FileName, NewName);
+//break;
+
             if (rename(FileName, NewName) == 0){
                 printf("%s --> %s\n",FileName, NewName);
 #ifdef _WIN32
@@ -658,6 +673,7 @@ static void DoFileRenaming(const char * FileName)
                 printf("Error: Couldn't rename '%s' to '%s'\n",FileName, NewName);
             }
             break;
+
         }
 
         if (a > 25 || (!AddLetter && a > 9)){
@@ -1232,6 +1248,8 @@ static void Usage (void)
            "             The '.jpg' is automatically added to the end of the name.  If the\n"
            "             destination name already exists, a letter or digit is added to \n"
            "             the end of the name to make it unique.\n"
+           "             The new name may include a path as part of the name.  If this path\n"
+           "             does not exist, it will be created\n"
            "  -nf[format-string]\n"
            "             Same as -n, but rename regardless of original name\n"
            "  -a         (Windows only) Rename files with same name but different extension\n"
@@ -1480,6 +1498,9 @@ int main (int argc, char **argv)
             if (*arg){
                 // A strftime format string is supplied.
                 strftime_args = arg;
+                #ifdef _WIN32
+                    SlashToNative(strftime_args);
+                #endif
                 //printf("strftime_args = %s\n",arg);
             }
         }else if (!strcmp(arg,"-a")){
@@ -1646,13 +1667,7 @@ int main (int argc, char **argv)
         FilesMatched = FALSE;
 
         #ifdef _WIN32
-            {
-                int a;
-                for (a=0;;a++){
-                    if (argv[argn][a] == '\0') break;
-                    if (argv[argn][a] == '/') argv[argn][a] = '\\';
-                }
-            }
+            SlashToNative(argv[argn]);
             // Use my globbing module to do fancier wildcard expansion with recursive
             // subdirectories under Windows.
             MyGlob(argv[argn], ProcessFile);

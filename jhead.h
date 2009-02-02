@@ -39,7 +39,11 @@ typedef unsigned char uchar;
 
 #ifdef _WIN32
     #define PATH_MAX _MAX_PATH
+    #define SLASH '\\'
+#else
+    #define SLASH '/'
 #endif
+
 
 //--------------------------------------------------------------------------
 // This structure is used to store jpeg file sections in memory.
@@ -172,7 +176,14 @@ void show_IPTC (unsigned char * CharBuf, unsigned int length);
 void ShowXmp(Section_t XmpSection);
 
 // Prototypes for myglob.c module
-extern void MyGlob(const char * Pattern , void (*FileFuncParm)(const char * FileName));
+#ifdef _WIN32
+void MyGlob(const char * Pattern , void (*FileFuncParm)(const char * FileName));
+void SlashToNative(char * Path);
+#endif
+
+// Prototypes for paths.c module
+int EnsurePathExists(const char * FileName);
+void CatPath(char * BasePath, const char * FilePath);
 
 // Prototypes from jpgfile.c
 int ReadJpegSections (FILE * infile, ReadMode_t ReadMode);

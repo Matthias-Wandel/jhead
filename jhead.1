@@ -141,6 +141,9 @@ substitute the original name of the file (minus extension).  '%i' will substitut
 number.  Leading zeros can be specified like with printf - i.e. '%04i' pads the number to 4
 digits using leading zeros.
 
+If the name includes '/', this is interpreted as a new path for the file.  
+If the new path does not exist, the path will be created.
+
 If the target name already exists, the name will be appended with "a", "b", "c", etc,
 unless the name ends with a letter, in which case it will be appended with "0", "1", "2", etc.
 

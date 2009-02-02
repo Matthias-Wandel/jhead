@@ -10,13 +10,9 @@
 #include <ctype.h>
 #include <ctype.h>
 #include <sys/stat.h>
+#include <direct.h> // for mkdir under windows.
 #include "jhead.h"
 
-#ifdef _WIN32
-    #define SLASH '\\'
-#else
-    #define SLASH '/'
-#endif
 //--------------------------------------------------------------------------------
 // Ensure that a path exists
 //--------------------------------------------------------------------------------
@@ -26,22 +22,34 @@ int EnsurePathExists(const char * FileName)
     int a;
     int LastSlash = 0;
 
+    //printf("\nEnsure exists:%s\n",FileName);
+
     // Extract the path component of the file name.
     strcpy(NewPath, FileName);
     a = strlen(NewPath);
-    for (;--a;){
+    for (;;){
+        a--;
+        if (a == 0){
+            printf("a = 0\n");
+            NewPath[0] = 0;
+            break;    
+        }
         if (NewPath[a] == SLASH){
             struct stat dummy;
             NewPath[a] = 0;
-            printf("Try '%s'\n",NewPath);
             if (stat(NewPath, &dummy) == 0){
-                if (LastSlash == 0){
-                    // Full path exists.  No need to create any directories.
-                    return 1;
-                }else{
+                if (dummy.st_mode & _S_IFDIR){
                     // Break out of loop, and go forward along path making
                     // the directories.
+                    if (LastSlash == 0){
+                        // Full path exists.  No need to create any directories.
+                        return 1;
+                    }
                     break;
+                }else{
+                    // Its a file.
+                    fprintf(stderr,"Can't create path '%s' due to file conflict\n",NewPath);
+                    return 0;
                 }
             }
             if (LastSlash == 0) LastSlash = a;
@@ -49,13 +57,15 @@ int EnsurePathExists(const char * FileName)
     }
 
     // Now work forward.
-    printf("Existing path: '%s'\n",NewPath);
+    //printf("Existing First dir: '%s' a = %d\n",NewPath,a);
+
     for(;FileName[a];a++){
-        if (FileName[a] == SLASH){
+        if (FileName[a] == SLASH || a == 0){
             if (a == LastSlash) break;
-            NewPath[a] = SLASH;
+            NewPath[a] = FileName[a];
             printf("make dir '%s'\n",NewPath);
             if (mkdir(NewPath)){
+                fprintf(stderr,"Could not create directory '%s'\n",NewPath);
                 // Failed to create directory.
                 return 0;
             }
@@ -63,19 +73,6 @@ int EnsurePathExists(const char * FileName)
     }
     return 1;
 }
-
-//--------------------------------------------------------------------------------
-// Flip slashes to native OS representation (for Windows)
-//--------------------------------------------------------------------------------
-#ifdef _WIN32
-void SlashToNative(char * Path)
-{
-    int a;
-    for (a=0;Path[a];a++){
-        if (Path[a] == '/') Path[a] = SLASH;
-    }
-}
-#endif
 
 //--------------------------------------------------------------------------------
 // Make a new path out of a base path, and a filename.
@@ -92,7 +89,6 @@ void CatPath(char * BasePath, const char * FilePath)
     }
 
     if (FilePath[0] == SLASH || l == 0){
-abs_path:
         // Its an absolute path, or there was no base path.
         strcpy(BasePath, FilePath);
         return;
@@ -109,16 +105,22 @@ abs_path:
     // that the filesystem will take care of these.
 }
 
-
 /*
-char Path[] = "test/a/b/../cdir/foo.jpg";
+
+char Path1[] = "ztest\\cdir\\foo.jpg";
+char Path2[] = "zxtest\\cdir\\foo.jpg";
+char Path3[] = "\\tzest\\cdir\\foo.jpg";
 
 char BasePath[100];
 
 main()
 {
-    SlashToNative(Path);
-    EnsurePathExists(Path);
+    EnsurePathExists(Path1);
+    EnsurePathExists(Path2);
+    EnsurePathExists(Path3);
+
+
+
 
     CatPath(BasePath, "hello.txt");
     CatPath(BasePath, "world\\hello.txt");
