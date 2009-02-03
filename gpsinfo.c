@@ -136,10 +136,11 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
 
                     den = Get32s(ValuePtr+4+a*ComponentSize);
                     digits = 0;
-                    while (den > 1){
+                    while (den > 1 && digits <= 6){
                         den = den / 10;
                         digits += 1;
                     }
+                    if (digits > 6) digits = 6;
                     FmtString[1+a*7] = (char)('2'+digits+(digits ? 1 : 0));
                     FmtString[3+a*7] = (char)('0'+digits);
 

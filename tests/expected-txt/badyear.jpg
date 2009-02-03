@@ -1,0 +1,98 @@
+Exif header 7166 bytes long
+Exif section in Intel order
+(dir has 9 entries)
+    Make = "Canon"
+    Model = "Canon PowerShot Pro1"
+    Orientation = 1
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2106:12:23 17:13:31"
+    YCbCrPositioning = 1
+    ExifOffset = 196
+    Exif Dir:(dir has 31 entries)
+        ExposureTime = 1/250
+        FNumber = 40/10
+        ExifVersion = "0221"
+        DateTimeOriginal = "2106:12:23 17:13:31"
+        DateTimeDigitized = "2106:12:23 17:13:31"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 5/1
+        ShutterSpeedValue = 255/32
+        ApertureValue = 128/32
+        ExposureBiasValue = 0/3
+        MaxApertureValue = 116/32
+        MeteringMode = 2
+        Flash = 16
+        FocalLength = 1217/32
+        Maker note: (dir has 19 entries)
+            Canon maker tag 0001 Value = 92, 2, 0, 5, 0, 0, 0, 4, 0, 1, 0, 1, 0, 0, 0, 0, ...
+            Canon maker tag 0002 Value = 2, 1217, 355, 266
+            Canon maker tag 0003 Value = 0, 0, 0, 0
+            Canon maker tag 0004 Value = 68, 0, 224, 160, 128, 255, 0, 2, 0, 0, 36, 0, 0, 0, 0, 0, ...
+            Canon maker tag 0000 Value = 0, 0, 0, 0, 0, 0
+            Canon maker tag 0000 Value = 0, 0, 0, 0
+            Canon maker tag 0012 Value = 1, 1, 3264, 2448, 3264, 204, 849, 53, 0, 0, 1, 0
+            Canon maker tag 0013 Value = 0, 0, 0, 0
+            Canon maker tag 0006 Value = "IMG:PowerShot Pro1 JPEG"
+            Canon maker tag 0007 Value = "Firmware Version 1.01"
+            Canon maker tag 0008 Value = 1454564
+            Canon maker tag 0009 Value = "W"
+            Canon maker tag 0010 Value = 20381696
+            Canon maker tag 0000 Value = 10, 2, 2, 640, 480
+            Canon maker tag 0018 Value = 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, ...
+            Canon maker tag 0019 Value = 1
+            Canon maker tag 00b4 Value = 1
+            Canon maker tag 001a Value = 0
+            Canon maker tag 000d Value = 56, 1, 1434, 6, 0, 0, 21, 2, 0, 10, 0, 0, 0, 65200, 296, 7, ...
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 3264
+        ExifImageLength = 2448
+        InteroperabilityOffset = 1846
+        Interop Dir:(dir has 4 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+            RelatedImageWidth = 3264
+            RelatedImageLength = 2448
+        FocalPlaneXResolution = 3264000/347
+        FocalPlaneYResolution = 2448000/260
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = ""
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 1
+        DigitalZoomRatio = 3264/3264
+        SceneCaptureType = 0
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 180/1
+        YResolution = 180/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2548
+        ThumbnailLength = 4221
+Thumbnail size: 4221 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 267w * 200h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 29
+Jpeg section marker 0xc4 size 64
+Jpeg section marker 0xc4 size 26
+Jpeg section marker 0xc4 size 45
+Camera make  : Canon
+Camera model : Canon PowerShot Pro1
+Date/Time    : 2106:12:23 17:13:31
+Resolution   : 267 x 200
+Flash used   : No
+Focal length : 38.0mm  (35mm equivalent: 155mm)
+CCD width    : 8.81mm
+Exposure time: 0.0040 s  (1/250)
+Aperture     : f/4.0
+Focus dist.  : 5.76m
+ISO equiv.   : 400
+Whitebalance : Manual
+Light Source : Daylight
+Metering Mode: center weight
+

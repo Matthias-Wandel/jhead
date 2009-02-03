@@ -1,0 +1,27 @@
+Image cotains IPTC section, 5056 bytes long
+Jpeg section marker 0xee size 14
+Jpeg section marker 0xdb size 132
+JPEG image is 110w * 100h, 3 color components, 8 bits per sample
+Jpeg section marker 0xdd size 4
+Jpeg section marker 0xc4 size 418
+Resolution   : 110 x 100
+======= IPTC data: =======
+Category      : Supl. Category2
+Category      : Supl. Category1
+Category      : Cat
+(C)Notice     : Copyright
+Spec. Instr.  : Special Instr.
+Headline      : Headline
+Author        : CaptionWriter
+Caption       : Caption
+OriginalTransmissionReference: Transmission
+Country       : Country
+State         : State
+City          : City
+DateCreated   : 20000101
+Object Name   : ObjectName
+Source        : Source
+Credit        : Credits
+Byline Title  : BylineTitle
+Byline        : Byline
+

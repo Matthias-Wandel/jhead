@@ -658,9 +658,6 @@ static void DoFileRenaming(const char * FileName)
 
         if (stat(NewName, &dummy)){
             // This name does not pre-exist.
-printf("Rename '%s' --> '%s'\n",FileName, NewName);
-//break;
-
             if (rename(FileName, NewName) == 0){
                 printf("%s --> %s\n",FileName, NewName);
 #ifdef _WIN32
