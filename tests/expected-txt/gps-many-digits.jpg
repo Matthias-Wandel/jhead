@@ -1,0 +1,84 @@
+COM marker comment: Pigeon Point Lighthouse, California <www.californiacoastline.org>
+Image cotains IPTC section, 6012 bytes long
+Exif header 16217 bytes long
+Exif section in Motorola order
+(dir has 12 entries)
+    ImageDescription = "                               "
+    Make = "NIKON CORPORATION"
+    Model = "Mod NIKON D1X"
+    XResolution = 300/1
+    YResolution = 300/1
+    ResolutionUnit = 2
+    Software = "Ver.1.01 "
+    DateTime = "2002:09:30 16:17:13"
+    YCbCrPositioning = 1
+    Copyright = "Copyright,                      "
+    ExifOffset = 302
+    Exif Dir:(dir has 24 entries)
+        ExposureTime = 2/1000
+        FNumber = 76/10
+        ExposureProgram = 4
+        ExifVersion = "0210"
+        DateTimeOriginal = "2002:09:30 16:17:13"
+        DateTimeDigitized = "2002:09:30 16:17:13"
+        ComponentsConfiguration = "?"
+        ExposureBiasValue = 0/6
+        MaxApertureValue = 3/1
+        MeteringMode = 5
+        FocalLength = 70/1
+        Maker note:  00 18 00 01 00 07 00 00 00 04 30... (2578 bytes)
+        UserComment = "?Adelman?"
+Multiple comments in exif header
+        SubSecTime = "22"
+        SubSecTimeOriginal = "22"
+        SubSecTimeDigitized = "22"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 3008
+        ExifImageLength = 1960
+        SensingMethod = 2
+        FileSource = ""
+        SceneType = ""
+        CFA Pattern = "?"
+    GPS Dir offset = 732
+    GPS info dir:(dir has 10 entries)
+        GPSVersionID        =02, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01, 00, 00, 01, 00
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =37/1, 10/1, 438000000/10000000, 10/1, 438000000/10000000, 122/1, 438000000/10000000, 122/1, 23/1
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =122/1, 23/1, 564000000/10000000, 23/1, 564000000/10000000, 227/1, 564000000/10000000, 227/1, 0/1
+        GPSAltitudeRef      =00
+        GPSAltitude         =227/1
+        GPSTimeStamp        =0/1, 7/1, 40/1, 7/1, 40/1, 538976288/538976288, 40/1, 538976288/538976288, 536870936/65543
+        GPSSatellites       ="08"
+        GPSMapDatum         ="         "
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 300/1
+        YResolution = 300/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 3624
+        ThumbnailLength = 12585
+Thumbnail size: 12585 bytes
+Jpeg section marker 0xe2 size 496
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 104h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 27
+Jpeg section marker 0xc4 size 58
+Jpeg section marker 0xc4 size 25
+Jpeg section marker 0xc4 size 33
+Camera make  : NIKON CORPORATION
+Camera model : Mod NIKON D1X
+Date/Time    : 2002:09:30 16:17:13
+Resolution   : 160 x 104
+Focal length : 70.0mm
+Exposure time: 0.0020 s  (1/500)
+Aperture     : f/7.6
+Metering Mode: matrix
+Exposure     : shutter priority (semi-auto)
+GPS Latitude : N 37d 10m 43.800000s
+GPS Longitude: W 122d 23m 56.400000s
+GPS Altitude :  227.00m
+Comment      : Pigeon Point Lighthouse, California <www.californiacoastline.org>
+
