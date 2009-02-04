@@ -7,7 +7,7 @@ fdir=jhead-2.86
 rm -rf $fdir
 mkdir $fdir
 cp changes.txt $fdir
-gzip < jhead.1 > $fdir/jhead.1.gz
+cp jhead.1 > $fdir
 
 cp make.bat $fdir
 cp makefile-win32 $fdir
