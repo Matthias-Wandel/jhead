@@ -19,6 +19,7 @@ cp usage.html $fdir
 cp exif.c $fdir
 cp jhead.c $fdir
 cp myglob.c $fdir
+cp paths.c $fdir
 cp jpgfile.c $fdir
 cp gpsinfo.c $fdir
 cp makernote.c $fdir
