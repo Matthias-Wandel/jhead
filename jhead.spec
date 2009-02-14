@@ -73,7 +73,11 @@ rm -rf %{buildroot}
 # -----------------------------------------------------
 %changelog
 
-* Mon Sep 23 2003 - 2.84
+* Sat Feb 14 2009 - 2.86
+- Added ability to move files around with the -n command
+- Various minor bugfixes and maintenance changes
+
+* Mon Oct 4 2008 - 2.84
 - decode more exif tags in -v mode
 - Fix gpsinfo altitude bug
 - Fix several potential stirng overflows

@@ -328,3 +328,6 @@ checks the debian people wanted.
 Feb 2 2008
 Added the ability to move files with the -n option. (makes directories if necessary)
 
+Various minor typo and documentation fixes.
+
+-------Released version 2.86 -- Feb 14 2009 --------
