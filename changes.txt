@@ -334,4 +334,4 @@ Various minor typo and documentation fixes.
 
 Fixed an #ifdef that I had defined the wrong way, causing the -ce option to fail.
 
--------Released version 2.86 -- Mar 03 2009 --------
+-------Released version 2.86 -- Mar 02 2009 --------
