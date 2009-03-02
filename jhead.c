@@ -7,7 +7,7 @@
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Feb 2009
+// Dec 1999 - Mar 2009
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "2.86"
+#define JHEAD_VERSION "2.87"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -88,7 +88,6 @@ static int ShowFileInfo = TRUE;     // Indicates to show standard file info
                                     // (file name, file size, file date)
 
 
-#define MATTHIAS
 #ifdef MATTHIAS
     // This #ifdef to take out less than elegant stuff for editing
     // the comments in a JPEG.  The programs rdjpgcom and wrjpgcom
@@ -1200,7 +1199,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Feb 14 2009.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Mar 03 2009.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
