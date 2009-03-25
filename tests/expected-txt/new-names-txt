@@ -42,8 +42,8 @@
 "movetest\2008\no-exif-.jpg" 987x518
 ---Test move/rename to abs path --- 
 c:\jtest\foobar
-c:\jtest\foobar\13.jpg
-c:\jtest\foobar\13a.jpg
+c:\jtest\foobar\11.jpg
+c:\jtest\foobar\11a.jpg
 ---Test move/rename relative path --- 
 "movetest\2004\1\f.jpg" 100x75
 "movetest\2004\2\f.jpg" 60x80

@@ -62,3 +62,15 @@ Whitebalance : Manual
 Light Source : Daylight
 Metering Mode: center weight
 
+Camera make  : DIGITAL CAMERA
+Camera model : 1.0
+Date/Time    : 2008:02:15 17:02:03
+Resolution   : 200 x 160
+Flash used   : No
+Exposure time: 0.034 s  (1/29)
+Aperture     : f/3.5
+ISO equiv.   : 100
+Light Source : Daylight
+Metering Mode: matrix
+Exposure     : aperture priority (semi-auto)
+

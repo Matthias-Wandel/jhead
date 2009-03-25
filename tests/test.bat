@@ -33,6 +33,9 @@ copy strange-jpegs\badyear.jpg badyear.jpg
 jhead -nofinfo badyear.jpg >> results-txt\time.txt
 jhead -ds2006:01 -ta+1:00 badyear.jpg >> results-txt\time.txt
 jhead -nofinfo badyear.jpg >> results-txt\time.txt
+copy strange-jpegs\short_date.jpg short_date.jpg
+jhead -ta+1:02:03 short_date.jpg
+jhead -nofinfo short_date.jpg >> results-txt\time.txt
 
 rem -------------------------------------------------------------------
 rem test comment manipulation

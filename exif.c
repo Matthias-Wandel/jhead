@@ -1260,12 +1260,13 @@ int Exif2tm(struct tm * timeptr, char * ExifTime)
     // Check for format: YYYY:MM:DD HH:MM:SS format.
     // Date and time normally separated by a space, but also seen a ':' there, so
     // skip the middle space with '%*c' so it can be any character.
+    timeptr->tm_sec = 0;
     a = sscanf(ExifTime, "%d%*c%d%*c%d%*c%d:%d:%d",
             &timeptr->tm_year, &timeptr->tm_mon, &timeptr->tm_mday,
             &timeptr->tm_hour, &timeptr->tm_min, &timeptr->tm_sec);
 
-
-    if (a == 6){
+    if (a >= 5){
+        // Accept five or six parameters.  Some cameras do not store seconds.
         timeptr->tm_isdst = -1;  
         timeptr->tm_mon -= 1;      // Adjust for unix zero-based months 
         timeptr->tm_year -= 1900;  // Adjust for year starting at 1900 
