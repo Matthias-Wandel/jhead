@@ -434,7 +434,7 @@ double ConvertAnyFormat(void * ValuePtr, int Format)
         case FMT_DOUBLE:    Value = *(double *)ValuePtr;             break;
 
         default:
-            ErrNonfatal("Illegal format code %d",Format,0);
+            ErrNonfatal("Illegal format code %d in Exif header",Format,0);
     }
     return Value;
 }
@@ -453,7 +453,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
     char IndentString[25];
 
     if (NestingLevel > 4){
-        ErrNonfatal("Maximum directory nesting exceeded (corrupt exif header)", 0,0);
+        ErrNonfatal("Maximum Exif directory nesting exceeded (corrupt Exif header)", 0,0);
         return;
     }
 
@@ -472,7 +472,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 // Version 1.3 of jhead would truncate a bit too much.
                 // This also caught later on as well.
             }else{
-                ErrNonfatal("Illegally sized exif subdirectory (%d entries)",NumDirEntries,0);
+                ErrNonfatal("Illegally sized Exif subdirectory (%d entries)",NumDirEntries,0);
                 return;
             }
         }
@@ -500,12 +500,12 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
         if ((Format-1) >= NUM_FORMATS) {
             // (-1) catches illegal zero case as unsigned underflows to positive large.
-            ErrNonfatal("Illegal number format %d for tag %04x", Format, Tag);
+            ErrNonfatal("Illegal number format %d for tag %04x in Exif", Format, Tag);
             continue;
         }
 
         if ((unsigned)Components > 0x10000){
-            ErrNonfatal("Illegal number of components %d for tag %04x", Components, Tag);
+            ErrNonfatal("Too many components %d for tag %04x in Exif", Components, Tag);
             continue;
         }
 
@@ -517,7 +517,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             // If its bigger than 4 bytes, the dir entry contains an offset.
             if (OffsetVal+ByteCount > ExifLength){
                 // Bogus pointer offset and / or bytecount value
-                ErrNonfatal("Illegal value pointer for tag %04x", Tag,0);
+                ErrNonfatal("Illegal value pointer for tag %04x in Exif", Tag,0);
                 continue;
             }
             ValuePtr = OffsetBase+OffsetVal;
@@ -625,7 +625,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 }
 
                 if (ImageInfo.numDateTimeTags >= MAX_DATE_COPIES){
-                    ErrNonfatal("More than %d date fields!  This is nuts", MAX_DATE_COPIES, 0);
+                    ErrNonfatal("More than %d date fields in Exif.  This is nuts", MAX_DATE_COPIES, 0);
                     break;
                 }
                 ImageInfo.DateTimeOffsets[ImageInfo.numDateTimeTags++] = 
@@ -731,7 +731,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 if (NumOrientations >= 2){
                     // Can have another orientation tag for the thumbnail, but if there's
                     // a third one, things are stringae.
-                    ErrNonfatal("More than two orientation tags!",0,0);
+                    ErrNonfatal("More than two orientation in Exif",0,0);
                     break;
                 }
                 OrientationPtr[NumOrientations] = ValuePtr;
@@ -740,7 +740,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     ImageInfo.Orientation = (int)ConvertAnyFormat(ValuePtr, Format);
                 }
                 if (ImageInfo.Orientation < 0 || ImageInfo.Orientation > 8){
-                    ErrNonfatal("Undefined rotation value %d", ImageInfo.Orientation, 0);
+                    ErrNonfatal("Undefined rotation value %d in Exif", ImageInfo.Orientation, 0);
                     ImageInfo.Orientation = 0;
                 }
                 NumOrientations += 1;
@@ -838,7 +838,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     unsigned char * SubdirStart;
                     SubdirStart = OffsetBase + Get32u(ValuePtr);
                     if (SubdirStart < OffsetBase || SubdirStart > OffsetBase+ExifLength){
-                        ErrNonfatal("Illegal exif or interop ofset directory link",0,0);
+                        ErrNonfatal("Illegal Exif or interop ofset directory link",0,0);
                     }else{
                         ProcessExifDir(SubdirStart, OffsetBase, ExifLength, NestingLevel+1);
                     }
@@ -852,7 +852,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     unsigned char * SubdirStart;
                     SubdirStart = OffsetBase + Get32u(ValuePtr);
                     if (SubdirStart < OffsetBase || SubdirStart > OffsetBase+ExifLength){
-                        ErrNonfatal("Illegal GPS directory link",0,0);
+                        ErrNonfatal("Illegal GPS directory link in Exif",0,0);
                     }else{
                         ProcessGpsInfo(SubdirStart, ByteCount, OffsetBase, ExifLength);
                     }
@@ -894,7 +894,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                         // I'll just let it pass silently
                         if (ShowTags) printf("Thumbnail removed with Jhead 1.3 or earlier\n");
                     }else{
-                        ErrNonfatal("Illegal subdirectory link",0,0);
+                        ErrNonfatal("Illegal subdirectory link in Exif header",0,0);
                     }
                 }else{
                     if (SubdirStart <= OffsetBase+ExifLength){
@@ -986,7 +986,7 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
     FirstOffset = Get32u(ExifSection+12);
     if (FirstOffset < 8 || FirstOffset > 16){
         // Usually set to 8, but other values valid too.
-        ErrNonfatal("Suspicious offset of first IFD value",0,0);
+        ErrNonfatal("Suspicious offset of first Exif IFD value",0,0);
     }
 
     DirWithThumbnailPtrs = NULL;
@@ -1216,7 +1216,7 @@ int RemoveThumbnail(unsigned char * ExifSection)
         return 0;
     }
     if (ImageInfo.ThumbnailAtEnd == FALSE){
-        ErrNonfatal("Thumbnail is not at end of header, can't chop it off", 0, 0);
+        ErrNonfatal("Thumbnail not at end of Exif header, can't remove it", 0, 0);
         return 0;
     }
 
@@ -1234,7 +1234,7 @@ int RemoveThumbnail(unsigned char * ExifSection)
                 // Set length to zero.
                 if (Get16u(DirEntry+2) != FMT_ULONG){
                     // non standard format encoding.  Can't do it.
-                    ErrNonfatal("Can't remove thumbnail", 0, 0);
+                    ErrNonfatal("Can't remove Exif thumbnail", 0, 0);
                     return 0;
                 }
                 Put32u(DirEntry+8, 0);

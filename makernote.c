@@ -21,7 +21,7 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
         unsigned char * DirEnd;
         DirEnd = DIR_ENTRY_ADDR(DirStart, NumDirEntries);
         if (DirEnd > (OffsetBase+ExifLength)){
-            ErrNonfatal("Illegally sized exif makernote subdir (%d entries)",NumDirEntries,0);
+            ErrNonfatal("Illegally sized Exif makernote subdir (%d entries)",NumDirEntries,0);
             return;
         }
 
@@ -47,12 +47,12 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
 
         if ((Format-1) >= NUM_FORMATS) {
             // (-1) catches illegal zero case as unsigned underflows to positive large.
-            ErrNonfatal("Illegal number format %d for tag %04x", Format, Tag);
+            ErrNonfatal("Illegal Exif number format %d for maker tag %04x", Format, Tag);
             continue;
         }
 
         if ((unsigned)Components > 0x10000){
-            ErrNonfatal("Illegal number of components %d for tag %04x", Components, Tag);
+            ErrNonfatal("Too many components (%d) for Exif maker tag %04x", Components, Tag);
             continue;
         }
 
@@ -64,7 +64,7 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
             // If its bigger than 4 bytes, the dir entry contains an offset.
             if (OffsetVal+ByteCount > ExifLength){
                 // Bogus pointer offset and / or bytecount value
-                ErrNonfatal("Illegal value pointer for tag %04x", Tag,0);
+                ErrNonfatal("Illegal value pointer for Exif maker tag %04x", Tag,0);
                 continue;
             }
             ValuePtr = OffsetBase+OffsetVal;

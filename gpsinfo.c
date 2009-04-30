@@ -90,7 +90,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
 
         if ((Format-1) >= NUM_FORMATS) {
             // (-1) catches illegal zero case as unsigned underflows to positive large.
-            ErrNonfatal("Illegal number format %d for tag %04x", Format, Tag);
+            ErrNonfatal("Illegal number format %d for Exif gps tag %04x", Format, Tag);
             continue;
         }
 
@@ -103,7 +103,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
             // If its bigger than 4 bytes, the dir entry contains an offset.
             if (OffsetVal+ByteCount > ExifLength){
                 // Bogus pointer offset and / or bytecount value
-                ErrNonfatal("Illegal value pointer for tag %04x", Tag,0);
+                ErrNonfatal("Illegal value pointer for Exif gps tag %04x", Tag,0);
                 continue;
             }
             ValuePtr = OffsetBase+OffsetVal;
@@ -128,7 +128,7 @@ void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char
             case TAG_GPS_LAT:
             case TAG_GPS_LONG:
                 if (Format != FMT_URATIONAL){
-                    ErrNonfatal("Inappropriate format (%d) for GPS coordinates!", Format, 0);
+                    ErrNonfatal("Inappropriate format (%d) for Exif GPS coordinates!", Format, 0);
                 }
                 strcpy(FmtString, "%0.0fd %0.0fm %0.0fs");
                 for (a=0;a<3;a++){
