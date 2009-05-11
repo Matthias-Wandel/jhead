@@ -144,6 +144,12 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             }
         }
 
+        if (a == 0){
+            ErrNonfatal("No Jpeg SOS marker.  Treat rest as scan data",0,0);
+            fseek(infile, -1, SEEK_CUR);
+            goto rest_raw;
+        }
+
         Sections[SectionsRead].Type = marker;
   
         // Read the length of the section.
@@ -178,6 +184,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
             case M_SOS:   // stop before hitting compressed data 
                 // If reading entire image is requested, read the rest of the data.
+                rest_raw:
                 if (ReadMode & READ_IMAGE){
                     int cp, ep, size;
                     // Determine how much file is left.
