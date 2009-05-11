@@ -128,26 +128,22 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
     }
     for(;;){
         int itemlen;
+        int prev;
         int marker = 0;
         int ll,lh, got;
         uchar * Data;
 
         CheckSectionsAllocated();
 
-        for (a=0;a<=16;a++){
+        prev = 0;
+        for (a=0;;a++){
             marker = fgetc(infile);
-            if (marker != 0xff) break;
-
-            if (a >= 16){
-                fprintf(stderr,"too many padding bytes\n");
-                return FALSE;
-            }
+            if (marker != 0xff && prev == 0xff) break;
+            prev = marker;
         }
 
-        if (a == 0){
-            ErrNonfatal("No Jpeg SOS marker.  Treat rest as scan data",0,0);
-            fseek(infile, -1, SEEK_CUR);
-            goto rest_raw;
+        if (a > 10){
+            ErrNonfatal("Extraneous %d padding bytes before section %02X",a-1,marker);
         }
 
         Sections[SectionsRead].Type = marker;
@@ -184,7 +180,6 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
             case M_SOS:   // stop before hitting compressed data 
                 // If reading entire image is requested, read the rest of the data.
-                rest_raw:
                 if (ReadMode & READ_IMAGE){
                     int cp, ep, size;
                     // Determine how much file is left.
