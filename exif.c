@@ -984,7 +984,7 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
     }
 
     FirstOffset = Get32u(ExifSection+12);
-    if (FirstOffset != 16){
+    if (FirstOffset < 8 || FirstOffset > 16){
         if (FirstOffset < 16 || FirstOffset > length-16){
             ErrNonfatal("invalid offset for first Exif IFD value",0,0);
             return;
