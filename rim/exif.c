@@ -1394,7 +1394,6 @@ void ShowImageInfo(int ShowFileInfo)
             break;
     }
 
-    //Quercus: 17-1-2004 Added LightSource, some cams return this, whitebalance or both
     switch(ImageInfo.LightSource) {
         case 1:
             printf("Light Source : Daylight\n");
@@ -1414,7 +1413,7 @@ void ShowImageInfo(int ShowFileInfo)
         case 11:
             printf("Light Source : Shade\n");
             break;
-        default:; //Quercus: 17-1-2004 There are many more modes for this, check Exif2.2 specs
+        default:; //There are many more modes for this, check Exif2.2 specs
             // If it just says 'unknown' or we don't know it, then
             // don't bother showing it - it doesn't add any useful information.
     }
@@ -1548,12 +1547,14 @@ static void ShowCsvString(char * String)
     }
 }
 
+#define COMMA putchar(',');
 //--------------------------------------------------------------------------
 // Show as CSV for RIM.
 //--------------------------------------------------------------------------
 static int LegendShown = 0;
 void ShowCsvImageInfo(int ShowFileInfo)
 {
+    int a;
     if (!LegendShown){
         printf("File Name");
         printf(",File Size");
@@ -1574,6 +1575,17 @@ void ShowCsvImageInfo(int ShowFileInfo)
         printf(",CCD width");
         printf(",ExposureTime");
         printf(",Fnumber");
+        printf(",SubjectDistance");
+        printf(",IsoSpeedRating");
+        printf(",ExposureBiasValue");
+        printf(",WhiteBalance");
+        printf(",LightSource");
+        printf(",MeteringMode");
+        printf(",ExposurePorogram");
+        printf(",ExposureMode");
+        printf(",SubjectDistanceRange");
+        printf(",Jpeg process");
+        printf(",Comment");
 
         printf("\n");
         LegendShown = 1;
@@ -1598,21 +1610,22 @@ void ShowCsvImageInfo(int ShowFileInfo)
     printf(",%d,%d",ImageInfo.Width, ImageInfo.Height);
 
 
+    COMMA;
     if (ImageInfo.Orientation > 1){
         // Only print orientation if one was supplied, and if its not 1 (normal orientation)
-        printf(",%s", OrientTab[ImageInfo.Orientation]);
-    }else{
-        printf(",");
+        printf("%s", OrientTab[ImageInfo.Orientation]);
     }
 
+    COMMA;
     if (ImageInfo.IsColor){
-        printf(",color");
+        printf("color");
     }else{
-        printf(",black and white");
+        printf("black and white");
     }
 
+    COMMA;
     if (ImageInfo.FlashUsed & 1){    
-        printf(",On");
+        printf("On ");
         switch (ImageInfo.FlashUsed){
           case 0x5: printf("(Strobe light not detected)"); break;
           case 0x7: printf("(Strobe light detected) "); break;
@@ -1634,221 +1647,183 @@ void ShowCsvImageInfo(int ShowFileInfo)
         }
     }else{
         if (ImageInfo.FlashUsed == 0x18){
-            printf(",Off (auto)");
+            printf("Off (auto)");
         }else{
-            printf(",Off");
+            printf("Off");
         }
     }
 
+    COMMA;
     if (ImageInfo.FocalLength){
-        printf(",%4.1f",(double)ImageInfo.FocalLength);
+        printf("%4.1f",(double)ImageInfo.FocalLength);
+        COMMA;
         if (ImageInfo.FocalLength35mmEquiv){
-            printf(",%d", ImageInfo.FocalLength35mmEquiv);
-        }else{
-            printf(",");
+            printf("%d", ImageInfo.FocalLength35mmEquiv);
         }
     }else{
-        printf(",,");
+        COMMA;
     }
 
+    COMMA;
     if (ImageInfo.DigitalZoomRatio > 0){
-        printf(",%1.3f", (double)ImageInfo.DigitalZoomRatio);
-    }else{
-        printf(",");
+        printf("%1.3f", (double)ImageInfo.DigitalZoomRatio);
     }
 
+    COMMA;
     if (ImageInfo.CCDWidth){
-        printf(",%4.2f",(double)ImageInfo.CCDWidth);
-    }else{
-        printf(",");
+        printf("%4.2f",(double)ImageInfo.CCDWidth);
     }
 
+    COMMA;
     if (ImageInfo.ExposureTime){
-        printf(",%.4f",(double)ImageInfo.ExposureTime);
-    }else{
-        printf(",");
+        printf("%.4f",(double)ImageInfo.ExposureTime);
     }
 
+    COMMA;
     if (ImageInfo.ApertureFNumber){
-        printf(",%.4f",(double)ImageInfo.ApertureFNumber);
-    }else{
-        printf(",");
+        printf("%.4f",(double)ImageInfo.ApertureFNumber);
     }
 
-//    if (ImageInfo.Distance){
-//        if (ImageInfo.Distance < 0){
-//            printf("Focus dist.  : Infinite\n");
-//        }else{
-//            printf("Focus dist.  : %4.2fm\n",(double)ImageInfo.Distance);
-//        }
-//    }
-//
-//    if (ImageInfo.ISOequivalent){
-//        printf("ISO equiv.   : %2d\n",(int)ImageInfo.ISOequivalent);
-//    }
-//
-//    if (ImageInfo.ExposureBias){
-//        // If exposure bias was specified, but set to zero, presumably its no bias at all,
-//        // so only show it if its nonzero.
-//        printf("Exposure bias: %4.2f\n",(double)ImageInfo.ExposureBias);
-//    }
-//        
-//    switch(ImageInfo.Whitebalance) {
-//        case 1:
-//            printf("Whitebalance : Manual\n");
-//            break;
-//        case 0:
-//            printf("Whitebalance : Auto\n");
-//            break;
-//    }
-//
-//    //Quercus: 17-1-2004 Added LightSource, some cams return this, whitebalance or both
-//    switch(ImageInfo.LightSource) {
-//        case 1:
-//            printf("Light Source : Daylight\n");
-//            break;
-//        case 2:
-//            printf("Light Source : Fluorescent\n");
-//            break;
-//        case 3:
-//            printf("Light Source : Incandescent\n");
-//            break;
-//        case 4:
-//            printf("Light Source : Flash\n");
-//            break;
-//        case 9:
-//            printf("Light Source : Fine weather\n");
-//            break;
-//        case 11:
-//            printf("Light Source : Shade\n");
-//            break;
-//        default:; //Quercus: 17-1-2004 There are many more modes for this, check Exif2.2 specs
-//            // If it just says 'unknown' or we don't know it, then
-//            // don't bother showing it - it doesn't add any useful information.
-//    }
-//
-//    if (ImageInfo.MeteringMode){ // 05-jan-2001 vcs
-//        switch(ImageInfo.MeteringMode) {
-//        case 2:
-//            printf("Metering Mode: center weight\n");
-//            break;
-//        case 3:
-//            printf("Metering Mode: spot\n");
-//            break;
-//        case 5:
-//            printf("Metering Mode: matrix\n");
-//            break;
-//        }
-//    }
-//
-//    if (ImageInfo.ExposureProgram){ // 05-jan-2001 vcs
-//        switch(ImageInfo.ExposureProgram) {
-//        case 1:
-//            printf("Exposure     : Manual\n");
-//            break;
-//        case 2:
-//            printf("Exposure     : program (auto)\n");
-//            break;
-//        case 3:
-//            printf("Exposure     : aperture priority (semi-auto)\n");
-//            break;
-//        case 4:
-//            printf("Exposure     : shutter priority (semi-auto)\n");
-//            break;
-//        case 5:
-//            printf("Exposure     : Creative Program (based towards depth of field)\n"); 
-//            break;
-//        case 6:
-//            printf("Exposure     : Action program (based towards fast shutter speed)\n");
-//            break;
-//        case 7:
-//            printf("Exposure     : Portrait Mode\n");
-//            break;
-//        case 8:
-//            printf("Exposure     : LandscapeMode \n");
-//            break;
-//        default:
-//            break;
-//        }
-//    }
-//    switch(ImageInfo.ExposureMode){
-//        case 0: // Automatic (not worth cluttering up output for)
-//            break;
-//        case 1: printf("Exposure Mode: Manual\n");
-//            break;
-//        case 2: printf("Exposure Mode: Auto bracketing\n");
-//            break;
-//    }
-//
-//    if (ImageInfo.DistanceRange) {
-//        printf("Focus range  : ");
-//        switch(ImageInfo.DistanceRange) {
-//            case 1:
-//                printf("macro");
-//                break;
-//            case 2:
-//                printf("close");
-//                break;
-//            case 3:
-//                printf("distant");
-//                break;
-//        }
-//        printf("\n");
-//    }
-//
-//
-//
-//    if (ImageInfo.Process != M_SOF0){
-//        // don't show it if its the plain old boring 'baseline' process, but do
-//        // show it if its something else, like 'progressive' (used on web sometimes)
-//        int a;
-//        for (a=0;;a++){
-//            if (a >= PROCESS_TABLE_SIZE){
-//                // ran off the end of the table.
-//                printf("Jpeg process : Unknown\n");
-//                break;
-//            }
-//            if (ProcessTable[a].Tag == ImageInfo.Process){
-//                printf("Jpeg process : %s\n",ProcessTable[a].Desc);
-//                break;
-//            }
-//        }
-//    }
-//
-//    if (ImageInfo.GpsInfoPresent){
-//        printf("GPS Latitude : %s\n",ImageInfo.GpsLat);
-//        printf("GPS Longitude: %s\n",ImageInfo.GpsLong);
-//        if (ImageInfo.GpsAlt[0]) printf("GPS Altitude : %s\n",ImageInfo.GpsAlt);
-//    }
-//
-//    // Print the comment. Print 'Comment:' for each new line of comment.
-//    if (ImageInfo.Comments[0]){
-//        int a,c;
-//        printf("Comment      : ");
-//        if (!ImageInfo.CommentWidchars){
-//            for (a=0;a<MAX_COMMENT_SIZE;a++){
-//                c = ImageInfo.Comments[a];
-//                if (c == '\0') break;
-//                if (c == '\n'){
-//                    // Do not start a new line if the string ends with a carriage return.
-//                    if (ImageInfo.Comments[a+1] != '\0'){
-//                        printf("\nComment      : ");
-//                    }else{
-//                        printf("\n");
-//                    }
-//                }else{
-//                    putchar(c);
-//                }
-//            }
-//            printf("\n");
-//        }else{
-//            printf("%.*ls\n", ImageInfo.CommentWidchars, (wchar_t *)ImageInfo.Comments);
-//        }
-//    }
-//
+    COMMA;
+    if (ImageInfo.Distance){
+        if (ImageInfo.Distance < 0){
+            printf("Inf");
+        }else{
+            printf("%4.2f",(double)ImageInfo.Distance);
+        }
+    }
+
+    COMMA;
+    if (ImageInfo.ISOequivalent){
+        printf("%d",(int)ImageInfo.ISOequivalent);
+    }
+
+    COMMA;
+    if (ImageInfo.ExposureBias){
+        printf("%.2f",(double)ImageInfo.ExposureBias);
+    }
+
+    COMMA;        
+    switch(ImageInfo.Whitebalance) {
+        case 1:
+            printf("Manual");
+            break;
+        case 0:
+            printf("Auto");
+            break;
+    }
+
+    COMMA;
+    switch(ImageInfo.LightSource) {
+        case 0:  break; // Not specified.
+        case 1:  printf("Daylight"); break;
+        case 2:  printf("Fluorescent"); break;
+        case 3:  printf("Incandescent"); break;
+        case 4:  printf("Flash"); break;
+        case 9:  printf("Fine weather");  break;
+        case 11: printf("Shade"); break;
+
+        case 12: printf("Daylight fluorescent (D 5700 – 7100K)"); break;
+        case 13: printf("Day white fluorescent (N 4600 – 5400K)"); break;
+        case 14: printf("Cool white fluorescent (W 3900 – 4500K)"); break;
+        case 15: printf("White fluorescent (WW 3200 – 3700K)"); break; 
+        case 17: printf("Standard light A"); break;
+        case 18: printf("Standard light B"); break;
+        case 19: printf("Standard light C"); break;
+        case 20: printf("D55"); break;
+        case 21: printf("D65"); break;
+        case 22: printf("D75"); break;
+        case 23: printf("D50"); break;
+        case 24: printf("ISO studio tungsten"); break;
+        case 255:printf("other light source"); break;
+        default: printf("reserved"); break;
+    }
 
 
-     printf("\n");
+    COMMA;
+    if (ImageInfo.MeteringMode){
+        switch(ImageInfo.MeteringMode) {
+        case 1: printf("average"); break;
+        case 2: printf("center weight"); break;
+        case 3: printf("spot"); break;
+        case 4: printf("multispot"); break;
+        case 5: printf("pattern"); break;
+        case 6: printf("partial"); break;
+        case 255: printf("other"); break;
+        default: printf("%d",ImageInfo.MeteringMode);
+        }
+    }
+
+    COMMA;
+    if (ImageInfo.ExposureProgram){ // 05-jan-2001 vcs
+        switch(ImageInfo.ExposureProgram) {
+            case 1: printf("Manual"); break;
+            case 2: printf("program (auto)"); break;
+            case 3: printf("aperture priority (semi-auto)"); break;
+            case 4: printf("shutter priority (semi-auto)"); break;
+            case 5: printf("Creative Program (based towards depth of field)"); break;
+            case 6: printf("Action program (based towards fast shutter speed)"); break;
+            case 7: printf("Portrait Mode");    break;
+            case 8: printf("LandscapeMode");    break;
+            default:printf("%d",ImageInfo.ExposureProgram); break;
+        }
+    }
+
+    COMMA;
+    switch(ImageInfo.ExposureMode){
+        case 0: printf("Automatic"); break;
+        case 1: printf("Manual"); break;
+        case 2: printf("Auto bracketing"); break;
+    }
+
+    COMMA;
+    if (ImageInfo.DistanceRange) {
+        switch(ImageInfo.DistanceRange) {
+            case 1: printf("macro"); break;
+            case 2: printf("close"); break;
+            case 3: printf("distant"); break;
+            default: printf("%d",ImageInfo.DistanceRange); break;
+        }
+    }
+
+    COMMA;
+    for (a=0;;a++){
+        if (a >= PROCESS_TABLE_SIZE){
+            // ran off the end of the table.
+            printf("Unknown");
+            break;
+        }
+        if (ProcessTable[a].Tag == ImageInfo.Process){
+            printf("%s",ProcessTable[a].Desc);
+            break;
+        }
+    }
+
+    COMMA;
+    if (ImageInfo.Comments[0]){
+        int a,c;
+        printf("\"");
+        if (!ImageInfo.CommentWidchars){
+            for (a=0;a<MAX_COMMENT_SIZE;a++){
+                c = ImageInfo.Comments[a];
+                if (c == '\0') break;
+                if (c == '\n'){
+                    printf("\n");
+                }else if (c == '\"'){
+                    printf("\\\"");
+                }else{
+                    putchar(c);
+                }
+            }
+            printf("");
+        }else{
+            printf("\"%.*ls\"", ImageInfo.CommentWidchars, (wchar_t *)ImageInfo.Comments);
+        }
+        printf("\"");
+    }
+
+
+    printf("\n");
 }
 
 
