@@ -69,7 +69,8 @@ typedef struct {
     unsigned FileSize;
     char  CameraMake   [32];
     char  CameraModel  [40];
-    char  DateTime     [20];
+    char  DateTime          [20]; // DateTimeOriginal
+    char  DateTimeDigitized [20];
     int   Height, Width;
     int   Orientation;
     int   IsColor;
@@ -134,6 +135,7 @@ int Exif2tm(struct tm * timeptr, char * ExifTime);
 void process_EXIF (unsigned char * CharBuf, unsigned int length);
 int RemoveThumbnail(unsigned char * ExifSection);
 void ShowImageInfo(int ShowFileInfo);
+void ShowCsvImageInfo(int ShowFileInfo);
 void ShowConciseImageInfo(void);
 const char * ClearOrientation(void);
 void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount);

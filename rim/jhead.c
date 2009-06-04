@@ -1,13 +1,13 @@
 //--------------------------------------------------------------------------
-// Program to pull the information out of various types of EXIF digital 
-// camera files and show it in a reasonably consistent way
+// Custom version of Jhead for RIM.
 //
+// Based on Jhead
 // Version 2.86
 //
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Mar 2009
+// Dec 1999 - Jun 2009
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -16,10 +16,6 @@
 #include <sys/stat.h>
 
 #define JHEAD_VERSION "2.87"
-
-// This #define turns on features that are too very specific to 
-// how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-//#define MATTHIAS
 
 #ifdef _WIN32
     #include <io.h>
@@ -47,6 +43,7 @@ static int DoReadAction = FALSE;
 static int Quiet        = FALSE;    // Be quiet on success (like unix programs)
        int DumpExifMap  = FALSE;
 static int ShowConcise  = FALSE;
+static int ShowCsv      = TRUE;
 static int CreateExifSection = FALSE;
 static char * ApplyCommand = NULL;  // Apply this command to all images.
 static char * FilterModel = NULL;
@@ -86,17 +83,6 @@ static int ZeroRotateTagOnly = FALSE;
 
 static int ShowFileInfo = TRUE;     // Indicates to show standard file info
                                     // (file name, file size, file date)
-
-
-#ifdef MATTHIAS
-    // This #ifdef to take out less than elegant stuff for editing
-    // the comments in a JPEG.  The programs rdjpgcom and wrjpgcom
-    // included with Linux distributions do a better job.
-
-    static char * AddComment = NULL; // Add this tag.
-    static char * RemComment = NULL; // Remove this tag
-    static int AutoResize = FALSE;
-#endif // MATTHIAS
 
 //--------------------------------------------------------------------------
 // Error exit handler
@@ -179,120 +165,6 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
     return CommentSize;
 }
 
-#ifdef MATTHIAS
-//--------------------------------------------------------------------------
-// Modify one of the lines in the comment field.
-// This very specific to the photo album program stuff.
-//--------------------------------------------------------------------------
-static char KnownTags[][10] = {"date", "desc","scan_date","author",
-                               "keyword","videograb",
-                               "show_raw","panorama","titlepix",""};
-
-static int ModifyDescriptComment(char * OutComment, char * SrcComment)
-{
-    char Line[500];
-    int Len;
-    int a,i;
-    unsigned l;
-    int HasScandate = FALSE;
-    int TagExists = FALSE;
-    int Modified = FALSE;
-    Len = 0;
-
-    OutComment[0] = 0;
-
-
-    for (i=0;;i++){
-        if (SrcComment[i] == '\r' || SrcComment[i] == '\n' || SrcComment[i] == 0 || Len >= 199){
-            // Process the line.
-            if (Len > 0){
-                Line[Len] = 0;
-                //printf("Line: '%s'\n",Line);
-                for (a=0;;a++){
-                    l = strlen(KnownTags[a]);
-                    if (!l){
-                        // Unknown tag.  Discard it.
-                        printf("Error: Unknown tag '%s'\n", Line); // Deletes the tag.
-                        Modified = TRUE;
-                        break;
-                    }
-                    if (memcmp(Line, KnownTags[a], l) == 0){
-                        if (Line[l] == ' ' || Line[l] == '=' || Line[l] == 0){
-                            // Its a good tag.
-                            if (Line[l] == ' ') Line[l] = '='; // Use equal sign for clarity.
-                            if (a == 2) break; // Delete 'orig_path' tag.
-                            if (a == 3) HasScandate = TRUE;
-                            if (RemComment){
-                                if (strlen(RemComment) == l){
-                                    if (!memcmp(Line, RemComment, l)){
-                                        Modified = TRUE;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (AddComment){
-                                // Overwrite old comment of same tag with new one.
-                                if (!memcmp(Line, AddComment, l+1)){
-                                    TagExists = TRUE;
-                                    strncpy(Line, AddComment, sizeof(Line));
-                                    Modified = TRUE;
-                                }
-                            }
-                            strncat(OutComment, Line, MAX_COMMENT_SIZE-5-strlen(OutComment));
-                            strcat(OutComment, "\n");
-                            break;
-                        }
-                    }
-                }
-            }
-            Line[Len = 0] = 0;
-            if (SrcComment[i] == 0) break;
-        }else{
-            Line[Len++] = SrcComment[i];
-        }
-    }
-
-    if (AddComment && TagExists == FALSE){
-        strncat(OutComment, AddComment, MAX_COMMENT_SIZE-5-strlen(OutComment));
-        strcat(OutComment, "\n");
-        Modified = TRUE;
-    }
-
-    if (!HasScandate && !ImageInfo.DateTime[0]){
-        // Scan date is not in the file yet, and it doesn't have one built in.  Add it.
-        char Temp[30];
-        sprintf(Temp, "scan_date=%s", ctime(&ImageInfo.FileDateTime));
-        strncat(OutComment, Temp, MAX_COMMENT_SIZE-5-strlen(OutComment));
-        Modified = TRUE;
-    }
-    return Modified;
-}
-//--------------------------------------------------------------------------
-// Automatic make smaller command stuff
-//--------------------------------------------------------------------------
-static int AutoResizeCmdStuff(void)
-{
-    static char CommandString[PATH_MAX+1];
-    double scale;
-
-    ApplyCommand = CommandString;
-
-    if (ImageInfo.Height <= 1280 && ImageInfo.Width <= 1280){
-        printf("not resizing %dx%x '%s'\n",ImageInfo.Height, ImageInfo.Width, ImageInfo.FileName);
-        return FALSE;
-    }
-
-    scale = 1024.0 / ImageInfo.Height;
-    if (1024.0 / ImageInfo.Width < scale) scale = 1024.0 / ImageInfo.Width;
-
-    if (scale < 0.5) scale = 0.5; // Don't scale down by more than a factor of two.
-
-    sprintf(CommandString, "mogrify -geometry %dx%d -quality 85 &i",(int)(ImageInfo.Width*scale), (int)(ImageInfo.Height*scale));
-    return TRUE;
-}
-
-
-#endif // MATTHIAS
 
 
 //--------------------------------------------------------------------------
@@ -815,17 +687,6 @@ void ProcessFile(const char * FileName)
 
         if (!ReadJpegFile(FileName, READ_METADATA)) return;
 
-        #ifdef MATTHIAS
-            if (AutoResize){
-                // Automatic resize computation - to customize for each run...
-                if (AutoResizeCmdStuff() == 0){
-                    DiscardData();
-                    return;
-                }
-            }
-        #endif // MATTHIAS
-
-
         if (CheckFileSkip()){
             DiscardData();
             return;
@@ -881,18 +742,21 @@ void ProcessFile(const char * FileName)
         ShowConciseImageInfo();
     }else{
         if (!(DoModify || DoReadAction) || ShowTags){
-            ShowImageInfo(ShowFileInfo);
-
-            {
-                // if IPTC section is present, show it also.
-                Section_t * IptcSection;
-                IptcSection = FindSection(M_IPTC);
+            if (ShowCsv){
+                ShowCsvImageInfo(ShowFileInfo);
+            }else{
+                ShowImageInfo(ShowFileInfo);
+                {
+                    // if IPTC section is present, show it also.
+                    Section_t * IptcSection;
+                    IptcSection = FindSection(M_IPTC);
             
-                if (IptcSection){
-                    show_IPTC(IptcSection->Data, IptcSection->Size);
+                    if (IptcSection){
+                        show_IPTC(IptcSection->Data, IptcSection->Size);
+                    }
                 }
+                printf("\n");
             }
-            printf("\n");
         }
     }
 
@@ -933,11 +797,7 @@ void ProcessFile(const char * FileName)
         }
     }
 
-    if (
-#ifdef MATTHIAS
-        AddComment || RemComment ||
-#endif
-                   EditComment || CommentInsertfileName || CommentInsertLiteral){
+    if ( EditComment || CommentInsertfileName || CommentInsertLiteral){
 
         Section_t * CommentSec;
         char Comment[MAX_COMMENT_SIZE+1];
@@ -983,18 +843,7 @@ void ProcessFile(const char * FileName)
             strncpy(Comment, CommentInsertLiteral, MAX_COMMENT_SIZE);
             CommentSize = strlen(Comment);
         }else{
-#ifdef MATTHIAS
-            char CommentZt[MAX_COMMENT_SIZE+1];
-            memcpy(CommentZt, (char *)CommentSec->Data+2, CommentSize);
-            CommentZt[CommentSize] = '\0';
-            if (ModifyDescriptComment(Comment, CommentZt)){
-                Modified = TRUE;
-                CommentSize = strlen(Comment);
-            }
-            if (EditComment)
-#else
             memcpy(Comment, (char *)CommentSec->Data+2, CommentSize);
-#endif
             {
                 char EditFileName[PATH_MAX+5];
                 strcpy(EditFileName, FileName);
@@ -1301,6 +1150,7 @@ static void Usage (void)
            "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
            "  -se        Supress error messages relating to corrupt exif header structure\n"
            "  -c         concise output\n"
+           "  -nc        Turn off CSV output (back to regular jhead output)\n"
            "  -nofinfo   Don't show file info (name/size/date)\n"
 
            "\nFILE MATCHING AND SELECTION:\n"
@@ -1333,16 +1183,6 @@ static void Usage (void)
            "                 jhead **/*.jpg\n"
            "                 jhead \"c:\\my photos\\**\\*.jpg\"\n"
 #endif
-
-
-#ifdef MATTHIAS
-           "\n"
-           "  -cr        Remove comment tag (my way)\n"
-           "  -ca        Add comment tag (my way)\n"
-           "  -ar        Auto resize to fit in 1024x1024, but never less than half\n"
-#endif //MATTHIAS
-
-
            );
 
     exit(EXIT_FAILURE);
@@ -1444,7 +1284,7 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-q")){
             Quiet = TRUE;
         }else if (!strcmp(arg,"-V")){
-            printf("Jhead version: "JHEAD_VERSION"   Compiled: "__DATE__"\n");
+            printf("RIM CSV Jhead version: "JHEAD_VERSION"   Compiled: "__DATE__"\n");
             exit(0);
         }else if (!strcmp(arg,"-exifmap")){
             DumpExifMap = TRUE;
@@ -1452,6 +1292,8 @@ int main (int argc, char **argv)
             SupressNonFatalErrors = TRUE;
         }else if (!strcmp(arg,"-c")){
             ShowConcise = TRUE;
+        }else if (!strcmp(arg,"-nc")){
+            ShowCsv = FALSE;
         }else if (!strcmp(arg,"-nofinfo")){
             ShowFileInfo = 0;
 
