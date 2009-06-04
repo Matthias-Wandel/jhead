@@ -1431,17 +1431,17 @@ void ShowImageInfo(int ShowFileInfo)
             // don't bother showing it - it doesn't add any useful information.
     }
 
-    if (ImageInfo.MeteringMode){ // 05-jan-2001 vcs
+    if (ImageInfo.MeteringMode > 0){ // 05-jan-2001 vcs
+        printf("Metering Mode: ");
         switch(ImageInfo.MeteringMode) {
-        case 2:
-            printf("Metering Mode: center weight\n");
-            break;
-        case 3:
-            printf("Metering Mode: spot\n");
-            break;
-        case 5:
-            printf("Metering Mode: matrix\n");
-            break;
+        case 1: printf("average\n"); break;
+        case 2: printf("center weight\n"); break;
+        case 3: printf("spot\n"); break;
+        case 4: printf("multi spot\n");  break;
+        case 5: printf("pattern\n"); break;
+        case 6: printf("partial\n");  break;
+        case 255: printf("other\n");  break;
+        default: printf("unknown (%d)\n",ImageInfo.MeteringMode); break;
         }
     }
 

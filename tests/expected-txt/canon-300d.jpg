@@ -1,0 +1,104 @@
+Exif header 12286 bytes long
+Exif section in Intel order
+(dir has 9 entries)
+    Make = "Canon"
+    Model = "Canon EOS DIGITAL REBEL"
+    Orientation = 1
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2003:12:24 17:37:26"
+    YCbCrPositioning = 1
+    ExifOffset = 196
+    Exif Dir:(dir has 31 entries)
+        ExposureTime = 1/60
+        FNumber = 45/10
+        ISOSpeedRatings = 400
+        ExifVersion = "0221"
+        DateTimeOriginal = "2003:12:24 17:37:26"
+        DateTimeDigitized = "2003:12:24 17:37:26"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 2/1
+        ShutterSpeedValue = 387114/65536
+        ApertureValue = 284416/65536
+        ExposureBiasValue = 0/3
+        MaxApertureValue = 284416/65536
+        MeteringMode = 5
+        Flash = 25
+        FocalLength = 34/1
+        Maker note: (dir has 26 entries)
+            Canon maker tag 0001 Value = 92, 0, 0, 2, 1, 0, 0, 2, 0, 1, 0, 0, 65535, 1, 1, 1, ...
+            Canon maker tag 0002 Value = 0, 34, 914, 610
+            Canon maker tag 0003 Value = 16, 181, 0, 0
+            Canon maker tag 0004 Value = 66, 0, 224, 65464, 139, 189, 0, 0, 3, 0, 8, 8, 0, 65535, 0, 0, ...
+            Canon maker tag 0093 Value = 18, 0, 0, 0, 0, 0, 65535, 65535, 65535
+            Canon maker tag 0006 Value = "IMG:EOS DIGITAL REBEL JPEG"
+            Canon maker tag 0007 Value = "Firmware Version 1.1.1"
+            Canon maker tag 000c Value = 760204690
+            Canon maker tag 0015 Value = -1879048192
+            Canon maker tag 0008 Value = 1010128
+            Canon maker tag 0009 Value = ""
+            Canon maker tag 0010 Value = -2147483280
+            Canon maker tag 000e Value = 1891070
+            Canon maker tag 000d Value = 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, ...
+            Canon maker tag 0000 Value = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 00c0 Value = 26, 328, 371, 371, 176, 241, 430, 430, 275, 170, 460, 460, 392
+            Canon maker tag 00c1 Value = 26, 299, 375, 375, 170, 203, 394, 395, 240, 156, 453, 454, 369
+            Canon maker tag 00aa Value = 10, 712, 1022, 1026, 615
+            Canon maker tag 00a8 Value = 20, 5220, 0, 0, 0, 0, 0, 0, 0, 0
+            Canon maker tag 00a9 Value = 82, 1673, 832, 832, 964, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 00ae Value = 5200
+            Canon maker tag 00b4 Value = 1
+            Canon maker tag 0012 Value = 7, 7, 3072, 2048, 3072, 2048, 151, 151, 1014, 608, 0, 0, 0, 64928, 64522, 0, ...
+            Canon maker tag 0013 Value = 0, 159, 7, 112
+            Canon maker tag 0000 Value = 0, 0, 0, 0, 0
+            Canon maker tag 00b6 Value = 24, 2, 414644, 1536, 1024, 1476414, 3072000, 892, 2048000, 595, 65540, 262146
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 3072
+        ExifImageLength = 2048
+        InteroperabilityOffset = 2366
+        Interop Dir:(dir has 4 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+            RelatedImageWidth = 3072
+            RelatedImageLength = 2048
+        FocalPlaneXResolution = 3072000/892
+        FocalPlaneYResolution = 2048000/595
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = ""
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 0
+        SceneCaptureType = 0
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 180/1
+        YResolution = 180/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2548
+        ThumbnailLength = 9728
+Thumbnail size: 9728 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 160w * 107h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 27
+Jpeg section marker 0xc4 size 60
+Jpeg section marker 0xc4 size 26
+Jpeg section marker 0xc4 size 39
+Camera make  : Canon
+Camera model : Canon EOS DIGITAL REBEL
+Date/Time    : 2003:12:24 17:37:26
+Resolution   : 160 x 107
+Flash used   : Yes (auto)
+Focal length : 34.0mm  (35mm equivalent: 54mm)
+CCD width    : 22.66mm
+Exposure time: 0.017 s  (1/60)
+Aperture     : f/4.5
+Focus dist.  : 2.22m
+ISO equiv.   : 400
+Whitebalance : Auto
+Metering Mode: pattern
+

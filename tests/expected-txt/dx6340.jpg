@@ -1,0 +1,80 @@
+Exif header 4837 bytes long
+Exif section in Motorola order
+(dir has 8 entries)
+    Make = "EASTMAN KODAK COMPANY"
+    Model = "KODAK DX6340 ZOOM DIGITAL CAMERA"
+    Orientation = 1
+    XResolution = 230/1
+    YResolution = 230/1
+    ResolutionUnit = 2
+    YCbCrPositioning = 1
+    ExifOffset = 506
+    Exif Dir:(dir has 36 entries)
+        ExposureTime = 1/2
+        FNumber = 48/10
+        ExposureProgram = 4
+        ExifVersion = "0220"
+        DateTimeOriginal = "2004:01:04 18:38:15"
+        DateTimeDigitized = "2004:01:04 18:38:15"
+        ComponentsConfiguration = "?"
+        ShutterSpeedValue = 10/10
+        ApertureValue = 45/10
+        ExposureBiasValue = 0/1000
+        MaxApertureValue = 39/10
+        MeteringMode = 5
+        LightSource = 0
+        Flash = 16
+        FocalLength = 176/10
+        Maker note:  4b 44 4b 30 31 30 31 49 44 58 36... (1300 bytes)
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 2032
+        ExifImageLength = 1524
+        InteroperabilityOffset = 2404
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        ExposureIndex = 200/1
+        SensingMethod = 2
+        FileSource = ""
+        SceneType = ""
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 0
+        DigitalZoomRatio = 0/100
+        FocalLengthIn35mmFilm = 114
+        SceneCaptureType = 0
+        GainControl = 1
+        Contrast = 0
+        Saturation = 0
+        Sharpness = 0
+        SubjectDistanceRange = 0
+    Continued directory (dir has 7 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2708
+        ThumbnailLength = 2121
+Thumbnail size: 2121 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 60w * 80h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 54
+Jpeg section marker 0xc4 size 24
+Jpeg section marker 0xc4 size 31
+Camera make  : EASTMAN KODAK COMPANY
+Camera model : KODAK DX6340 ZOOM DIGITAL CAMERA
+Date/Time    : 2004:01:04 18:38:15
+Resolution   : 60 x 80
+Flash used   : No
+Focal length : 17.6mm  (35mm equivalent: 114mm)
+Exposure time: 0.500 s  (1/2)
+Aperture     : f/4.8
+ISO equiv.   : 200
+Whitebalance : Auto
+Metering Mode: pattern
+Exposure     : shutter priority (semi-auto)
+

@@ -67,7 +67,7 @@ Exposure time: 0.0080 s  (1/125)
 Aperture     : f/3.7
 ISO equiv.   : 80
 Whitebalance : Manual
-Metering Mode: matrix
+Metering Mode: pattern
 Exposure     : program (auto)
 
 "Trying to replacde with no pointers:" 
@@ -141,7 +141,7 @@ Exposure time: 0.0080 s  (1/125)
 Aperture     : f/3.7
 ISO equiv.   : 80
 Whitebalance : Manual
-Metering Mode: matrix
+Metering Mode: pattern
 Exposure     : program (auto)
 
 Exif header 864 bytes long
@@ -216,7 +216,7 @@ CCD width    : 4.76mm
 Exposure time: 0.102 s  (1/10)
 Aperture     : f/4.2
 ISO equiv.   : 150
-Metering Mode: matrix
+Metering Mode: pattern
 Exposure     : program (auto)
 
 Exif header 10854 bytes long
@@ -291,7 +291,7 @@ CCD width    : 4.76mm
 Exposure time: 0.102 s  (1/10)
 Aperture     : f/4.2
 ISO equiv.   : 150
-Metering Mode: matrix
+Metering Mode: pattern
 Exposure     : program (auto)
 
 Exif header 12010 bytes long
@@ -358,4 +358,5 @@ Focal length :  5.5mm
 Exposure time: 0.032 s  (1/31)
 Aperture     : f/2.8
 ISO equiv.   : 100
+Metering Mode: average
 

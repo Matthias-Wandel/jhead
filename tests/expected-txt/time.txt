@@ -10,6 +10,7 @@ Focal length :  6.0mm
 Exposure time: 0.017 s  (1/60)
 Aperture     : f/2.9
 ISO equiv.   : 100
+Metering Mode: average
 
 Camera make  :                          
 Camera model : 3MDSC
@@ -20,6 +21,7 @@ Focal length :  6.0mm
 Exposure time: 0.017 s  (1/60)
 Aperture     : f/2.9
 ISO equiv.   : 100
+Metering Mode: average
 
 Camera make  :                          
 Camera model : 3MDSC
@@ -30,6 +32,7 @@ Focal length :  6.0mm
 Exposure time: 0.017 s  (1/60)
 Aperture     : f/2.9
 ISO equiv.   : 100
+Metering Mode: average
 
 Camera make  : Canon
 Camera model : Canon PowerShot Pro1
@@ -71,6 +74,6 @@ Exposure time: 0.034 s  (1/29)
 Aperture     : f/3.5
 ISO equiv.   : 100
 Light Source : Daylight
-Metering Mode: matrix
+Metering Mode: pattern
 Exposure     : aperture priority (semi-auto)
 
