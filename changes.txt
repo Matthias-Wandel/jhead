@@ -335,3 +335,9 @@ Various minor typo and documentation fixes.
 Fixed an #ifdef that I had defined the wrong way, causing the -ce option to fail.
 
 -------Released version 2.87 -- Mar 03 2009 --------
+
+A few more tags recognized with jhead -v
+Accept strange date encoding of LG VX-9700
+Fix metering mode display
+Fix crash bug on corrupted jpeg
+Deal better with extra padding bytes between jpeg markers
