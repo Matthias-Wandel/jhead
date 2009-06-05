@@ -70,7 +70,7 @@ Exif section in Motorola order
         LightSource = 0
         Flash = 16
         FocalLength = 13004/256
-        Unknown Tag 9214 Value = 1704, 1230, 320, 384
+        SubjectArea = 1704, 1230, 320, 384
         Maker note:  00 0c 00 00 00 07 00 00 00 04 4d... (30270 bytes)
         UserComment = "ASCII?"
         FlashPixVersion = "0100"

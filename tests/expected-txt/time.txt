@@ -77,3 +77,11 @@ Light Source : Daylight
 Metering Mode: pattern
 Exposure     : aperture priority (semi-auto)
 
+Camera make  : LG Electronics
+Camera model : VX-9700
+Date/Time    : 2009:10:05 11:16:01
+Resolution   : 320 x 240
+Flash used   : No
+Metering Mode: center weight
+Exposure     : program (auto)
+

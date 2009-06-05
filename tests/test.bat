@@ -37,6 +37,10 @@ copy strange-jpegs\short_date.jpg short_date.jpg
 jhead -ta+1:02:03 short_date.jpg
 jhead -nofinfo short_date.jpg >> results-txt\time.txt
 
+copy strange-jpegs\verizon.jpg verizon.jpg
+jhead -ta+0:0:1 verizon.jpg
+jhead -nofinfo verizon.jpg >> results-txt\time.txt
+
 rem -------------------------------------------------------------------
 rem test comment manipulation
 copy normal-digicams\S100.jpg comments.jpg

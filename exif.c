@@ -1274,6 +1274,16 @@ int Exif2tm(struct tm * timeptr, char * ExifTime)
             &timeptr->tm_hour, &timeptr->tm_min, &timeptr->tm_sec);
 
     if (a >= 5){
+        if (timeptr->tm_year <= 12 && timeptr->tm_mday > 2000 && ExifTime[2] == '.'){
+            // LG Electronics VX-9700 seems to encode the date as 'MM.DD.YYYY HH:MM'
+            // can't these people read the standard?  At least they left enough room
+            // in the header to put an Exif format date in there.
+            int tmp;
+            tmp = timeptr->tm_year;
+            timeptr->tm_year = timeptr->tm_mday;
+            timeptr->tm_mday = tmp;
+        }
+
         // Accept five or six parameters.  Some cameras do not store seconds.
         timeptr->tm_isdst = -1;  
         timeptr->tm_mon -= 1;      // Adjust for unix zero-based months 
