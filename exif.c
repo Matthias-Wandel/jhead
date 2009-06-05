@@ -184,6 +184,7 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_SATURATION             0xA409
 #define TAG_SHARPNESS              0xA40A
 #define TAG_DISTANCE_RANGE         0xA40C
+#define TAG_IMAGE_UNIQUE_ID        0xA420
 
 static const TagTable_t TagTable[] = {
   { TAG_INTEROP_INDEX,          "InteropIndex"},
@@ -291,6 +292,7 @@ static const TagTable_t TagTable[] = {
   { TAG_SATURATION,             "Saturation"},
   { TAG_SHARPNESS,              "Sharpness"},
   { TAG_DISTANCE_RANGE,         "SubjectDistanceRange"},
+  { TAG_IMAGE_UNIQUE_ID,        "ImageUniqueId"},
 } ;
 
 #define TAG_TABLE_SIZE  (sizeof(TagTable) / sizeof(TagTable_t))
