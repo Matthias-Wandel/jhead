@@ -143,6 +143,7 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_LIGHT_SOURCE           0x9208
 #define TAG_FLASH                  0x9209
 #define TAG_FOCALLENGTH            0x920A
+#define TAG_SUBJECTAREA            0x9214
 #define TAG_MAKER_NOTE             0x927C
 #define TAG_USERCOMMENT            0x9286
 #define TAG_SUBSEC_TIME            0x9290
@@ -157,8 +158,8 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 
 #define TAG_FLASH_PIX_VERSION      0xA000
 #define TAG_COLOR_SPACE            0xA001
-#define TAG_EXIF_IMAGEWIDTH        0xA002
-#define TAG_EXIF_IMAGELENGTH       0xA003
+#define TAG_PIXEL_X_DIMENSION      0xA002
+#define TAG_PIXEL_Y_DIMENSION      0xA003
 #define TAG_RELATED_AUDIO_FILE     0xA004
 #define TAG_INTEROP_OFFSET         0xA005
 #define TAG_FLASH_ENERGY           0xA20B
@@ -263,8 +264,8 @@ static const TagTable_t TagTable[] = {
   { TAG_WINXP_SUBJECT,          "Windows-XP subject"},
   { TAG_FLASH_PIX_VERSION,      "FlashPixVersion"},
   { TAG_COLOR_SPACE,            "ColorSpace"},
-  { TAG_EXIF_IMAGEWIDTH,        "ExifImageWidth"},
-  { TAG_EXIF_IMAGELENGTH,       "ExifImageLength"},
+  { TAG_PIXEL_X_DIMENSION,      "ExifImageWidth"},
+  { TAG_PIXEL_Y_DIMENSION,      "ExifImageLength"},
   { TAG_RELATED_AUDIO_FILE,     "RelatedAudioFile"},
   { TAG_INTEROP_OFFSET,         "InteroperabilityOffset"},
   { TAG_FLASH_ENERGY,           "FlashEnergy"},              
@@ -283,6 +284,7 @@ static const TagTable_t TagTable[] = {
   { TAG_WHITEBALANCE,           "WhiteBalance"},
   { TAG_DIGITALZOOMRATIO,       "DigitalZoomRatio"},
   { TAG_FOCALLENGTH_35MM,       "FocalLengthIn35mmFilm"},
+  { TAG_SUBJECTAREA,            "SubjectArea"},
   { TAG_SCENE_CAPTURE_TYPE,     "SceneCaptureType"},
   { TAG_GAIN_CONTROL,           "GainControl"},
   { TAG_CONTRAST,               "Contrast"},
@@ -746,8 +748,8 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 NumOrientations += 1;
                 break;
 
-            case TAG_EXIF_IMAGELENGTH:
-            case TAG_EXIF_IMAGEWIDTH:
+            case TAG_PIXEL_Y_DIMENSION:
+            case TAG_PIXEL_X_DIMENSION:
                 // Use largest of height and width to deal with images that have been
                 // rotated to portrait format.
                 a = (int)ConvertAnyFormat(ValuePtr, Format);
