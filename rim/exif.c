@@ -836,16 +836,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             case TAG_GPSINFO:
                 if (ShowTags) printf("%s    GPS info dir:",IndentString);
-                {
-                    unsigned char * SubdirStart;
-                    SubdirStart = OffsetBase + Get32u(ValuePtr);
-                    if (SubdirStart < OffsetBase || SubdirStart > OffsetBase+ExifLength){
-                        ErrNonfatal("Illegal GPS directory link in Exif",0,0);
-                    }else{
-                        ProcessGpsInfo(SubdirStart, ByteCount, OffsetBase, ExifLength);
-                    }
-                    continue;
-                }
                 break;
 
             case TAG_FOCALLENGTH_35MM:
@@ -1504,12 +1494,6 @@ void ShowImageInfo(int ShowFileInfo)
                 break;
             }
         }
-    }
-
-    if (ImageInfo.GpsInfoPresent){
-        printf("GPS Latitude : %s\n",ImageInfo.GpsLat);
-        printf("GPS Longitude: %s\n",ImageInfo.GpsLong);
-        if (ImageInfo.GpsAlt[0]) printf("GPS Altitude : %s\n",ImageInfo.GpsAlt);
     }
 
     // Print the comment. Print 'Comment:' for each new line of comment.

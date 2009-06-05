@@ -105,11 +105,6 @@ typedef struct {
 
     int  DateTimeOffsets[MAX_DATE_COPIES];
     int  numDateTimeTags;
-
-    int GpsInfoPresent;
-    char GpsLat[31];
-    char GpsLong[31];
-    char GpsAlt[20];
 }ImageInfo_t;
 
 
@@ -168,14 +163,6 @@ extern const int BytesPerFormat[];
 // makernote.c prototypes
 extern void ProcessMakerNote(unsigned char * DirStart, int ByteCount,
                  unsigned char * OffsetBase, unsigned ExifLength);
-
-// gpsinfo.c prototypes
-void ProcessGpsInfo(unsigned char * ValuePtr, int ByteCount, 
-                unsigned char * OffsetBase, unsigned ExifLength);
-
-// iptc.c prototpyes
-void show_IPTC (unsigned char * CharBuf, unsigned int length);
-void ShowXmp(Section_t XmpSection);
 
 // Prototypes for myglob.c module
 #ifdef _WIN32

@@ -240,9 +240,6 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                         Sections[SectionsRead-1].Type = M_XMP; // Change tag for internal purposes.
                         if (ShowTags){
                             printf("Image cotains XMP section, %d bytes long\n", itemlen);
-                            if (ShowTags){
-                                ShowXmp(Sections[SectionsRead-1]);
-                            }
                         }
                         break;
                     }
@@ -480,15 +477,6 @@ void DiscardAllButExif(void)
     if (CommentKeeper.Type){
         CheckSectionsAllocated();
         Sections[SectionsRead++] = CommentKeeper;
-    }
-    if (IptcKeeper.Type){
-        CheckSectionsAllocated();
-        Sections[SectionsRead++] = IptcKeeper;
-    }
-
-    if (XmpKeeper.Type){
-        CheckSectionsAllocated();
-        Sections[SectionsRead++] = XmpKeeper;
     }
 }    
 

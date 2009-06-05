@@ -57,7 +57,6 @@ static unsigned FileTimeToExif = FALSE;
 
 static int DeleteComments = FALSE;
 static int DeleteExif = FALSE;
-static int DeleteIptc = FALSE;
 static int DeleteXmp = FALSE;
 static int DeleteUnknown = FALSE;
 static char * ThumbSaveName = NULL; // If not NULL, use this string to make up
@@ -746,15 +745,6 @@ void ProcessFile(const char * FileName)
                 ShowCsvImageInfo(ShowFileInfo);
             }else{
                 ShowImageInfo(ShowFileInfo);
-                {
-                    // if IPTC section is present, show it also.
-                    Section_t * IptcSection;
-                    IptcSection = FindSection(M_IPTC);
-            
-                    if (IptcSection){
-                        show_IPTC(IptcSection->Data, IptcSection->Size);
-                    }
-                }
                 printf("\n");
             }
         }
@@ -956,9 +946,6 @@ skip_unixtime:
     if (DeleteExif){
         if (RemoveSectionType(M_EXIF)) Modified = TRUE;
     }
-    if (DeleteIptc){
-        if (RemoveSectionType(M_IPTC)) Modified = TRUE;
-    }
     if (DeleteXmp){
         if (RemoveSectionType(M_XMP)) Modified = TRUE;
     }
@@ -1062,8 +1049,6 @@ static void Usage (void)
            "             Uses same name mangling as '-st' option\n"
            "  -dc        Delete comment field (as left by progs like Photoshop & Compupic)\n"
            "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
-           "  -di        Delete IPTC section (from Photoshop, or Picasa)\n"
-           "  -dx        Deletex XMP section\n"
            "  -du        Delete non image sections except for Exif and comment sections\n"
            "  -purejpg   Strip all unnecessary data from jpeg (combines -dc -de and -du)\n"
            "  -mkexif    Create new minimal exif section (overwrites pre-existing exif)\n"
@@ -1245,21 +1230,13 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-de")){
             DeleteExif = TRUE;
             DoModify = TRUE;
-        }else if (!strcmp(arg,"-di")){
-            DeleteIptc = TRUE;
-            DoModify = TRUE;
-        }else if (!strcmp(arg,"-dx")){
-            DeleteXmp = TRUE;
-            DoModify = TRUE;
         }else if (!strcmp(arg, "-du")){
             DeleteUnknown = TRUE;
             DoModify = TRUE;
         }else if (!strcmp(arg, "-purejpg")){
             DeleteExif = TRUE;
             DeleteComments = TRUE;
-            DeleteIptc = TRUE;
             DeleteUnknown = TRUE;
-            DeleteXmp = TRUE;
             DoModify = TRUE;
         }else if (!strcmp(arg,"-ce")){
             EditComment = TRUE;
@@ -1468,8 +1445,14 @@ int main (int argc, char **argv)
             ErrFatal("Extra argument required");
         }
     }
+
     if (argn == argc){
         ErrFatal("No files to process.  Use -h for help");
+    }
+
+    if (DoModify){
+        ErrFatal("This version does not support modifying files.\n"
+               "Use regular release of jhead to modify files");
     }
 
     if (ThumbSaveName != NULL && strcmp(ThumbSaveName, "&i") == 0){
