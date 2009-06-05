@@ -1281,7 +1281,8 @@ int Exif2tm(struct tm * timeptr, char * ExifTime)
             int tmp;
             tmp = timeptr->tm_year;
             timeptr->tm_year = timeptr->tm_mday;
-            timeptr->tm_mday = tmp;
+            timeptr->tm_mday = timeptr->tm_mon;
+            timeptr->tm_mon = tmp;
         }
 
         // Accept five or six parameters.  Some cameras do not store seconds.
