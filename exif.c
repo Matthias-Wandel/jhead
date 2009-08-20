@@ -646,7 +646,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 if (ByteCount > 1){
                     if (ByteCount > MAX_COMMENT_SIZE) ByteCount = MAX_COMMENT_SIZE;
                     memcpy(ImageInfo.Comments, ValuePtr, ByteCount);
-                    ImageInfo.CommentWidchars = ByteCount/2;
+                    ImageInfo.CommentWidthchars = ByteCount/2;
                 }
                 break;
 
@@ -876,6 +876,34 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 //   1 = macro, 2 = close, 3 = distant
                 ImageInfo.DistanceRange = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
+
+
+
+            case TAG_X_RESOLUTION:
+                if (NestingLevel==0) {// Only use the values from the top level directory
+                    ImageInfo.xResolution = (float)ConvertAnyFormat(ValuePtr,Format);
+                    if (ShowTags) printf("%s    xResolution: %f\n",IndentString, ImageInfo.xResolution);
+                    // if yResolution has not been set, use the value of xResolution
+                    if (ImageInfo.yResolution == 0.0) ImageInfo.yResolution = ImageInfo.xResolution;
+                }
+                break;
+
+            case TAG_Y_RESOLUTION:
+                if (NestingLevel==0) {// Only use the values from the top level directory
+                    ImageInfo.yResolution = (float)ConvertAnyFormat(ValuePtr,Format);
+                    if (ShowTags) printf("%s    yResolution: %f\n",IndentString, ImageInfo.yResolution);
+                    // if xResolution has not been set, use the value of yResolution
+                    if (ImageInfo.xResolution == 0.0) ImageInfo.xResolution = ImageInfo.yResolution;
+                }
+                break;
+
+            case TAG_RESOLUTION_UNIT:
+                if (NestingLevel==0) {// Only use the values from the top level directory
+                    ImageInfo.ResolutionUnit = (int) ConvertAnyFormat(ValuePtr,Format);
+                    if (ShowTags) printf("%s    ResolutionUnit: %d\n",IndentString, ImageInfo.ResolutionUnit);
+                }
+                break;
+
         }
     }
 
@@ -1544,7 +1572,7 @@ void ShowImageInfo(int ShowFileInfo)
     if (ImageInfo.Comments[0]){
         int a,c;
         printf("Comment      : ");
-        if (!ImageInfo.CommentWidchars){
+        if (!ImageInfo.CommentWidthchars){
             for (a=0;a<MAX_COMMENT_SIZE;a++){
                 c = ImageInfo.Comments[a];
                 if (c == '\0') break;
@@ -1561,7 +1589,7 @@ void ShowImageInfo(int ShowFileInfo)
             }
             printf("\n");
         }else{
-            printf("%.*ls\n", ImageInfo.CommentWidchars, (wchar_t *)ImageInfo.Comments);
+            printf("%.*ls\n", ImageInfo.CommentWidthchars, (wchar_t *)ImageInfo.Comments);
         }
     }
 }

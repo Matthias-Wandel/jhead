@@ -91,8 +91,12 @@ typedef struct {
     int   LightSource;
     int   DistanceRange;
 
+    float xResolution;
+    float yResolution;
+    int   ResolutionUnit;
+
     char  Comments[MAX_COMMENT_SIZE];
-    int   CommentWidchars; // If nonzer, widechar comment, indicates number of chars.
+    int   CommentWidthchars; // If nonzero, widechar comment, indicates number of chars.
 
     unsigned ThumbnailOffset;          // Exif offset to thumbnail
     unsigned ThumbnailSize;            // Size of thumbnail.

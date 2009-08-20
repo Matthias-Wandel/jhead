@@ -64,7 +64,7 @@ static void process_COM (const uchar * Data, int length)
     }
 
     strcpy(ImageInfo.Comments,Comment);
-    ImageInfo.CommentWidchars = 0;
+    ImageInfo.CommentWidthchars = 0;
 }
 
  
@@ -521,7 +521,21 @@ void WriteJpegFile(const char * FileName)
             0x01, 0x01, 0x01, 0x2C, 0x01, 0x2C, 0x00, 0x00 
         };
         fwrite(JfifHead, 18, 1, outfile);
+
+        // use the values from the exif data for the jfif header, if we have found values
+        if (ImageInfo.ResolutionUnit != 0) { 
+            // JFIF.ResolutionUnit is {1,2}, EXIF.ResolutionUnit is {2,3}
+            JfifHead[11] = (uchar)ImageInfo.ResolutionUnit - 1; 
+        }
+        if (ImageInfo.xResolution > 0.0 && ImageInfo.yResolution > 0.0) { 
+            JfifHead[12] = (uchar)((int)ImageInfo.xResolution>>8);
+            JfifHead[13] = (uchar)((int)ImageInfo.xResolution);
+
+            JfifHead[14] = (uchar)((int)ImageInfo.yResolution>>8);
+            JfifHead[15] = (uchar)((int)ImageInfo.yResolution);
+        }
     }
+
 
     // Write all the misc sections
     for (a=0;a<SectionsRead-1;a++){
