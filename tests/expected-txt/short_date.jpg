@@ -1,0 +1,75 @@
+JFIF SOI marker: Units: 1 (dots per inch)  X-density=96 Y-density=96
+Exif header 9897 bytes long
+Exif section in Motorola order
+(dir has 12 entries)
+    ImageDescription = "?ow?*W*U*Qlu*U*U?U"U(U*U*U*U*U*QkUzU*e*U*U*U*U*]*Q?U?u*"
+    Make = "DIGITAL CAMERA?"
+    Model = "1.0?"
+    Orientation = 1
+    XResolution = 96/3
+    YResolution = 96/3
+    ResolutionUnit = 2
+    Software = "1.0?"
+    DateTime = "2008:02:15 16:00?"
+    YCbCrPositioning = 2
+    Copyright = "Copyright 9,2002?"
+    ExifOffset = 358
+    Exif Dir:(dir has 27 entries)
+        ExposureTime = 9156676/268435456
+        FNumber = 7/2
+        ExposureProgram = 3
+        ISOSpeedRatings = 100
+        ExifVersion = "0210"
+        DateTimeOriginal = "2008:02:15 16:00?"
+        DateTimeDigitized = "2008:02:15 16:00?"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 3/1
+        ShutterSpeedValue = 39/8
+        ApertureValue = 0/0
+        ExposureBiasValue = 0/5
+        MaxApertureValue = 37/10
+        MeteringMode = 5
+        LightSource = 1
+        Flash = 0
+        Maker note:  00 00 00 00 00 00 00 00 00 00 00... (460 bytes)
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 1280
+        ExifImageLength = 1024
+        RelatedAudioFile = "?"
+        InteroperabilityOffset = 1264
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        ExposureIndex = 1/1
+        SensingMethod = 2
+        FileSource = ""
+        SceneType = ""
+    Continued directory (dir has 7 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 96/1
+        YResolution = 96/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 1401
+        ThumbnailLength = 8488
+Thumbnail size: 8488 bytes
+Jpeg section marker 0xdb size 67
+Jpeg section marker 0xdb size 67
+JPEG image is 200w * 160h, 3 color components, 8 bits per sample
+Jpeg section marker 0xc4 size 28
+Jpeg section marker 0xc4 size 61
+Jpeg section marker 0xc4 size 25
+Jpeg section marker 0xc4 size 37
+Camera make  : DIGITAL CAMERA
+Camera model : 1.0
+Date/Time    : 2008:02:15 16:00
+Resolution   : 200 x 160
+Flash used   : No
+Exposure time: 0.034 s  (1/29)
+Aperture     : f/3.5
+ISO equiv.   : 100
+Light Source : Daylight
+Metering Mode: pattern
+Exposure     : aperture priority (semi-auto)
+

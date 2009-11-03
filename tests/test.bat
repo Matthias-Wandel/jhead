@@ -102,7 +102,7 @@ jhead -c movetest/**/*.jpg >> results-txt\new-names-txt
 
 @echo ---Test move/rename to abs path --- >> results-txt\new-names-txt
 rm -rf c:\jtest
-jhead -nfc:\jtest\foobar\%%H movetest/*005/*
+jhead -nfc:\jtest\foobar\%%d movetest/*005/*
 dir /s /b c:\jtest >> results-txt\new-names-txt
 rm -rf c:\jtest
 

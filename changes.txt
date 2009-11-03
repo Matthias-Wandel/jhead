@@ -341,3 +341,8 @@ Accept strange date encoding of LG VX-9700
 Fix metering mode display
 Fix crash bug on corrupted jpeg
 Deal better with extra padding bytes between jpeg markers
+
+Nov 3 2009:
+Now preserve resoltuion units of jfif header, or set them with info from exif header.
+
+

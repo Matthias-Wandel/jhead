@@ -1,4 +1,5 @@
 "Trying to remove nonexistent:" 
+JFIF SOI marker: Units: 1 (dots per inch)  X-density=72 Y-density=72
 Exif header 6690 bytes long
 Exif section in Intel order
 (dir has 10 entries)
@@ -73,6 +74,7 @@ Exposure     : program (auto)
 "Trying to replacde with no pointers:" 
 Argument '-rtt' not understood
 Use jhead -h for list of arguments
+JFIF SOI marker: Units: 1 (dots per inch)  X-density=72 Y-density=72
 Exif header 6690 bytes long
 Exif section in Intel order
 (dir has 10 entries)
