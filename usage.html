@@ -6,9 +6,9 @@ JPEG files that most digital cameras produce.</h3><p>
 
 Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it with the mouse from Windows 
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
-(or DOS prompt under Win9x)
 
-<h3>Jhead v2.87 program Features</h3>
+
+<h3>Jhead v2.88 program Features</h3>
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to set and/or adjust the Exif time field
@@ -102,7 +102,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     Use -mkexif option to create one if needed.
 
 <tr valign=top><td><b>-n[&lt;fmt-string&gt;]
-<td>This option causes files to be renamed according to the Exif header "DateTimeOriginal" field.
+<td>This option causes files to be renamed and/or moved according to the Exif header "DateTimeOriginal" field.
     If the file is not an Exif file, or the DateTimeOriginal does not contain a valid value, 
     the file date is used.
     Renaming is by default restricted to files whose names consist largely of digits.
@@ -110,15 +110,14 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     the default sequential names from digital cameras consist largely of digits.
     Use the -nf option to force renaming of all files.
     <p>
-    If the [fmt-string] is omitted, the file will be renamed to MMDD-HHMMSS.  Note that 
-    this scheme doesn't include the year (I never have photos from different years together anyway).
+    If the name includes '/' or '\' (under windows), this is interpreted as a new path for
+    the file.  If the new path does not exist, the path will be created.
+    <p>
+    If the [fmt-string] is omitted, the file will be renamed to MMDD-HHMMSS.
     <br>
     If a [fmt-string] is provided, the fmt-string will be passed to the 
     strftime function for formatting.  In addition, if the format string contains '%f', this will
     substitute the original name of the file (minus extension).
-    <br>
-    If the name includes '/' or '\' (under windows), this is interpreted as a new path for
-    the file.  If the new path does not exist, the path will be created.
     <br>
     A sequence number may also be included by including '%i' in the format string.  Leading
     zeros can be specified.  '%03i' for example will pad the numbers to '001', '002'...
@@ -131,6 +130,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     of an event.  By renaming them to a scheme according to date, they will automatically
     appear in order of taking when viewed with some sort of viewer like Xnview or AcdSee, and
     sorted by name.  Or you could use the -ft option and view the images sorted by date.
+    Typically, one of the carera's date will be set not quite right, in which case you may have
+    to use the -ta or -da options on those files first.
     <p>
     <b>Some of the more useful arguments for strftime are:</b>
 
@@ -357,42 +358,14 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top><td><b>-cmd&lt;command&gt;
 <td>Executes the specified command on each Jepg file to be processed.<p>
     The Exif section of each file is read before running the command, and re-inserted
-    after the command finishes.<p>
-    The specified command invoked separately for each JPEG that is processed, even if
-    multiple files are specified (explicitly or by wild card).
-    I use this option to process whole directory trees of Jpegs from my digital camera
-    with JPEGTRAN (Independent JPEG group) and Image-Magick's 'MOGRIFY' command without 
-    loosing the camera settings and other info stored in the Exif headers.<p>
-    JPEGTRAN is useful for lossless rotation, as well as for converting Jpegs to
-    progressive Jpegs (also a lossless process, but results in typically 5% smaller files)
-    I use mogrify for re-compressing the images I get from my Canon PowerShot S100 to
-    80% quality.  The Canon Jpegs are either way too 'high quality' for the resolution, or
-    are sub optimally encoded.  Using mogrify to 80% produces no detectable loss in quality,
-    with files about half the size.<p>
-    Example use:<br>
-    Having a whole directory tree of photos from my S100, I run the following commands:<p>
-    <ul>
-      jhead -cmd "mogrify -quality 80 &i" -model S100 -r *.jpg<br>
-      jhead -cmd "jpegtran -progressive &i &o" -r *.jpg<p>
-    </ul>
-    The first command mogrifies all Jpegs in the tree that indicate that they are from a 
-    Cannon S100 in their Exif header to 80% quality at the same resolution.  This is a 'lossy'
-    process, so I only run it on files that are from the Canon, and only run it once.
-    The next command then takes all jpegs and converts them to progressive Jpegs.  The result
-    is the same images, with no discernible differences, stored in half the space.  This only
-    produces substantial savings on some cameras, such as the Canon S100.  The newer S110 and S300
-    cameras are smarter about how they compress JPEG images, so re-mogrifying them may not give
-    you any savings unless you crank the quality way down.  However, turning them into progressive
-    JPEG images is a lossless process that typically makes image files 5% smaller.
+    after the command finishes.
     <p>
-    Keeping the Exif header information is important to me, as I like to check things like the
-    shutter speed for some of my photos, and my HTML index generating program uses the Exif tags
-    to display the JPEG images in order of taking.
+    This is useful for using jhead's file globbing capability for processing a whole
+    directory tree of files.
     <p>
-    Newer version of "mogrify" already preserve Exif information, so with some clever 
-    shell scripting, you could do these two steps without using jhead and still keep the 
-    Exif headers.
-    <p>
+    It's also useful for restoring the exif header after operatiosn that wipe out
+    the Exif metadata.  Most programs today however will keep the Exif metadata
+    intact, so this is less important than it used to be.
 
 <tr valign=top><td><b>-orp -orl
 <td>Operate only on images with portrait (-orp) or landscape (-orl) aspect ratio.<br>
@@ -419,7 +392,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     to create minimal Exif headers.
     <p>
 
-    Some Canon digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
+    Most Canon digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
     than full resolution, causing jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
     focal length.  The same can result from resizing photos with Photoshop, which will manipulate
     parts of the Exif header.
@@ -474,19 +447,12 @@ There's a fancier version, with pre-built Windows binaries and a lossless croppi
 
 <b>XnView</b><br>
 <ul>
-<a href="http://www.xnview.com">XnView</a> is an excellent free graphical image browser, cross platform.  
-I use it mostly instead of Compupic nowadays.
-Unlike Compupic, it makes use of jpeg thumbnails for the thumbnail view.  On account of Xnview, I added
-options to fix or regenerate the thumbnails to jhead - this because CompuPic and jpegtran do not rotate 
-the thumbail on doing lossless rotation, which can be annoying in Xnview.
-</ul>
-
-<b>CompuPic</b><br>
-<ul>
-I also use <a href="http://www.photodex.com"> CompuPic </a> to organize my photos.  I especially like
-the built in lossless JPEG rotation feature (which also preserves the Exif header).  This unfortunately
-is payware, but it's a pretty good program.  Not free, but I ended up paying for it.  I still prefer how
-CompuPic does some things over XnView.
+<a href="http://www.xnview.com">XnView</a> is an excellent, small, fast, and free graphical image browser.
+It makes use of jpeg thumbnails for the thumbnail view.  On account of Xnview, I added
+options to fix or regenerate the thumbnails to jhead, so that I could regenerate the thumnails
+for images where the thumbnail had gotten out of sync with the image.
+<br>
+Mac and Linux versions of XnView are also available.
 </ul>
 
 <b>wrjpgcom / rdjpgcom</b><br>
@@ -498,6 +464,6 @@ Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updateed: Mar 02 2009
+Last Updated: Nov 06 2009
 
 

@@ -1,6 +1,7 @@
-
-
-Detailed change log - since version 1.2
+**************************************************** 
+***** Detailed change log - since version 1.2  *****
+***** In cronological order, oldest to newest  *****
+**************************************************** 
 
 Jun 3 2001:
 Added -dc option for deleting all comments
@@ -336,6 +337,7 @@ Fixed an #ifdef that I had defined the wrong way, causing the -ce option to fail
 
 -------Released version 2.87 -- Mar 03 2009 --------
 
+May 2009:
 A few more tags recognized with jhead -v
 Accept strange date encoding of LG VX-9700
 Fix metering mode display
@@ -346,3 +348,4 @@ Nov 3 2009:
 Now preserve resoltuion units of jfif header, or set them with info from exif header.
 
 
+-------Released version 2.88 -- Nov 6 2009 --------

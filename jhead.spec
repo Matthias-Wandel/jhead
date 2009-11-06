@@ -13,7 +13,7 @@
 Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		2.87
+Version:		2.88
 Release:		0
 
 Group:			Libraries
@@ -72,6 +72,15 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
+
+* Fri Nov 6 2009 - 2.88
+- Added ability to move files around with the -n command
+- Various minor bugfixes and maintenance changes
+
+* Thu Mar 3 2009 - 2.87
+- Added the ability to move files with the -n option
+- Fix a bunch of breakages from security fixes asked
+  for by debian people
 
 * Sat Feb 14 2009 - 2.86
 - Added ability to move files around with the -n command

@@ -1,4 +1,4 @@
-.TH JHEAD 1 "02 Mar 2009" "jhead 2.87"
+.TH JHEAD 1 "06 Nov 2009" "jhead 2.88"
 .SH NAME
 jhead \- Digicam JPEG Exif header manipulation tool
 .SH SYNOPSIS
@@ -117,7 +117,7 @@ Sets the Exif timestamp to the file's timestamp. Requires an Exif header to
 pre-exist. Use -mkexif option to create one if needed.
 .TP
 .BI \-\^n [format_string]
-This option causes files to be renamed using the date information from the Exif header
+This option causes files to be renamed and/ or mmoved using the date information from the Exif header
 "DateTimeOriginal" field.
 If the file is not an Exif file, or the DateTimeOriginal does not contain a valid value,
 the file date is used.
@@ -127,6 +127,9 @@ the default sequential names from digital cameras consist largely of digits.
 Use the
 .B -nf
 option to force renaming of all files.
+If the new name contains a '/', this will be interpreted as a new path, and the file will be
+moved accordingly.
+                  
 
 If the
 .I format_string
@@ -360,20 +363,10 @@ after the command finishes.
 
 The specified command invoked separately for each JPEG that is processed, even if
 multiple files are specified (explicitly or by wild card).
-I use this option to process whole directory trees of JPEGs from my digital camera
-with jpegtran (Independent JPEG group) and ImageMagick's 'mogrify(1)' command without
-loosing the camera settings and other info stored in the Exif headers.
-
-jpegtran is useful for lossless rotation, as well as for converting JPEGs to
-progressive JPEGs (also a lossless process, but results in typically 5% smaller files)
-I use mogrify for re-compressing the images I get from my Canon PowerShot S100 to
-80% quality.  The Canon JPEGs are either way too 'high quality' for the resolution, or
-are suboptimally encoded.  Using mogrify to 80% produces no detectable loss in quality,
-with files about half the size.
 
 Example use:
 
-Having a whole directory tree of photos from my S100, I run the following commands:
+Having a whole directory of photos from my S100, I run the following commands:
 
 .B jhead -cmd "mogrify -quality 80 &i" -model S100 -r *.jpg
 .br
@@ -383,15 +376,8 @@ The first command mogrifies all JPEGs in the tree that indicate that they are fr
 Canon S100 in their Exif header to 80% quality at the same resolution.  This is a 'lossy'
 process, so I only run it on files that are from the Canon, and only run it once.
 The next command then takes a JPEGs and converts them to progressive JPEGs.  The result
-is the same images, with no discernible differences, stored in half the space.  This only
-produces substantial savings on some cameras, such as the Canon S100.  The newer S110 and S300
-cameras are smarter about how they compress JPEG images, so re-mogrifying them may not give
-you any savings unless you crank the quality way down.  However, turning them into progressive
-JPEG images is a lossless process that typically makes image files 5% smaller.
-
-Keeping the Exif header information is important to me, as I like to check things like the
-shutter speed for some of my photos, and my HTML index generating program uses the Exif tags
-to display the JPEG images in order of taking.
+is the same images, with no discernible differences, stored in half the space.  This 
+produces substantial savings on some cameras.
 
 .SH SEE ALSO
 .BR jpegtran (1),

@@ -24,8 +24,8 @@ Compiling:
 
     Windows:
 
-    Make sure visual C is on your path (I use version 6, but it shouldn't 
-    matter much).
+    Make sure visual C is on your path (I use version 6 from 1998, 
+    but it shouldn't matter much).
     Run the batch file make.bat
 
     Linux & Unices:
