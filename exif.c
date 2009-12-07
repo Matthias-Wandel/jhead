@@ -669,17 +669,21 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 }
 
                 // Copy the comment
-                if (memcmp(ValuePtr, "ASCII",5) == 0){
-                    for (a=5;a<10;a++){
-                        int c;
-                        c = (ValuePtr)[a];
-                        if (c != '\0' && c != ' '){
-                            strncpy(ImageInfo.Comments, (char *)ValuePtr+a, 199);
-                            break;
+                {
+                    int msiz = ExifLength - (ValuePtr-OffsetBase);
+                    if (msiz > ByteCount) msiz = ByteCount;
+                    if (msiz > MAX_COMMENT_SIZE-1) msiz = MAX_COMMENT_SIZE-1;
+                    if (msiz > 5 && memcmp(ValuePtr, "ASCII",5) == 0){
+                        for (a=5;a<10 && a < msiz;a++){
+                            int c = (ValuePtr)[a];
+                            if (c != '\0' && c != ' '){
+                                strncpy(ImageInfo.Comments, (char *)ValuePtr+a, msiz-a);
+                                break;
+                            }
                         }
+                    }else{
+                        strncpy(ImageInfo.Comments, (char *)ValuePtr, msiz);
                     }
-                }else{
-                    strncpy(ImageInfo.Comments, (char *)ValuePtr, MAX_COMMENT_SIZE-1);
                 }
                 break;
 
