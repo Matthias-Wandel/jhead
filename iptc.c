@@ -106,9 +106,7 @@ badsig:
         signature = (*pos << 8) + (*(pos+1));
         pos += 2;
 
-        if (signature != 0x1C02){
-            break;
-        }
+        if (signature != 0x1C01 && signature != 0x1c02) break;
 
         type    = *pos++;
         length  = (*pos << 8) + (*(pos+1));
