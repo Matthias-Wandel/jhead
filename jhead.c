@@ -1663,7 +1663,7 @@ int main (int argc, char **argv)
     if (ExifXferScrFile){
         if (FilterModel || ApplyCommand){
             ErrFatal("Error: Filter by model and/or applying command to files\n"
-            "   invalid while transfering Exif headers");
+            "   invalid while transferring Exif headers");
         }
     }
 
