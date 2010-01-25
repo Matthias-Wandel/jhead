@@ -31,12 +31,12 @@ for line in ExifMap:
     segs = line[5:10]
     sege = line[11:16]
     if usedto < segs:
-        print "Map:", usedto, segs, "Gap!!!"
+        print ("Map: "+ usedto+"-"+segs+ " Gap!!!\n")
         ExifData.append("Map: "+ usedto+"-"+segs+ " Gap!!!\n")
         ExifData.append("Map: "+segs+" End of gap\n");
 
     if usedto > segs:
-        print "Map:", usedto, segs, "Negative Gap!!!"  
+        print ("Map: "+ usedto+"-"+segs+ " Negative Gap!!!\n");
         ExifData.append("Map: "+ usedto+"-"+segs+ " Negative Gap!!!\n");
         
     usedto = sege
@@ -47,7 +47,7 @@ ExifData.sort()
 
 # Print the exif data, as well as any gaps found in it.
 for line in ExifData:
-    print line,
+    print (line.rstrip("\n"))
 
 
 
