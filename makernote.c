@@ -4,6 +4,8 @@
 //--------------------------------------------------------------------------
 #include "jhead.h"
 
+extern int MotorolaOrder;
+
 //--------------------------------------------------------------------------
 // Process exif format directory, as used by Cannon maker note
 //--------------------------------------------------------------------------
@@ -164,7 +166,6 @@ void ShowMakerNoteGeneric(unsigned char * ValuePtr, int ByteCount)
     }
     printf(" (%d bytes)", ByteCount);
     printf("\n");
-
 }
 
 //--------------------------------------------------------------------------
@@ -174,7 +175,13 @@ void ProcessMakerNote(unsigned char * ValuePtr, int ByteCount,
         unsigned char * OffsetBase, unsigned ExifLength)
 {
     if (strstr(ImageInfo.CameraMake, "Canon")){
+        // So it turns out that some canons cameras use big endian, others use little
+        // endian in the main exif header.  But the maker note is always little endian.
+        static int MotorolaOrderSave;
+        MotorolaOrderSave = MotorolaOrder;
+        MotorolaOrder = 0; // Temporarily switch to little endian.
         ProcessCanonMakerNoteDir(ValuePtr, OffsetBase, ExifLength);
+        MotorolaOrder = MotorolaOrderSave;
     }else{
         if (ShowTags){
             ShowMakerNoteGeneric(ValuePtr, ByteCount);

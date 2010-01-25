@@ -14,7 +14,7 @@ static unsigned char * DirWithThumbnailPtrs;
 static double FocalplaneXRes;
 static double FocalplaneUnits;
 static int ExifImageWidth;
-static int MotorolaOrder = 0;
+int MotorolaOrder = 0;
 
 // for fixing the rotation.
 static void * OrientationPtr[2];

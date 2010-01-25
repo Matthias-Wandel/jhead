@@ -4,20 +4,21 @@
 04-15-S100.jpg
 05-13-S40.jpg
 06-17-canon-300d.jpg
-07-19-digital-rebel.jpg
-08-20-digital-zoomed.jpg
-09-18-dx6340.jpg
-10-13-fuji-dx10.jpg
-11-16-gps-many-digits.jpg
-12-12-gpsinfo.jpg
-13-13-hp.jpg
-14-00-minolta-dimage-e223.jpg
-15-20-olympus.jpg
-16-16-powershot_g2.jpg
-17-22-rotate-thbad.jpg
-18-22-rotate.jpg
-19-16-sony.jpg
-20-22-two-orientation.jpg
+07-12-canon-bigend.jpg
+08-19-digital-rebel.jpg
+09-20-digital-zoomed.jpg
+10-18-dx6340.jpg
+11-13-fuji-dx10.jpg
+12-16-gps-many-digits.jpg
+13-12-gpsinfo.jpg
+14-13-hp.jpg
+15-00-minolta-dimage-e223.jpg
+16-20-olympus.jpg
+17-16-powershot_g2.jpg
+18-22-rotate-thbad.jpg
+19-22-rotate.jpg
+20-16-sony.jpg
+21-22-two-orientation.jpg
 ---Test move/rename abs rel path --- 
 "movetest\1999\olympus-.jpg" 160x120
 "movetest\2000\S100-.jpg" 160x120
@@ -39,11 +40,12 @@
 "movetest\2004\two-orientation-.jpg" 160x120
 "movetest\2005\digital-rebel-.jpg" 160x112
 "movetest\2005\gpsinfo-.jpg" 160x120
-"movetest\2008\no-exif-.jpg" 987x518
+"movetest\2009\no-exif-.jpg" 987x518
+"movetest\2010\canon-bigend-.jpg" 240x171
 ---Test move/rename to abs path --- 
 c:\jtest\foobar
-c:\jtest\foobar\22.jpg
-c:\jtest\foobar\22a.jpg
+c:\jtest\foobar\07.jpg
+c:\jtest\foobar\07a.jpg
 ---Test move/rename relative path --- 
 "movetest\2004\1\f.jpg" 100x75
 "movetest\2004\2\f.jpg" 60x80
