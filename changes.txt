@@ -351,3 +351,9 @@ Now preserve resoltuion units of jfif header, or set them with info from exif he
 
 Dec 16 2009:
 Handle slightly different signature in IPTC as well.
+
+Jan 25 2010:
+Handle mixted-endian-ness files from newer Canon point ant shoot cameras.
+
+Jan 26 2010:
+More handling of IPTC variants.
