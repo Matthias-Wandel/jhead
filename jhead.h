@@ -41,6 +41,9 @@ typedef unsigned char uchar;
     #define PATH_MAX _MAX_PATH
     #define SLASH '\\'
 #else
+    #ifndef PATH_MAX
+        #define PATH_MAX 1024
+    #endif
     #define SLASH '/'
 #endif
 
