@@ -8,7 +8,7 @@ Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
 
 
-<h3>Jhead v2.88 program Features</h3>
+<h3>Jhead v2.90 program Features</h3>
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to set and/or adjust the Exif time field
@@ -172,10 +172,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     taken pictures with the wrong time set on the camera, such as after travelling across
     time zones, or when daylight savings time has changed.
     This option uses the time from the "DateTimeOriginal" (tag 0x9003) field, but sets
-    all the time fields in the Exif header to the new value.  Version 2.0 and earlier only
-    modified the "DateTimeOriginal" (tag 0x9003) field, but too many people thought
-    that that was a bug.
-
+    all the time fields in the Exif header to the new value.
+    <p>
     Examples:<br>
     Adjust time one hour forward (you would use this after you forgot to set daylight savings 
     time on the digicam)<br>
@@ -285,7 +283,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
         The program 'jpegtran' is used to perform the rotation.  This program is present in most 
         Linux distributions.  For windows, you need to get a copy of it.
         After rotation, the orientation tag of the Exif header is set to '1' (normal orientation).  
-        The Exif thumbnail is also rotated as of Jhead version 2.5.   Other fields of the Exif header, 
+        The Exif thumbnail is also rotated.   Other fields of the Exif header, 
         including dimensions are untouched, but the JPEG height/width are adjusted.<br>
         This feature is especially useful with newer digital cameras, which set the orientation
         field in the Exif header automatically using a built in orientation sensor in the camera.
@@ -463,6 +461,6 @@ Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updated: Nov 06 2009
+Last Updated: Feb 05 2010
 
 

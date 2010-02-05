@@ -357,3 +357,5 @@ Handle mixted-endian-ness files from newer Canon point ant shoot cameras.
 
 Jan 26 2010:
 More handling of IPTC variants.
+
+-------Released version 2.90 -- Reb 5 2010 --------

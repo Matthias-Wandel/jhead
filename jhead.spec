@@ -13,7 +13,7 @@
 Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		2.88
+Version:		2.90
 Release:		0
 
 Group:			Libraries
@@ -72,6 +72,10 @@ rm -rf %{buildroot}
 # Changelog-Section
 # -----------------------------------------------------
 %changelog
+
+* Fri Feb 5 2010 - 2.90
+- Improvements to IPTC handling
+- Handle mixted-endian-ness files from newer Canon point ant shoot cameras.
 
 * Fri Nov 6 2009 - 2.88
 - Added ability to move files around with the -n command
