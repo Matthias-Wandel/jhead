@@ -5,6 +5,7 @@ Normal digicams
 "normal-digicams\S100.jpg" 160x120 (1/30) f/2.8 f(35)=37mm (flash)
 "normal-digicams\S40.jpg" 120x160 (1/250) f/2.8 f(35)=36mm
 "normal-digicams\canon-300d.jpg" 160x107 (1/60) f/4.5 f(35)=54mm (flash)
+"normal-digicams\canon-bigend.jpg" 240x171 (1/250) f/4.8 f(35)=329mm
 "normal-digicams\digital-rebel.jpg" 160x112 (1/60) f/5.0 f(35)=29mm (flash)
 "normal-digicams\digital-zoomed.jpg" 100x75 (1/5) f/3.5 f(35)=661mm
 "normal-digicams\dx6340.jpg" 60x80 (1/2) f/4.8 f(35)=114mm
@@ -25,6 +26,7 @@ Strange jpegs
 "strange-jpegs\badyear.jpg" 267x200 (1/250) f/4.0 f(35)=155mm
 "strange-jpegs\crashes-safari.jpg" 250x134
 "strange-jpegs\gps-corrupted-dir.jpg" 160x246 (1/125) f/2.8
+"strange-jpegs\iptc-sections.jpg" 200x113 (1/200) f/3.5
 "strange-jpegs\iptc1.jpg" 182x320 (1/640) f/5.2
 "strange-jpegs\iptc2.jpg" 182x320 (1/640) f/5.2
 "strange-jpegs\iptc3.jpg" 110x100
