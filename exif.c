@@ -1220,7 +1220,7 @@ const char * ClearOrientation(void)
 
             case FMT_ULONG:     
             case FMT_SLONG:     
-                memset(OrientationPtr, 0, 4);
+                memset(OrientationPtr[a], 0, 4);
                 // Can't be bothered to write  generic Put32 if I only use it once.
                 if (MotorolaOrder){
                     ((uchar *)OrientationPtr[a])[3] = 1;
