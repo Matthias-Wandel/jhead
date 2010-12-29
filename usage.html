@@ -105,10 +105,6 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <td>This option causes files to be renamed and/or moved according to the Exif header "DateTimeOriginal" field.
     If the file is not an Exif file, or the DateTimeOriginal does not contain a valid value, 
     the file date is used.
-    Renaming is by default restricted to files whose names consist largely of digits.
-    This effectively restricts renaming to files that have not already been manually renamed, as
-    the default sequential names from digital cameras consist largely of digits.
-    Use the -nf option to force renaming of all files.
     <p>
     If the name includes '/' or '\' (under windows), this is interpreted as a new path for
     the file.  If the new path does not exist, the path will be created.
@@ -158,9 +154,6 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     For a full listing of strftime arguments, look up the strftime function.  Note that some arguments
     to the strftime function (not listed here) produce strings with characters such as '/' and ':' that
     may not be valid as part of a filename on various systems.
-
-<tr valign=top><td><b>-nf
-<td>Same as '-n' but renames files regardless of original file name.
 
 <tr valign=top><td><b>-a
 <td>(Windows only option).  Rename files with the same name but different extension as well.

@@ -555,13 +555,6 @@ static void DoFileRenaming(const char * FileName)
         if (isdigit(FileName[a])) NumDigit += 1;
     }
 
-    if (RenameToDate <= 1){
-        // If naming isn't forced, ensure name is mostly digits, or leave it alone.
-        if (NumAlpha > 8 || NumDigit < 4){
-            return;
-        }
-    }
-
     if (!Exif2tm(&tm, ImageInfo.DateTime)){
         printf("File '%s' contains no exif date stamp.  Using file date\n",FileName);
         // Use file date/time instead.
@@ -1254,8 +1247,6 @@ static void Usage (void)
            "             the end of the name to make it unique.\n"
            "             The new name may include a path as part of the name.  If this path\n"
            "             does not exist, it will be created\n"
-           "  -nf[format-string]\n"
-           "             Same as -n, but rename regardless of original name\n"
            "  -a         (Windows only) Rename files with same name but different extension\n"
            "             Use together with -n to rename .AVI files from exif in .THM files\n"
            "             for example\n"
@@ -1496,7 +1487,7 @@ int main (int argc, char **argv)
             DoReadAction = TRUE; // Rename doesn't modify file, so count as read action.
             arg+=2;
             if (*arg == 'f'){
-                RenameToDate = 2;
+                // Accept -nf, but -n does the same thing now.
                 arg++;
             }
             if (*arg){
