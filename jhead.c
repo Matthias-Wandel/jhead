@@ -25,6 +25,15 @@
     #include <io.h>
 #endif
 
+// Bitmasks for DoModify:
+#define MODIFY_ANY  1
+#define READ_ANY    2
+#define JPEGS_ONLY  4
+#define MODIFY_JPEG 5
+#define READ_JPEG   6
+static int DoModify     = FALSE;
+
+
 static int FilesMatched;
 static int FileSequence;
 
@@ -41,8 +50,6 @@ static int RenameAssociatedFiles = FALSE;
 #endif
 static char * strftime_args = NULL; // Format for new file name.
 static int Exif2FileTime  = FALSE;
-static int DoModify     = FALSE;
-static int DoReadAction = FALSE;
        int ShowTags     = FALSE;    // Do not show raw by default.
 static int Quiet        = FALSE;    // Be quiet on success (like unix programs)
        int DumpExifMap  = FALSE;
@@ -814,7 +821,7 @@ void ProcessFile(const char * FileName)
         // Applying a command is special - the headers from the file have to be
         // pre-read, then the command executed, and then the image part of the file read.
 
-        if (!ReadJpegFile(FileName, READ_METADATA)) return;
+        if (!ReadJpegFile(FileName, DoModify & JPEGS_ONLY ? READ_METADATA : READ_ANY)) return;
 
         #ifdef MATTHIAS
             if (AutoResize){
@@ -881,7 +888,7 @@ void ProcessFile(const char * FileName)
     if (ShowConcise){
         ShowConciseImageInfo();
     }else{
-        if (!(DoModify || DoReadAction) || ShowTags){
+        if (!(DoModify) || ShowTags){
             ShowImageInfo(ShowFileInfo);
 
             {
@@ -1397,43 +1404,43 @@ int main (int argc, char **argv)
     // General metadata options:
         if (!strcmp(arg,"-te")){
             ExifXferScrFile = argv[++argn];
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-dc")){
             DeleteComments = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-de")){
             DeleteExif = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-di")){
             DeleteIptc = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-dx")){
             DeleteXmp = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg, "-du")){
             DeleteUnknown = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg, "-purejpg")){
             DeleteExif = TRUE;
             DeleteComments = TRUE;
             DeleteIptc = TRUE;
             DeleteUnknown = TRUE;
             DeleteXmp = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-ce")){
             EditComment = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-cs")){
             CommentSavefileName = argv[++argn];
         }else if (!strcmp(arg,"-ci")){
             CommentInsertfileName = argv[++argn];
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-cl")){
             CommentInsertLiteral = argv[++argn];
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-mkexif")){
             CreateExifSection = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
 
     // Output verbosity control
         }else if (!strcmp(arg,"-h")){
@@ -1457,34 +1464,34 @@ int main (int argc, char **argv)
     // Thumbnail manipulation options
         }else if (!strcmp(arg,"-dt")){
             TrimExif = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-st")){
             ThumbSaveName = argv[++argn];
-            DoReadAction = TRUE;
+            DoModify |= READ_JPEG;
         }else if (!strcmp(arg,"-rt")){
             ThumbInsertName = argv[++argn];
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-rgt", 4)){
             RegenThumbnail = 160;
             sscanf(arg+4, "%d", &RegenThumbnail);
             if (RegenThumbnail > 320){
                 ErrFatal("Specified thumbnail geometry too big!");
             }
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
 
     // Rotation tag manipulation
         }else if (!strcmp(arg,"-autorot")){
             AutoRotate = 1;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-norot")){
             AutoRotate = 1;
             ZeroRotateTagOnly = 1;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
 
     // Date/Time manipulation options
         }else if (!memcmp(arg,"-n",2)){
             RenameToDate = 1;
-            DoReadAction = TRUE; // Rename doesn't modify file, so count as read action.
+            DoModify |= READ_JPEG; // Rename doesn't modify file, so count as read action.
             arg+=2;
             if (*arg == 'f'){
                 // Accept -nf, but -n does the same thing now.
@@ -1506,7 +1513,7 @@ int main (int argc, char **argv)
             #endif
         }else if (!strcmp(arg,"-ft")){
             Exif2FileTime = TRUE;
-            DoReadAction = TRUE;
+            DoModify = READ_ANY;
         }else if (!memcmp(arg,"-ta",3)){
             // Time adjust feature.
             int hours, minutes, seconds, n;
@@ -1522,7 +1529,7 @@ int main (int argc, char **argv)
             if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
             ExifTimeAdjust = hours*3600 + minutes*60 + seconds;
             if (arg[3] == '-') ExifTimeAdjust = -ExifTimeAdjust;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-da",3)){
             // Date adjust feature (large time adjustments)
             time_t NewDate, OldDate = 0;
@@ -1536,11 +1543,11 @@ int main (int argc, char **argv)
             }
             if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
             ExifTimeAdjust = NewDate-OldDate;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-dsft",5)){
             // Set file time to date/time in exif
             FileTimeToExif = TRUE;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-ds",3)){
             // Set date feature
             int a;
@@ -1564,7 +1571,7 @@ int main (int argc, char **argv)
                 ErrFatal("Date must be in format YYYY, YYYY:MM, or YYYY:MM:DD");
             }
             DateSetChars = a;
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-ts",3)){
             // Set the exif time.
             // Time must be specified as "yyyy:mm:dd-hh:mm:ss"
@@ -1582,7 +1589,7 @@ int main (int argc, char **argv)
             ExifTimeSet  = mktime(&tm);
 
             if ((int)ExifTimeSet == -1) ErrFatal("Time specified is out of range");
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
 
     // File matching and selection
         }else if (!strcmp(arg,"-model")){
@@ -1597,22 +1604,22 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-cmd")){
             if (argn+1 >= argc) Usage(); // No extra argument.
             ApplyCommand = argv[++argn];
-            DoModify = TRUE;
+            DoModify |= MODIFY_ANY;
 
 #ifdef MATTHIAS
         }else if (!strcmp(arg,"-ca")){
             // Its a literal comment.  Add.
             AddComment = argv[++argn];
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-cr")){
             // Its a literal comment.  Remove this keyword.
             RemComment = argv[++argn];
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-ar")){
             AutoResize = TRUE;
             ShowConcise = TRUE;
             ApplyCommand = (char *)1; // Must be non null so it does commands.
-            DoModify = TRUE;
+            DoModify |= MODIFY_JPEG;
 #endif // MATTHIAS
         }else{
             printf("Argument '%s' not understood\n",arg);

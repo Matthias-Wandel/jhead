@@ -357,7 +357,13 @@ int ReadJpegFile(const char * FileName, ReadMode_t ReadMode)
     // Scan the JPEG headers.
     ret = ReadJpegSections(infile, ReadMode);
     if (!ret){
-        fprintf(stderr,"Not JPEG: %s\n",FileName);
+        if (ReadMode == READ_ANY){
+            // Process any files mode.  Ignore the fact that it's not
+            // a jpeg file.
+            ret = TRUE;
+        }else{
+            fprintf(stderr,"Not JPEG: %s\n",FileName);
+        }
     }
 
     fclose(infile);
