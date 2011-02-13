@@ -20,4 +20,4 @@ clean:
 	rm -f $(objs) jhead
 
 install:
-	cp jhead ${DESTDIR}/usr/bin/
+	cp jhead ${DESTDIR}/usr/local/bin/
