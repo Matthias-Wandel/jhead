@@ -1206,7 +1206,7 @@ badtime:
 //--------------------------------------------------------------------------
 static void Usage (void)
 {
-    printf("Jhead is a program for manipulating settings and thumnails in Exif jpeg headers\n"
+    printf("Jhead is a program for manipulating settings and thumbnails in Exif jpeg headers\n"
            "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Feb 05 2010.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
