@@ -102,6 +102,7 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
     unsigned char * maxpos = Data+itemlen;
     unsigned char headerLen = 0;
     unsigned char dataLen = 0;
+    int utf8 = 0;
 
     if (itemlen < 25) goto corrupt;
 
@@ -164,7 +165,6 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
         unsigned char   type = 0;
         short  length = 0;
         char * description = NULL;
-        int utf8 = 0;;
 
         if (pos+5 > maxpos) goto corrupt;
 
