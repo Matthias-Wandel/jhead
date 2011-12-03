@@ -3,10 +3,6 @@
 //--------------------------------------------------------------------------
 #include "jhead.h"
 
-#ifndef NULL
-#define NULL   ((void *) 0)
-#endif
-
 // IPTC entry types known to Jhead (there's many more defined)
 #define IPTC_RECORD_VERSION         0x00
 #define IPTC_SUPLEMENTAL_CATEGORIES 0x14
@@ -35,45 +31,6 @@
 #define IPTC_IMAGE_TYPE             0x82
 
 //--------------------------------------------------------------------------
-// This will convert UTF8 string buf to an 8-bit code string asc.
-// This will be correct for data which was originally in a 8bit code, 
-// for example Latin1, and was then converted to UTF8
-// It will output '?' for characters which cannot be represented with 8 bits.
-//--------------------------------------------------------------------------
-void UTF8_to_Char(unsigned char* buf, unsigned char* asc)
-{
-	long b=0;
-	unsigned char * a = buf;
-	int buflen;
-	buflen = strlen((char*)buf);
-	for (b=0;b<buflen;a++){
-		if (!(*a&128))
-			// Byte represents an ASCII character. Direct copy will do.
-			*asc=*a;
-		else if ((*a&192)==128)
-			// Byte is the middle of an encoded character. Ignore.
-			continue;
-		else if ((*a&224)==192)
-			// Byte represents the start of an encoded character in the range
-			// U+0080 to U+07FF
-			{*asc =((*a&31)<<6);a++;
-			*asc=(*asc|(*a&63));b++;}
-		else if ((*a&240)==224)
-			// Byte represents the start of an encoded character in the range
-			// U+07FF to U+FFFF
-			{*asc=((*a&15)<<12);a++;
-			*asc=(*asc |((a[1]&63)<<6));a++;
-			*asc=(*asc|(a[2]&63));b++;b++;}
-		else if ((*a&248)==240){
-			// Byte represents the start of an encoded character beyond the
-			// U+FFFF limit of 16-bit integers
-			*asc ='?';
-		}
-		b++;asc++;
-	}
-}
-
-//--------------------------------------------------------------------------
 //  Process and display IPTC marker.
 //
 //  IPTC block consists of:
@@ -100,9 +57,7 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
 
     unsigned char * pos    = Data + sizeof(short);   // position data pointer after length field
     unsigned char * maxpos = Data+itemlen;
-    unsigned char headerLen = 0;
-    unsigned char dataLen = 0;
-    int utf8 = 0;
+    char  headerLen = 0;
 
     if (itemlen < 25) goto corrupt;
 
@@ -113,28 +68,13 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
     if (memcmp(pos, IptcSig2, sizeof(IptcSig2)-1) != 0) goto badsig;
     pos += sizeof(IptcSig2)-1;          // move data pointer to the next field
 
-
-	while (memcmp(pos, IptcSig3, sizeof(IptcSig3)) != 0) { // loop on valid Photoshop blocks
-
-		pos += sizeof(IptcSig3); // move data pointer to the Header Length
-		// Skip header
-		headerLen = *pos; // get header length and move data pointer to the next field
-		pos += (headerLen & 0xfe) + 2; // move data pointer to the next field (Header is padded to even length, counting the length byte)
-
-		pos += 3; // move data pointer to length, assume only one byte, TODO: use all 4 bytes
-
-		dataLen = *pos++;
-		pos += dataLen; // skip data section
-
-		if (memcmp(pos, IptcSig2, sizeof(IptcSig2) - 1) != 0) {
-			badsig: if (ShowTags) {
-				ErrNonfatal("IPTC type signature mismatch\n", 0, 0);
-			}
-			return;
-		}
-		pos += sizeof(IptcSig2) - 1; // move data pointer to the next field
+    if (memcmp(pos, IptcSig3, sizeof(IptcSig3)) != 0){
+badsig:
+        if (ShowTags){
+            ErrNonfatal("IPTC type signature mismatch\n",0,0);
+        }
+        return;
     }
-
     pos += sizeof(IptcSig3);          // move data pointer to the next field
 
     if (pos >= maxpos) goto corrupt;
@@ -155,11 +95,6 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
     printf("======= IPTC data: =======\n");
 
     // Now read IPTC data
-
-	// Modified to handle IPTC Envelope Record which can specify character coding UTF-8
-    // starting with Photoshop CS5 there exists this record.
-    // If it exists, it will precede the records having version 2
-
     while (pos < (Data + itemlen-5)) {
         short  signature;
         unsigned char   type = 0;
@@ -171,26 +106,12 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
         signature = (*pos << 8) + (*(pos+1));
         pos += 2;
 
-		#define IPTC_CODED_CHARACTER_SET 0x5A
-		if (signature == 0x1C01 && *pos == IPTC_CODED_CHARACTER_SET){
-          	const char IptcSig3[] = "\033%G";
-			//we have an envelope record, and it specifies IPTC coded character set.
-			pos += 3;
-        	if (memcmp(pos, IptcSig3, sizeof(IptcSig3)-1) != 0) goto badsig;
-        	utf8 = TRUE; // handle IPTC Envelope Record which can specify character coding UTF-8
-                         // starting with Photoshop CS5 there exists this record.
-                         // If it exists, it will precede the records having version 2
-			pos += 3;
-			signature = (*pos << 8) + (*(pos+1));
-			pos += 2;
-		};
-
-		if (signature != 0x1C01 && signature != 0x1c02) break;
-
+        if (signature != 0x1C01 && signature != 0x1c02) break;
 
         type    = *pos++;
         length  = (*pos << 8) + (*(pos+1));
         pos    += 2;                          // Skip tag length
+
         if (pos+length > maxpos) goto corrupt;
         // Process tag here
         switch (type) {
@@ -229,26 +150,14 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
                 }
             break;
         }
-		if (description != NULL) {
+        if (description != NULL) {
             char TempBuf[32];
-            unsigned char Temp2Buf[255];
-            unsigned char Temp3Buf[255];
             memset(TempBuf, 0, sizeof(TempBuf));
             memset(TempBuf, ' ', 14);
             memcpy(TempBuf, description, strlen(description));
-            strcat(TempBuf, ":");
-            
-            if (utf8) {
-                memset(Temp2Buf, 0, sizeof(Temp2Buf));
-                memcpy(Temp2Buf, pos, length);
-                memset(Temp3Buf, 0, sizeof(Temp3Buf));
-                UTF8_to_Char(Temp2Buf,Temp3Buf);
-                printf("%s %*.*s\n", TempBuf, strlen((char*)Temp3Buf), strlen((char*)Temp3Buf),(char*)Temp3Buf);
-            }else{
-                printf("%s %*.*s\n", TempBuf, length, length, pos);
-            }
-            
-            }
+            strcat(TempBuf, ":"); 
+            printf("%s %*.*s\n", TempBuf, length, length, pos);
+        }
         pos += length;
     }
     return;
@@ -292,4 +201,3 @@ void ShowXmp(Section_t XmpSection)
         }
     }
 }
-
