@@ -172,13 +172,10 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
         pos += 2;
 
 		#define IPTC_CODED_CHARACTER_SET 0x5A
-		if (signature == 0x1C01){
+		if (signature == 0x1C01 && *pos == IPTC_CODED_CHARACTER_SET){
           	const char IptcSig3[] = "\033%G";
-			//we have an envelope record
-    	    type = *pos++;
-        	//  check if it specifies coded character code set
-			if (type != IPTC_CODED_CHARACTER_SET) goto badsig;
-			pos += 2;
+			//we have an envelope record, and it specifies IPTC coded character set.
+			pos += 3;
         	if (memcmp(pos, IptcSig3, sizeof(IptcSig3)-1) != 0) goto badsig;
         	utf8 = TRUE; // handle IPTC Envelope Record which can specify character coding UTF-8
                          // starting with Photoshop CS5 there exists this record.

@@ -15,7 +15,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "2.92"
+#define JHEAD_VERSION "2.93"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -1207,7 +1207,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumbnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Feb 05 2010.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Dec 3 2011.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 

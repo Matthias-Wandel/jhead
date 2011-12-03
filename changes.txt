@@ -368,4 +368,4 @@ Make -n behave like -nf, and get rid of that option.
 Dec 2 2011:
 Handle IPTC in UTF8 (as per photoshop CS5)
 
--------Released version 2.92 -- Dec 2 2011 --------
+-------Released version 2.93 -- Dec 3 2011 --------
