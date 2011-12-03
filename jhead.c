@@ -1513,7 +1513,6 @@ int main (int argc, char **argv)
             #endif
         }else if (!strcmp(arg,"-ft")){
             Exif2FileTime = TRUE;
-            DoModify = READ_ANY;
         }else if (!memcmp(arg,"-ta",3)){
             // Time adjust feature.
             int hours, minutes, seconds, n;
