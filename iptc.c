@@ -57,7 +57,8 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
 
     unsigned char * pos    = Data + sizeof(short);   // position data pointer after length field
     unsigned char * maxpos = Data+itemlen;
-    char  headerLen = 0;
+    unsigned char headerLen = 0;
+    unsigned char dataLen = 0;
 
     if (itemlen < 25) goto corrupt;
 
@@ -68,13 +69,28 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
     if (memcmp(pos, IptcSig2, sizeof(IptcSig2)-1) != 0) goto badsig;
     pos += sizeof(IptcSig2)-1;          // move data pointer to the next field
 
-    if (memcmp(pos, IptcSig3, sizeof(IptcSig3)) != 0){
-badsig:
-        if (ShowTags){
-            ErrNonfatal("IPTC type signature mismatch\n",0,0);
-        }
-        return;
+
+	while (memcmp(pos, IptcSig3, sizeof(IptcSig3)) != 0) { // loop on valid Photoshop blocks
+
+		pos += sizeof(IptcSig3); // move data pointer to the Header Length
+		// Skip header
+		headerLen = *pos; // get header length and move data pointer to the next field
+		pos += (headerLen & 0xfe) + 2; // move data pointer to the next field (Header is padded to even length, counting the length byte)
+
+		pos += 3; // move data pointer to length, assume only one byte, TODO: use all 4 bytes
+
+		dataLen = *pos++;
+		pos += dataLen; // skip data section
+
+		if (memcmp(pos, IptcSig2, sizeof(IptcSig2) - 1) != 0) {
+			badsig: if (ShowTags) {
+				ErrNonfatal("IPTC type signature mismatch\n", 0, 0);
+			}
+			return;
+		}
+		pos += sizeof(IptcSig2) - 1; // move data pointer to the next field
     }
+
     pos += sizeof(IptcSig3);          // move data pointer to the next field
 
     if (pos >= maxpos) goto corrupt;

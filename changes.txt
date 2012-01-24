@@ -369,3 +369,8 @@ Dec 2 2011:
 Handle IPTC in UTF8 (as per photoshop CS5)
 
 -------Released version 2.93 -- Dec 3 2011 --------
+
+Jan 24 2011:
+Fixed bug in jhead -cmd that caused metatdata to be deleted.
+
+-------Released version 2.93 -- Jan 24 2012 --------

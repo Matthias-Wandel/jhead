@@ -2,12 +2,12 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.92
+// Version 2.94
 //
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Dec 2011
+// Dec 1999 - Jan 2012
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "2.93"
+#define JHEAD_VERSION "2.94"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -821,7 +821,7 @@ void ProcessFile(const char * FileName)
         // Applying a command is special - the headers from the file have to be
         // pre-read, then the command executed, and then the image part of the file read.
 
-        if (!ReadJpegFile(FileName, DoModify & JPEGS_ONLY ? READ_METADATA : READ_ANY)) return;
+        if (!ReadJpegFile(FileName, READ_METADATA)) return;
 
         #ifdef MATTHIAS
             if (AutoResize){
@@ -1207,7 +1207,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumbnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Dec 3 2011.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jan 24 2012.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 

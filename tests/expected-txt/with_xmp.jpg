@@ -157,7 +157,127 @@ jhead -cmd "jhead -purejpg &i"  results-bin\with_xmp.jpg
 Modified: results-bin\with_xmp.jpg
 Cmd:jhead -purejpg "results-bin\with_xmp.jpg"
 Modified: results-bin\with_xmp.jpg
-JFIF SOI marker: Units: 1 (dots per inch)  X-density=180 Y-density=180
+Exif header 10488 bytes long
+Exif section in Intel order
+(dir has 11 entries)
+    Make = "Canon"
+    Model = "Canon PowerShot A95"
+    Orientation = 1
+    XResolution = 180/1
+    YResolution = 180/1
+    ResolutionUnit = 2
+    DateTime = "2007:06:30 15:02:24"
+    YCbCrPositioning = 1
+    Copyright = "Michael G. Lee"
+    ExifOffset = 224
+    Exif Dir:(dir has 32 entries)
+        ExposureTime = 1/320
+        FNumber = 50/10
+        ISOSpeedRatings = 50
+        ExifVersion = "0220"
+        DateTimeOriginal = "2007:06:30 15:02:24"
+        DateTimeDigitized = "2007:06:30 15:02:24"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 5/1
+        ShutterSpeedValue = 266/32
+        ApertureValue = 149/32
+        ExposureBiasValue = 0/3
+        MaxApertureValue = 95/32
+        MeteringMode = 5
+        Flash = 16
+        FocalLength = 250/32
+        Maker note: (dir has 18 entries)
+            Canon maker tag 0001 Value = 92, 2, 0, 5, 0, 0, 0, 4, 0, 1, 0, 1, 0, 0, 0, 0, ...
+            Canon maker tag 0002 Value = 2, 250, 290, 217
+            Canon maker tag 0003 Value = 0, 0, 0, 0
+            Canon maker tag 0004 Value = 68, 0, 128, 286, 149, 266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 0000 Value = 0, 0, 0, 0, 0, 0
+            Canon maker tag 0000 Value = 0, 0, 0, 0
+            Canon maker tag 0012 Value = 9, 1, 2592, 1944, 2592, 216, 467, 39, 0, 0, 0, 0, 0, 0, 0, 0, ...
+            Canon maker tag 0013 Value = 0, 0, 0, 0
+            Canon maker tag 0006 Value = "IMG:PowerShot A95 JPEG"
+            Canon maker tag 0007 Value = "Firmware Version 1.00"
+            Canon maker tag 0008 Value = 1626262
+            Canon maker tag 0009 Value = "Michael G. Lee"
+            Canon maker tag 0010 Value = 22216704
+            Canon maker tag 0017 Value = 0
+            Canon maker tag 0018 Value = 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, ...
+            Canon maker tag 0019 Value = 1
+            Canon maker tag 001c Value = 0
+            Canon maker tag 000d Value = 72, 9, 405, 32769, 32769, 32769, 32769, 32769, 32769, 32769, 32769, 64, 0, 0, 36, 4, ...
+        UserComment = "?"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 2592
+        ExifImageLength = 1944
+        InteroperabilityOffset = 1912
+        Interop Dir:(dir has 4 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+            RelatedImageWidth = 2592
+            RelatedImageLength = 1944
+        FocalPlaneXResolution = 2592000/283
+        FocalPlaneYResolution = 1944000/212
+        FocalPlaneResolutionUnit = 2
+        SensingMethod = 2
+        FileSource = ""
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 0
+        DigitalZoomRatio = 2592/2592
+        SceneCaptureType = 0
+    GPS Dir offset = 1966
+    GPS info dir:(dir has 10 entries)
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =42/1, 16/1, 90446/2493, 16/1, 90446/2493, 83/1, 90446/2493, 83/1, 42/1
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =83/1, 42/1, 12465/5006, 42/1, 12465/5006, 227/1, 12465/5006, 227/1, 14/1
+        GPSAltitudeRef      =00
+        GPSAltitude         =227/1
+        GPSTimeStamp        =14/1, 2/1, 24/1, 2/1, 24/1, 760432471/13368, 24/1, 760432471/13368, 925904946/976629818
+        GPSSatellites       ="0"
+        GPSMapDatum         ="WGS-84"
+        GPSDateStamp        ="2007:06:30"
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 2286
+        ThumbnailLength = 8194
+Thumbnail size: 8194 bytes
+Image cotains IPTC section, 128 bytes long
+Image cotains XMP section, 3675 bytes long
+?[http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>
+<x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='Image::ExifTool 7.13'>
+<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+
+ <rdf:Description rdf:about=''
+  xmlns:Iptc4xmpCore='http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/'>
+  <Iptc4xmpCore:CountryCode>USA</Iptc4xmpCore:CountryCode>
+  <Iptc4xmpCore:Location>Geddes</Iptc4xmpCore:Location>
+ </rdf:Description>
+
+ <rdf:Description rdf:about=''
+  xmlns:exif='http://ns.adobe.com/exif/1.0/'>
+  <exif:DateTimeOriginal>2007-06-30T14:02:24Z</exif:DateTimeOriginal>
+  <exif:GPSAltitude>227/1</exif:GPSAltitude>
+  <exif:GPSAltitudeRef>0</exif:GPSAltitudeRef>
+  <exif:GPSLatitude>42,16.604666N</exif:GPSLatitude>
+  <exif:GPSLongitude>83,42.041500W</exif:GPSLongitude>
+  <exif:GPSTimeStamp>2007-06-30T14:02:24Z</exif:GPSTimeStamp>
+ </rdf:Description>
+
+ <rdf:Description rdf:about=''
+  xmlns:photoshop='http://ns.adobe.com/photoshop/1.0/'>
+  <photoshop:City>Ann Arbor</photoshop:City>
+  <photoshop:Country>United States</photoshop:Country>
+  <photoshop:DateCreated>2007-06-30T14:02:24Z</photoshop:DateCreated>
+  <photoshop:State>Michigan</photoshop:State>
+ </rdf:Description>
+</rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
 Jpeg section marker 0xdb size 67
 Jpeg section marker 0xdb size 67
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample
@@ -165,7 +285,31 @@ Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
 Jpeg section marker 0xc4 size 31
 Jpeg section marker 0xc4 size 181
+Camera make  : Canon
+Camera model : Canon PowerShot A95
+Date/Time    : 2007:06:30 15:02:24
 Resolution   : 200 x 150
+Flash used   : No
+Focal length :  7.8mm  (35mm equivalent: 39mm)
+CCD width    : 7.19mm
+Exposure time: 0.0031 s  (1/320)
+Aperture     : f/5.0
+Focus dist.  : 3.52m
+ISO equiv.   : 50
+Whitebalance : Auto
+Metering Mode: pattern
+GPS Latitude : N 42d 16m 36.2800s
+GPS Longitude: W 83d 42m  2.4900s
+GPS Altitude :  227.00m
+======= IPTC data: =======
+Record vers.  : 4
+City          : Ann Arbor
+Sub Location  : Geddes
+State         : Michigan
+Ref. Service  : USA
+Country       : United States
+DateCreated   : 20070630
+Time Created  : 140224+0000
 
 Exif header 10488 bytes long
 Exif section in Intel order
