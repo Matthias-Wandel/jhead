@@ -380,10 +380,14 @@ void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
             case FMT_SLONG:     printf("%d",Get32s(ValuePtr)); s=4;      break;
             case FMT_SSHORT:    printf("%hd",(signed short)Get16u(ValuePtr)); s=2; break;
             case FMT_URATIONAL:
+                printf("%u/%u",Get32s(ValuePtr), Get32s(4+(char *)ValuePtr)); 
+                s = 8;
+                break;
+
             case FMT_SRATIONAL: 
-               printf("%d/%d",Get32s(ValuePtr), Get32s(4+(char *)ValuePtr)); 
-               s = 8;
-               break;
+                printf("%d/%d",Get32s(ValuePtr), Get32s(4+(char *)ValuePtr)); 
+                s = 8;
+                break;
 
             case FMT_SINGLE:    printf("%f",(double)*(float *)ValuePtr); s=8; break;
             case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr);        s=8; break;
@@ -425,7 +429,11 @@ double ConvertAnyFormat(void * ValuePtr, int Format)
                 if (Den == 0){
                     Value = 0;
                 }else{
-                    Value = (double)Num/Den;
+                    if (Format == FMT_SRATIONAL){
+                        Value = (double)Num/Den;
+                    }else{
+                        Value = (double)(unsigned)Num/(double)(unsigned)Den;
+                    }
                 }
                 break;
             }
