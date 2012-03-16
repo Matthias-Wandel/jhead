@@ -373,11 +373,10 @@ Handle IPTC in UTF8 (as per photoshop CS5)
 Jan 24 2011:
 Fixed bug in jhead -cmd that caused metatdata to be deleted.
 
--------Released version 2.93 -- Jan 24 2012 --------
+-------Released version 2.94 -- Jan 24 2012 --------
 
 Mar 3 2011:
-Handle very large unsigned rational numbers
+Handle very large unsigned rational numbers in exif header
 
+-------Released version 2.95 -- Mar 16 2012 --------
 
-========================================
-To add: a switch that only renames if exif exits.
