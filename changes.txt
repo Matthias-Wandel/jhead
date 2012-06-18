@@ -380,3 +380,6 @@ Handle very large unsigned rational numbers in exif header
 
 -------Released version 2.95 -- Mar 16 2012 --------
 
+Jun 18 2012:
+Fix printing file info when -ft option is used
+Do not skip readonle files with -st option
