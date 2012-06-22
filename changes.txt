@@ -383,3 +383,5 @@ Handle very large unsigned rational numbers in exif header
 Jun 18 2012:
 Fix printing file info when -ft option is used
 Do not skip readonle files with -st option
+
+-------Released version 2.96 -- Jun 22 2012 --------

@@ -1205,7 +1205,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumbnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jun 18 2012.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jun 22 2012.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
@@ -1240,6 +1240,10 @@ static void Usage (void)
            "             date otherwise.  If the optional format-string is not supplied,\n"
            "             the format is mmdd-hhmmss.  If a format-string is given, it is\n"
            "             is passed to the 'strftime' function for formatting\n"
+           "             %%d Day of month    %%H Hour (24-hour)\n"
+           "             %%m Month number    %%M Minute    %%S Second\n"
+           "             %%y Year (2 digit 00 - 99)        %%Y Year (4 digit 1980-2036)\n"
+           "             For more arguments, look up the 'strftime' function.\n"
            "             In addition to strftime format codes:\n"
            "             '%%f' as part of the string will include the original file name\n"
            "             '%%i' will include a sequence number, starting from 1. You can\n"
