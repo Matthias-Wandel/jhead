@@ -3,7 +3,7 @@
 #--------------------------------
 
 CC=cl /nologo
-CFLAGS=-c -Ox -W3 -Zp -D _CRT_SECURE_NO_WARNINGS
+CFLAGS=-c -Ox -Os -W3 -Zp -D _CRT_SECURE_NO_WARNINGS
 
 
 LINKER=link
