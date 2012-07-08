@@ -11,6 +11,10 @@
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
+#ifdef _WIN32
+    #include <io.h>
+#endif
+
 #include "jhead.h"
 
 #include <sys/stat.h>
@@ -21,9 +25,6 @@
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
 //#define MATTHIAS
 
-#ifdef _WIN32
-    #include <io.h>
-#endif
 
 // Bitmasks for DoModify:
 #define MODIFY_ANY  1

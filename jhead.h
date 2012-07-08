@@ -6,8 +6,6 @@
 // where they get used as possible, so include files only get stuff that 
 // gets used in more than one file.
 //--------------------------------------------------------------------------
-#define _CRT_SECURE_NO_DEPRECATE 1
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,6 +17,13 @@
 
 #ifdef _WIN32
     #include <sys/utime.h>
+
+    // Make the Microsoft Visual c 10 deprecate warnings go away.
+    // The _CRT_SECURE_NO_DEPRECATE doesn't do the trick like it should.
+    #define unlink _unlink
+    #define chmod _chmod
+    #define access _access
+    #define mktemp _mktemp
 #else
     #include <utime.h>
     #include <sys/types.h>

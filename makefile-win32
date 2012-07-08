@@ -3,7 +3,9 @@
 #--------------------------------
 
 CC=cl /nologo
-CFLAGS=-c -G3 -Ox -W3 -Zp -Zd
+CFLAGS=-c -Ox -W3 -Zp -D _CRT_SECURE_NO_WARNINGS
+
+
 LINKER=link
 LINKCON = /nologo
 
