@@ -143,6 +143,9 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         for (a=0;;a++){
             marker = fgetc(infile);
             if (marker != 0xff && prev == 0xff) break;
+            if (marker == EOF){
+                ErrFatal("Unexpected end of file");
+            }
             prev = marker;
         }
 
