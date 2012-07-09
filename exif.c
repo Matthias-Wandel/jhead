@@ -1052,7 +1052,7 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
 
 
     // Compute the CCD width, in millimeters.
-    if (FocalplaneXRes != 0){
+    if (FocalplaneXRes != 0 && ExifImageWidth != 0){
         // Note: With some cameras, its not possible to compute this correctly because
         // they don't adjust the indicated focal plane resolution units when using less
         // than maximum resolution, so the CCDWidth value comes out too small.  Nothing
