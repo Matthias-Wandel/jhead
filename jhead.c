@@ -268,7 +268,7 @@ static int ModifyDescriptComment(char * OutComment, char * SrcComment)
 
     if (!HasScandate && !ImageInfo.DateTime[0]){
         // Scan date is not in the file yet, and it doesn't have one built in.  Add it.
-        char Temp[30];
+        char Temp[40];
         sprintf(Temp, "scan_date=%s", ctime(&ImageInfo.FileDateTime));
         strncat(OutComment, Temp, MAX_COMMENT_SIZE-5-strlen(OutComment));
         Modified = TRUE;
