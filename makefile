@@ -3,7 +3,7 @@
 #--------------------------------
 OBJ=.
 SRC=.
-CFLAGS= -O3 -Wall
+CFLAGS:= $(CFLAGS) -O3 -Wall
 
 all: jhead
 

@@ -9,7 +9,7 @@ extern int MotorolaOrder;
 //--------------------------------------------------------------------------
 // Process exif format directory, as used by Cannon maker note
 //--------------------------------------------------------------------------
-void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBase, 
+static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBase, 
         unsigned ExifLength)
 {
     int de;
@@ -154,7 +154,7 @@ void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBa
 //--------------------------------------------------------------------------
 // Show generic maker note - just hex bytes.
 //--------------------------------------------------------------------------
-void ShowMakerNoteGeneric(unsigned char * ValuePtr, int ByteCount)
+static void ShowMakerNoteGeneric(unsigned char * ValuePtr, int ByteCount)
 {
     int a;
     for (a=0;a<ByteCount;a++){

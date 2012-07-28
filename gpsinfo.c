@@ -53,7 +53,7 @@ static const char * GpsTags[MAX_GPS_TAG+1]= {
 //--------------------------------------------------------------------------
 // Process GPS info directory
 //--------------------------------------------------------------------------
-void ProcessGpsInfo(unsigned char * DirStart, int ByteCountUnused, unsigned char * OffsetBase, unsigned ExifLength)
+void ProcessGpsInfo(unsigned char * DirStart, unsigned char * OffsetBase, unsigned ExifLength)
 {
     int de;
     unsigned a;

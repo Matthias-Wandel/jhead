@@ -115,7 +115,7 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
         short  signature;
         unsigned char   type = 0;
         short  length = 0;
-        char * description = NULL;
+        const char * description = NULL;
 
         if (pos+5 > maxpos) goto corrupt;
 

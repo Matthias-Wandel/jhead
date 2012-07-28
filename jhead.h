@@ -149,14 +149,13 @@ typedef enum {
 
 
 // prototypes for jhead.c functions
-void ErrFatal(char * msg);
-void ErrNonfatal(char * msg, int a1, int a2);
-void FileTimeAsString(char * TimeStr);
+void ErrFatal(const char * msg);
+void ErrNonfatal(const char * msg, int a1, int a2);
+void FileTimeAsString(const char * TimeStr);
 
 // Prototypes for exif.c functions.
 int Exif2tm(struct tm * timeptr, char * ExifTime);
 void process_EXIF (unsigned char * CharBuf, unsigned int length);
-int RemoveThumbnail(unsigned char * ExifSection);
 void ShowImageInfo(int ShowFileInfo);
 void ShowConciseImageInfo(void);
 const char * ClearOrientation(void);
@@ -192,7 +191,7 @@ extern void ProcessMakerNote(unsigned char * DirStart, int ByteCount,
                  unsigned char * OffsetBase, unsigned ExifLength);
 
 // gpsinfo.c prototypes
-void ProcessGpsInfo(unsigned char * ValuePtr, int ByteCount, 
+void ProcessGpsInfo(unsigned char * ValuePtr,  
                 unsigned char * OffsetBase, unsigned ExifLength);
 
 // iptc.c prototpyes

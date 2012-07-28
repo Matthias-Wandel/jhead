@@ -2,12 +2,12 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.96
+// Version 2.961
 //
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Jun 2012
+// Dec 1999 - Jul 2012
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -19,7 +19,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "2.96"
+#define JHEAD_VERSION "2.961"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -109,7 +109,7 @@ static int ShowFileInfo = TRUE;     // Indicates to show standard file info
 //--------------------------------------------------------------------------
 // Error exit handler
 //--------------------------------------------------------------------------
-void ErrFatal(char * msg)
+void ErrFatal(const char * msg)
 {
     fprintf(stderr,"\nError : %s\n", msg);
     if (CurrentFile) fprintf(stderr,"in file '%s'\n",CurrentFile);
@@ -120,7 +120,7 @@ void ErrFatal(char * msg)
 // Report non fatal errors.  Now that microsoft.net modifies exif headers,
 // there's corrupted ones, and there could be more in the future.
 //--------------------------------------------------------------------------
-void ErrNonfatal(char * msg, int a1, int a2)
+void ErrNonfatal(const char * msg, int a1, int a2)
 {
     if (SupressNonFatalErrors) return;
 
@@ -766,7 +766,7 @@ static int RegenerateThumbnail(const char * FileName)
 //--------------------------------------------------------------------------
 // Set file time as exif time.
 //--------------------------------------------------------------------------
-void FileTimeAsString(char * TimeStr)
+void FileTimeAsString(const char * TimeStr)
 {
     struct tm ts;
     ts = *localtime(&ImageInfo.FileDateTime);
@@ -776,7 +776,7 @@ void FileTimeAsString(char * TimeStr)
 //--------------------------------------------------------------------------
 // Do selected operations to one file at a time.
 //--------------------------------------------------------------------------
-void ProcessFile(const char * FileName)
+static void ProcessFile(const char * FileName)
 {
     int Modified = FALSE;
     ReadMode_t ReadMode;
@@ -1207,7 +1207,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumbnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jun 22 2012.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jul 28 2012.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
@@ -1362,7 +1362,7 @@ static void Usage (void)
 //--------------------------------------------------------------------------
 // Parse specified date or date+time from command line.
 //--------------------------------------------------------------------------
-time_t ParseCmdDate(char * DateSpecified)
+static time_t ParseCmdDate(char * DateSpecified)
 {
     int a;
     struct tm tm;

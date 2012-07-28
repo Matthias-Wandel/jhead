@@ -98,7 +98,7 @@ static void process_SOFn (const uchar * Data, int marker)
 //--------------------------------------------------------------------------
 // Check sections array to see if it needs to be increased in size.
 //--------------------------------------------------------------------------
-void CheckSectionsAllocated(void)
+static void CheckSectionsAllocated(void)
 {
     if (SectionsRead > SectionsAllocated){
         ErrFatal("allocation screwup");

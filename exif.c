@@ -868,7 +868,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     if (SubdirStart < OffsetBase || SubdirStart > OffsetBase+ExifLength){
                         ErrNonfatal("Illegal GPS directory link in Exif",0,0);
                     }else{
-                        ProcessGpsInfo(SubdirStart, ByteCount, OffsetBase, ExifLength);
+                        ProcessGpsInfo(SubdirStart, OffsetBase, ExifLength);
                     }
                     continue;
                 }
@@ -1245,52 +1245,6 @@ const char * ClearOrientation(void)
     return OrientTab[ImageInfo.Orientation];
 }
 
-
-
-//--------------------------------------------------------------------------
-// Remove thumbnail out of the exif image.
-//--------------------------------------------------------------------------
-int RemoveThumbnail(unsigned char * ExifSection)
-{
-    if (!DirWithThumbnailPtrs || 
-        ImageInfo.ThumbnailOffset == 0 || 
-        ImageInfo.ThumbnailSize == 0){
-        // No thumbnail, or already deleted it.
-        return 0;
-    }
-    if (ImageInfo.ThumbnailAtEnd == FALSE){
-        ErrNonfatal("Thumbnail not at end of Exif header, can't remove it", 0, 0);
-        return 0;
-    }
-
-    {
-        int de;
-        int NumDirEntries;
-        NumDirEntries = Get16u(DirWithThumbnailPtrs);
-
-        for (de=0;de<NumDirEntries;de++){
-            int Tag;
-            unsigned char * DirEntry;
-            DirEntry = DIR_ENTRY_ADDR(DirWithThumbnailPtrs, de);
-            Tag = Get16u(DirEntry);
-            if (Tag == TAG_THUMBNAIL_LENGTH){
-                // Set length to zero.
-                if (Get16u(DirEntry+2) != FMT_ULONG){
-                    // non standard format encoding.  Can't do it.
-                    ErrNonfatal("Can't remove Exif thumbnail", 0, 0);
-                    return 0;
-                }
-                Put32u(DirEntry+8, 0);
-            }                    
-        }
-    }
-
-    // This is how far the non thumbnail data went.
-    return ImageInfo.ThumbnailOffset+8;
-
-}
-
-
 //--------------------------------------------------------------------------
 // Convert exif time to Unix time structure
 //--------------------------------------------------------------------------
@@ -1555,7 +1509,7 @@ void ShowImageInfo(int ShowFileInfo)
     if (ImageInfo.Process != M_SOF0){
         // don't show it if its the plain old boring 'baseline' process, but do
         // show it if its something else, like 'progressive' (used on web sometimes)
-        int a;
+        unsigned a;
         for (a=0;;a++){
             if (a >= PROCESS_TABLE_SIZE){
                 // ran off the end of the table.
