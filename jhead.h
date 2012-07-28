@@ -151,7 +151,7 @@ typedef enum {
 // prototypes for jhead.c functions
 void ErrFatal(const char * msg);
 void ErrNonfatal(const char * msg, int a1, int a2);
-void FileTimeAsString(const char * TimeStr);
+void FileTimeAsString(char * TimeStr);
 
 // Prototypes for exif.c functions.
 int Exif2tm(struct tm * timeptr, char * ExifTime);

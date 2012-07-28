@@ -766,7 +766,7 @@ static int RegenerateThumbnail(const char * FileName)
 //--------------------------------------------------------------------------
 // Set file time as exif time.
 //--------------------------------------------------------------------------
-void FileTimeAsString(const char * TimeStr)
+void FileTimeAsString(char * TimeStr)
 {
     struct tm ts;
     ts = *localtime(&ImageInfo.FileDateTime);
