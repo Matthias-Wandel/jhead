@@ -823,10 +823,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             case TAG_ISO_EQUIVALENT:
                 ImageInfo.ISOequivalent = (int)ConvertAnyFormat(ValuePtr, Format);
-                if ( ImageInfo.ISOequivalent < 50 ){
-                    // Fixes strange encoding on some older digicams.
-                    ImageInfo.ISOequivalent *= 200;
-                }
                 break;
 
             case TAG_DIGITALZOOMRATIO:
