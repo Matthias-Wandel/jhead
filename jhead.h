@@ -132,6 +132,8 @@ typedef struct {
     char GpsLat[31];
     char GpsLong[31];
     char GpsAlt[20];
+
+    int  QualityGuess;
 }ImageInfo_t;
 
 
@@ -222,6 +224,9 @@ Section_t * FindSection(int SectionType);
 Section_t * CreateSection(int SectionType, unsigned char * Data, int size);
 void ResetJpgfile(void);
 
+// Prototypes from jpgqguess.c
+void process_DQT (const uchar * Data, int length);
+void process_DHT (const uchar * Data, int length);
 
 // Variables from jhead.c used by exif.c
 extern ImageInfo_t ImageInfo;
@@ -253,7 +258,7 @@ extern int ShowTags;
 #define M_EXIF  0xE1          // Exif marker.  Also used for XMP data!
 #define M_XMP   0x10E1        // Not a real tag (same value in file as Exif!)
 #define M_COM   0xFE          // COMment 
-#define M_DQT   0xDB
-#define M_DHT   0xC4
+#define M_DQT   0xDB          // Define Quantization Table
+#define M_DHT   0xC4          // Define Huffmann Table
 #define M_DRI   0xDD
 #define M_IPTC  0xED          // IPTC marker

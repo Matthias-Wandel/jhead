@@ -385,3 +385,12 @@ Fix printing file info when -ft option is used
 Do not skip readonle files with -st option
 
 -------Released version 2.96 -- Jun 22 2012 --------
+
+Jul 9 2012:
+Make it compile clean with visual studio 10
+
+Jul 28 2012:
+Various cleanups from debian folks.
+
+Oct 19 2012:
+Add feature to show quality of jpeg, (by Andy Spiegel)

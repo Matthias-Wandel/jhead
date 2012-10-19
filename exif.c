@@ -1549,6 +1549,11 @@ void ShowImageInfo(int ShowFileInfo)
             printf("%.*ls\n", ImageInfo.CommentWidthchars, (wchar_t *)ImageInfo.Comments);
         }
     }
+
+    if (ImageInfo.QualityGuess){
+        printf("JPEG Quality : %d\n", ImageInfo.QualityGuess);
+    }
+
 }
 
 

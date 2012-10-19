@@ -215,6 +215,15 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 }
                 return TRUE;
 
+            case M_DQT:   // Define Quantization Table
+                process_DQT(Data, itemlen);
+                break;
+
+            case M_DHT:   // Any useful data to print?
+                process_DHT(Data, itemlen);
+                break;
+
+
             case M_EOI:   // in case it's a tables-only JPEG stream
                 fprintf(stderr,"No image in jpeg!\n");
                 return FALSE;
