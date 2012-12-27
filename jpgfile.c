@@ -158,6 +158,9 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         // Read the length of the section.
         lh = fgetc(infile);
         ll = fgetc(infile);
+        if (lh == EOF || ll == EOF){
+            ErrFatal("Unexpected end of file");
+        }
 
         itemlen = (lh << 8) | ll;
 
