@@ -1586,7 +1586,7 @@ int main (int argc, char **argv)
             if (c) *c = ' '; // Replace '-' with a space.
             
             if (!Exif2tm(&tm, arg+3)){
-                ErrFatal("-ts option must be followed by time in format yyyy:mmm:dd-hh:mm:ss\n"
+                ErrFatal("-ts option must be followed by time in format yyyy:mm:dd-hh:mm:ss\n"
                         "Example: jhead -ts2001:01:01-12:00:00 foo.jpg");
             }
 
