@@ -190,10 +190,21 @@ valid as part of a filename on some systems.
 
 .TP
 .B \-ta<+|\-><timediff>
-Adjust time stored in the Exif header by h:mm backwards or forwards.
+Adjust time stored in the Exif header by h:mm forwards or backwards.
 Useful when having taken pictures with the wrong time set on the camera,
 such as after travelling across time zones, or when daylight savings
 time has changed.
+
+Examples:
+
+Add 1 hourand 5 minutes to the time
+.br
+jhead \-ta+1:05
+
+Decrease time by one second:
+.br
+jhead \-ta-0:0:1
+
 
 This option changes all Date/time fields in the exif header, including
 "DateTimeOriginal" (tag 0x9003) and "DateTimeDigitized" (tag 0x9004).

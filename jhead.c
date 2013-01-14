@@ -1262,7 +1262,7 @@ static void Usage (void)
            "             Use together with -n to rename .AVI files from exif in .THM files\n"
            "             for example\n"
            "  -ta<+|->h[:mm[:ss]]\n"
-           "             Adjust time by h:mm backwards or forwards.  Useful when having\n"
+           "             Adjust time by h:mm forwards or backwards.  Useful when having\n"
            "             taken pictures with the wrong time set on the camera, such as when\n"
            "             traveling across time zones or DST changes. Dates can be adjusted\n"
            "             by offsetting by 24 hours or more.  For large date adjustments,\n"
