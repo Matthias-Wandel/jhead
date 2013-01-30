@@ -299,10 +299,10 @@ rdf:li>
 </x:xmpmeta>
                                                                                        
 Image cotains IPTC section, 11052 bytes long
-Jpeg section marker 0xdb size 132
+Approximate quality factor for qtable 0: 94 (scale 11.75, var 8.52)
+Approximate quality factor for qtable 1: 93 (scale 14.07, var 5.24)
 JPEG image is 192w * 108h, 3 color components, 8 bits per sample
 Jpeg section marker 0xdd size 4
-Jpeg section marker 0xc4 size 418
 Camera make  : FUJIFILM
 Camera model : FinePix2600Zoom
 Date/Time    : 2002:08:01 15:32:56
@@ -316,6 +316,7 @@ ISO equiv.   : 100
 Metering Mode: pattern
 Exposure     : program (auto)
 ======= IPTC data: =======
+City          : %G
 Record vers.  : 2
 Keywords      : Pflanze
 Spec. Instr.  : Digital Camera FinePix2600Zoom Ver3.00
@@ -326,10 +327,10 @@ City          : Wildhaus
 Sub Location  : Ferienchalet
 State         : St. Gallen
 Country       : Switzerland
-Headline      : Blume im Garten (öäüéàè)
+Headline      : Blume im Garten (Ã¶Ã¤Ã¼Ã©Ã Ã¨)
 Credit        : Walter Hangartner
 Source        : Walter Hangartner
-(C)Notice     : ©2007 Walter Hangartner, all rights reserved
-Caption       : Blume im Garten (öäüéàè)
+(C)Notice     : Â©2007 Walter Hangartner, all rights reserved
+Caption       : Blume im Garten (Ã¶Ã¤Ã¼Ã©Ã Ã¨)
 Author        : Walter Hangartner
 

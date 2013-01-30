@@ -218,11 +218,13 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 }
                 return TRUE;
 
-            case M_DQT:   // Define Quantization Table
+            case M_DQT:
+                // Use for jpeg quality guessing
                 process_DQT(Data, itemlen);
                 break;
 
-            case M_DHT:   // Any useful data to print?
+            case M_DHT:   
+                // Use for jpeg quality guessing
                 process_DHT(Data, itemlen);
                 break;
 

@@ -54,13 +54,9 @@ Exif section in Intel order
         ThumbnailOffset = 873
         ThumbnailLength = 3750
 Thumbnail size: 3750 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 120w * 160h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 27
-Jpeg section marker 0xc4 size 60
-Jpeg section marker 0xc4 size 26
-Jpeg section marker 0xc4 size 41
 Camera make  : SONY
 Camera model : CYBERSHOT
 Date/Time    : 2004:01:25 16:13:40

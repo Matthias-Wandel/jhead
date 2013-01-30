@@ -62,13 +62,9 @@ Multiple comments in exif header
         ThumbnailLength = 12585
 Thumbnail size: 12585 bytes
 Jpeg section marker 0xe2 size 496
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 104h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 27
-Jpeg section marker 0xc4 size 58
-Jpeg section marker 0xc4 size 25
-Jpeg section marker 0xc4 size 33
 Camera make  : NIKON CORPORATION
 Camera model : Mod NIKON D1X
 Date/Time    : 2002:09:30 16:17:13

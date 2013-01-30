@@ -42,13 +42,9 @@ Exif section in Intel order
         ThumbnailLength = 6976
         ThumbnailOffset = 584
 Thumbnail size: 6976 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 85 (scale 30.13, var 1.05)
+Approximate quality factor for qtable 1: 85 (scale 30.15, var 0.29)
 JPEG image is 320w * 240h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 62
-Jpeg section marker 0xc4 size 26
-Jpeg section marker 0xc4 size 47
 Camera make  : LG Electronics
 Camera model : VX-9700
 Date/Time    : 05.10.2009 11:16

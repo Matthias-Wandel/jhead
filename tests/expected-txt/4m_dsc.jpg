@@ -49,8 +49,8 @@ Exif section in Intel order
         ThumbnailLength = 3336
         YCbCrPositioning = 2
 Thumbnail size: 3336 bytes
-Jpeg section marker 0xdb size 132
-Jpeg section marker 0xc4 size 418
+Approximate quality factor for qtable 0: 84 (scale 31.06, var 61.15)
+Approximate quality factor for qtable 1: 85 (scale 30.63, var -13.18)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
 Camera make  :  
 Camera model : 4M DSC

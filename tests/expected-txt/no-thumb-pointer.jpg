@@ -50,13 +50,9 @@ Exif section in Intel order
         Saturation = 0
         Sharpness = 0
     Unknown Tag c4a5 Value = "PrintIM?0250?d?¬?Ä?€?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?"
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 80 (scale 40.12, var 1.43)
+Approximate quality factor for qtable 1: 80 (scale 40.26, var 0.36)
 JPEG image is 150w * 200h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 60
-Jpeg section marker 0xc4 size 25
-Jpeg section marker 0xc4 size 41
 Camera make  : Panasonic
 Camera model : DMC-FZ20
 Date/Time    : 2007:03:11 15:23:53

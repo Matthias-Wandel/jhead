@@ -120,13 +120,9 @@ Image cotains XMP section, 3675 bytes long
 </rdf:RDF>
 </x:xmpmeta>
                                                                                                     
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 90 (scale 19.88, var 1.14)
+Approximate quality factor for qtable 1: 90 (scale 20.14, var 0.34)
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 15:02:24
@@ -153,7 +149,6 @@ Country       : United States
 DateCreated   : 20070630
 Time Created  : 140224+0000
 
-jhead -cmd "jhead -purejpg &i"  results-bin\with_xmp.jpg 
 Modified: results-bin\with_xmp.jpg
 Cmd:jhead -purejpg "results-bin\with_xmp.jpg"
 Modified: results-bin\with_xmp.jpg
@@ -278,13 +273,9 @@ Image cotains XMP section, 3675 bytes long
 </rdf:RDF>
 </x:xmpmeta>
                                                                                                     
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 90 (scale 19.88, var 1.14)
+Approximate quality factor for qtable 1: 90 (scale 20.14, var 0.34)
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 15:02:24
@@ -401,13 +392,9 @@ Exif section in Intel order
         ThumbnailLength = 8194
 Thumbnail size: 8194 bytes
 Image cotains IPTC section, 128 bytes long
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 90 (scale 19.88, var 1.14)
+Approximate quality factor for qtable 1: 90 (scale 20.14, var 0.34)
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 14:02:24

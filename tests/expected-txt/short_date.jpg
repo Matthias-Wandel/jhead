@@ -54,13 +54,9 @@ Exif section in Motorola order
         ThumbnailOffset = 1401
         ThumbnailLength = 8488
 Thumbnail size: 8488 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 200w * 160h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 61
-Jpeg section marker 0xc4 size 25
-Jpeg section marker 0xc4 size 37
 Camera make  : DIGITAL CAMERA
 Camera model : 1.0
 Date/Time    : 2008:02:15 16:00

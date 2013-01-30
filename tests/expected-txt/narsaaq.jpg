@@ -30,13 +30,9 @@ COM marker comment:
 CREATOR: XV Version 3.00  Rev: 3/30/93  Quality = 95, Smoothing = 0
 ?
 Image cotains IPTC section, 116 bytes long
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 95 (scale 9.93, var 1.25)
+Approximate quality factor for qtable 1: 95 (scale 10.18, var 0.26)
 JPEG image is 492w * 267h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
 Date/Time    : 1991:09:05 13:00:58
 Resolution   : 492 x 267
 Comment      : 

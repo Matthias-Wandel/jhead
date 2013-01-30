@@ -81,13 +81,9 @@ Exif section in Intel order
         ThumbnailOffset = 2548
         ThumbnailLength = 9728
 Thumbnail size: 9728 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 107h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 27
-Jpeg section marker 0xc4 size 60
-Jpeg section marker 0xc4 size 26
-Jpeg section marker 0xc4 size 39
 Camera make  : Canon
 Camera model : Canon EOS DIGITAL REBEL
 Date/Time    : 2003:12:24 17:37:26

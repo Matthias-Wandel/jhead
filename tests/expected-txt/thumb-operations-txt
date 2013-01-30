@@ -51,13 +51,9 @@ Exif section in Intel order
         Saturation = 0
         Sharpness = 0
     Unknown Tag c4a5 Value = "PrintIM?0250?d?¬?Ä?€?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?"
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 80 (scale 40.12, var 1.43)
+Approximate quality factor for qtable 1: 80 (scale 40.26, var 0.36)
 JPEG image is 150w * 200h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 60
-Jpeg section marker 0xc4 size 25
-Jpeg section marker 0xc4 size 41
 Camera make  : Panasonic
 Camera model : DMC-FZ20
 Date/Time    : 2007:03:11 15:23:53
@@ -126,13 +122,9 @@ Exif section in Intel order
         Saturation = 0
         Sharpness = 0
     Unknown Tag c4a5 Value = "PrintIM?0250?d?¬?Ä?€?'?'?—?'?°?'?'?^?'?‹?'?Ë?'?å?'?"
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 80 (scale 40.12, var 1.43)
+Approximate quality factor for qtable 1: 80 (scale 40.26, var 0.36)
 JPEG image is 150w * 200h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 60
-Jpeg section marker 0xc4 size 25
-Jpeg section marker 0xc4 size 41
 Camera make  : Panasonic
 Camera model : DMC-FZ20
 Date/Time    : 2007:03:11 15:23:53
@@ -201,13 +193,9 @@ Exif section in Intel order
         ThumbnailLength = 0
         YCbCrPositioning = 2
 Thumbnail size: 0 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 59
-Jpeg section marker 0xc4 size 24
-Jpeg section marker 0xc4 size 36
 Camera make  : FUJIFILM
 Camera model : DX-10
 Date/Time    : 2000:04:01 13:04:48
@@ -276,13 +264,9 @@ Exif section in Intel order
         ThumbnailLength = 9990
         YCbCrPositioning = 2
 Thumbnail size: 9990 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 59
-Jpeg section marker 0xc4 size 24
-Jpeg section marker 0xc4 size 36
 Camera make  : FUJIFILM
 Camera model : DX-10
 Date/Time    : 2000:04:01 13:04:48
@@ -344,13 +328,9 @@ Exif section in Intel order
         ThumbnailOffset = 2012
         ThumbnailLength = 9990
 Thumbnail size: 9990 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 82
-Jpeg section marker 0xc4 size 24
-Jpeg section marker 0xc4 size 39
 Camera make  : OLYMPUS OPTICAL CO.,LTD
 Camera model : C830L,D340R
 Date/Time    : 1999:07:18 20:41:25

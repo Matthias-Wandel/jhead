@@ -47,13 +47,9 @@ Exif section in Motorola order
         ThumbnailOffset = 1780
         ThumbnailLength = 3482
 Thumbnail size: 3482 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 121h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 59
-Jpeg section marker 0xc4 size 26
-Jpeg section marker 0xc4 size 37
 Camera make  : Hewlett-Packard Company
 Camera model : hp PhotoSmart 620
 Date/Time    : 2004:01:25 13:21:34

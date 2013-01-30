@@ -61,8 +61,8 @@ Exif section in Motorola order
         ThumbnailLength = 3085
         YCbCrPositioning = 1
 Thumbnail size: 3085 bytes
-Jpeg section marker 0xdb size 132
-Jpeg section marker 0xc4 size 418
+Approximate quality factor for qtable 0: 22 (scale 226.47, var 15116.62)
+Approximate quality factor for qtable 1: 26 (scale 195.58, var 9269.55)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
 Camera make  : Konica Minolta Camera, Inc.
 Camera model : DiMAGE A2

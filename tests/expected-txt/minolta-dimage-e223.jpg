@@ -51,13 +51,9 @@ Exif section in Motorola order
         ThumbnailOffset = 1301
         ThumbnailLength = 10930
 Thumbnail size: 10930 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 74
-Jpeg section marker 0xc4 size 25
-Jpeg section marker 0xc4 size 38
 Camera make  : Minolta Co., Ltd.
 Camera model : DiMAGE E223
 Date/Time    : 2003:08:27:00:09:15

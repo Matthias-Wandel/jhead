@@ -58,13 +58,9 @@ Exif section in Motorola order
         ThumbnailOffset = 2708
         ThumbnailLength = 2121
 Thumbnail size: 2121 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 60w * 80h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 54
-Jpeg section marker 0xc4 size 24
-Jpeg section marker 0xc4 size 31
 Camera make  : EASTMAN KODAK COMPANY
 Camera model : KODAK DX6340 ZOOM DIGITAL CAMERA
 Date/Time    : 2004:01:04 18:38:15

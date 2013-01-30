@@ -1525,6 +1525,10 @@ void ShowImageInfo(int ShowFileInfo)
         if (ImageInfo.GpsAlt[0]) printf("GPS Altitude : %s\n",ImageInfo.GpsAlt);
     }
 
+    if (ImageInfo.QualityGuess){
+        printf("JPEG Quality : %d\n", ImageInfo.QualityGuess);
+    }
+
     // Print the comment. Print 'Comment:' for each new line of comment.
     if (ImageInfo.Comments[0]){
         int a,c;
@@ -1549,11 +1553,6 @@ void ShowImageInfo(int ShowFileInfo)
             printf("%.*ls\n", ImageInfo.CommentWidthchars, (wchar_t *)ImageInfo.Comments);
         }
     }
-
-    if (ImageInfo.QualityGuess){
-        printf("JPEG Quality : %d\n", ImageInfo.QualityGuess);
-    }
-
 }
 
 

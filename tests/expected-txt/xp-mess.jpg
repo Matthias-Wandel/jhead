@@ -107,9 +107,9 @@ Multiple comments in exif header
 Multiple comments in exif header
         UserComment = 9965
 Multiple comments in exif header
-        Continued directory Jpeg section marker 0xdb size 132
+        Continued directory Approximate quality factor for qtable 0: 78 (scale 43.56, var 2.80)
+Approximate quality factor for qtable 1: 78 (scale 44.89, var -30.41)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 418
 Camera make  : FUJIFILM
 Camera model : FinePix A202  
 Date/Time    : 2004:03:27 01:01:14

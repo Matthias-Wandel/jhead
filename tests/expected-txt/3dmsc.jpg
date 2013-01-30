@@ -35,9 +35,9 @@ Exif section in Intel order
         ThumbnailOffset = 796
         ThumbnailLength = 3953
 Thumbnail size: 3953 bytes
-Jpeg section marker 0xdb size 132
+Approximate quality factor for qtable 0: 50 (scale 100.00, var 0.00)
+Approximate quality factor for qtable 1: 49 (scale 101.56, var -158.69)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 418
 Camera make  :                          
 Camera model : 3MDSC
 Date/Time    : 2004/05/09 16:00:21

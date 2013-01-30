@@ -13,6 +13,7 @@ Aperture     : f/2.8
 Focus dist.  : 1.77m
 ISO equiv.   : 100
 Metering Mode: center weight
+JPEG Quality : 75
 
 Camera make  : Canon
 Camera model : Canon PowerShot S40
@@ -26,6 +27,7 @@ Aperture     : f/2.8
 Focus dist.  : 1.77m
 ISO equiv.   : 100
 Metering Mode: center weight
+JPEG Quality : 74
 
 Camera make  : Canon
 Camera model : Canon PowerShot S40
@@ -39,6 +41,7 @@ Aperture     : f/2.8
 Focus dist.  : 1.77m
 ISO equiv.   : 100
 Metering Mode: center weight
+JPEG Quality : 74
 
 Exif header 34540 bytes long
 Exif section in Motorola order
@@ -103,13 +106,9 @@ Exif section in Motorola order
         ThumbnailLength = 3128
         YCbCrPositioning = 1
 Thumbnail size: 3128 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 22 (scale 228.41, var 16385.78)
+Approximate quality factor for qtable 1: 26 (scale 192.04, var 9603.59)
 JPEG image is 120w * 160h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
-Jpeg section marker 0xc4 size 31
-Jpeg section marker 0xc4 size 181
 Camera make  : Konica Minolta Camera, Inc.
 Camera model : DiMAGE A2
 Date/Time    : 2004:09:08 22:34:10

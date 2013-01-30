@@ -79,8 +79,8 @@ Exif section in Intel order
         ThumbnailLength = 8796
 Thumbnail incorrectly placed in header
 Thumbnail size: 8788 bytes
-Jpeg section marker 0xc4 size 418
-Jpeg section marker 0xdb size 132
+Approximate quality factor for qtable 0: 90 (scale 19.21, var 1.53)
+Approximate quality factor for qtable 1: 90 (scale 19.46, var -5.47)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
 Camera make  : Canon
 Camera model : Canon EOS 20D

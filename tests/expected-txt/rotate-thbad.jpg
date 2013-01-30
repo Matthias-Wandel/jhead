@@ -63,13 +63,9 @@ Exif section in Intel order
         ThumbnailOffset = 1524
         ThumbnailLength = 4815
 Thumbnail size: 4815 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 27
-Jpeg section marker 0xc4 size 60
-Jpeg section marker 0xc4 size 26
-Jpeg section marker 0xc4 size 42
 Camera make  : Canon
 Camera model : Canon PowerShot S40
 Date/Time    : 2004:01:08 22:00:22

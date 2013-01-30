@@ -76,8 +76,8 @@ Exif section in Motorola order
         ThumbnailOffset = 2424
         ThumbnailLength = 5556
 Thumbnail size: 5556 bytes
-Jpeg section marker 0xdb size 132
-Jpeg section marker 0xc4 size 418
+Approximate quality factor for qtable 0: 82 (scale 36.88, var 0.98)
+Approximate quality factor for qtable 1: 81 (scale 37.14, var -20.78)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
 Camera make  : RICOH      
 Camera model : Caplio Pro G3  

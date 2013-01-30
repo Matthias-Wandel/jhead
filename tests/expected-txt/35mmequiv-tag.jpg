@@ -64,13 +64,9 @@ Exif section in Motorola order
         ThumbnailLength = 5625
         YCbCrPositioning = 2
 Thumbnail size: 5625 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 106h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 25
-Jpeg section marker 0xc4 size 32
-Jpeg section marker 0xc4 size 24
-Jpeg section marker 0xc4 size 22
 Camera make  : NIKON CORPORATION
 Camera model : NIKON D100 
 Date/Time    : 2003:12:26 09:12:21

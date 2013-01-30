@@ -11,6 +11,7 @@ Exposure time: 0.017 s  (1/60)
 Aperture     : f/2.9
 ISO equiv.   : 100
 Metering Mode: average
+JPEG Quality : 50
 
 Camera make  :                          
 Camera model : 3MDSC
@@ -22,6 +23,7 @@ Exposure time: 0.017 s  (1/60)
 Aperture     : f/2.9
 ISO equiv.   : 100
 Metering Mode: average
+JPEG Quality : 50
 
 Camera make  :                          
 Camera model : 3MDSC
@@ -33,6 +35,7 @@ Exposure time: 0.017 s  (1/60)
 Aperture     : f/2.9
 ISO equiv.   : 100
 Metering Mode: average
+JPEG Quality : 50
 
 Camera make  : Canon
 Camera model : Canon PowerShot Pro1
@@ -48,6 +51,7 @@ ISO equiv.   : 400
 Whitebalance : Manual
 Light Source : Daylight
 Metering Mode: center weight
+JPEG Quality : 85
 
 Modified: badyear.jpg
 Camera make  : Canon
@@ -64,6 +68,7 @@ ISO equiv.   : 400
 Whitebalance : Manual
 Light Source : Daylight
 Metering Mode: center weight
+JPEG Quality : 85
 
 Camera make  : DIGITAL CAMERA
 Camera model : 1.0
@@ -76,6 +81,7 @@ ISO equiv.   : 100
 Light Source : Daylight
 Metering Mode: pattern
 Exposure     : aperture priority (semi-auto)
+JPEG Quality : 75
 
 Camera make  : LG Electronics
 Camera model : VX-9700
@@ -84,4 +90,5 @@ Resolution   : 320 x 240
 Flash used   : No
 Metering Mode: center weight
 Exposure     : program (auto)
+JPEG Quality : 85
 

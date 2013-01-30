@@ -53,13 +53,9 @@ Exif section in Intel order
         ThumbnailLength = 11286
         YCbCrPositioning = 2
 Thumbnail size: 11286 bytes
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 28
-Jpeg section marker 0xc4 size 59
-Jpeg section marker 0xc4 size 24
-Jpeg section marker 0xc4 size 36
 Camera make  : FUJIFILM
 Camera model : DX-10
 Date/Time    : 2000:04:01 13:04:48

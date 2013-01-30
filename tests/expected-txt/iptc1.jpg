@@ -58,13 +58,9 @@ Exif section in Intel order
         ThumbnailLength = 4558
 Thumbnail size: 4558 bytes
 Image cotains IPTC section, 150 bytes long
-Jpeg section marker 0xdb size 67
-Jpeg section marker 0xdb size 67
+Approximate quality factor for qtable 0: 85 (scale 30.13, var 1.05)
+Approximate quality factor for qtable 1: 85 (scale 30.15, var 0.29)
 JPEG image is 182w * 320h, 3 color components, 8 bits per sample
-Jpeg section marker 0xc4 size 29
-Jpeg section marker 0xc4 size 78
-Jpeg section marker 0xc4 size 26
-Jpeg section marker 0xc4 size 45
 Camera make  : OLYMPUS CORPORATION    
 Camera model : u10D,S300D,u300D
 Date/Time    : 2007:01:04 13:08:28
