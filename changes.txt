@@ -394,3 +394,9 @@ Various cleanups from debian folks.
 
 Oct 19 2012:
 Add feature to show quality of jpeg, (by Andy Spiegel)
+
+Dec 27 2012:
+Fix crash on some corrupt files bug, clarify time adjustment syntax in help
+
+
+-------Released version 2.97 -- Jan 30 2013 --------
