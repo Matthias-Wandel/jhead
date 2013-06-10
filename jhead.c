@@ -178,7 +178,7 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
     }
 
     // Read the file back in.
-    CommentSize = fread(Comment, 1, 999, file);
+    CommentSize = fread(Comment, 1, MAX_COMMENT_SIZE, file);
 
     fclose(file);
 
@@ -985,7 +985,7 @@ static void ProcessFile(const char * FileName)
             }else{
                 // Read it in.
                 // Replace the section.
-                CommentSize = fread(Comment, 1, 999, CommentFile);
+                CommentSize = fread(Comment, 1, MAX_COMMENT_SIZE, CommentFile);
                 fclose(CommentFile);
                 if (CommentSize < 0) CommentSize = 0;
             }
@@ -1044,9 +1044,8 @@ static void ProcessFile(const char * FileName)
             RelativeName(OutFileName, CommentSavefileName, FileName);
 
             CommentFile = fopen(OutFileName,"w");
-
             if (CommentFile){
-                fwrite((char *)CommentSec->Data+2, CommentSec->Size-2 ,1, CommentFile);
+                fwrite((char *)CommentSec->Data+2 ,CommentSec->Size-2, 1, CommentFile);
                 fclose(CommentFile);
             }else{
                 ErrFatal("Could not write comment file");

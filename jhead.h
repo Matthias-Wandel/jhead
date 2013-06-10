@@ -40,7 +40,7 @@ typedef unsigned char uchar;
     #define FALSE 0
 #endif
 
-#define MAX_COMMENT_SIZE 2000
+#define MAX_COMMENT_SIZE 16000
 
 #ifdef _WIN32
     #define PATH_MAX _MAX_PATH

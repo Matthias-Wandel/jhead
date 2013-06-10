@@ -400,3 +400,5 @@ Fix crash on some corrupt files bug, clarify time adjustment syntax in help
 
 
 -------Released version 2.97 -- Jan 30 2013 --------
+
+Make max comment size 16000
