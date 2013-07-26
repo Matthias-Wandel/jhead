@@ -23,7 +23,7 @@
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
-//#define MATTHIAS
+#define MATTHIAS
 
 
 // Bitmasks for DoModify:
@@ -282,21 +282,27 @@ static int AutoResizeCmdStuff(void)
 {
     static char CommandString[PATH_MAX+1];
     double scale;
-    float TargetSize = 1600;
+    float TargetSize = 1800;
 
     ApplyCommand = CommandString;
 
     scale = TargetSize / ImageInfo.Width;
-    if (TargetSize / ImageInfo.Height > scale) scale = TargetSize  / ImageInfo.Width;
+    if (scale > TargetSize / ImageInfo.Height) scale = TargetSize / ImageInfo.Height;
 
     if (scale > 0.8){
+        if (ImageInfo.QualityGuess >= 93){
+            // Re-compress at lower quality.
+            sprintf(CommandString, "mogrify -quality 86 &i");
+            return TRUE;
+        }
         printf("not resizing %dx%x '%s'\n",ImageInfo.Height, ImageInfo.Width, ImageInfo.FileName);
         return FALSE;
     }
 
     if (scale < 0.4) scale = 0.4; // Don't scale down by too much.
 
-    sprintf(CommandString, "mogrify -geometry %dx%d -quality 80 &i",(int)(ImageInfo.Width*scale), (int)(ImageInfo.Height*scale));
+    sprintf(CommandString, "mogrify -geometry %dx%d -quality 85 &i",(int)(ImageInfo.Width*scale+0.5), 
+                                    (int)(ImageInfo.Height*scale+0.5));
     return TRUE;
 }
 
