@@ -888,6 +888,11 @@ static void ProcessFile(const char * FileName)
 
     if (!ReadJpegFile(FileName, ReadMode)) return;
 
+    if (CheckFileSkip()){
+        DiscardData();
+        return;
+    }
+
     if (TrimExifTrailingZeroes){
         if (ImageInfo.ThumbnailAtEnd){
             Section_t * ExifSection;
@@ -915,11 +920,6 @@ static void ProcessFile(const char * FileName)
                 //printf("Noting to remove from %s\n", FileName);
             }
         }
-    }
-
-    if (CheckFileSkip()){
-        DiscardData();
-        return;
     }
 
     FileSequence += 1; // Count files processed.
