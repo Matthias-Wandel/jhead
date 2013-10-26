@@ -400,5 +400,9 @@ Fix crash on some corrupt files bug, clarify time adjustment syntax in help
 
 
 -------Released version 2.97 -- Jan 30 2013 --------
-
+Jun 10 2013:
 Make max comment size 16000
+
+Oct 25 2013:
+Added "-zt" option to trim 32k of trailing zeroes from Nikon 1 J2 and J3 images.
+

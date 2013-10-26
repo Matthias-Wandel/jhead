@@ -56,6 +56,7 @@ static int Quiet        = FALSE;    // Be quiet on success (like unix programs)
        int DumpExifMap  = FALSE;
 static int ShowConcise  = FALSE;
 static int CreateExifSection = FALSE;
+static int TrimExifTrailingZeroes = FALSE;
 static char * ApplyCommand = NULL;  // Apply this command to all images.
 static char * FilterModel = NULL;
 static int    ExifOnly    = FALSE;
@@ -865,8 +866,9 @@ static void ProcessFile(const char * FileName)
             Modified = TRUE;
         }
         ReadMode = READ_IMAGE;   // Don't re-read exif section again on next read.
-
-    }else if (ExifXferScrFile){
+    }
+   
+    if (ExifXferScrFile){
         char RelativeExifName[PATH_MAX+1];
 
         // Make a relative name.
@@ -885,6 +887,35 @@ static void ProcessFile(const char * FileName)
     }
 
     if (!ReadJpegFile(FileName, ReadMode)) return;
+
+    if (TrimExifTrailingZeroes){
+        if (ImageInfo.ThumbnailAtEnd){
+            Section_t * ExifSection;
+            int NumRedundant, WasRedundant;
+            unsigned char * StartRedundant;
+            //printf("Exif: Thumbnail %d - %d\n",ImageInfo.ThumbnailOffset, ImageInfo.ThumbnailOffset+ImageInfo.ThumbnailSize);
+            ExifSection = FindSection(M_EXIF);
+
+            StartRedundant = ExifSection->Data + 8 + ImageInfo.ThumbnailOffset+ImageInfo.ThumbnailSize;
+            WasRedundant = NumRedundant = (ExifSection->Size) - (ImageInfo.ThumbnailOffset + ImageInfo.ThumbnailSize + 8);
+            
+            //printf("Exif length: %d  Wasted: %d\n",ExifSection->Size, NumRedundant);
+
+            for(;NumRedundant > 0 && StartRedundant[NumRedundant-1] == 0;NumRedundant--);// Only remove trailing bytes if they are zero.
+
+            if (NumRedundant != WasRedundant){
+                int NewExifSize;
+                printf("Trimming %d bytes from exif in %s\n", WasRedundant-NumRedundant, FileName);
+                NewExifSize = ImageInfo.ThumbnailOffset + ImageInfo.ThumbnailSize + 8 + NumRedundant;
+                ExifSection->Data[0] = (uchar)(NewExifSize >> 8); // Must write new length into exif data.
+                ExifSection->Data[1] = (uchar)NewExifSize;
+                ExifSection->Size = NewExifSize;
+                Modified = TRUE;
+            }else{
+                //printf("Noting to remove from %s\n", FileName);
+            }
+        }
+    }
 
     if (CheckFileSkip()){
         DiscardData();
@@ -1238,6 +1269,7 @@ static void Usage (void)
            "  -ci <name> Insert comment section from a file.  -cs and -ci use same naming\n"
            "             scheme as used by the -st option\n"
            "  -cl string Insert literal comment string\n"
+           "  -zt        Trim exif header trailing zeroes (Nikon 1 wastes 30k that way)\n"
 
            "\nDATE / TIME MANIPULATION:\n"
            "  -ft        Set file modification time to Exif time\n"
@@ -1447,10 +1479,12 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-cl")){
             CommentInsertLiteral = argv[++argn];
             DoModify |= MODIFY_JPEG;
+        }else if (!strcmp(arg,"-zt")){
+            TrimExifTrailingZeroes = TRUE;
+            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-mkexif")){
             CreateExifSection = TRUE;
             DoModify |= MODIFY_JPEG;
-
     // Output verbosity control
         }else if (!strcmp(arg,"-h")){
             Usage();
