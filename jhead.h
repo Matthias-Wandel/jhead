@@ -89,7 +89,7 @@ typedef struct {
     char  CameraMake   [32];
     char  CameraModel  [40];
     char  DateTime     [20];
-    int   Height, Width;
+    unsigned Height, Width;
     int   Orientation;
     int   IsColor;
     int   Process;

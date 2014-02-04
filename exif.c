@@ -489,7 +489,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             }
         }
         if (DumpExifMap){
-            printf("Map: %05d-%05d: Directory\n",(int)(DirStart-OffsetBase), (int)(DirEnd+4-OffsetBase));
+            printf("Map: %05u-%05u: Directory\n",(int)(DirStart-OffsetBase), (int)(DirEnd+4-OffsetBase));
         }
 
 
@@ -539,7 +539,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             }
 
             if (DumpExifMap){
-                printf("Map: %05d-%05d:   Data for tag %04x\n",OffsetVal, OffsetVal+ByteCount, Tag);
+                printf("Map: %05u-%05u:   Data for tag %04x\n",OffsetVal, OffsetVal+ByteCount, Tag);
             }
         }else{
             // 4 bytes or less and value is in the dir entry itself
@@ -967,7 +967,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             ImageInfo.ThumbnailSize = ThumbnailSize;
 
             if (ShowTags){
-                printf("Thumbnail size: %d bytes\n",ThumbnailSize);
+                printf("Thumbnail size: %u bytes\n",ThumbnailSize);
             }
         }
     }
@@ -988,7 +988,7 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
     NumOrientations = 0;
 
     if (ShowTags){
-        printf("Exif header %d bytes long\n",length);
+        printf("Exif header %u bytes long\n",length);
     }
 
     {   // Check the EXIF header component

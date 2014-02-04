@@ -244,6 +244,7 @@ static int ModifyDescriptComment(char * OutComment, char * SrcComment)
                                 if (!memcmp(Line, AddComment, l+1)){
                                     TagExists = TRUE;
                                     strncpy(Line, AddComment, sizeof(Line));
+                                    Line[sizeof(Line)-1]='\0';
                                     Modified = TRUE;
                                 }
                             }
@@ -546,8 +547,6 @@ void RenameAssociated(const char * FileName, char * NewBaseName)
 //--------------------------------------------------------------------------
 static void DoFileRenaming(const char * FileName)
 {
-    int NumAlpha = 0;
-    int NumDigit = 0;
     int PrefixPart = 0; // Where the actual filename starts.
     int ExtensionPart;  // Where the file extension starts.
     int a;
@@ -560,15 +559,10 @@ static void DoFileRenaming(const char * FileName)
     for (a=0;FileName[a];a++){
         if (FileName[a] == SLASH){
             // Don't count path component.
-            NumAlpha = 0;
-            NumDigit = 0;
             PrefixPart = a+1;
         }
 
         if (FileName[a] == '.') ExtensionPart = a;  // Remember where extension starts.
-
-        if (isalpha(FileName[a])) NumAlpha += 1;    // Tally up alpha vs. digits to judge wether to rename.
-        if (isdigit(FileName[a])) NumDigit += 1;
     }
 
     if (!Exif2tm(&tm, ImageInfo.DateTime)){

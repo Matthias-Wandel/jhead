@@ -28,7 +28,7 @@ static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * O
         }
 
         if (DumpExifMap){
-            printf("Map: %05d-%05d: Directory (makernote)\n",(int)(DirStart-OffsetBase), (int)(DirEnd-OffsetBase));
+            printf("Map: %05u-%05u: Directory (makernote)\n",(int)(DirStart-OffsetBase), (int)(DirEnd-OffsetBase));
         }
     }
 
