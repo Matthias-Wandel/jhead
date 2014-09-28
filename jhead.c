@@ -695,7 +695,7 @@ static void DoFileRenaming(const char * FileName)
 //--------------------------------------------------------------------------
 static int DoAutoRotate(const char * FileName)
 {
-    if (ImageInfo.Orientation >= 2 && ImageInfo.Orientation <= 8){
+    if (ImageInfo.Orientation != 0){
         const char * Argument;
         Argument = ClearOrientation();
 
