@@ -702,7 +702,7 @@ static int DoAutoRotate(const char * FileName)
         if (!ZeroRotateTagOnly){
             char RotateCommand[PATH_MAX*2+50];
             if (Argument == NULL){
-                ErrFatal("Orientation screwup");
+                ErrNonfatal("Unknown orientation tag",0,0);
             }
 
             sprintf(RotateCommand, "jpegtran -trim -%s -outfile &o &i", Argument);

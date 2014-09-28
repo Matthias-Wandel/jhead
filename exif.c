@@ -744,7 +744,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             case TAG_ORIENTATION:
                 if (NumOrientations >= 2){
                     // Can have another orientation tag for the thumbnail, but if there's
-                    // a third one, things are stringae.
+                    // a third one, things are strange.
                     ErrNonfatal("More than two orientation in Exif",0,0);
                     break;
                 }
@@ -755,7 +755,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 }
                 if (ImageInfo.Orientation < 0 || ImageInfo.Orientation > 8){
                     ErrNonfatal("Undefined rotation value %d in Exif", ImageInfo.Orientation, 0);
-                    ImageInfo.Orientation = 0;
                 }
                 NumOrientations += 1;
                 break;
@@ -1307,7 +1306,7 @@ void ShowImageInfo(int ShowFileInfo)
     }
     printf("Resolution   : %d x %d\n",ImageInfo.Width, ImageInfo.Height);
 
-    if (ImageInfo.Orientation > 1){
+    if (ImageInfo.Orientation > 1 && ImageInfo.Orientation <=8){
         // Only print orientation if one was supplied, and if its not 1 (normal orientation)
         printf("Orientation  : %s\n", OrientTab[ImageInfo.Orientation]);
     }
