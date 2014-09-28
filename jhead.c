@@ -695,7 +695,7 @@ static void DoFileRenaming(const char * FileName)
 //--------------------------------------------------------------------------
 static int DoAutoRotate(const char * FileName)
 {
-    if (ImageInfo.Orientation != 0){
+    if (ImageInfo.Orientation != 1){
         const char * Argument;
         Argument = ClearOrientation();
 
@@ -703,8 +703,8 @@ static int DoAutoRotate(const char * FileName)
             char RotateCommand[PATH_MAX*2+50];
             if (Argument == NULL){
                 ErrNonfatal("Unknown orientation tag",0,0);
+                return TRUE; // Image is still modified.
             }
-
             sprintf(RotateCommand, "jpegtran -trim -%s -outfile &o &i", Argument);
             ApplyCommand = RotateCommand;
             DoCommand(FileName, FALSE);
@@ -1172,7 +1172,7 @@ skip_unixtime:
 
         // Rename the old file.
         rename(FileName, BackupName);
-
+printf("write new file\n");
         // Write the new file.
         WriteJpegFile(FileName);
 

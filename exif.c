@@ -1237,7 +1237,11 @@ const char * ClearOrientation(void)
         }
     }
 
-    return OrientTab[ImageInfo.Orientation];
+    if (ImageInfo.Orientation > 1 && ImageInfo.Orientation < 8){
+        return OrientTab[ImageInfo.Orientation];
+    }else{
+        return NULL;
+    }
 }
 
 //--------------------------------------------------------------------------
