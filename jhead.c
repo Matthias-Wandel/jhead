@@ -1172,7 +1172,7 @@ skip_unixtime:
 
         // Rename the old file.
         rename(FileName, BackupName);
-printf("write new file\n");
+
         // Write the new file.
         WriteJpegFile(FileName);
 
