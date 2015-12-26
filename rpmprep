@@ -2,7 +2,7 @@
 
 # bash shell script for maing archive of jhead source files.
 
-fdir=jhead-2.97
+fdir=jhead-3.00
 
 rm -rf $fdir
 mkdir $fdir

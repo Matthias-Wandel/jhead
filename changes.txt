@@ -406,3 +406,15 @@ Make max comment size 16000
 Oct 25 2013:
 Added "-zt" option to trim 32k of trailing zeroes from Nikon 1 J2 and J3 images.
 
+Sep 28 2014:
+Add ability to reset invalid rotation tag (from Moultrie game cameras)
+
+-------Released version 3.0 -- Feb 2 2015 --------
+Ma4 5 2015:
+Add option to set exif date from date from another file.
+
+Jul 28 2015:
+Remove some unnecessary warnings with some types of GPS data
+
+Aug 4 2015:
+Remove multiple copies of the same type of section when deleting section types

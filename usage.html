@@ -8,7 +8,7 @@ Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
 
 
-<h3>Jhead v2.97 program Features</h3>
+<h3>Jhead v3.00 program Features</h3>
 <ul>
 <li>Extracting camera settings from Exif image files
 <li>Able to set and/or adjust the Exif time field
@@ -203,6 +203,10 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     This option changes all the date fields in the Exif header.
     Time must be specified as:<br>
     <font face=courier> &nbsp &nbsp yyyy:mm:dd-hh:mm:ss</font><p>
+    
+<tr valign=top><td><b>-tf &lt;filename&gt;
+<td>Sets the date stored in the Exif header to the modifcation time from a file.
+    This option changes all the date fields in the Exif header.
 
 <tr valign=top><td><b>-ds&lt;date-time&gt;
 <td>Sets the date stored in the Exif header to what is specified on the command line.
@@ -307,7 +311,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     its crashed.
 
 <tr valign=top><td><b>-q
-<td>Makes the progran mot spit out messages on success - more like the "Silence is golden" Unix way.    its crashed.
+<td>Makes the progran not spit out messages on success - more like the "Silence is golden" Unix way.    its crashed.
 
 <tr valign=top><td><b>-V
 <td>Print version info and compilation date.
@@ -453,8 +457,15 @@ suitable for use with perl or shell scripts to process lots of images.  These pr
 Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
+You may also want to try other exif manipulation tools, suhc as 
+<b><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">Exiftool</a></b> 
+<b><a href="http://libexif.sourceforge.net/">libexif</a></b> or
+<b><a href="http://www.exiv2.org">exifv2</a></b>.  These tools are more
+capable than jhead, but also more complex, larger, and slower.
+<p>
+
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updated: Jan 30 2013<p>
+Last Updated: Feb 2 2015<p>
 
 
 

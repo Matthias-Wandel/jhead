@@ -455,13 +455,13 @@ double ConvertAnyFormat(void * ValuePtr, int Format)
 // Process one of the nested EXIF directories.
 //--------------------------------------------------------------------------
 static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase, 
-        unsigned ExifLength, int NestingLevel)
+        int ExifLength, int NestingLevel)
 {
     int de;
     int a;
     int NumDirEntries;
-    unsigned ThumbnailOffset = 0;
-    unsigned ThumbnailSize = 0;
+    int ThumbnailOffset = 0;
+    int ThumbnailSize = 0;
     char IndentString[25];
 
     if (NestingLevel > 4){
@@ -524,10 +524,10 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         ByteCount = Components * BytesPerFormat[Format];
 
         if (ByteCount > 4){
-            unsigned OffsetVal;
+            int OffsetVal;
             OffsetVal = Get32u(DirEntry+8);
             // If its bigger than 4 bytes, the dir entry contains an offset.
-            if (OffsetVal+ByteCount > ExifLength){
+            if (OffsetVal+ByteCount > ExifLength || OffsetVal < 0){
                 // Bogus pointer offset and / or bytecount value
                 ErrNonfatal("Illegal value pointer for tag %04x in Exif", Tag,0);
                 continue;
@@ -915,7 +915,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         // there's also a potential link to another directory at the end of each
         // directory.  this has got to be the result of a committee!
         unsigned char * SubdirStart;
-        unsigned Offset;
+        int Offset;
 
         if (DIR_ENTRY_ADDR(DirStart, NumDirEntries) + 4 <= OffsetBase+ExifLength){
             Offset = Get32u(DirStart+2+12*NumDirEntries);
@@ -977,9 +977,9 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 // Process a EXIF marker
 // Describes all the drivel that most digital cameras include...
 //--------------------------------------------------------------------------
-void process_EXIF (unsigned char * ExifSection, unsigned int length)
+void process_EXIF (unsigned char * ExifSection, int length)
 {
-    unsigned int FirstOffset;
+    int FirstOffset;
 
     FocalplaneXRes = 0;
     FocalplaneUnits = 0;
@@ -1017,9 +1017,9 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
         return;
     }
 
-    FirstOffset = Get32u(ExifSection+12);
+    FirstOffset = (int)Get32u(ExifSection+12);
     if (FirstOffset < 8 || FirstOffset > 16){
-        if (FirstOffset < 16 || FirstOffset > length-16){
+        if (FirstOffset < 16 || FirstOffset > length-16 || length < 16){
             ErrNonfatal("invalid offset for first Exif IFD value",0,0);
             return;
         }
@@ -1036,7 +1036,7 @@ void process_EXIF (unsigned char * ExifSection, unsigned int length)
     ImageInfo.ThumbnailAtEnd = ImageInfo.ThumbnailOffset >= ImageInfo.LargestExifOffset ? TRUE : FALSE;
 
     if (DumpExifMap){
-        unsigned a,b;
+        int a,b;
         printf("Map: %05d- End of exif\n",length-8);
         for (a=0;a<length-8;a+= 10){
             printf("Map: %05d ",a);

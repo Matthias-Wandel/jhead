@@ -41,11 +41,11 @@
 "movetest\2005\digital-rebel-.jpg" 160x112
 "movetest\2005\gpsinfo-.jpg" 160x120
 "movetest\2010\canon-bigend-.jpg" 240x171
-"movetest\2012\no-exif-.jpg" 987x518
+"movetest\2013\no-exif-.jpg" 987x518
 ---Test move/rename to abs path --- 
 c:\jtest\foobar
-c:\jtest\foobar\27.jpg
-c:\jtest\foobar\27a.jpg
+c:\jtest\foobar\25.jpg
+c:\jtest\foobar\25a.jpg
 ---Test move/rename relative path --- 
 "movetest\2004\1\f.jpg" 100x75
 "movetest\2004\2\f.jpg" 60x80

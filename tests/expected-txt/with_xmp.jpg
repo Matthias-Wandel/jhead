@@ -139,6 +139,7 @@ Metering Mode: pattern
 GPS Latitude : N 42d 16m 36.2800s
 GPS Longitude: W 83d 42m  2.4900s
 GPS Altitude :  227.00m
+JPEG Quality : 90
 ======= IPTC data: =======
 Record vers.  : 4
 City          : Ann Arbor
@@ -149,6 +150,9 @@ Country       : United States
 DateCreated   : 20070630
 Time Created  : 140224+0000
 
+delete section type 225 at 0
+delete section type 237 at 0
+delete section type 4321 at 0
 Modified: results-bin\with_xmp.jpg
 Cmd:jhead -purejpg "results-bin\with_xmp.jpg"
 Modified: results-bin\with_xmp.jpg
@@ -292,6 +296,7 @@ Metering Mode: pattern
 GPS Latitude : N 42d 16m 36.2800s
 GPS Longitude: W 83d 42m  2.4900s
 GPS Altitude :  227.00m
+JPEG Quality : 90
 ======= IPTC data: =======
 Record vers.  : 4
 City          : Ann Arbor
@@ -411,6 +416,7 @@ Metering Mode: pattern
 GPS Latitude : N 42d 16m 36.2800s
 GPS Longitude: W 83d 42m  2.4900s
 GPS Altitude :  227.00m
+JPEG Quality : 90
 ======= IPTC data: =======
 Record vers.  : 4
 City          : Ann Arbor

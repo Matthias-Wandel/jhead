@@ -649,6 +649,7 @@ Section_t * FindSection(int SectionType)
 int RemoveSectionType(int SectionType)
 {
     int a;
+    int retval = FALSE;
     for (a=0;a<SectionsRead-1;a++){
         if (Sections[a].Type == SectionType){
             // Free up this section
@@ -656,10 +657,11 @@ int RemoveSectionType(int SectionType)
             // Move succeding sections back by one to close space in array.
             memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a));
             SectionsRead -= 1;
-            return TRUE;
+            a -= 1;
+            retval = TRUE;
         }
     }
-    return FALSE;
+    return retval;
 }
 
 //--------------------------------------------------------------------------

@@ -97,24 +97,29 @@ md movetest
 copy normal-digicams\*.jpg movetest
 
 @echo ---Test move/rename abs rel path --- >> results-txt\new-names-txt
-jhead -nf./movetest/%%Y/%%f- -de movetest/*.jpg
-jhead -c movetest/**/*.jpg >> results-txt\new-names-txt
+jhead -nf./movetest/%%Y/%%f- -de movetest\*.jpg
+jhead -c movetest\**\*.jpg >> results-txt\new-names-txt
 
 @echo ---Test move/rename to abs path --- >> results-txt\new-names-txt
 rm -rf c:\jtest
-jhead -nfc:\jtest\foobar\%%d movetest/*005/*
+jhead -nfc:\jtest\foobar\%%d movetest\*005\*
 dir /s /b c:\jtest >> results-txt\new-names-txt
 rm -rf c:\jtest
 
 @echo ---Test move/rename relative path --- >> results-txt\new-names-txt
 jhead -nf%%i/%f movetest/2004/d*g 
-jhead -c movetest/2004/?/*.jpg >> results-txt\new-names-txt
+jhead -c movetest\2004\?\*.jpg >> results-txt\new-names-txt
 
 rem -------------------------------------------------------------------
 rem test -purejpg with an image that I used to corrupt.
 copy strange-jpegs\olav.jpg results-bin
 jhead -purejpg results-bin\olav.jpg
 jhead -v -nofinfo results-bin\olav.jpg > results-txt\olav.jpg
+
+rem test -purejpg with an image wth multiple copies of the same type of section
+copy strange-jpegs\don.jpg results-bin
+jhead -purejpg results-bin\don.jpg
+jhead -v -nofinfo results-bin\don.jpg > results-txt\don.jpg
 
 rem -------------------------------------------------------------------
 rem Test deletion of a thumbnail, and replacing of a thumbnail

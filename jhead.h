@@ -117,9 +117,9 @@ typedef struct {
     char  Comments[MAX_COMMENT_SIZE];
     int   CommentWidthchars; // If nonzero, widechar comment, indicates number of chars.
 
-    unsigned ThumbnailOffset;          // Exif offset to thumbnail
-    unsigned ThumbnailSize;            // Size of thumbnail.
-    unsigned LargestExifOffset;        // Last exif data referenced (to check if thumbnail is at end)
+    int   ThumbnailOffset;          // Exif offset to thumbnail
+    int   ThumbnailSize;            // Size of thumbnail.
+    int   LargestExifOffset;        // Last exif data referenced (to check if thumbnail is at end)
 
     char  ThumbnailAtEnd;              // Exif header ends with the thumbnail
                                        // (we can only modify the thumbnail if its at the end)
@@ -137,8 +137,9 @@ typedef struct {
 }ImageInfo_t;
 
 
-
+#ifndef EXIT_FAILURE
 #define EXIT_FAILURE  1
+#endif
 #define EXIT_SUCCESS  0
 
 // jpgfile.c functions
@@ -157,7 +158,7 @@ void FileTimeAsString(char * TimeStr);
 
 // Prototypes for exif.c functions.
 int Exif2tm(struct tm * timeptr, char * ExifTime);
-void process_EXIF (unsigned char * CharBuf, unsigned int length);
+void process_EXIF (unsigned char * CharBuf, int length);
 void ShowImageInfo(int ShowFileInfo);
 void ShowConciseImageInfo(void);
 const char * ClearOrientation(void);

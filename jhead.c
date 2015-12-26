@@ -2,12 +2,12 @@
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
-// Version 2.97
+// Version 3.00
 //
 // Compiling under Windows:  
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Jan 2013
+// Dec 1999 - Feb 2015
 //
 // by Matthias Wandel   www.sentex.net/~mwandel
 //--------------------------------------------------------------------------
@@ -19,7 +19,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "2.97"
+#define JHEAD_VERSION "3.00"
 
 // This #define turns on features that are too very specific to 
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -419,8 +419,21 @@ static void DoCommand(const char * FileName, int ShowIt)
         // Don't delete original file until we know a new one was created by the command.
         struct stat dummy;
         if (stat(TempName, &dummy) == 0){
+            struct stat buf;
+            int stat_result = stat(FileName, &buf);
+
             unlink(FileName);
             rename(TempName, FileName);
+            if (stat_result == 0){
+                // set Unix access rights and time to new file
+                struct utimbuf mtime;
+                chmod(FileName, buf.st_mode);
+
+                mtime.actime = buf.st_atime;
+                mtime.modtime = buf.st_mtime;
+            
+                utime(FileName, &mtime);
+            }
         }else{
             ErrFatal("specified command did not produce expected output file");
         }
@@ -1237,7 +1250,7 @@ badtime:
 static void Usage (void)
 {
     printf("Jhead is a program for manipulating settings and thumbnails in Exif jpeg headers\n"
-           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Jan 30 2013.\n"
+           "used by most Digital Cameras.  v"JHEAD_VERSION" Matthias Wandel, Feb 5 2015.\n"
            "http://www.sentex.net/~mwandel/jhead\n"
            "\n");
 
@@ -1309,6 +1322,7 @@ static void Usage (void)
            "             and time in the format yyyy:mm:dd/hh:mm:ss\n"
            "  -ts<time>  Set the Exif internal time to <time>.  <time> is in the format\n"
            "             yyyy:mm:dd-hh:mm:ss\n"
+           "  -tf file   Set the exif time to the modicfation time from another file\n"
            "  -ds<date>  Set the Exif internal date.  <date> is in the format YYYY:MM:DD\n"
            "             or YYYY:MM or YYYY\n"
 
@@ -1582,7 +1596,7 @@ int main (int argc, char **argv)
             ExifTimeAdjust = NewDate-OldDate;
             DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-dsft",5)){
-            // Set file time to date/time in exif
+            // Set exif time to the timestamp of the file.
             FileTimeToExif = TRUE;
             DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-ds",3)){
@@ -1626,6 +1640,16 @@ int main (int argc, char **argv)
             ExifTimeSet  = mktime(&tm);
 
             if ((int)ExifTimeSet == -1) ErrFatal("Time specified is out of range");
+            DoModify |= MODIFY_JPEG;
+            
+        }else if (!memcmp(arg,"-tf",3)){
+            // Set the exif time to the modification time from another file.
+            struct stat stat_buf;
+            if (stat(argv[++argn], &stat_buf) == 0){
+                ExifTimeSet = stat_buf.st_mtime;
+            }else{
+                ErrFatal("Could not read file");
+            }
             DoModify |= MODIFY_JPEG;
 
     // File matching and selection

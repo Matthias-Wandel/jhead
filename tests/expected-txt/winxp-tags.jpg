@@ -10,5 +10,6 @@ Approximate quality factor for qtable 0: 80 (scale 40.12, var 1.43)
 Approximate quality factor for qtable 1: 80 (scale 40.26, var 0.36)
 JPEG image is 425w * 476h, 3 color components, 8 bits per sample
 Resolution   : 425 x 476
+JPEG Quality : 80
 Comment      : This is a comment added to an exif-less image.  Unfortunatel, its not possible to put a newline in there, which kind of sucks.  But I can really put a lot of data in  there just to see hwat will happpen, and to see if it will expand the exif header, buecause thiat is really tricky to rearrange.
 
