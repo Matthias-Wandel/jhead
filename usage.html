@@ -334,7 +334,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <h3>File matching and selection</h3>
 <table cellpadding=5>
 
-<tr valign=top><td><b>-model
+<tr valign=top><td><b>-model &lt;model&gt;
 <td>Restricts processing of files to those whose camera model, as indicated by the Exif image
     information, contains the substring specified in the argument after '-model'.
     For example, the following command will list only images that are from an S100 camera:
@@ -343,6 +343,10 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <p>
     I use this option to restrict my JPEG re-compressing to those images that came from my 
     Cannon S100 digicam, (see the -cmd option).
+
+<tr valign=top><td><b>-quality &lt;nn&gt;
+<td>Restricts processing of files to those whose estimated quality factor is equal to
+    or higher than the specified number nn.
 
 <tr valign=top>
 <td><b>-exonly
@@ -362,7 +366,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     the Exif metadata.  Most programs today however will keep the Exif metadata
     intact, so this is less important than it used to be.
 
-<tr valign=top><td><b>-orp -orl
+<tr valign=top><td><b>-orp, -orl
 <td>Operate only on images with portrait (-orp) or landscape (-orl) aspect ratio.<br>
     Please note that this is solely based on jpeg width and height values.  Some browsers may auto
     rotate the image on displaying it based on the Exif orientation tag, so that images shot
@@ -457,7 +461,7 @@ suitable for use with perl or shell scripts to process lots of images.  These pr
 Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
-You may also want to try other exif manipulation tools, suhc as 
+You may also want to try other exif manipulation tools, such as 
 <b><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">Exiftool</a></b> 
 <b><a href="http://libexif.sourceforge.net/">libexif</a></b> or
 <b><a href="http://www.exiv2.org">exifv2</a></b>.  These tools are more

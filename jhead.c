@@ -59,6 +59,7 @@ static int CreateExifSection = FALSE;
 static int TrimExifTrailingZeroes = FALSE;
 static char * ApplyCommand = NULL;  // Apply this command to all images.
 static char * FilterModel = NULL;
+static int    FilterQuality = 0;
 static int    ExifOnly    = FALSE;
 static int    PortraitOnly = FALSE;
 static time_t ExifTimeAdjust = 0;   // Timezone adjust
@@ -457,6 +458,12 @@ static int CheckFileSkip(void)
             return TRUE;
         }
     }
+	if (FilterQuality > 0){
+		//Filter by above threshold quality
+		if (ImageInfo.QualityGuess < FilterQuality){
+			return TRUE;
+		}
+	}
 
     if (ExifOnly){
         // Filtering by EXIF only.  Skip all files that have no Exif.
@@ -1364,6 +1371,8 @@ static void Usage (void)
            "             camera model description\n"
            "  -exonly    Skip all files that don't have an exif header (skip all jpegs that\n"
            "             were not created by digicam)\n"
+		   "  -quality xx\n"
+		   "             Only work on images with JPEG quality factor xx or higher\n"
            "  -cmd command\n"
            "             Apply 'command' to every file, then re-insert exif and command\n"
            "             sections into the image. &i will be substituted for the input file\n"
@@ -1656,6 +1665,11 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-model")){
             if (argn+1 >= argc) Usage(); // No extra argument.
             FilterModel = argv[++argn];
+        }else if (!strcmp(arg,"-quality")){
+            if (argn+1 >= argc) Usage(); // No extra argument.
+			if (sscanf(argv[++argn], "%d", &FilterQuality) != 1){
+				Usage();
+			}
         }else if (!strcmp(arg,"-exonly")){
             ExifOnly = 1;
         }else if (!strcmp(arg,"-orp")){
