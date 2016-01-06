@@ -126,7 +126,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     of an event.  By renaming them to a scheme according to date, they will automatically
     appear in order of taking when viewed with some sort of viewer like Xnview or AcdSee, and
     sorted by name.  Or you could use the -ft option and view the images sorted by date.
-    Typically, one of the carera's date will be set not quite right, in which case you may have
+    Typically, one of the camera's date will be set not quite right, in which case you may have
     to use the -ta or -da options on those files first.
     <p>
     <b>Some of the more useful arguments for strftime are:</b>
@@ -169,9 +169,9 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <p>
     Examples:<br>
     Adjust time one hour forward (you would use this after you forgot to set daylight savings 
-    time on the digicam)<br>
+    time on the camera)<br>
     <ul>jhead -ta+1:00 *.jpg</ul>
-    Adjust time back by 23 seconds (you would use this to get the timestamps from two digicams
+    Adjust time back by 23 seconds (you would use this to get the timestamps from two cameras
     in sync after you found that they didn't quite align)
     <ul>jhead -ta-0:00:23 *.jpg</ul>
     Adjust time forward by 2 days and 1 hour (49 hours)
@@ -205,7 +205,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <font face=courier> &nbsp &nbsp yyyy:mm:dd-hh:mm:ss</font><p>
     
 <tr valign=top><td><b>-tf &lt;filename&gt;
-<td>Sets the date stored in the Exif header to the modifcation time from a file.
+<td>Sets the date stored in the Exif header to the modification time from a file.
     This option changes all the date fields in the Exif header.
 
 <tr valign=top><td><b>-ds&lt;date-time&gt;
@@ -255,7 +255,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     This only works if the Exif header already contains an Exif header a thumbnail.
 
 <tr valign=top><td><b>-rgt[size]    
-<td>Regnerate Exif thumbnail.
+<td>Regenerate Exif thumbnail.
     'size' specifies maximum height or width of thumbnail.
     I added this option because I had a lot of images that I had rotated with various tools that don't
     update the Exif header.  But newer image browsers such as XnView make use of the Exif thumbnail,
@@ -268,7 +268,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
     This option relies on 'mogrify' program (from ImageMagick) to regenerate the thumbnail.
     Linux users often already have this tool pre-installed.  Windows users have to go and download it.
-    This option only works if the image already contains a thumbail.
+    This option only works if the image already contains a thumbnail.
 </table>
 
 <h3>Rotation tag manipulation</h3>
@@ -311,12 +311,12 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     its crashed.
 
 <tr valign=top><td><b>-q
-<td>Makes the progran not spit out messages on success - more like the "Silence is golden" Unix way.    its crashed.
+<td>Makes the program not spit out messages on success - more like the "Silence is golden" Unix way.    its crashed.
 
 <tr valign=top><td><b>-V
 <td>Print version info and compilation date.
 
-<tr valign=top><td><b>-Exifmap
+<tr valign=top><td><b>-exifmap
 <td>Show a map of the bytes in the Exif header.  Useful when analyzing strange Exif headers,
     not of much use to non software developers.
 
@@ -342,7 +342,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     jhead -model S100 *.jpg<p>
     <p>
     I use this option to restrict my JPEG re-compressing to those images that came from my 
-    Cannon S100 digicam, (see the -cmd option).
+    Cannon S100 camera, (see the -cmd option).
 
 <tr valign=top><td><b>-quality &lt;nn&gt;
 <td>Restricts processing of files to those whose estimated quality factor is equal to
@@ -355,14 +355,14 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     preserve the Exif header when saving pictures.
 
 <tr valign=top><td><b>-cmd&lt;command&gt;
-<td>Executes the specified command on each Jepg file to be processed.<p>
+<td>Executes the specified command on each Jpeg file to be processed.<p>
     The Exif section of each file is read before running the command, and re-inserted
     after the command finishes.
     <p>
-    This is useful for using jhead's file globbing capability for processing a whole
+    This is useful for using Jhead's file globbing capability for processing a whole
     directory tree of files.
     <p>
-    It's also useful for restoring the exif header after operatiosn that wipe out
+    It's also useful for restoring the exif header after operations that wipe out
     the Exif metadata.  Most programs today however will keep the Exif metadata
     intact, so this is less important than it used to be.
 
@@ -382,7 +382,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
 <h3>Bugs and Shortcomings</h3>
 <ul>
-    After jhead runs a program to rotate or resize an image, the image dimensions and thumbnail 
+    After Jhead runs a program to rotate or resize an image, the image dimensions and thumbnail 
     in the Exif header are not adjusted.
     <p>
     Modifying of Exif header data is very limited, as Jhead internally only has a read only
@@ -391,7 +391,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <p>
 
     Most Canon digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
-    than full resolution, causing jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
+    than full resolution, causing Jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
     focal length.  The same can result from resizing photos with Photoshop, which will manipulate
     parts of the Exif header.
     This is often reported as a bug in Jhead, but Jhead can't do much about incorrect data.
@@ -457,15 +457,15 @@ Mac and Linux versions of XnView are also available.
 <ul>
 You can use these programs to write and extract COM markers from JPEG images respectively.  Although I always
 use my jhead program for this feature, the wrjpgcom and rdjpgcom programs are extremely simple and very
-suitable for use with perl or shell scripts to process lots of images.  These programs are part of most 
+suitable for use with shell scripts to process lots of images.  These programs are part of most 
 Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
-You may also want to try other exif manipulation tools, such as 
+You may also want to try other Exif manipulation tools, such as 
 <b><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">Exiftool</a></b> 
 <b><a href="http://libexif.sourceforge.net/">libexif</a></b> or
 <b><a href="http://www.exiv2.org">exifv2</a></b>.  These tools are more
-capable than jhead, but also more complex, larger, and slower.
+capable than Jhead, but also more complex, larger, and slower.
 <p>
 
 Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
