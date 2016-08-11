@@ -14,7 +14,7 @@ $(OBJ)/%.o:$(SRC)/%.c
 	${CC} $(CFLAGS) -c $< -o $@
 
 jhead: $(objs) jhead.h
-	${CC} -o jhead $(objs) -lm
+	${CC} $(LDFLAGS) -o jhead $(objs) -lm
 
 clean:
 	rm -f $(objs) jhead

@@ -98,6 +98,9 @@ void process_DQT (const uchar * Data, int length)
         }
 
         // Read in the table, compute statistics relative to reference table 
+        if (a+64 < length) {
+            ErrFatal("DQT section too short");
+        }
         for (coefindex = 0; coefindex < 64; coefindex++) {
             unsigned int val;
             if (c>>4) {
@@ -180,12 +183,17 @@ void process_DHT (const uchar * Data, int length)
         if (ShowTags>1){
             printf("  table %d\n", c);
         }
+        if (a+16 > length) goto tooshort;
         for (i=0; i<16; i++) {
             huff[i]=(unsigned char) Data[a++];
         }
         for (i=0; i<16; i++) {
             if (ShowTags>2){
                 printf("  bits %2d (codes=%3u) ", i+1, (unsigned int) huff[i]);
+            }
+            if (a+huff[i] > length){
+                tooshort:
+                ErrFatal("Huff table too short");
             }
             while (huff[i]--) {
                 c2 = Data[a++];

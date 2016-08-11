@@ -527,7 +527,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             int OffsetVal;
             OffsetVal = Get32u(DirEntry+8);
             // If its bigger than 4 bytes, the dir entry contains an offset.
-            if (OffsetVal+ByteCount > ExifLength || OffsetVal > 65536){
+            if (OffsetVal+ByteCount > ExifLength || OffsetVal < 0 || OffsetVal > 65536){
                 // Bogus pointer offset and / or bytecount value
                 ErrNonfatal("Illegal value pointer for tag %04x in Exif", Tag,0);
                 continue;
@@ -931,7 +931,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                         ErrNonfatal("Illegal subdirectory link in Exif header",0,0);
                     }
                 }else{
-                    if (SubdirStart <= OffsetBase+ExifLength){
+                    if (SubdirStart+2 <= OffsetBase+ExifLength){
                         if (ShowTags) printf("%s    Continued directory ",IndentString);
                         ProcessExifDir(SubdirStart, OffsetBase, ExifLength, NestingLevel+1);
                     }
