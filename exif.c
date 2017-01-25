@@ -1,4 +1,4 @@
-//--------------------------------------------------------------------------
+/--------------------------------------------------------------------------
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
@@ -1204,6 +1204,7 @@ void create_EXIF(void)
 
 //--------------------------------------------------------------------------
 // Cler the rotation tag in the exif header to 1.
+// Returns NULL if no orietnation tag exists.
 //--------------------------------------------------------------------------
 const char * ClearOrientation(void)
 {
@@ -1240,7 +1241,7 @@ const char * ClearOrientation(void)
     if (ImageInfo.Orientation >= 1 && ImageInfo.Orientation <= 8){
         return OrientTab[ImageInfo.Orientation];
     }else{
-        return NULL;
+        return "";
     }
 }
 

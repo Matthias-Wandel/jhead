@@ -718,11 +718,12 @@ static int DoAutoRotate(const char * FileName)
     if (ImageInfo.Orientation != 1){
         const char * Argument;
         Argument = ClearOrientation();
+        if (Argument == NULL) return FALSE; // orientation tag in image, nothing changed.
 
         if (!ZeroRotateTagOnly){
             char RotateCommand[PATH_MAX*2+50];
-            if (Argument == NULL){
-                ErrNonfatal("Unknown orientation tag",0,0);
+            if (strlen(Argument) == 0){
+                // Unknown orientation, but still modified.                
                 return TRUE; // Image is still modified.
             }
             sprintf(RotateCommand, "jpegtran -trim -%s -outfile &o &i", Argument);
