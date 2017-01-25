@@ -98,8 +98,9 @@ void process_DQT (const uchar * Data, int length)
         }
 
         // Read in the table, compute statistics relative to reference table 
-        if (a+64 < length) {
-            ErrFatal("DQT section too short");
+        if (a+64 > length) {
+            ErrNonfatal("DQT section too short",0,0);
+            return;
         }
         for (coefindex = 0; coefindex < 64; coefindex++) {
             unsigned int val;
