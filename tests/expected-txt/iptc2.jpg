@@ -57,7 +57,7 @@ Exif section in Intel order
         ThumbnailOffset = 2016
         ThumbnailLength = 4558
 Thumbnail size: 4558 bytes
-Image cotains IPTC section, 150 bytes long
+Image contains IPTC section, 150 bytes long
 Approximate quality factor for qtable 0: 85 (scale 30.13, var 1.05)
 Approximate quality factor for qtable 1: 85 (scale 30.15, var 0.29)
 JPEG image is 182w * 320h, 3 color components, 8 bits per sample

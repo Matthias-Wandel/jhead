@@ -57,7 +57,7 @@ Exif section in Intel order
 Thumbnail size: 8552 bytes
 Jpeg section marker 0xe2 size 3160
 Jpeg section marker 0xee size 14
-Image cotains XMP section, 7950 bytes long
+Image contains XMP section, 7950 bytes long
 ??http://ns.adobe.com/xap/1.0/?<?xpacket begin="???" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2-c020 1.124078, Tue Sep 11 2007 23:21
 :40        ">
@@ -298,7 +298,7 @@ rdf:li>
  </rdf:RDF>
 </x:xmpmeta>
                                                                                        
-Image cotains IPTC section, 11052 bytes long
+Image contains IPTC section, 11052 bytes long
 Approximate quality factor for qtable 0: 94 (scale 11.75, var 8.52)
 Approximate quality factor for qtable 1: 93 (scale 14.07, var 5.24)
 JPEG image is 192w * 108h, 3 color components, 8 bits per sample

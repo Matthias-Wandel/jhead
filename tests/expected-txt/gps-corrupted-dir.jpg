@@ -43,7 +43,7 @@ Exif section in Intel order
     GPS Dir offset = 30110
     GPS info dir:(dir has 40704 entries)
     UserComment = "&lt;?xml version="1.0"?&gt;&lt;on:exif_data version="3.0"&gt;    &lt;on:picture_id&gt;0&lt;/on:picture_id&gt;    &lt;on:file_checksum&gt;0&lt;/on:file_checksum&gt;&lt;/on:exif_data&gt;"
-Image cotains IPTC section, 6062 bytes long
+Image contains IPTC section, 6062 bytes long
 Approximate quality factor for qtable 0: 80 (scale 40.12, var 1.43)
 Approximate quality factor for qtable 1: 80 (scale 40.26, var 0.36)
 JPEG image is 160w * 246h, 3 color components, 8 bits per sample

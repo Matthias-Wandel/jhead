@@ -8,7 +8,7 @@ Exif section in Motorola order
     Exif Dir:(dir has 2 entries)
         DateTimeOriginal = "1991:09:05 13:00:58"
         UserComment = "ASCII?"
-Image cotains XMP section, 604 bytes long
+Image contains XMP section, 604 bytes long
 ?\http://ns.adobe.com/xap/1.0/?<?xpacket begin="???" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -29,7 +29,7 @@ COM marker comment:
 
 CREATOR: XV Version 3.00  Rev: 3/30/93  Quality = 95, Smoothing = 0
 ?
-Image cotains IPTC section, 116 bytes long
+Image contains IPTC section, 116 bytes long
 Approximate quality factor for qtable 0: 95 (scale 9.93, var 1.25)
 Approximate quality factor for qtable 1: 95 (scale 10.18, var 0.26)
 JPEG image is 492w * 267h, 3 color components, 8 bits per sample

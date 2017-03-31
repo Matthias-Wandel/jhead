@@ -42,8 +42,8 @@ Exif section in Intel order
         ThumbnailOffset = 1306
         ThumbnailLength = 4308
 Thumbnail size: 4308 bytes
-Image cotains IPTC section, 6710 bytes long
-Image cotains XMP section, 7124 bytes long
+Image contains IPTC section, 6710 bytes long
+Image contains XMP section, 7124 bytes long
 ??http://ns.adobe.com/xap/1.0/?<?xpacket begin="???" id="W5M0MpCehiHzreSzNTczkc9d"?> <x:xmpmeta xmln
 s:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.1-c036 46.276720, Mon Feb 19 2007 22:40:08        "> 
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"> <rdf:Description rdf:about="" xmln

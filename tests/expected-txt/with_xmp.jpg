@@ -88,8 +88,8 @@ Exif section in Intel order
         ThumbnailOffset = 2286
         ThumbnailLength = 8194
 Thumbnail size: 8194 bytes
-Image cotains IPTC section, 128 bytes long
-Image cotains XMP section, 3675 bytes long
+Image contains IPTC section, 128 bytes long
+Image contains XMP section, 3675 bytes long
 ?[http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>
 <x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='Image::ExifTool 7.13'>
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -150,9 +150,6 @@ Country       : United States
 DateCreated   : 20070630
 Time Created  : 140224+0000
 
-delete section type 225 at 0
-delete section type 237 at 0
-delete section type 4321 at 0
 Modified: results-bin\with_xmp.jpg
 Cmd:jhead -purejpg "results-bin\with_xmp.jpg"
 Modified: results-bin\with_xmp.jpg
@@ -245,8 +242,8 @@ Exif section in Intel order
         ThumbnailOffset = 2286
         ThumbnailLength = 8194
 Thumbnail size: 8194 bytes
-Image cotains IPTC section, 128 bytes long
-Image cotains XMP section, 3675 bytes long
+Image contains IPTC section, 128 bytes long
+Image contains XMP section, 3675 bytes long
 ?[http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>
 <x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='Image::ExifTool 7.13'>
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
@@ -396,7 +393,7 @@ Exif section in Intel order
         ThumbnailOffset = 2286
         ThumbnailLength = 8194
 Thumbnail size: 8194 bytes
-Image cotains IPTC section, 128 bytes long
+Image contains IPTC section, 128 bytes long
 Approximate quality factor for qtable 0: 90 (scale 19.88, var 1.14)
 Approximate quality factor for qtable 1: 90 (scale 20.14, var 0.34)
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample

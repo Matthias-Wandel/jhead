@@ -87,7 +87,7 @@ Exif section in Motorola order
         ThumbnailLength = 3040
 Thumbnail size: 3040 bytes
 Jpeg section marker 0xe2 size 3160
-Image cotains XMP section, 2954 bytes long
+Image contains XMP section, 2954 bytes long
 ??http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>?
 <xmp:xmpmeta xmlns:xmp="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-
 ns#"><rdf:Description rdf:about="uuid:faf5bdd5-ba3d-11da-ad31-d33d75182f1b" xmlns:dc="http://purl.or
