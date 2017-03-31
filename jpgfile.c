@@ -304,7 +304,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             case M_IPTC:
                 if (ReadMode & READ_METADATA){
                     if (ShowTags){
-                        printf("Image cotains IPTC section, %d bytes long\n", itemlen);
+                        printf("Image contains IPTC section, %d bytes long\n", itemlen);
                     }
                     // Note: We just store the IPTC section.  Its relatively straightforward
                     // and we don't act on any part of it, so just display it at parse time.
