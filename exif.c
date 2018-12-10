@@ -972,6 +972,16 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
     }
 }
 
+void Clear_EXIF ()
+{
+    FocalplaneXRes = 0;
+    FocalplaneUnits = 0;
+    ExifImageWidth = 0;
+    NumOrientations = 0;
+    MotorolaOrder = 0;
+    OrientationPtr[0] = OrientationPtr[1] = NULL;
+    OrientationNumFormat[0] = OrientationNumFormat[1] = 0;
+}
 
 //--------------------------------------------------------------------------
 // Process a EXIF marker
@@ -980,11 +990,8 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 void process_EXIF (unsigned char * ExifSection, int length)
 {
     int FirstOffset;
-
-    FocalplaneXRes = 0;
-    FocalplaneUnits = 0;
-    ExifImageWidth = 0;
-    NumOrientations = 0;
+    
+    Clear_EXIF();
 
     if (ShowTags){
         printf("Exif header %u bytes long\n",length);

@@ -813,6 +813,7 @@ static void ProcessFile(const char * FileName)
     FilesMatched = 1; 
 
     ResetJpgfile();
+    Clear_EXIF();
 
     // Start with an empty image information structure.
     memset(&ImageInfo, 0, sizeof(ImageInfo));
@@ -1351,6 +1352,7 @@ static void Usage (void)
 
            "\nROTATION TAG MANIPULATION:\n"
            "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
+           "             anc clear Exif orientation tag\n"
            "             Note: Windows users must get jpegtran for this to work\n"
            "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
            "             rotating the image again after you rotated it but neglected to\n"

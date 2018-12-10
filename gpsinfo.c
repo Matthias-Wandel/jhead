@@ -127,6 +127,9 @@ void ProcessGpsInfo(unsigned char * DirStart, unsigned char * OffsetBase, unsign
 
             case TAG_GPS_LAT:
             case TAG_GPS_LONG:
+                if (Format != FMT_URATIONAL){
+                    ErrNonfatal("Inappropriate format (%d) for Exif GPS coordinates!", Format, 0);
+                }
                 strcpy(FmtString, "%0.0fd %0.0fm %0.0fs");
                 for (a=0;a<3;a++){
                     int den, digits;
