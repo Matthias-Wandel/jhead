@@ -418,3 +418,14 @@ Remove some unnecessary warnings with some types of GPS data
 
 Aug 4 2015:
 Remove multiple copies of the same type of section when deleting section types
+
+Aug 11 2011:
+Bug fixes relating to fuzz testing.
+
+Aug 1 2017:
+Fix bug when no orientation tag is present
+
+Aug 12 2018:
+Fix bug of not clearing exif information when processing images with an without
+exif data in one invocation.
+

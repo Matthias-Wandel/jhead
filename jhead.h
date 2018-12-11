@@ -158,7 +158,7 @@ void FileTimeAsString(char * TimeStr);
 
 // Prototypes for exif.c functions.
 int Exif2tm(struct tm * timeptr, char * ExifTime);
-void clear_EXIF();
+void Clear_EXIF();
 void process_EXIF (unsigned char * CharBuf, int length);
 void ShowImageInfo(int ShowFileInfo);
 void ShowConciseImageInfo(void);
