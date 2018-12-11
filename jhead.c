@@ -371,11 +371,11 @@ static void DoCommand(const char * FileName, int ShowIt)
     strcpy(TempName+a, "XXXXXX");
 
     // Note: Compiler will warn about mkstemp.  but I need a filename, not a file.
-    // I could just then get the fiel name from what mkstemp made, and pass that
+    // I could just then get the file name from what mkstemp made, and pass that
     // to the executable, but that would make for the exact same vulnerability
     // as mktemp - that is, that between getting the random name, and making the file
     // some other program could snatch that exact same name!
-    // also, not all pltforms support mkstemp.
+    // also, not all platforms support mkstemp.
     mktemp(TempName);
 
 
