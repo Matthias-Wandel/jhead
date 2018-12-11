@@ -454,6 +454,7 @@ int ReplaceThumbnail(const char * ThumbFileName)
         ThumbnailFile = fopen(ThumbFileName,"rb");
 
         if (ThumbnailFile == NULL){
+            noread:
             ErrFatal("Could not read thumbnail file");
             return FALSE;
         }
@@ -484,7 +485,9 @@ int ReplaceThumbnail(const char * ThumbFileName)
     ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
 
     if (ThumbnailFile){
-        fread(ThumbnailPointer, ThumbLen, 1, ThumbnailFile);
+        if (fread(ThumbnailPointer, ThumbLen, 1, ThumbnailFile) != ThumbLen){
+            goto noread;
+        }
         fclose(ThumbnailFile);
     }
 
