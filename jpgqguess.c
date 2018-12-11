@@ -172,7 +172,6 @@ void process_DHT (const uchar * Data, int length)
     int a, i;
     int c, c2;
     unsigned char huff[16];
-
     if (ShowTags>1){
         printf("DHT (length %d bytes)\n", length);
     }
@@ -184,7 +183,11 @@ void process_DHT (const uchar * Data, int length)
         if (ShowTags>1){
             printf("  table %d\n", c);
         }
-        if (a+16 > length) goto tooshort;
+        if (a+16 > length){
+            tooshort:
+            ErrFatal("Huff table too short");
+        }
+
         for (i=0; i<16; i++) {
             huff[i]=(unsigned char) Data[a++];
         }
@@ -193,8 +196,7 @@ void process_DHT (const uchar * Data, int length)
                 printf("  bits %2d (codes=%3u) ", i+1, (unsigned int) huff[i]);
             }
             if (a+huff[i] > length){
-                tooshort:
-                ErrFatal("Huff table too short");
+                goto tooshort;
             }
             while (huff[i]--) {
                 c2 = Data[a++];
