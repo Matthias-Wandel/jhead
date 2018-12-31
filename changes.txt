@@ -429,5 +429,10 @@ Aug 12 2018:
 Fix bug of not clearing exif information when processing images with an without
 exif data in one invocation.
 
+-------Released version 3.02 -- Dec 11 2018 --------
+
 Dec 21 2018:
-Fix bug in reading thumbnail files for thumnbnail replacement.
+Fix bug where thumbnail replacement DID NOT WORK.
+(broke while fixing compiler warnings for 3.02 release)
+
+-------Released version 3.03 -- Dec 31 2018 --------
