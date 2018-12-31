@@ -429,3 +429,5 @@ Aug 12 2018:
 Fix bug of not clearing exif information when processing images with an without
 exif data in one invocation.
 
+Dec 21 2018:
+Fix bug in reading thumbnail files for thumnbnail replacement.
