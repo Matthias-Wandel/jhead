@@ -16,7 +16,7 @@ Date/Time    : 2000:04:01 13:04:48
 Resolution   : 160 x 120
 JPEG Quality : 75
 
-Exif header 4100 bytes long
+Exif header 4289 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2000:04:01 13:04:48"
@@ -25,8 +25,8 @@ Exif section in Intel order
         DateTimeOriginal = "2000:04:01 13:04:48"
     Continued directory (dir has 2 entries)
         ThumbnailOffset = 126
-        ThumbnailLength = 3966
-Thumbnail size: 3966 bytes
+        ThumbnailLength = 4155
+Thumbnail size: 4155 bytes
 Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
 Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample

@@ -1,9 +1,9 @@
 File name    : time.jpg
 File size    : 11839 bytes
-File date    : 2016:09:11 10:28:13
+File date    : 2004:05:09 18:00:21
 Camera make  :                          
 Camera model : 3MDSC
-Date/Time    : 2005:05:09 19:01:01
+Date/Time    : 2004:05:09 18:00:21
 Resolution   : 160 x 120
 Flash used   : Yes
 Focal length :  6.0mm
@@ -15,7 +15,7 @@ JPEG Quality : 50
 
 Camera make  :                          
 Camera model : 3MDSC
-Date/Time    : 2005:05:09 19:01:01
+Date/Time    : 2004:05:09 18:00:01
 Resolution   : 160 x 120
 Flash used   : Yes
 Focal length :  6.0mm
@@ -39,7 +39,7 @@ JPEG Quality : 50
 
 Camera make  : Canon
 Camera model : Canon PowerShot Pro1
-Date/Time    : 2006:01:23 18:13:31
+Date/Time    : 2106:12:23 17:13:31
 Resolution   : 267 x 200
 Flash used   : No
 Focal length : 38.0mm  (35mm equivalent: 155mm)
@@ -53,7 +53,7 @@ Light Source : Daylight
 Metering Mode: center weight
 JPEG Quality : 85
 
-Skipping readonly file 'badyear.jpg'
+Modified: badyear.jpg
 Camera make  : Canon
 Camera model : Canon PowerShot Pro1
 Date/Time    : 2006:01:23 18:13:31

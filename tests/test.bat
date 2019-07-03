@@ -88,7 +88,7 @@ mkdir temp
 copy normal-digicams\*.jpg temp
 del temp\no-exif.jpg
 jhead -nf%%02i-%%H-%%f temp\*.jpg
-dir /b temp >> results-txt\new-names-txt
+dir /b temp > results-txt\new-names-txt
 
 rem -------------------------------------------------------------------
 rem test file move / rename feature
