@@ -85,7 +85,7 @@ static char * ExifXferScrFile = NULL;// Extract Exif header from this file, and
                                     // put it into the Jpegs processed.
 
 static int EditComment = FALSE;     // Invoke an editor for editing the comment
-static int SupressNonFatalErrors = FALSE; // Wether or not to pint warnings on recoverable errors
+static int SuppressNonFatalErrors = FALSE; // Wether or not to pint warnings on recoverable errors
 
 static char * CommentSavefileName = NULL; // Save comment to this file.
 static char * CommentInsertfileName = NULL; // Insert comment from this file.
@@ -124,7 +124,7 @@ void ErrFatal(const char * msg)
 //--------------------------------------------------------------------------
 void ErrNonfatal(const char * msg, int a1, int a2)
 {
-    if (SupressNonFatalErrors) return;
+    if (SuppressNonFatalErrors) return;
 
     fprintf(stderr,"\nNonfatal Error : ");
     if (CurrentFile) fprintf(stderr,"'%s' ",CurrentFile);
@@ -1363,7 +1363,7 @@ static void Usage (void)
            "  -q         Quiet (no messages on success, like Unix)\n"
            "  -V         Show jhead version\n"
            "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
-           "  -se        Supress error messages relating to corrupt exif header structure\n"
+           "  -se        Suppress error messages relating to corrupt exif header structure\n"
            "  -c         concise output\n"
            "  -nofinfo   Don't show file info (name/size/date)\n"
 
@@ -1516,7 +1516,7 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-exifmap")){
             DumpExifMap = TRUE;
         }else if (!strcmp(arg,"-se")){
-            SupressNonFatalErrors = TRUE;
+            SuppressNonFatalErrors = TRUE;
         }else if (!strcmp(arg,"-c")){
             ShowConcise = TRUE;
         }else if (!strcmp(arg,"-nofinfo")){
