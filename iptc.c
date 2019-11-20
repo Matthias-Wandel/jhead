@@ -126,6 +126,7 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
 
         type    = *pos++;
         length  = (*pos << 8) + (*(pos+1));
+        if (length < 1) goto corrupt;
         pos    += 2;                          // Skip tag length
 
         if (pos+length > maxpos) goto corrupt;
