@@ -677,7 +677,7 @@ static void DoFileRenaming(const char * FileName)
             NameExtra[0] = 0;
         }
 
-        sprintf(NewName, "%s%s.jpg", NewBaseName, NameExtra);
+        snprintf(NewName, sizeof(NewName)-1, "%s%s.jpg", NewBaseName, NameExtra);
 
         if (!strcmp(FileName, NewName)) break; // Skip if its already this name.
 
