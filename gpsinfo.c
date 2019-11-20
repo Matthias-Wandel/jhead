@@ -101,7 +101,8 @@ void ProcessGpsInfo(unsigned char * DirStart, unsigned char * OffsetBase, unsign
             unsigned OffsetVal;
             OffsetVal = Get32u(DirEntry+8);
             // If its bigger than 4 bytes, the dir entry contains an offset.
-            if (OffsetVal+ByteCount > ExifLength){
+            if (OffsetVal > 0x1000000 || OffsetVal+ByteCount > ExifLength){
+                // Max exif in jpeg is 64k, so any offset bigger than that is bogus.
                 // Bogus pointer offset and / or bytecount value
                 ErrNonfatal("Illegal value pointer for Exif gps tag %04x", Tag,0);
                 continue;
