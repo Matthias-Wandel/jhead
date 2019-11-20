@@ -162,8 +162,8 @@ void ProcessGpsInfo(unsigned char * DirStart, unsigned char * OffsetBase, unsign
                 break;
 
             case TAG_GPS_ALT:
-                sprintf(ImageInfo.GpsAlt + 1, "%.2fm", 
-                    ConvertAnyFormat(ValuePtr, Format));
+                snprintf(ImageInfo.GpsAlt+1, sizeof(ImageInfo.GpsAlt)-1,
+                    "%.2fm", ConvertAnyFormat(ValuePtr, Format));
                 break;
         }
 
