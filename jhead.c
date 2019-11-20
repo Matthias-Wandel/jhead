@@ -1511,7 +1511,7 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-q")){
             Quiet = TRUE;
         }else if (!strcmp(arg,"-V")){
-            printf("Jhead version: "JHEAD_VERSION"   Compiled: "__DATE__"\n");
+            printf("Jhead version: "JHEAD_VERSION"\n");
             exit(0);
         }else if (!strcmp(arg,"-exifmap")){
             DumpExifMap = TRUE;
