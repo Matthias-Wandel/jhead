@@ -148,7 +148,7 @@ void ProcessGpsInfo(unsigned char * DirStart, unsigned char * OffsetBase, unsign
                     Values[a] = ConvertAnyFormat(ValuePtr+a*ComponentSize, Format);
                 }
 
-                sprintf(TempString, FmtString, Values[0], Values[1], Values[2]);
+                snprintf(TempString, sizeof(TempString), FmtString, Values[0], Values[1], Values[2]);
 
                 if (Tag == TAG_GPS_LAT){
                     strncpy(ImageInfo.GpsLat+2, TempString, 29);
