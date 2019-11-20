@@ -1600,7 +1600,7 @@ int main (int argc, char **argv)
             if (pOldDate){
                 OldDate = ParseCmdDate(pOldDate+1);
             }else{
-                ErrFatal("Must specifiy second date for -da option");
+                ErrFatal("Must specify second date for -da option");
             }
             if (ExifTimeAdjust) ErrFatal("Can only use one of -da or -ta options at once");
             ExifTimeAdjust = NewDate-OldDate;
@@ -1714,7 +1714,7 @@ int main (int argc, char **argv)
 
     if (ThumbSaveName != NULL && strcmp(ThumbSaveName, "&i") == 0){
         printf("Error: By specifying \"&i\" for the thumbail name, your original file\n"
-               "       will be overwitten.  If this is what you really want,\n"
+               "       will be overwritten.  If this is what you really want,\n"
                "       specify  -st \"./&i\"  to override this check\n");
         exit(0);
     }
