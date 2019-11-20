@@ -24,6 +24,11 @@
     #define chmod _chmod
     #define access _access
     #define mktemp _mktemp
+    
+    #if _MSC_VER && _MSC_VER <= 1500
+        // The 2007 vintage compiler I use on windows doesn't have snprintf
+        #define snprintf(dest, len, format,...) sprintf (dest, format, __VA_ARGS__)
+    #endif
 #else
     #include <utime.h>
     #include <sys/types.h>
