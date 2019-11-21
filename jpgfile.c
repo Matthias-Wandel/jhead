@@ -248,12 +248,12 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 // marker instead, althogh ACDsee will write images with both markers.
                 // this program will re-create this marker on absence of exif marker.
                 // hence no need to keep the copy from the file.
-                if (memcmp(Data+2, "JFIF\0",5)){
-                    fprintf(stderr,"Header missing JFIF marker\n");
-                }
                 if (itemlen < 16){
                     fprintf(stderr,"Jfif header too short\n");
                     goto ignore;
+                }
+                if (memcmp(Data+2, "JFIF\0",5)){
+                    fprintf(stderr,"Header missing JFIF marker\n");
                 }
 
                 ImageInfo.JfifHeader.Present = TRUE;
