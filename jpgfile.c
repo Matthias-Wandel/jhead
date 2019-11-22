@@ -326,6 +326,10 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             case M_SOF13:
             case M_SOF14:
             case M_SOF15:
+                if (itemlen < 8){
+                    fprintf(stderr,"Section too short\n");
+                    break;
+                }
                 process_SOFn(Data, marker);
                 break;
             default:
