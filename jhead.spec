@@ -13,7 +13,7 @@
 Name:			jhead
 Summary:		Tool for handling EXIF metadata in JPEG image files
 
-Version:		3.03
+Version:		3.04
 Release:		0
 
 Group:			Libraries

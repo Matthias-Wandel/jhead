@@ -441,3 +441,4 @@ Nov 20 2019:
 Apply a whole bunch of patches from Debian.
 Spell check and fuzz test stuff from Debian, nothing useful to human users.
 
+-------Released version 3.04 -- Nov 22 2019 --------
