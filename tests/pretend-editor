@@ -1,11 +1,2 @@
-echo "this comment is edited" > %1
-
-
-
-
-
-
-
-
-
-
+#!/bin/bash
+echo "this comment is edited" > "$1"

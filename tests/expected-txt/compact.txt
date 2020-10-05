@@ -1,0 +1,46 @@
+Normal digicams
+"normal-digicams/35mmequiv-tag.jpg" 160x106 (1/60) f/4.5 f(35)=87mm (flash)
+"normal-digicams/3dmsc.jpg" 160x120 (1/60) f/2.9 (flash)
+"normal-digicams/4m_dsc.jpg" 160x120 (1/308) f/6.8
+"normal-digicams/canon-300d.jpg" 160x107 (1/60) f/4.5 f(35)=54mm (flash)
+"normal-digicams/canon-bigend.jpg" 240x171 (1/250) f/4.8 f(35)=329mm
+"normal-digicams/digital-rebel.jpg" 160x112 (1/60) f/5.0 f(35)=29mm (flash)
+"normal-digicams/digital-zoomed.jpg" 100x75 (1/5) f/3.5 f(35)=661mm
+"normal-digicams/dx6340.jpg" 60x80 (1/2) f/4.8 f(35)=114mm
+"normal-digicams/fuji-dx10.jpg" 160x120 (1/10) f/4.2 f(35)=44mm
+"normal-digicams/gpsinfo.jpg" 160x120 (1/111) f/5.5
+"normal-digicams/gps-many-digits.jpg" 160x104 (1/500) f/7.6
+"normal-digicams/hp.jpg" 160x121 (1/30) f/2.9 (flash)
+"normal-digicams/minolta-dimage-e223.jpg" 160x120 (1/64) f/2.9 (flash)
+"normal-digicams/no-exif.jpg" 987x518
+"normal-digicams/olympus.jpg" 160x120 (1/31) f/2.8
+"normal-digicams/powershot_g2.jpg" 160x120 (1/50) f/2.8 f(35)=35mm
+"normal-digicams/rotate.jpg" 160x120 (1/10) f/2.8 f(35)=36mm
+"normal-digicams/rotate-thbad.jpg" 160x120 (1/10) f/2.8 f(35)=36mm
+"normal-digicams/S100.jpg" 160x120 (1/30) f/2.8 f(35)=37mm (flash)
+"normal-digicams/S40.jpg" 120x160 (1/250) f/2.8 f(35)=36mm
+"normal-digicams/sony.jpg" 120x160 (1/40) f/2.8 (flash)
+"normal-digicams/two-orientation.jpg" 160x120 (1/200) f/7.1 f(35)=200mm
+Strange jpegs
+"strange-jpegs/bad-subdir-link.jpg" 257x170 (1/50) f/5.6 f(35)=20mm (flash)
+"strange-jpegs/badyear.jpg" 267x200 (1/250) f/4.0 f(35)=155mm
+"strange-jpegs/crashes-safari.jpg" 250x134
+"strange-jpegs/don.jpg" 480x320
+"strange-jpegs/gps-corrupted-dir.jpg" 160x246 (1/125) f/2.8
+"strange-jpegs/iptc1.jpg" 182x320 (1/640) f/5.2
+"strange-jpegs/iptc2.jpg" 182x320 (1/640) f/5.2
+"strange-jpegs/iptc3.jpg" 110x100
+"strange-jpegs/iptc-sections.jpg" 200x113 (1/200) f/3.5
+"strange-jpegs/iptc_sigfunny.jpg" 106x159 (1/80) f/9.0
+"strange-jpegs/iptc-utf8.jpg" 192x108 (1/200) f/3.5 f(35)=343mm
+"strange-jpegs/narsaaq.jpg" 492x267
+"strange-jpegs/no-thumb-pointer.jpg" 150x200 (1/125) f/3.7 f(35)=196mm
+"strange-jpegs/olav.jpg" 135x224
+"strange-jpegs/pentax-optio-230.jpg" 1600x1200 (1/250) f/4.8 f(35)=38mm (flash)
+"strange-jpegs/picasa.jpg" 100x75 (1/500) f/5.7 f(35)=7667mm
+"strange-jpegs/short_date.jpg" 200x160 (1/29) f/3.5
+"strange-jpegs/thumbnail-place-error.jpg" 160x120 (1/125) f/4.0 f(35)=233mm
+Portrait only option test
+"normal-digicams/dx6340.jpg" 60x80 (1/2) f/4.8 f(35)=114mm
+"normal-digicams/S40.jpg" 120x160 (1/250) f/2.8 f(35)=36mm
+"normal-digicams/sony.jpg" 120x160 (1/40) f/2.8 (flash)

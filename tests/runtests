@@ -16,12 +16,12 @@ done
 
 #-------------------------------------------------------------------
 #test compact view
-echo Normal digicams > results-txt/compact-txt
-"$jhead" -c normal-digicams/*.jpg >> results-txt/compact-txt
-echo Strange jpegs >> results-txt/compact-txt
-"$jhead" -c strange-jpegs/*.jpg >> results-txt/compact-txt
-echo Portrait only option test >> results-txt/compact-txt
-"$jhead" -c -se -orp normal-digicams/*.jpg >> results-txt/compact-txt
+echo Normal digicams > results-txt/compact.txt
+"$jhead" -c normal-digicams/*.jpg >> results-txt/compact.txt
+echo Strange jpegs >> results-txt/compact.txt
+"$jhead" -c strange-jpegs/*.jpg >> results-txt/compact.txt
+echo Portrait only option test >> results-txt/compact.txt
+"$jhead" -c -se -orp normal-digicams/*.jpg >> results-txt/compact.txt
 
 #-------------------------------------------------------------------
 #test date minaipulation
@@ -93,28 +93,23 @@ rm -rf temp
 mkdir temp
 cp normal-digicams/*.jpg temp
 del temp/no-exif.jpg
-"$jhead" -nf%%02i-%%H-%%f temp/*.jpg
-dir /b temp > results-txt/new-names-txt
+"$jhead" -nf%02i-%H-%f temp/*.jpg
+ls temp > results-txt/new-names.txt
 
 #-------------------------------------------------------------------
 #test file move / rename feature
 rm -rf movetest
-md movetest
+mkdir -p movetest
 cp normal-digicams/*.jpg movetest
 
-@echo ---Test move/rename abs rel path --- >> results-txt/new-names-txt
-"$jhead" -nf./movetest/%%Y/%%f- -de movetest/*.jpg
-"$jhead" -c movetest/**/*.jpg >> results-txt/new-names-txt
+echo ---Test move/rename abs rel path --- >> results-txt/new-names.txt
+"$jhead" -nf./movetest/%Y/%f- -de movetest/*.jpg
+"$jhead" -c movetest/*/*.jpg >> results-txt/new-names.txt
 
-@echo ---Test move/rename to abs path --- >> results-txt/new-names-txt
-rm -rf c:/jtest
-"$jhead" -nfc:/jtest/foobar/%%d movetest/*005/*
-dir /s /b c:/jtest >> results-txt/new-names-txt
-rm -rf c:/jtest
 
-@echo ---Test move/rename relative path --- >> results-txt/new-names-txt
-"$jhead" -nf%%i/%f movetest/2004/d*g 
-"$jhead" -c movetest/2004/?/*.jpg >> results-txt/new-names-txt
+echo ---Test move/rename relative path --- >> results-txt/new-names.txt
+"$jhead" -nf%i/%%f movetest/2004/d*g 
+"$jhead" -c movetest/2004/?/*.jpg >> results-txt/new-names.txt
 
 #-------------------------------------------------------------------
 #test -purejpg with an image that I used to corrupt.
@@ -181,5 +176,3 @@ cp strange-jpegs/with_xmp.jpg results-bin/keep_xmp.jpg
 "$jhead" -dx results-bin/keep_xmp.jpg
 "$jhead" -v -nofinfo results-bin/keep_xmp.jpg >> results-txt/with_xmp.jpg
 
-#-------------------------------------------------------------------
-#Test 

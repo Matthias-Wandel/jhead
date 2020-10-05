@@ -1,0 +1,48 @@
+01-09-35mmequiv-tag.jpg
+02-16-3dmsc.jpg
+03-04-4m_dsc.jpg
+04-17-canon-300d.jpg
+05-12-canon-bigend.jpg
+06-19-digital-rebel.jpg
+07-20-digital-zoomed.jpg
+08-18-dx6340.jpg
+09-13-fuji-dx10.jpg
+10-12-gpsinfo.jpg
+11-16-gps-many-digits.jpg
+12-13-hp.jpg
+13-00-minolta-dimage-e223.jpg
+14-12-no-exif.jpg
+15-20-olympus.jpg
+16-16-powershot_g2.jpg
+17-22-rotate.jpg
+18-22-rotate-thbad.jpg
+19-15-S100.jpg
+20-13-S40.jpg
+21-16-sony.jpg
+22-22-two-orientation.jpg
+---Test move/rename abs rel path ---
+"movetest/1999/olympus-.jpg" 160x120
+"movetest/2000/fuji-dx10-.jpg" 160x120
+"movetest/2000/S100-.jpg" 160x120
+"movetest/2002/gps-many-digits-.jpg" 160x104
+"movetest/2002/S40-.jpg" 120x160
+"movetest/2003/35mmequiv-tag-.jpg" 160x106
+"movetest/2003/canon-300d-.jpg" 160x107
+"movetest/2003/minolta-dimage-e223-.jpg" 160x120
+"movetest/2003/powershot_g2-.jpg" 160x120
+"movetest/2004/3dmsc-.jpg" 160x120
+"movetest/2004/4m_dsc-.jpg" 160x120
+"movetest/2004/digital-zoomed-.jpg" 100x75
+"movetest/2004/dx6340-.jpg" 60x80
+"movetest/2004/hp-.jpg" 160x121
+"movetest/2004/rotate-.jpg" 160x120
+"movetest/2004/rotate-thbad-.jpg" 160x120
+"movetest/2004/sony-.jpg" 120x160
+"movetest/2004/two-orientation-.jpg" 160x120
+"movetest/2005/digital-rebel-.jpg" 160x112
+"movetest/2005/gpsinfo-.jpg" 160x120
+"movetest/2010/canon-bigend-.jpg" 240x171
+"movetest/2020/no-exif-.jpg" 987x518
+---Test move/rename relative path ---
+"movetest/2004/1/05igital-zoomed-.jpg" 100x75
+"movetest/2004/2/05x6340-.jpg" 60x80
