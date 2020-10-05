@@ -120,7 +120,6 @@ typedef struct {
     int   ResolutionUnit;
 
     char  Comments[MAX_COMMENT_SIZE];
-    int   CommentWidthchars; // If nonzero, widechar comment, indicates number of chars.
 
     int   ThumbnailOffset;          // Exif offset to thumbnail
     int   ThumbnailSize;            // Size of thumbnail.

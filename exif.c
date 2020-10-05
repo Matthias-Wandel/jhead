@@ -463,6 +463,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
     int ThumbnailOffset = 0;
     int ThumbnailSize = 0;
     char IndentString[25];
+    int OffsetVal;
 
     if (NestingLevel > 4){
         ErrNonfatal("Maximum Exif directory nesting exceeded (corrupt Exif header)", 0,0);
@@ -524,7 +525,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         ByteCount = Components * BytesPerFormat[Format];
 
         if (ByteCount > 4){
-            int OffsetVal;
             OffsetVal = Get32u(DirEntry+8);
             // If its bigger than 4 bytes, the dir entry contains an offset.
             if (OffsetVal+ByteCount > ExifLength || OffsetVal < 0 || OffsetVal > 65536){
@@ -571,7 +571,13 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             switch(Format){
                 case FMT_BYTE:
                     if(ByteCount>1){
-                        printf("%.*ls\n", ByteCount/2, (wchar_t *)ValuePtr);
+                        for (a=0;a<ByteCount;a+=2){
+                            int cv = *(char *)(ValuePtr+a)+(*(char *)(ValuePtr+a+1)<<8);
+                            // Note that after getting the 16-bit char, putchar truncates it back
+                            // down to 8 bit.  Unicoe and linus console is something I don't understand.
+                            putchar(cv);
+                        }
+                        putchar('\n');
                     }else{
                         PrintFormatNumber(ValuePtr, Format, ByteCount);
                         printf("\n");
@@ -640,20 +646,6 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 }
                 ImageInfo.DateTimeOffsets[ImageInfo.numDateTimeTags++] = 
                     (char *)ValuePtr - (char *)OffsetBase;
-                break;
-
-            case TAG_WINXP_COMMENT:
-                if (ImageInfo.Comments[0]){ // We already have a jpeg comment.
-                    // Already have a comment (probably windows comment), skip this one.
-                    if (ShowTags) printf("Windows XP commend and other comment in header\n");
-                    break; // Already have a windows comment, skip this one.
-                }
-
-                if (ByteCount > 1){
-                    if (ByteCount > MAX_COMMENT_SIZE) ByteCount = MAX_COMMENT_SIZE;
-                    memcpy(ImageInfo.Comments, ValuePtr, ByteCount);
-                    ImageInfo.CommentWidthchars = ByteCount/2;
-                }
                 break;
 
             case TAG_USERCOMMENT:
@@ -1544,25 +1536,21 @@ void ShowImageInfo(int ShowFileInfo)
     if (ImageInfo.Comments[0]){
         int a,c;
         printf("Comment      : ");
-        if (!ImageInfo.CommentWidthchars){
-            for (a=0;a<MAX_COMMENT_SIZE;a++){
-                c = ImageInfo.Comments[a];
-                if (c == '\0') break;
-                if (c == '\n'){
-                    // Do not start a new line if the string ends with a carriage return.
-                    if (ImageInfo.Comments[a+1] != '\0'){
-                        printf("\nComment      : ");
-                    }else{
-                        printf("\n");
-                    }
+        for (a=0;a<MAX_COMMENT_SIZE;a++){
+            c = ImageInfo.Comments[a];
+            if (c == '\0') break;
+            if (c == '\n'){
+                // Do not start a new line if the string ends with a carriage return.
+                if (ImageInfo.Comments[a+1] != '\0'){
+                    printf("\nComment      : ");
                 }else{
-                    putchar(c);
+                    printf("\n");
                 }
+            }else{
+                putchar(c);
             }
-            printf("\n");
-        }else{
-            printf("%.*ls\n", ImageInfo.CommentWidthchars, (wchar_t *)ImageInfo.Comments);
         }
+        printf("\n");
     }
 }
 

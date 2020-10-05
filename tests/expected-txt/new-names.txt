@@ -11,7 +11,7 @@
 11-16-gps-many-digits.jpg
 12-13-hp.jpg
 13-00-minolta-dimage-e223.jpg
-14-12-no-exif.jpg
+14-13-no-exif.jpg
 15-20-olympus.jpg
 16-16-powershot_g2.jpg
 17-22-rotate.jpg
