@@ -2,4 +2,6 @@
 *.o
 ./*.jpg
 ./jhead
-
+tests/results-txt/*
+tests/results-bin/*
+tests/temp/
