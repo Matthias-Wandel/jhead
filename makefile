@@ -1,13 +1,16 @@
 #--------------------------------
 # jhead makefile for Unix
 #--------------------------------
-OBJ=.
+OBJ=obj
 SRC=.
 CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
 CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
 LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
 
-all: jhead
+all: objdir jhead
+
+objdir:
+	@mkdir -p obj
 
 objs = $(OBJ)/jhead.o $(OBJ)/jpgfile.o $(OBJ)/jpgqguess.o $(OBJ)/paths.o \
 	$(OBJ)/exif.o $(OBJ)/iptc.o $(OBJ)/gpsinfo.o $(OBJ)/makernote.o 
