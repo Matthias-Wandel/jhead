@@ -1,4 +1,4 @@
-File name    : results-bin\rotate.jpg
+File name    : results-bin/rotate.jpg
 File size    : 10248 bytes
 File date    : 2004:01:08 22:00:22
 Camera make  : Canon

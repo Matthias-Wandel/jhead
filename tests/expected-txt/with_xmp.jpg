@@ -1,4 +1,4 @@
-Modified: results-bin\with_xmp.jpg
+Modified: results-bin/with_xmp.jpg
 Exif header 10488 bytes long
 Exif section in Intel order
 (dir has 11 entries)
@@ -150,9 +150,9 @@ Country       : United States
 DateCreated   : 20070630
 Time Created  : 140224+0000
 
-Modified: results-bin\with_xmp.jpg
-Cmd:jhead -purejpg "results-bin\with_xmp.jpg"
-Modified: results-bin\with_xmp.jpg
+Modified: results-bin/with_xmp.jpg
+Cmd:../jhead -purejpg "results-bin/with_xmp.jpg"
+Modified: results-bin/with_xmp.jpg
 Exif header 10488 bytes long
 Exif section in Intel order
 (dir has 11 entries)
