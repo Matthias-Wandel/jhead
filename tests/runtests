@@ -1,8 +1,10 @@
 #!/bin/bash
 jhead=../jhead
 
-rm -f results-txt/*
-rm -f results-bin/*
+rm -rf results-txt/*
+rm -rf results-bin/*
+mkdir -p results-txt
+mkdir -p results-bin
 
 #test parsing of normal exif information.
 for file in normal-digicams/*.jpg; do
@@ -92,7 +94,7 @@ cp normal-digicams/two-orientation.jpg results-bin
 rm -rf temp
 mkdir temp
 cp normal-digicams/*.jpg temp
-del temp/no-exif.jpg
+rm temp/no-exif.jpg
 "$jhead" -nf%02i-%H-%f temp/*.jpg
 ls temp > results-txt/new-names.txt
 
@@ -124,7 +126,7 @@ cp strange-jpegs/don.jpg results-bin
 
 #-------------------------------------------------------------------
 #Test deletion of a thumbnail, and replacing of a thumbnail
-del results-txt/thumb-operations-txt
+rm results-txt/thumb-operations-txt
 
 cp normal-digicams/fuji-dx10.jpg results-bin/thumb-deleted.jpg
 "$jhead" -dt -ft results-bin/thumb-deleted.jpg

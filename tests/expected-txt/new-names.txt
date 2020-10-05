@@ -11,15 +11,14 @@
 11-16-gps-many-digits.jpg
 12-13-hp.jpg
 13-00-minolta-dimage-e223.jpg
-14-13-no-exif.jpg
-15-20-olympus.jpg
-16-16-powershot_g2.jpg
-17-22-rotate.jpg
-18-22-rotate-thbad.jpg
-19-15-S100.jpg
-20-13-S40.jpg
-21-16-sony.jpg
-22-22-two-orientation.jpg
+14-20-olympus.jpg
+15-16-powershot_g2.jpg
+16-22-rotate.jpg
+17-22-rotate-thbad.jpg
+18-15-S100.jpg
+19-13-S40.jpg
+20-16-sony.jpg
+21-22-two-orientation.jpg
 ---Test move/rename abs rel path ---
 "movetest/1999/olympus-.jpg" 160x120
 "movetest/2000/fuji-dx10-.jpg" 160x120
