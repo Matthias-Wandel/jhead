@@ -25,4 +25,5 @@ clean:
 	rm -f $(objs) jhead
 
 install:
+	mkdir -p ${DESTDIR}/usr/bin/
 	cp jhead ${DESTDIR}/usr/bin/
