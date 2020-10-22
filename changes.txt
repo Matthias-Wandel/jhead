@@ -442,3 +442,10 @@ Apply a whole bunch of patches from Debian.
 Spell check and fuzz test stuff from Debian, nothing useful to human users.
 
 -------Released version 3.04 -- Nov 22 2019 --------
+
+Migrated to GitHub.
+Mostly remove support for windows XP specific tags (noboy usedthem, didn't work on linux)
+Make tests suite run on linux, included in github.
+Bumped version number to 3.05
+
+
