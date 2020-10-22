@@ -634,15 +634,16 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                 break;
 
             case TAG_DATETIME_ORIGINAL:
-                // If we get a DATETIME_ORIGINAL, we use that one.
-                strncpy(ImageInfo.DateTime, (char *)ValuePtr, 19);
-                // Fallthru...
-
             case TAG_DATETIME_DIGITIZED:
             case TAG_DATETIME:
-                if (!isdigit(ImageInfo.DateTime[0])){
+                if (ValuePtr+19 >= OffsetBase+ExifLength){
+                    ErrNonfatal("Incomplete time",0,0);
+                    continue;
+                }
+                
+                if (Tag == TAG_DATETIME_ORIGINAL || !isdigit(ImageInfo.DateTime[0])){
                     // If we don't already have a DATETIME_ORIGINAL, use whatever
-                    // time fields we may have.
+                    // time fields we may have.  But if ORIGINAL tag comes later, use that one.
                     strncpy(ImageInfo.DateTime, (char *)ValuePtr, 19);
                 }
 
