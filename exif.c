@@ -1,4 +1,4 @@
-//--------------------------------------------------------------------------
+        //--------------------------------------------------------------------------
 // Program to pull the information out of various types of EXIF digital 
 // camera files and show it in a reasonably consistent way
 //
@@ -510,6 +510,12 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         Tag = Get16u(DirEntry);
         Format = Get16u(DirEntry+2);
         Components = Get32u(DirEntry+4);
+
+        if (Components > 0x10000){
+            //Components count too large could cause overflow on subsequent check
+            ErrNonfatal("Bad components count %x", Components,0);
+            continue;
+        }
 
         if ((Format-1) >= NUM_FORMATS) {
             // (-1) catches illegal zero case as unsigned underflows to positive large.
