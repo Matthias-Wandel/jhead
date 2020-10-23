@@ -48,7 +48,7 @@ static void process_COM (const uchar * Data, int length)
     for (a=2;a<length;a++){
         ch = Data[a];
 
-        if (ch == '\r' && Data[a+1] == '\n') continue; // Remove cr followed by lf.
+        if (ch == '\r' && a < length-1 && Data[a+1] == '\n') continue; // Remove cr followed by lf.
 
         if (ch >= 32 || ch == '\n' || ch == '\t'){
             Comment[nch++] = (char)ch;
