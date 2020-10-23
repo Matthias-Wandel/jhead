@@ -169,7 +169,10 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
         Sections[SectionsRead].Size = itemlen;
 
-        Data = (uchar *)malloc(itemlen);
+        // Allocate an extra 20 bytes more than needed, because sometimes when reading structures,
+        // if the section erroneously ends before short structures that should be there, that can trip
+        // memory checkers in combination with fuzzers.
+        Data = (uchar *)malloc(itemlen+20);
         if (Data == NULL){
             ErrFatal("Could not allocate memory");
         }
@@ -476,7 +479,7 @@ int ReplaceThumbnail(const char * ThumbFileName)
              return FALSE;
         }
 
-        ThumbLen = 0;
+        ThumbLen = 0;
         ThumbnailFile = NULL;
     }
 
