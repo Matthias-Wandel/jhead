@@ -657,7 +657,7 @@ static void DoFileRenaming(const char * FileName)
 
     AddLetter = isdigit(NewBaseName[strlen(NewBaseName)-1]);
     for (a=0;;a++){
-        char NewName[PATH_MAX+10];
+        char NewName[PATH_MAX*2+10];
         char NameExtra[3];
         struct stat dummy;
 
