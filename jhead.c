@@ -1504,7 +1504,7 @@ int main (int argc, char **argv)
             CreateExifSection = TRUE;
             DoModify |= MODIFY_JPEG;
     // Output verbosity control
-        }else if (!strcmp(arg,"-h")){
+        }else if (!strcmp(arg,"-h") || !strcmp(arg,"--help")){
             Usage();
         }else if (!strcmp(arg,"-v")){
             ShowTags = TRUE;
