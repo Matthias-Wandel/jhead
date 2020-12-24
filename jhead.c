@@ -584,6 +584,9 @@ static void DoFileRenaming(const char * FileName)
 
         if (FileName[a] == '.') ExtensionPart = a;  // Remember where extension starts.
     }
+    if (ExtensionPart < PrefixPart) { // no extension found
+        ExtensionPart = strlen(FileName);
+    } 
 
     if (!Exif2tm(&tm, ImageInfo.DateTime)){
         printf("File '%s' contains no exif date stamp.  Using file date\n",FileName);
