@@ -389,7 +389,15 @@ void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount)
                 s = 8;
                 break;
 
-            case FMT_SINGLE:    printf("%f",(double)*(float *)ValuePtr); s=8; break;
+            case FMT_SINGLE:
+                {
+                    float f;
+                    int tmp = *(int*)ValuePtr;
+                    f = *(float *)&tmp;
+                    printf("%f",f);
+                }
+                s=4;
+                break;
             case FMT_DOUBLE:    printf("%f",*(double *)ValuePtr);        s=8; break;
             default: 
                 printf("Unknown format %d:", Format);
@@ -441,9 +449,20 @@ double ConvertAnyFormat(void * ValuePtr, int Format)
         case FMT_SSHORT:    Value = (signed short)Get16u(ValuePtr);  break;
         case FMT_SLONG:     Value = Get32s(ValuePtr);                break;
 
-        // Not sure if this is correct (never seen float used in Exif format)
-        case FMT_SINGLE:    Value = (double)*(float *)ValuePtr;      break;
-        case FMT_DOUBLE:    Value = *(double *)ValuePtr;             break;
+        // Never seen floats used in actual exif format,
+        // this code only ever hit with fuzz testing.
+        // This code may not necessaryly print correct values if float *were*
+        // to be used in exif, as it doesn't define which floating point
+        // stanard is to be used.
+        case FMT_SINGLE:
+            {
+                int tmp = *(int*)ValuePtr;
+                Value = *(float *)&tmp;
+            }
+            break;
+
+        case FMT_DOUBLE:
+            Value = *(double *)ValuePtr;             break;
 
         default:
             ErrNonfatal("Illegal format code %d in Exif header",Format,0);
@@ -463,7 +482,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
     int ThumbnailOffset = 0;
     int ThumbnailSize = 0;
     char IndentString[25];
-    int OffsetVal;
+    unsigned OffsetVal;
 
     if (NestingLevel > 4){
         ErrNonfatal("Maximum Exif directory nesting exceeded (corrupt Exif header)", 0,0);
@@ -533,7 +552,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         if (ByteCount > 4){
             OffsetVal = Get32u(DirEntry+8);
             // If its bigger than 4 bytes, the dir entry contains an offset.
-            if (OffsetVal+ByteCount > ExifLength || OffsetVal < 0 || OffsetVal > 65536){
+            if (OffsetVal+ByteCount > ExifLength || OffsetVal > 65536){
                 // Bogus pointer offset and / or bytecount value
                 ErrNonfatal("Illegal value pointer for tag %04x in Exif", Tag,0);
                 continue;
@@ -991,6 +1010,7 @@ void process_EXIF (unsigned char * ExifSection, int length)
     int FirstOffset;
     
     Clear_EXIF();
+
 
     if (ShowTags){
         printf("Exif header %u bytes long\n",length);

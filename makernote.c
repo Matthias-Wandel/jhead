@@ -70,7 +70,7 @@ static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * O
             unsigned OffsetVal;
             OffsetVal = Get32u(DirEntry+8);
             // If its bigger than 4 bytes, the dir entry contains an offset.
-            if ((int)OffsetVal < 0 || OffsetVal+ByteCount > ExifLength){
+            if (OffsetVal+ByteCount > ExifLength || OffsetVal > 65536){
                 // Bogus pointer offset and / or bytecount value
                 ErrNonfatal("Illegal value pointer for Exif maker tag %04x", Tag,0);
                 continue;
