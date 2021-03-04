@@ -714,7 +714,7 @@ int RemoveUnknownSections(void)
                 // Unknown.  Delete.
                 free (Sections[a].Data);
                 // Move succeding sections back by one to close space in array.
-                memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a));
+                memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a-1));
                 SectionsRead -= 1;
                 Modified = TRUE;
         }
