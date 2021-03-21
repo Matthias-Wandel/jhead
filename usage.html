@@ -354,6 +354,17 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     come directly from the digital camera, as most photo editing software does not 
     preserve the Exif header when saving pictures.
 
+<tr valign=top>
+<td><b>-proc
+<td>Skip all but files matching process.  Specifying "-proc 0" for example will
+    only process files with baseline encoding.  Specifying "-proc 2" will only
+    process files with progressive encoding.
+    This option is useful when converting files to progressive jpegs using jpegtran,
+    to skip those files already encoded as progressive jpegs.  For example, the following
+    command converts only files as baseline to progressive:<p>
+    jhead -proc 0 -cmd "jpegtran -progressive -outfile &o &i" *.jpg
+    
+    
 <tr valign=top><td><b>-cmd&lt;command&gt;
 <td>Executes the specified command on each Jpeg file to be processed.<p>
     The Exif section of each file is read before running the command, and re-inserted

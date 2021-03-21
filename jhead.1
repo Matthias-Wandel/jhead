@@ -47,7 +47,7 @@ will substitute the original  filename for this name. This allows
 creating a jhead 'relative name' when doing a whole batch  of files. For
 example, the incantation:
 
-.I jhead \-te """originals/&i"" *.jpg
+.I jhead \-te "originals/&i" *.jpg
 
 would transfer the exif header for each .jpg file in the originals
 directory by the same name, Both Win32 and most Unix shells treat the '&'
@@ -274,7 +274,7 @@ will substitute the original filename for this name.  This allows
 creating a 'relative name' when doing a whole batch of files.  For
 example, the incantation:
 
-.I jhead \-st """thumbnails/&i"" *.jpg
+.I jhead \-st "thumbnails/&i" *.jpg
 
 would create a thumbnail for each .jpg file in the thumbnails directory
 by the same name, (provided that the thumbnails directory exists, of
@@ -367,6 +367,17 @@ came from my Canon S100 digicam, (see the \-cmd option).
 Skip all files that don't have an Exif header.  Photos straight from a
 digital camera have an Exif header, whereas many photo manipulation
 tools discard the Exif header.
+
+.TP
+.B \-proc
+Skip all but files matching process.  Specifying "-proc 0" for example will
+only process files with baseline encoding.  Specifying "-proc 2" will only
+process files with progressive encoding.
+This option is useful when converting files to progressive jpegs using jpegtran,
+to skip those files already encoded as progressive jpegs.  For example, the following
+ command converts only files as baseline to progressive:
+jhead -proc 0 -cmd "jpegtran -progressive -outfile &o &i" *.jpg
+
 .TP
 .B \-cmd
 Executes the specified command on each JPEG file to be processed.
@@ -382,9 +393,9 @@ Example use:
 
 Having a whole directory of photos from my S100, I run the following commands:
 
-.I jhead \-cmd """mogrify \-quality 80 &i"" \-model S100 *.jpg
+.I jhead \-cmd "mogrify \-quality 80 &i" \-model S100 *.jpg
 .br
-.I jhead \-cmd """jpegtran \-progressive &i > &o"" *.jpg
+.I jhead \-cmd "jpegtran \-progressive &i > &o" *.jpg
 
 The first command mogrifies all JPEGs in the tree that indicate that
 they are from a Canon S100 in their Exif header to 80% quality at the

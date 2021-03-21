@@ -60,8 +60,9 @@ static int TrimExifTrailingZeroes = FALSE;
 static char * ApplyCommand = NULL;  // Apply this command to all images.
 static char * FilterModel = NULL;
 static int    FilterQuality = 0;
-static int    ExifOnly    = FALSE;
-static int    PortraitOnly = FALSE;
+static int    ExifOnly    = FALSE;  // Only do images with exif header
+static int    ProcessOnly = -1;     // 0 for baseline, 2 for progressive only, -1 for all images.
+static int    PortraitOnly = FALSE; // Only do images with portrait orientation.
 static time_t ExifTimeAdjust = 0;   // Timezone adjust
 static time_t ExifTimeSet = 0;      // Set exif time to a value.
 static char DateSet[11];
@@ -448,6 +449,11 @@ static int CheckFileSkip(void)
 {
     // I sometimes add code here to only process images based on certain
     // criteria - for example, only to convert non progressive Jpegs to progressives, etc..
+    if(ProcessOnly >= 0 && (ImageInfo.Process & 0x0f) != ProcessOnly){
+        // ProcessOnly == 0 means skip baseline oencoded jpegs
+        // ProcessOnly == 2 means skip progressive oencoded jpegs
+        return TRUE;
+    }
 
     if (FilterModel){
         // Filtering processing by camera model.
@@ -1674,6 +1680,11 @@ int main (int argc, char **argv)
 			if (sscanf(argv[++argn], "%d", &FilterQuality) != 1){
 				Usage();
 			}
+        }else if (!strcmp(arg,"-proc")){
+            sscanf(argv[++argn], "%d", &ProcessOnly);
+            if (ProcessOnly < 0 || ProcessOnly > 2){
+                ErrFatal("-proc must be followed by a number 0-2");
+            }
         }else if (!strcmp(arg,"-exonly")){
             ExifOnly = 1;
         }else if (!strcmp(arg,"-orp")){
