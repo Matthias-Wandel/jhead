@@ -84,10 +84,11 @@ void process_DQT (const uchar * Data, int length)
     int *reftable = NULL;
     double cumsf = 0.0, cumsf2 = 0.0;
     int allones = 1;
-    
+
     a=2; // first two bytes is length
-    while (a<length)
+    while (a+3<length)
     {
+        if (a+1+64 > length) goto tooshort;
         c = Data[a++];
         tableindex = c & 0x0f;
         if (ShowTags>1){
@@ -96,16 +97,16 @@ void process_DQT (const uchar * Data, int length)
         if (tableindex < 2){
             reftable = deftabs[tableindex];
         }
-
         // Read in the table, compute statistics relative to reference table 
-        if (a+64 > length) {
+        if (c>>4 && a+128 > length) {
+tooshort:
             ErrNonfatal("DQT section too short",0,0);
             return;
         }
         for (coefindex = 0; coefindex < 64; coefindex++) {
             unsigned int val;
             if (c>>4) {
-                register unsigned int temp;
+                unsigned int temp;
                 temp=(unsigned int) (Data[a++]);
                 temp *= 256;
                 val=(unsigned int) Data[a++] + temp;
@@ -175,6 +176,7 @@ void process_DHT (const uchar * Data, int length)
     if (ShowTags>1){
         printf("DHT (length %d bytes)\n", length);
     }
+    if (length < 19) goto tooshort;
 
     a=2; // first two bytes is length
     while (a<length)
