@@ -448,4 +448,8 @@ Mostly remove support for windows XP specific tags (noboy usedthem, didn't work 
 Make tests suite run on linux, included in github.
 Bumped version number to 3.05
 
+Various fixes to fuzz test fails -- all fails involve reading beyond allocated
+memory when fed specific garbage files, and only fail with memoyr tools 
+tools like "electric fence" to catch them.
 
+-------Bumped version to 3.06 -- Mar 24 2021
