@@ -65,12 +65,11 @@ static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * O
         }
 
         ByteCount = Components * BytesPerFormat[Format];
-
         if (ByteCount > 4){
             unsigned OffsetVal;
             OffsetVal = Get32u(DirEntry+8);
             // If its bigger than 4 bytes, the dir entry contains an offset.
-            if (OffsetVal+ByteCount > ExifLength || OffsetVal > 65536){
+            if (OffsetVal+ByteCount > (unsigned)ExifLength || OffsetVal > 65536){
                 // Bogus pointer offset and / or bytecount value
                 ErrNonfatal("Illegal value pointer for Exif maker tag %04x", Tag,0);
                 continue;
@@ -125,6 +124,7 @@ static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * O
                 }
         }
         if (Tag == 1 && Components > 16){
+            if (ByteCount < 17 * sizeof(short)) continue; // Fuzztest -- not enough allocated.
             int IsoCode = Get16u(ValuePtr + 16*sizeof(unsigned short));
             if (IsoCode >= 16 && IsoCode <= 24){
                 ImageInfo.ISOequivalent = 50 << (IsoCode-16);
@@ -132,6 +132,7 @@ static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * O
         }
 
         if (Tag == 4 && Format == FMT_USHORT){
+            if (ByteCount < 20 * sizeof(short)) continue; // Fuzztest -- not enough allocated.
             if (Components > 7){
                 int WhiteBalance = Get16u(ValuePtr + 7*sizeof(unsigned short));
                 switch(WhiteBalance){
