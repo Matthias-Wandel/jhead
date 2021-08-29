@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 jhead=../jhead
 
 rm -rf results-txt/*
