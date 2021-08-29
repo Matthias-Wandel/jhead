@@ -451,9 +451,9 @@ double ConvertAnyFormat(void * ValuePtr, int Format)
 
         // Never seen floats used in actual exif format,
         // this code only ever hit with fuzz testing.
-        // This code may not necessaryly print correct values if float *were*
+        // This code may not necessarily print correct values if float *were*
         // to be used in exif, as it doesn't define which floating point
-        // stanard is to be used.
+        // standard is to be used.
         case FMT_SINGLE:
             {
                 int tmp = *(int*)ValuePtr;
@@ -599,7 +599,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                         for (a=0;a<ByteCount;a+=2){
                             int cv = *(char *)(ValuePtr+a)+(*(char *)(ValuePtr+a+1)<<8);
                             // Note that after getting the 16-bit char, putchar truncates it back
-                            // down to 8 bit.  Unicoe and linus console is something I don't understand.
+                            // down to 8 bit.  Unicode and linux console is something I don't understand.
                             putchar(cv);
                         }
                         putchar('\n');
@@ -713,7 +713,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             case TAG_FNUMBER:
                 // Simplest way of expressing aperture, so I trust it the most.
-                // (overwrite previously computd value if there is one)
+                // (overwrite previously computed value if there is one)
                 ImageInfo.ApertureFNumber = (float)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
@@ -729,19 +729,19 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             case TAG_FOCALLENGTH:
                 // Nice digital cameras actually save the focal length as a function
-                // of how farthey are zoomed in.
+                // of how far they are zoomed in.
                 ImageInfo.FocalLength = (float)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_SUBJECT_DISTANCE:
-                // Inidcates the distacne the autofocus camera is focused to.
+                // Indicates the distance the autofocus camera is focused to.
                 // Tends to be less accurate as distance increases.
                 ImageInfo.Distance = (float)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_EXPOSURETIME:
                 // Simplest way of expressing exposure time, so I trust it most.
-                // (overwrite previously computd value if there is one)
+                // (overwrite previously computed value if there is one)
                 ImageInfo.ExposureTime = (float)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
@@ -1078,7 +1078,7 @@ void process_EXIF (unsigned char * ExifSection, int length)
         // Note: With some cameras, its not possible to compute this correctly because
         // they don't adjust the indicated focal plane resolution units when using less
         // than maximum resolution, so the CCDWidth value comes out too small.  Nothing
-        // that Jhad can do about it - its a camera problem.
+        // that Jhead can do about it - its a camera problem.
         ImageInfo.CCDWidth = (float)(ExifImageWidth * FocalplaneUnits / FocalplaneXRes);
 
         if (ImageInfo.FocalLength && ImageInfo.FocalLength35mmEquiv == 0){
@@ -1120,7 +1120,7 @@ void create_EXIF(void)
         Put16u(Buffer+DirIndex, NumEntries); // Number of entries
         DirIndex += 2;
   
-        // Enitries go here...
+        // Entries go here...
         {
             // Date/time entry
             Put16u(Buffer+DirIndex, TAG_DATETIME);         // Tag
@@ -1135,7 +1135,7 @@ void create_EXIF(void)
                 memcpy(Buffer+DataWriteIndex, ImageInfo.DateTime, 19);
                 Buffer[DataWriteIndex+19] = '\0';
             }else{
-                // Oterwise, use the file's timestamp.
+                // Otherwise, use the file's timestamp.
                 FileTimeAsString(Buffer+DataWriteIndex);
             }
             DataWriteIndex += 20;
@@ -1230,8 +1230,8 @@ void create_EXIF(void)
 }
 
 //--------------------------------------------------------------------------
-// Cler the rotation tag in the exif header to 1.
-// Returns NULL if no orietnation tag exists.
+// Clear the rotation tag in the exif header to 1.
+// Returns NULL if no orientation tag exists.
 //--------------------------------------------------------------------------
 const char * ClearOrientation(void)
 {

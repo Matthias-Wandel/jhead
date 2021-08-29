@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------
-// Parse some maker specific onformation.
+// Parse some maker specific information.
 // (Very limited right now - add maker specific stuff to this module)
 //--------------------------------------------------------------------------
 #include "jhead.h"

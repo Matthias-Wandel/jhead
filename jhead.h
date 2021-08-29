@@ -202,7 +202,7 @@ extern void ProcessMakerNote(unsigned char * DirStart, int ByteCount,
 void ProcessGpsInfo(unsigned char * ValuePtr,  
                 unsigned char * OffsetBase, unsigned ExifLength);
 
-// iptc.c prototpyes
+// iptc.c prototypes
 void show_IPTC (unsigned char * CharBuf, unsigned int length);
 void ShowXmp(Section_t XmpSection);
 

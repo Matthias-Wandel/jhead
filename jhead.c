@@ -86,7 +86,7 @@ static char * ExifXferScrFile = NULL;// Extract Exif header from this file, and
                                     // put it into the Jpegs processed.
 
 static int EditComment = FALSE;     // Invoke an editor for editing the comment
-static int SuppressNonFatalErrors = FALSE; // Wether or not to pint warnings on recoverable errors
+static int SuppressNonFatalErrors = FALSE; // Whether or not to pint warnings on recoverable errors
 
 static char * CommentSavefileName = NULL; // Save comment to this file.
 static char * CommentInsertfileName = NULL; // Insert comment from this file.
@@ -330,7 +330,7 @@ static int shellescape(char* to, const char* from)
     {
 #ifdef _WIN32
         // Under WIN32, there isn't really anything dangerous you can do with 
-        // escape characters, plus windows users aren't as sercurity paranoid.
+        // escape characters, plus windows users aren't as security paranoid.
         // Hence, no need to do fancy escaping.
         to[j++] = from[i++];
 #else
@@ -457,7 +457,7 @@ static int CheckFileSkip(void)
 
     if (FilterModel){
         // Filtering processing by camera model.
-        // This feature is useful when pictures from multiple cameras are colated, 
+        // This feature is useful when pictures from multiple cameras are collated, 
         // the its found that one of the cameras has the time set incorrectly.
         if (strstr(ImageInfo.CameraModel, FilterModel) == NULL){
             // Skip.
@@ -490,7 +490,7 @@ static int CheckFileSkip(void)
 }
 
 //--------------------------------------------------------------------------
-// Subsititute original name for '&i' if present in specified name.
+// Substitute original name for '&i' if present in specified name.
 // This to allow specifying relative names when manipulating multiple files.
 //--------------------------------------------------------------------------
 static void RelativeName(char * OutFileName, const char * NamePattern, const char * OrigName)
@@ -672,7 +672,7 @@ static void DoFileRenaming(const char * FileName)
 
         if (a){
             // Generate a suffix for the file name if previous choice of names is taken.
-            // depending on wether the name ends in a letter or digit, pick the opposite to separate
+            // depending on whether the name ends in a letter or digit, pick the opposite to separate
             // it.  This to avoid using a separator character - this because any good separator
             // is before the '.' in ascii, and so sorting the names would put the later name before
             // the name without suffix, causing the pictures to more likely be out of order.
@@ -744,7 +744,7 @@ static int DoAutoRotate(const char * FileName)
             if (ImageInfo.ThumbnailOffset && 
                 ImageInfo.ThumbnailSize && 
                 ImageInfo.ThumbnailAtEnd){
-                // Must have a thumbnail that exists and is modifieable.
+                // Must have a thumbnail that exists and is modifiable.
 
                 char ThumbTempName_in[PATH_MAX+5];
                 char ThumbTempName_out[PATH_MAX+5];
@@ -1151,7 +1151,7 @@ static void ProcessFile(const char * FileName)
             tm = *localtime(&UnixTime);
 
             // Print to temp buffer first to avoid putting null termination in destination.
-            // snprintf() would do the trick, hbut not available everywhere (like FreeBSD 4.4)
+            // snprintf() would do the trick, but not available everywhere (like FreeBSD 4.4)
             sprintf(TempBuf, "%04d:%02d:%02d %02d:%02d:%02d",
                 tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
                 tm.tm_hour, tm.tm_min, tm.tm_sec);
@@ -1227,7 +1227,7 @@ skip_unixtime:
     if (Exif2FileTime){
         // Set the file date to the date from the exif header.
         if (ImageInfo.numDateTimeTags){
-            // Converte the file date to Unix time.
+            // Convert the file date to Unix time.
             struct tm tm;
             time_t UnixTime;
             struct utimbuf mtime;
@@ -1339,7 +1339,7 @@ static void Usage (void)
            "             and time in the format yyyy:mm:dd/hh:mm:ss\n"
            "  -ts<time>  Set the Exif internal time to <time>.  <time> is in the format\n"
            "             yyyy:mm:dd-hh:mm:ss\n"
-           "  -tf file   Set the exif time to the modicfation time from another file\n"
+           "  -tf file   Set the exif time to the modification time from another file\n"
            "  -ds<date>  Set the Exif internal date.  <date> is in the format YYYY:MM:DD\n"
            "             or YYYY:MM or YYYY\n"
 
@@ -1354,13 +1354,13 @@ static void Usage (void)
 #endif
            "  -rt <name> Replace Exif thumbnail.  Can only be done with headers that\n"
            "             already contain a thumbnail.\n"
-           "  -rgt[size] Regnerate exif thumbnail.  Only works if image already\n"
-           "             contains a thumbail.  size specifies maximum height or width of\n"
+           "  -rgt[size] Regenerate exif thumbnail.  Only works if image already\n"
+           "             contains a thumbnail.  size specifies maximum height or width of\n"
            "             thumbnail.  Relies on 'mogrify' programs to be on path\n"
 
            "\nROTATION TAG MANIPULATION:\n"
            "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
-           "             anc clear Exif orientation tag\n"
+           "             and clear Exif orientation tag\n"
            "             Note: Windows users must get jpegtran for this to work\n"
            "  -norot     Zero out the rotation tag.  This to avoid some browsers from\n" 
            "             rotating the image again after you rotated it but neglected to\n"
@@ -1717,7 +1717,7 @@ int main (int argc, char **argv)
             exit(-1);
         }
         if (argn >= argc){
-            // Used an extra argument - becuase the last argument 
+            // Used an extra argument - because the last argument 
             // used up an extr argument.
             ErrFatal("Extra argument required");
         }

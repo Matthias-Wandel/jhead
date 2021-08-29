@@ -22,7 +22,7 @@ Some notes:
     place to cut and paste code from.
     
     If jhead doesn't have a feature you want, look for "exiftool".  Exiftool
-    has any feature you could imageine, but it's also 100x bigger and much
+    has any feature you could imagine, but it's also 100x bigger and much
     slower.
     
     If you find that it dies on a certain jpeg file, send it to me, and I 
@@ -56,7 +56,7 @@ License:
 
     Jhead is public domain software - that is, you can do whatever you want
     with it, and include it software that is licensed under the GNU or the 
-    BSD license, or whatever other licence you chose, including proprietary
+    BSD license, or whatever other license you chose, including proprietary
     closed source licenses.  Although not part of the license, I do expect
     common courtesy, please.
 

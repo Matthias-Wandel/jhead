@@ -247,7 +247,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
             case M_JFIF:
                 // Regular jpegs always have this tag, exif images have the exif
-                // marker instead, althogh ACDsee will write images with both markers.
+                // marker instead, although ACDsee will write images with both markers.
                 // this program will re-create this marker on absence of exif marker.
                 // hence no need to keep the copy from the file.
                 if (itemlen < 16){
@@ -299,7 +299,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                         break;
                     }
                 }
-                // Oterwise, discard this section.
+                // Otherwise, discard this section.
                 free(Sections[--SectionsRead].Data);
                 break;
 
@@ -451,7 +451,7 @@ int ReplaceThumbnail(const char * ThumbFileName)
         }
 
         // Adding or removing of thumbnail is not possible - that would require rearranging
-        // of the exif header, which is risky, and jhad doesn't know how to do.
+        // of the exif header, which is risky, and jhead doesn't know how to do.
         fprintf(stderr,"Image contains no thumbnail to replace - add is not possible\n");
         return FALSE;
     }
@@ -589,11 +589,11 @@ void WriteJpegFile(const char * FileName)
 
         if (ImageInfo.ResolutionUnit == 2 || ImageInfo.ResolutionUnit == 3){
             // Use the exif resolution info to fill out the jfif header.
-            // Usually, for exif images, there's no jfif header, so if wediscard
+            // Usually, for exif images, there's no jfif header, so if we discard
             // the exif header, use info from the exif header for the jfif header.
             
             ImageInfo.JfifHeader.ResolutionUnits = (char)(ImageInfo.ResolutionUnit-1);
-            // Jfif is 1 and 2, Exif is 2 and 3 for In and cm respecively
+            // Jfif is 1 and 2, Exif is 2 and 3 for In and cm respectively
             ImageInfo.JfifHeader.XDensity = (int)ImageInfo.xResolution;
             ImageInfo.JfifHeader.YDensity = (int)ImageInfo.yResolution;
         }
@@ -664,7 +664,7 @@ int RemoveSectionType(int SectionType)
         if (Sections[a].Type == SectionType){
             // Free up this section
             free (Sections[a].Data);
-            // Move succeding sections back by one to close space in array.
+            // Move succeeding sections back by one to close space in array.
             memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a-1));
             SectionsRead -= 1;
             a -= 1;
@@ -675,7 +675,7 @@ int RemoveSectionType(int SectionType)
 }
 
 //--------------------------------------------------------------------------
-// Remove sectons not part of image and not exif or comment sections.
+// Remove sections not part of image and not exif or comment sections.
 //--------------------------------------------------------------------------
 int RemoveUnknownSections(void)
 {
@@ -713,7 +713,7 @@ int RemoveUnknownSections(void)
             default:
                 // Unknown.  Delete.
                 free (Sections[a].Data);
-                // Move succeding sections back by one to close space in array.
+                // Move succeeding sections back by one to close space in array.
                 memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a-1));
                 SectionsRead -= 1;
                 Modified = TRUE;
@@ -734,7 +734,7 @@ Section_t * CreateSection(int SectionType, unsigned char * Data, int Size)
 
     NewIndex = 0; // Figure out where to put the comment section.
     if (SectionType == M_EXIF){
-        // Exif alwas goes first!
+        // Exif always goes first!
     }else{
         for (;NewIndex < 3;NewIndex++){ // Maximum fourth position (just for the heck of it)
             if (Sections[NewIndex].Type == M_JFIF) continue; // Put it after Jfif
