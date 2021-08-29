@@ -4,27 +4,27 @@
 
 fdir=jhead-3.06
 
-rm -rf $fdir
-mkdir $fdir
-cp changes.txt $fdir
-cp jhead.1  $fdir
+rm -rf "$fdir"
+mkdir "$fdir"
+cp changes.txt "$fdir"
+cp jhead.1  "$fdir"
 
-cp make.bat $fdir
-cp makefile-win32 $fdir
-cp makefile $fdir
+cp make.bat "$fdir"
+cp makefile-win32 "$fdir"
+cp makefile "$fdir"
 
-cp readme.txt $fdir
-cp usage.html $fdir
+cp readme.txt "$fdir"
+cp usage.html "$fdir"
 
-cp exif.c $fdir
-cp jhead.c $fdir
-cp myglob.c $fdir
-cp paths.c $fdir
-cp jpgfile.c $fdir
-cp jpgqguess.c $fdir
-cp gpsinfo.c $fdir
-cp makernote.c $fdir
-cp iptc.c $fdir
-cp jhead.h $fdir
+cp exif.c "$fdir"
+cp jhead.c "$fdir"
+cp myglob.c "$fdir"
+cp paths.c "$fdir"
+cp jpgfile.c "$fdir"
+cp jpgqguess.c "$fdir"
+cp gpsinfo.c "$fdir"
+cp makernote.c "$fdir"
+cp iptc.c "$fdir"
+cp jhead.h "$fdir"
 
-tar -czvf $fdir.tar.gz $fdir
+tar -czvf "$fdir.tar.gz" "$fdir"
