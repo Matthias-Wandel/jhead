@@ -18,11 +18,11 @@ done
 
 #-------------------------------------------------------------------
 #test compact view
-echo Normal digicams > results-txt/compact.txt
+echo "Normal digicams" > results-txt/compact.txt
 "$jhead" -c normal-digicams/*.jpg >> results-txt/compact.txt
-echo Strange jpegs >> results-txt/compact.txt
+echo "Strange jpegs" >> results-txt/compact.txt
 "$jhead" -c strange-jpegs/*.jpg >> results-txt/compact.txt
-echo Portrait only option test >> results-txt/compact.txt
+echo "Portrait only option test" >> results-txt/compact.txt
 "$jhead" -c -se -orp normal-digicams/*.jpg >> results-txt/compact.txt
 
 #-------------------------------------------------------------------
@@ -104,12 +104,12 @@ rm -rf movetest
 mkdir -p movetest
 cp normal-digicams/*.jpg movetest
 
-echo ---Test move/rename abs rel path --- >> results-txt/new-names.txt
+echo "---Test move/rename abs rel path ---" >> results-txt/new-names.txt
 "$jhead" -nf./movetest/%Y/%f- -de movetest/*.jpg
 "$jhead" -c movetest/*/*.jpg >> results-txt/new-names.txt
 
 
-echo ---Test move/rename relative path --- >> results-txt/new-names.txt
+echo "---Test move/rename relative path ---" >> results-txt/new-names.txt
 "$jhead" -nf%i/%%f movetest/2004/d*g 
 "$jhead" -c movetest/2004/?/*.jpg >> results-txt/new-names.txt
 
