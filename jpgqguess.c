@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------
-// Program to pull the information out of various types of EXIF digital 
+// Program to pull the information out of various types of EXIF digital
 // camera files and show it in a reasonably consistent way
 //
 // This module handles guessing of jpeg quality from quantization table
@@ -97,7 +97,7 @@ void process_DQT (const uchar * Data, int length)
         if (tableindex < 2){
             reftable = deftabs[tableindex];
         }
-        // Read in the table, compute statistics relative to reference table 
+        // Read in the table, compute statistics relative to reference table
         if (c>>4 && a+128 > length) {
 tooshort:
             ErrNonfatal("DQT section too short",0,0);
@@ -116,7 +116,7 @@ tooshort:
             table[coefindex] = val;
             if (reftable) {
                 double x;
-                // scaling factor in percent 
+                // scaling factor in percent
                 x = 100.0 * (double)val / (double)reftable[coefindex];
                 cumsf += x;
                 cumsf2 += x * x;
@@ -124,7 +124,7 @@ tooshort:
                 if (val != 1) allones = 0;
             }
         }
-        // If requested, print table in normal array order 
+        // If requested, print table in normal array order
         if (ShowTags>2){
             for (row=0; row<8; row++) {
                 printf("    ");
@@ -134,13 +134,13 @@ tooshort:
                 printf("\n");
             }
         }
-        // Print summary stats 
-        if (reftable) { // terse output includes quality 
+        // Print summary stats
+        if (reftable) { // terse output includes quality
             double qual, var;
-            cumsf /= 64.0;    // mean scale factor 
+            cumsf /= 64.0;    // mean scale factor
             cumsf2 /= 64.0;
-            var = cumsf2 - (cumsf * cumsf); // variance 
-            if (allones){      // special case for all-ones table 
+            var = cumsf2 - (cumsf * cumsf); // variance
+            if (allones){      // special case for all-ones table
                 qual = 100.0;
             }else if (cumsf <= 100.0){
                 qual = (200.0 - cumsf) / 2.0;
@@ -212,5 +212,3 @@ void process_DHT (const uchar * Data, int length)
         }
     }
 }
-
-

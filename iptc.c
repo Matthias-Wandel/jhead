@@ -70,27 +70,27 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
     pos += sizeof(IptcSig2)-1;          // move data pointer to the next field
 
 
-	while (memcmp(pos, IptcSig3, sizeof(IptcSig3)) != 0) { // loop on valid Photoshop blocks
-		pos += sizeof(IptcSig3); // move data pointer to the Header Length
-		// Skip header
-		headerLen = *pos; // get header length and move data pointer to the next field
-		pos += (headerLen & 0xfe) + 2; // move data pointer to the next field (Header is padded to even length, counting the length byte)
+    while (memcmp(pos, IptcSig3, sizeof(IptcSig3)) != 0) { // loop on valid Photoshop blocks
+        pos += sizeof(IptcSig3); // move data pointer to the Header Length
+        // Skip header
+        headerLen = *pos; // get header length and move data pointer to the next field
+        pos += (headerLen & 0xfe) + 2; // move data pointer to the next field (Header is padded to even length, counting the length byte)
         if (pos+16 > maxpos) goto corrupt;
-		pos += 3; // move data pointer to length, assume only one byte, TODO: use all 4 bytes
-		dataLen = *pos++;
-		pos += dataLen; // skip data section
+        pos += 3; // move data pointer to length, assume only one byte, TODO: use all 4 bytes
+        dataLen = *pos++;
+        pos += dataLen; // skip data section
         if (pos+16 > maxpos) goto corrupt;
 
-		if (memcmp(pos, IptcSig2, sizeof(IptcSig2) - 1) != 0) {
-			badsig: if (ShowTags) {
-				ErrNonfatal("IPTC type signature mismatch\n", 0, 0);
-			}
-			return;
-		}
-		pos += sizeof(IptcSig2) - 1; // move data pointer to the next field
+        if (memcmp(pos, IptcSig2, sizeof(IptcSig2) - 1) != 0) {
+            badsig: if (ShowTags) {
+                ErrNonfatal("IPTC type signature mismatch\n", 0, 0);
+            }
+            return;
+        }
+        pos += sizeof(IptcSig2) - 1; // move data pointer to the next field
     }
 
-    pos += sizeof(IptcSig3);          // move data pointer to the next field
+    pos += sizeof(IptcSig3);         // move data pointer to the next field
 
     if (pos+16 >= maxpos) goto corrupt;
 
@@ -171,7 +171,7 @@ void show_IPTC (unsigned char* Data, unsigned int itemlen)
             memset(TempBuf, 0, sizeof(TempBuf));
             memset(TempBuf, ' ', 14);
             memcpy(TempBuf, description, strlen(description));
-            strcat(TempBuf, ":"); 
+            strcat(TempBuf, ":");
             printf("%s %*.*s\n", TempBuf, length, length, pos);
         }
         pos += length;

@@ -1,9 +1,9 @@
 //--------------------------------------------------------------------------
 // Include file for jhead program.
 //
-// This include file only defines stuff that goes across modules.  
-// I like to keep the definitions for macros and structures as close to 
-// where they get used as possible, so include files only get stuff that 
+// This include file only defines stuff that goes across modules.
+// I like to keep the definitions for macros and structures as close to
+// where they get used as possible, so include files only get stuff that
 // gets used in more than one file.
 //--------------------------------------------------------------------------
 #include <stdio.h>
@@ -24,7 +24,7 @@
     #define chmod _chmod
     #define access _access
     #define mktemp _mktemp
-    
+
     #if _MSC_VER && _MSC_VER <= 1500
         // The 2007 vintage compiler I use on windows doesn't have snprintf
         #define snprintf(dest, len, format,...) sprintf (dest, format, __VA_ARGS__)
@@ -180,7 +180,7 @@ void create_EXIF(void);
 extern const int BytesPerFormat[];
 #define NUM_FORMATS 12
 
-#define FMT_BYTE       1 
+#define FMT_BYTE       1
 #define FMT_STRING     2
 #define FMT_USHORT     3
 #define FMT_ULONG      4
@@ -199,7 +199,7 @@ extern void ProcessMakerNote(unsigned char * DirStart, int ByteCount,
                  unsigned char * OffsetBase, unsigned ExifLength);
 
 // gpsinfo.c prototypes
-void ProcessGpsInfo(unsigned char * ValuePtr,  
+void ProcessGpsInfo(unsigned char * ValuePtr,
                 unsigned char * OffsetBase, unsigned ExifLength);
 
 // iptc.c prototypes
@@ -263,7 +263,7 @@ extern int ShowTags;
 #define M_JFIF  0xE0          // Jfif marker
 #define M_EXIF  0xE1          // Exif marker.  Also used for XMP data!
 #define M_XMP   0x10E1        // Not a real tag (same value in file as Exif!)
-#define M_COM   0xFE          // COMment 
+#define M_COM   0xFE          // COMment
 #define M_DQT   0xDB          // Define Quantization Table
 #define M_DHT   0xC4          // Define Huffmann Table
 #define M_DRI   0xDD

@@ -43,8 +43,8 @@ photos.
 
 This feature has an interesting 'relative path' option for specifying
 the thumbnail name.  Whenever the <name> contains the characters '&i',
-will substitute the original  filename for this name. This allows
-creating a jhead 'relative name' when doing a whole batch  of files. For
+will substitute the original filename for this name. This allows
+creating a jhead 'relative name' when doing a whole batch of files. For
 example, the incantation:
 
 .I jhead \-te "originals/&i" *.jpg
@@ -138,7 +138,7 @@ substitute the original name of the file (minus extension).  '%i' will
 substitute a sequence number.  Leading zeros can be specified like with
 printf - i.e. '%04i' pads the number to 4 digits using leading zeros.
 
-If the name includes '/', this is interpreted as a new path for the file.  
+If the name includes '/', this is interpreted as a new path for the file.
 If the new path does not exist, the path will be created.
 
 If the target name already exists, the name will be appended with "a",
@@ -317,7 +317,7 @@ sensor.
 Clears the rotation field in the Exif header without altering the image.
 Useful if the images were previously rotated without clearing the Exif
 rotation tag, as some image browsers will auto rotate images when the
-rotation tag is set.  Sometimes, thumbnails and rotation  tags can get
+rotation tag is set.  Sometimes, thumbnails and rotation tags can get
 very out of sync from manipulation with various tools.  To reset it all
 use \-norot with \-rgt to clear this out.
 
@@ -433,6 +433,6 @@ Send bug reports to matthias at woodgears dot ca
 
 .SH COPYING PERMISSIONS
 Jhead is 'public domain'.  You may freely copy jhead, and reuse part or
-all of its code in free or proprietary programs.   I do however request
+all of its code in free or proprietary programs.  I do however request
 that you do not post my e-mail address in ways that spam robots can
 harvest it.

@@ -2,7 +2,7 @@ Thoughts on read/write support for exif header filesystem in jhead:
 
 * Need to re-compact the files
 * Need some method of adding directories and files
-* Have some api that says "add this file to this directory", which creates 
+* Have some api that says "add this file to this directory", which creates
   the directory if it doesn't already exist.
 * There are different ways that the header can refer to subdirectories.  Need
   to handle all known ones, including GPS, makernotes, and interop dirs.

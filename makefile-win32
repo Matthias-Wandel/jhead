@@ -13,7 +13,7 @@ all:jhead.exe
 
 OBJ = obj
 
-OBJECTS_JHEAD = $(OBJ)\jhead.obj  \
+OBJECTS_JHEAD = $(OBJ)\jhead.obj \
                 $(OBJ)\jpgfile.obj \
                 $(OBJ)\jpgqguess.obj \
                 $(OBJ)\myglob.obj \

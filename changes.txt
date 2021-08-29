@@ -1,7 +1,7 @@
-**************************************************** 
+****************************************************
 ***** Detailed change log - since version 1.2  *****
-***** In chronological order, oldest to newest  ****
-**************************************************** 
+***** In chronological order, oldest to newest *****
+****************************************************
 
 Jun 3 2001:
 Added -dc option for deleting all comments
@@ -41,14 +41,14 @@ Oct 9 2001
 Added option to set exif timestamp to absolute time
 Added option to save thumbnail to stdout (unix only)
     (thanks Nathan Schmidt [mailto:nathan(a)cs.stanford.edu])
-Fixed bug in parsing truncated exif headers 
+Fixed bug in parsing truncated exif headers
     (thanks Joachim.Geyer(a)djh-freeweb.de)
 Got rid of strnprintf (not available on FreeBSD 4.4)
-  
+
 -------Released version 1.4-------
 
 Oct 10 2001
-More improved handling of truncated exif headers - as may be produced 
+More improved handling of truncated exif headers - as may be produced
 by -dt option in older versions of this program.
 
 Oct 18 2001
@@ -79,14 +79,14 @@ also removes pointers to the thumbnail form the exif header.
 -------Released version 1.6-------
 
 Jan 29 2002
-Use adjusted date instead of original date when -ta is used in combination 
+Use adjusted date instead of original date when -ta is used in combination
 with -ft or -n options
 
 Feb 25 2002
 Added image orientation display to summary
 
 April 22 2002
-Changed 35mm equivalent focal calculation to use 36mm instead of 35mm for 35mm 
+Changed 35mm equivalent focal calculation to use 36mm instead of 35mm for 35mm
 negative width (35 mm negative frames are 36 mm wide)
 
 April 28 2002
@@ -94,7 +94,7 @@ Split jhead.c int jhead.c and jpgfile.c.  Jpgfile.c contains jpeg manipulation
 code that is reusable outside of jhead, while jhead.c contains code specific
 to jhead (command line parsing, display)
 
-May 11 2002 
+May 11 2002
 Fix bug in -dt option that rears its ugly head if the directories are in the
 exif header out of order.
 
@@ -113,7 +113,7 @@ makehtml now also lists .avi files as video clips
 Sept 11 2002
 Handle first IFD offset != 8, as comes out of Pentax Optio 230 camera.
 
-Sept 13 2002 
+Sept 13 2002
 Show 4 digits of past decimal if exposure time is less than 0.01 sec.
 
 Sept 25 2002
@@ -176,7 +176,7 @@ Various spelling errors fixed in output strings, and
 jpeg --> JPEG, exif --> Exif
 
 April 13
-Use '-outfile' command line option of jpegtran when launching jpegtran to 
+Use '-outfile' command line option of jpegtran when launching jpegtran to
 do rotation so that syntax of launched command is same on Windows and Unix.
 
 April 19
@@ -449,7 +449,7 @@ Make tests suite run on linux, included in github.
 Bumped version number to 3.05
 
 Various fixes to fuzz test fails -- all fails involve reading beyond allocated
-memory when fed specific garbage files, and only fail with memory tools 
+memory when fed specific garbage files, and only fail with memory tools
 tools like "electric fence" to catch them.
 
 -------Bumped version to 3.06 -- Mar 24 2021

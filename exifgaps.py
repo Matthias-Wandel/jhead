@@ -15,7 +15,7 @@ ExifMap = [];
 for line in open("foo.txt"):
     if line[0:4] != "Map:": continue
     ExifData.append(line)
-    
+
     if line[10] == '-':
         if line.find("makernote") >= 0: continue
         ExifMap.append(line);
@@ -38,7 +38,7 @@ for line in ExifMap:
     if usedto > segs:
         print ("Map: "+ usedto+"-"+segs+ " Negative Gap!!!\n");
         ExifData.append("Map: "+ usedto+"-"+segs+ " Negative Gap!!!\n");
-        
+
     usedto = sege
 
 print
@@ -48,6 +48,3 @@ ExifData.sort()
 # Print the exif data, as well as any gaps found in it.
 for line in ExifData:
     print (line.rstrip("\n"))
-
-
-

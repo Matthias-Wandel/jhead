@@ -53,7 +53,7 @@ cp normal-digicams/S100.jpg comments.jpg
 #insert a comment (-ci)
 "$jhead" -ci normal-digicams/testfile.txt -ft comments.jpg
 #extract the comments (-cs)
-"$jhead" -cs results-txt/comments.txt comments.jpg 
+"$jhead" -cs results-txt/comments.txt comments.jpg
 "$jhead" -nofinfo comments.jpg >> results-txt/comments.txt
 #test comment edit
 EDITOR=./pretend-editor
@@ -81,7 +81,7 @@ cp normal-digicams/rotate*.jpg results-bin
 "$jhead" -autorot -ft results-bin/rotate*.jpg
 "$jhead" -nofinfo results-bin/rotate*.jpg >> results-txt/rotate.txt
 
-#test with two orientation  tags.
+#test with two orientation tags.
 cp normal-digicams/two-orientation.jpg results-bin
 "$jhead" -autorot results-bin/two-orientation.jpg
 "$jhead" -nofinfo -v results-bin/two-orientation.jpg >> results-txt/rotate.txt
@@ -110,7 +110,7 @@ echo "---Test move/rename abs rel path ---" >> results-txt/new-names.txt
 
 
 echo "---Test move/rename relative path ---" >> results-txt/new-names.txt
-"$jhead" -nf%i/%%f movetest/2004/d*g 
+"$jhead" -nf%i/%%f movetest/2004/d*g
 "$jhead" -c movetest/2004/?/*.jpg >> results-txt/new-names.txt
 
 #-------------------------------------------------------------------
@@ -177,4 +177,3 @@ cp strange-jpegs/with_xmp.jpg results-bin/
 cp strange-jpegs/with_xmp.jpg results-bin/keep_xmp.jpg
 "$jhead" -dx results-bin/keep_xmp.jpg
 "$jhead" -v -nofinfo results-bin/keep_xmp.jpg >> results-txt/with_xmp.jpg
-

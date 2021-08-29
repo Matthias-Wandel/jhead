@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------
-// Program to pull the information out of various types of EXIF digital 
+// Program to pull the information out of various types of EXIF digital
 // camera files and show it in a reasonably consistent way
 //
 // This module handles basic Jpeg file handling
@@ -66,7 +66,7 @@ static void process_COM (const uchar * Data, int length)
     strcpy(ImageInfo.Comments,Comment);
 }
 
- 
+
 //--------------------------------------------------------------------------
 // Process a SOFn marker.  This is useful for the image dimensions
 //--------------------------------------------------------------------------
@@ -153,7 +153,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         }
 
         Sections[SectionsRead].Type = marker;
-  
+
         // Read the length of the section.
         lh = fgetc(infile);
         ll = fgetc(infile);
@@ -190,7 +190,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
         switch(marker){
 
-            case M_SOS:   // stop before hitting compressed data 
+            case M_SOS:   // stop before hitting compressed data
                 // If reading entire image is requested, read the rest of the data.
                 if (ReadMode & READ_IMAGE){
                     int cp, ep, size;
@@ -225,7 +225,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 process_DQT(Data, itemlen);
                 break;
 
-            case M_DHT:   
+            case M_DHT:
                 // Use for jpeg quality guessing
                 process_DHT(Data, itemlen);
                 break;
@@ -314,15 +314,15 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                     free(Sections[--SectionsRead].Data);
                 }
                 break;
-           
-            case M_SOF0: 
-            case M_SOF1: 
-            case M_SOF2: 
-            case M_SOF3: 
-            case M_SOF5: 
-            case M_SOF6: 
-            case M_SOF7: 
-            case M_SOF9: 
+
+            case M_SOF0:
+            case M_SOF1:
+            case M_SOF2:
+            case M_SOF3:
+            case M_SOF5:
+            case M_SOF6:
+            case M_SOF7:
+            case M_SOF9:
             case M_SOF10:
             case M_SOF11:
             case M_SOF13:
@@ -556,7 +556,7 @@ void DiscardAllButExif(void)
         CheckSectionsAllocated();
         Sections[SectionsRead++] = XmpKeeper;
     }
-}    
+}
 
 //--------------------------------------------------------------------------
 // Write image data back to disk.
@@ -578,20 +578,20 @@ void WriteJpegFile(const char * FileName)
     // Initial static jpeg marker.
     fputc(0xff,outfile);
     fputc(0xd8,outfile);
-    
+
     if (Sections[0].Type != M_EXIF && Sections[0].Type != M_JFIF){
         // The image must start with an exif or jfif marker.  If we threw those away, create one.
         static uchar JfifHead[18] = {
             0xff, M_JFIF,
-            0x00, 0x10, 'J' , 'F' , 'I' , 'F' , 0x00, 0x01, 
-            0x01, 0x01, 0x01, 0x2C, 0x01, 0x2C, 0x00, 0x00 
+            0x00, 0x10, 'J' , 'F' , 'I' , 'F' , 0x00, 0x01,
+            0x01, 0x01, 0x01, 0x2C, 0x01, 0x2C, 0x00, 0x00
         };
 
         if (ImageInfo.ResolutionUnit == 2 || ImageInfo.ResolutionUnit == 3){
             // Use the exif resolution info to fill out the jfif header.
             // Usually, for exif images, there's no jfif header, so if we discard
             // the exif header, use info from the exif header for the jfif header.
-            
+
             ImageInfo.JfifHeader.ResolutionUnits = (char)(ImageInfo.ResolutionUnit-1);
             // Jfif is 1 and 2, Exif is 2 and 3 for In and cm respectively
             ImageInfo.JfifHeader.XDensity = (int)ImageInfo.xResolution;
@@ -603,16 +603,16 @@ void WriteJpegFile(const char * FileName)
         JfifHead[13] = (uchar)ImageInfo.JfifHeader.XDensity;
         JfifHead[14] = (uchar)(ImageInfo.JfifHeader.YDensity >> 8);
         JfifHead[15] = (uchar)ImageInfo.JfifHeader.YDensity;
-        
+
 
         fwrite(JfifHead, 18, 1, outfile);
 
         // use the values from the exif data for the jfif header, if we have found values
-        if (ImageInfo.ResolutionUnit != 0) { 
+        if (ImageInfo.ResolutionUnit != 0) {
             // JFIF.ResolutionUnit is {1,2}, EXIF.ResolutionUnit is {2,3}
-            JfifHead[11] = (uchar)ImageInfo.ResolutionUnit - 1; 
+            JfifHead[11] = (uchar)ImageInfo.ResolutionUnit - 1;
         }
-        if (ImageInfo.xResolution > 0.0 && ImageInfo.yResolution > 0.0) { 
+        if (ImageInfo.xResolution > 0.0 && ImageInfo.yResolution > 0.0) {
             JfifHead[12] = (uchar)((int)ImageInfo.xResolution>>8);
             JfifHead[13] = (uchar)((int)ImageInfo.xResolution);
 
@@ -631,7 +631,7 @@ void WriteJpegFile(const char * FileName)
 
     // Write the remaining image data.
     fwrite(Sections[a].Data, Sections[a].Size, 1, outfile);
-       
+
     fclose(outfile);
 }
 
@@ -723,7 +723,7 @@ int RemoveUnknownSections(void)
 }
 
 //--------------------------------------------------------------------------
-// Add a section (assume it doesn't already exist) - used for 
+// Add a section (assume it doesn't already exist) - used for
 // adding comment sections and exif sections
 //--------------------------------------------------------------------------
 Section_t * CreateSection(int SectionType, unsigned char * Data, int Size)
@@ -749,7 +749,7 @@ Section_t * CreateSection(int SectionType, unsigned char * Data, int Size)
 
     CheckSectionsAllocated();
     for (a=SectionsRead;a>NewIndex;a--){
-        Sections[a] = Sections[a-1];          
+        Sections[a] = Sections[a-1];
     }
     SectionsRead += 1;
 

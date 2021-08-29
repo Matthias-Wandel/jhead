@@ -7,7 +7,7 @@ fdir=jhead-3.06
 rm -rf "$fdir"
 mkdir "$fdir"
 cp changes.txt "$fdir"
-cp jhead.1  "$fdir"
+cp jhead.1 "$fdir"
 
 cp make.bat "$fdir"
 cp makefile-win32 "$fdir"
