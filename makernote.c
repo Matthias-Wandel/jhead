@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------
-// Parse some maker specific onformation.
+// Parse some maker specific information.
 // (Very limited right now - add maker specific stuff to this module)
 //--------------------------------------------------------------------------
 #include "jhead.h"
@@ -9,7 +9,7 @@ extern int MotorolaOrder;
 //--------------------------------------------------------------------------
 // Process exif format directory, as used by Cannon maker note
 //--------------------------------------------------------------------------
-static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBase, 
+static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * OffsetBase,
         unsigned ExifLength)
 {
     int de;
@@ -46,7 +46,7 @@ static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * O
         Tag = Get16u(DirEntry);
         Format = Get16u(DirEntry+2);
         Components = Get32u(DirEntry+4);
-        
+
         if (Components > 0x10000){
             //Components count too large could cause overflow on subsequent check
             ErrNonfatal("Bad components count %x", Components,0);
@@ -128,7 +128,7 @@ static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * O
             int IsoCode = Get16u(ValuePtr + 16*sizeof(unsigned short));
             if (IsoCode >= 16 && IsoCode <= 24){
                 ImageInfo.ISOequivalent = 50 << (IsoCode-16);
-            } 
+            }
         }
 
         if (Tag == 4 && Format == FMT_USHORT){
@@ -178,7 +178,7 @@ static void ShowMakerNoteGeneric(unsigned char * ValuePtr, int ByteCount)
 //--------------------------------------------------------------------------
 // Process maker note - to the limited extent that its supported.
 //--------------------------------------------------------------------------
-void ProcessMakerNote(unsigned char * ValuePtr, int ByteCount, 
+void ProcessMakerNote(unsigned char * ValuePtr, int ByteCount,
         unsigned char * OffsetBase, unsigned ExifLength)
 {
     if (strstr(ImageInfo.CameraMake, "Canon")){
@@ -195,4 +195,3 @@ void ProcessMakerNote(unsigned char * ValuePtr, int ByteCount,
         }
     }
 }
-

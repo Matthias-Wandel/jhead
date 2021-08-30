@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 jhead=../jhead
 
 rm -rf results-txt/*
@@ -18,15 +18,15 @@ done
 
 #-------------------------------------------------------------------
 #test compact view
-echo Normal digicams > results-txt/compact.txt
+echo "Normal digicams" > results-txt/compact.txt
 "$jhead" -c normal-digicams/*.jpg >> results-txt/compact.txt
-echo Strange jpegs >> results-txt/compact.txt
+echo "Strange jpegs" >> results-txt/compact.txt
 "$jhead" -c strange-jpegs/*.jpg >> results-txt/compact.txt
-echo Portrait only option test >> results-txt/compact.txt
+echo "Portrait only option test" >> results-txt/compact.txt
 "$jhead" -c -se -orp normal-digicams/*.jpg >> results-txt/compact.txt
 
 #-------------------------------------------------------------------
-#test date minaipulation
+#test date manipulation
 cp normal-digicams/3dmsc.jpg time.jpg
 "$jhead" -ta+2:00 time.jpg
 "$jhead" -ft time.jpg
@@ -53,7 +53,7 @@ cp normal-digicams/S100.jpg comments.jpg
 #insert a comment (-ci)
 "$jhead" -ci normal-digicams/testfile.txt -ft comments.jpg
 #extract the comments (-cs)
-"$jhead" -cs results-txt/comments.txt comments.jpg 
+"$jhead" -cs results-txt/comments.txt comments.jpg
 "$jhead" -nofinfo comments.jpg >> results-txt/comments.txt
 #test comment edit
 EDITOR=./pretend-editor
@@ -81,7 +81,7 @@ cp normal-digicams/rotate*.jpg results-bin
 "$jhead" -autorot -ft results-bin/rotate*.jpg
 "$jhead" -nofinfo results-bin/rotate*.jpg >> results-txt/rotate.txt
 
-#test with two orientation  tags.
+#test with two orientation tags.
 cp normal-digicams/two-orientation.jpg results-bin
 "$jhead" -autorot results-bin/two-orientation.jpg
 "$jhead" -nofinfo -v results-bin/two-orientation.jpg >> results-txt/rotate.txt
@@ -104,13 +104,13 @@ rm -rf movetest
 mkdir -p movetest
 cp normal-digicams/*.jpg movetest
 
-echo ---Test move/rename abs rel path --- >> results-txt/new-names.txt
+echo "---Test move/rename abs rel path ---" >> results-txt/new-names.txt
 "$jhead" -nf./movetest/%Y/%f- -de movetest/*.jpg
 "$jhead" -c movetest/*/*.jpg >> results-txt/new-names.txt
 
 
-echo ---Test move/rename relative path --- >> results-txt/new-names.txt
-"$jhead" -nf%i/%%f movetest/2004/d*g 
+echo "---Test move/rename relative path ---" >> results-txt/new-names.txt
+"$jhead" -nf%i/%%f movetest/2004/d*g
 "$jhead" -c movetest/2004/?/*.jpg >> results-txt/new-names.txt
 
 #-------------------------------------------------------------------
@@ -144,7 +144,7 @@ cp strange-jpegs/no-thumb-pointer.jpg results-bin
 echo "Trying to remove nonexistent:" >> results-txt/thumb-operations-txt
 "$jhead" -dt results-bin/no-thumb-pointer.jpg >> results-txt/thumb-operations-txt
 "$jhead" -v -nofinfo res*bin/no-thumb-pointer.jpg >> results-txt/thumb-operations-txt
-echo "Trying to replacde with no pointers:" >> results-txt/thumb-operations-txt
+echo "Trying to replace with no pointers:" >> results-txt/thumb-operations-txt
 "$jhead" -rtt results-bin/no-thumb-pointer.jpg >> results-txt/thumb-operations-txt
 
 "$jhead" -v -nofinfo res*bin/*thumb-*.jpg >> results-txt/thumb-operations-txt
@@ -156,7 +156,7 @@ cp normal-digicams/fuji-dx10.jpg results-bin/exif-regen.jpg
 #Test regenerating using old exif date
 "$jhead" -v -nofinfo results-bin/exif-regen.jpg > results-txt/exif-regen-txt
 "$jhead" -ft -de results-bin/exif-regen.jpg
-#Test regenerating using file time for timestamp.  also create thumnail.
+#Test regenerating using file time for timestamp.  also create thumbnail.
 "$jhead" -mkexif -rgt results-bin/exif-regen.jpg
 "$jhead" -v -nofinfo results-bin/exif-regen.jpg >> results-txt/exif-regen-txt
 
@@ -177,4 +177,3 @@ cp strange-jpegs/with_xmp.jpg results-bin/
 cp strange-jpegs/with_xmp.jpg results-bin/keep_xmp.jpg
 "$jhead" -dx results-bin/keep_xmp.jpg
 "$jhead" -v -nofinfo results-bin/keep_xmp.jpg >> results-txt/with_xmp.jpg
-

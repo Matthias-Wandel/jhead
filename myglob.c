@@ -6,7 +6,7 @@
 //
 // Also hadles recursive directories - "**" path component expands into
 // any levels of subdirectores (ie c:\**\*.c matches ALL .c files on drive c:)
-// 
+//
 // Matthias Wandel Nov 5 2000
 //--------------------------------------------------------------------------------
 #include <stdio.h>
@@ -153,7 +153,7 @@ DoRecursion:
         FileEntry * FileList = NULL;
         int NumAllocated = 0;
         int NumHave = 0;
-        
+
         struct _finddata_t finddata;
         long find_handle;
 
@@ -225,7 +225,7 @@ DoRecursion:
         PatCopy[RecurseAt] = 0;
         strncpy(PatCopy+RecurseAt, "*\\**\\", _MAX_PATH*2-RecurseAt);
         strncat(PatCopy, MatchPattern, _MAX_PATH*2-strlen(PatCopy));
-       
+
         #ifdef DEBUGGING
             printf("Recurse with '%s'\n",PatCopy);
         #endif
@@ -300,5 +300,3 @@ recursive test cases:
     ..\**
 
 */
-
-

@@ -5,15 +5,13 @@
 fdir=jhead-2.3
 release=2
 
-cp $fdir.tar.gz /usr/src/redhat/SOURCES/
+cp "$fdir.tar.gz" /usr/src/redhat/SOURCES/
 cp jhead.spec /usr/src/redhat/SPECS/
 rpmbuild -ba /usr/src/redhat/SPECS/jhead.spec
 
-cp $fdir.tar.gz ../website/jhead
-cp /usr/src/redhat/SRPMS/$fdir-$release.src.rpm ../website/jhead/
-cp /usr/src/redhat/RPMS/i386/$fdir-$release.i386.rpm ../website/jhead/
+cp "$fdir.tar.gz" ../website/jhead
+cp "/usr/src/redhat/SRPMS/$fdir-$release.src.rpm" ../website/jhead/
+cp "/usr/src/redhat/RPMS/i386/$fdir-$release.i386.rpm" ../website/jhead/
 make
 cp jhead ../website/jhead/
 cp changes.txt ../website/jhead/
-
-

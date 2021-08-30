@@ -4,8 +4,8 @@
 <h3>Jhead is a command line driven program for manipulating the non-image parts of Exif flavour
 JPEG files that most digital cameras produce.</h3><p>
 
-Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it with the mouse from Windows 
-or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b> 
+Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it with the mouse from Windows
+or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b>
 
 
 <h3>Jhead v3.06 program Features</h3>
@@ -61,7 +61,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
 <tr valign=top><td><b>-purejpg
 <td>Delete all JPEG sections that aren't necessary for rendering the image.  Strips any
-    metadata that various applications may have left in the image.  A combination of 
+    metadata that various applications may have left in the image.  A combination of
     the -de -dc and -du options.
 
 <tr valign=top><td><b>-mkexif
@@ -103,7 +103,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 
 <tr valign=top><td><b>-n[&lt;fmt-string&gt;]
 <td>This option causes files to be renamed and/or moved according to the Exif header "DateTimeOriginal" field.
-    If the file is not an Exif file, or the DateTimeOriginal does not contain a valid value, 
+    If the file is not an Exif file, or the DateTimeOriginal does not contain a valid value,
     the file date is used.
     <p>
     If the name includes '/' or '\' (under windows), this is interpreted as a new path for
@@ -111,7 +111,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <p>
     If the [fmt-string] is omitted, the file will be renamed to MMDD-HHMMSS.
     <br>
-    If a [fmt-string] is provided, the fmt-string will be passed to the 
+    If a [fmt-string] is provided, the fmt-string will be passed to the
     strftime function for formatting.  In addition, if the format string contains '%f', this will
     substitute the original name of the file (minus extension).
     <br>
@@ -168,7 +168,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     all the time fields in the Exif header to the new value.
     <p>
     Examples:<br>
-    Adjust time one hour forward (you would use this after you forgot to set daylight savings 
+    Adjust time one hour forward (you would use this after you forgot to set daylight savings
     time on the camera)<br>
     <ul>jhead -ta+1:00 *.jpg</ul>
     Adjust time back by 23 seconds (you would use this to get the timestamps from two cameras
@@ -178,7 +178,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <ul>jhead -ta+49 *.jpg</ul>
 
 <tr valign=top><td><b>-da&lt;date&gt;-&lt;date&gt;
-<td>Works like -ta, but for specifying large date offsets, to be used when fixing dates from 
+<td>Works like -ta, but for specifying large date offsets, to be used when fixing dates from
     cameras where the date was set incorrectly, such as having date and time reset by battery
     removal on some cameras.  This feature is best for adjusting dates on pictures taken
     over a large range of dates.  For pictures all taken the same date, the "-ds" option
@@ -203,7 +203,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     This option changes all the date fields in the Exif header.
     Time must be specified as:<br>
     <font face=courier> &nbsp &nbsp yyyy:mm:dd-hh:mm:ss</font><p>
-    
+
 <tr valign=top><td><b>-tf &lt;filename&gt;
 <td>Sets the date stored in the Exif header to the modification time from a file.
     This option changes all the date fields in the Exif header.
@@ -237,7 +237,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     built in thumbnails to be all that useful - too low res.  However, now you can see for
     yourself.  I always generate my thumbnails using ImageMagick (see end of this page).
     <br>
-    Like the '-te' option, this feature has the 'relative path' option for specifying the 
+    Like the '-te' option, this feature has the 'relative path' option for specifying the
     thumbnail name.
     Whenever the &lt;name&gt; contains the characters '&i', jhead will substitute the original
     filename for this name.  This allows creating a 'relative name' when doing a whole
@@ -254,7 +254,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <td>Replace thumbnails from the Exif header.
     This only works if the Exif header already contains an Exif header a thumbnail.
 
-<tr valign=top><td><b>-rgt[size]    
+<tr valign=top><td><b>-rgt[size]
 <td>Regenerate Exif thumbnail.
     'size' specifies maximum height or width of thumbnail.
     I added this option because I had a lot of images that I had rotated with various tools that don't
@@ -277,10 +277,10 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <td><b>-autorot
     <td>
         Using the 'Orientation' tag of the Exif header, rotate the image so that it is upright.
-        The program 'jpegtran' is used to perform the rotation.  This program is present in most 
+        The program 'jpegtran' is used to perform the rotation.  This program is present in most
         Linux distributions.  For windows, you need to get a copy of it.
-        After rotation, the orientation tag of the Exif header is set to '1' (normal orientation).  
-        The Exif thumbnail is also rotated.   Other fields of the Exif header, 
+        After rotation, the orientation tag of the Exif header is set to '1' (normal orientation).
+        The Exif thumbnail is also rotated.   Other fields of the Exif header,
         including dimensions are untouched, but the JPEG height/width are adjusted.<br>
         This feature is especially useful with newer digital cameras, which set the orientation
         field in the Exif header automatically using a built in orientation sensor in the camera.
@@ -289,7 +289,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <td><b>-norot
     <td>
         Clears the Exif header rotation tag without altering the image.
-        You may find that your images have rotation tags in them from your camera, but you already 
+        You may find that your images have rotation tags in them from your camera, but you already
         rotated them with some lossless tool without clearing the rotation tag.
         Now your friendly browser rotates the images on you again because the image rotation
         tag still indicates the image should be rotated.  Use this option to fix this problem.
@@ -341,7 +341,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <p>
     jhead -model S100 *.jpg<p>
     <p>
-    I use this option to restrict my JPEG re-compressing to those images that came from my 
+    I use this option to restrict my JPEG re-compressing to those images that came from my
     Cannon S100 camera, (see the -cmd option).
 
 <tr valign=top><td><b>-quality &lt;nn&gt;
@@ -351,7 +351,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top>
 <td><b>-exonly
 <td>Skip all files that don't have an Exif header.  This skips all files that did not
-    come directly from the digital camera, as most photo editing software does not 
+    come directly from the digital camera, as most photo editing software does not
     preserve the Exif header when saving pictures.
 
 <tr valign=top>
@@ -363,8 +363,8 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     to skip those files already encoded as progressive jpegs.  For example, the following
     command converts only files as baseline to progressive:<p>
     jhead -proc 0 -cmd "jpegtran -progressive -outfile &o &i" *.jpg
-    
-    
+
+
 <tr valign=top><td><b>-cmd&lt;command&gt;
 <td>Executes the specified command on each Jpeg file to be processed.<p>
     The Exif section of each file is read before running the command, and re-inserted
@@ -384,16 +384,16 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     in portrait mode are displayed as portrait.  However, the image itself may not be stored in
     portrait orientation.
     The -autorot and -norot options are useful for dealing with rotation issues.
-                                                                               
+
 <tr valign=top><td><b>-r
-<td>The recursive feature of version 1.0 never worked to my satisfaction, and I replaced it 
+<td>The recursive feature of version 1.0 never worked to my satisfaction, and I replaced it
     with my recursive file globbing code in the Windows version.  See below.
 
 </table>
 
 <h3>Bugs and Shortcomings</h3>
 <ul>
-    After Jhead runs a program to rotate or resize an image, the image dimensions and thumbnail 
+    After Jhead runs a program to rotate or resize an image, the image dimensions and thumbnail
     in the Exif header are not adjusted.
     <p>
     Modifying of Exif header data is very limited, as Jhead internally only has a read only
@@ -402,7 +402,7 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <p>
 
     Most Canon digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
-    than full resolution, causing Jhead to incorrectly miscalculate the sensor width and 35mm equivalent 
+    than full resolution, causing Jhead to incorrectly miscalculate the sensor width and 35mm equivalent
     focal length.  The same can result from resizing photos with Photoshop, which will manipulate
     parts of the Exif header.
     This is often reported as a bug in Jhead, but Jhead can't do much about incorrect data.
@@ -447,7 +447,7 @@ versions do not.
 </ul>
 <b>JPEGTRAN</b><br>
 <ul>
-If you use Linux you probably also already have this program.  For windows, it's hard to find a 
+If you use Linux you probably also already have this program.  For windows, it's hard to find a
 pre-built binary on the web.  The <a href="http://www.ijg.org"> Independent JPEG
 Group</a>'s website only has the source code.<p>
 There's a fancier version, with pre-built Windows binaries and a lossless cropping feature added at:
@@ -468,7 +468,7 @@ Mac and Linux versions of XnView are also available.
 <ul>
 You can use these programs to write and extract COM markers from JPEG images respectively.  Although I always
 use my jhead program for this feature, the wrjpgcom and rdjpgcom programs are extremely simple and very
-suitable for use with shell scripts to process lots of images.  These programs are part of most 
+suitable for use with shell scripts to process lots of images.  These programs are part of most
 Linux distributions as part of the libjpg package (along with jpegtran)
 </ul>
 <p><br>
@@ -478,12 +478,9 @@ Exiftool is actively maintained and has a LOT of features.  A downside of Exifto
 it's much bigger and slower.
 <p>
 For those who need a programming interface, there are:
-<b><a href="https://libexif.github.io/">libexif</a></b> and 
-<b><a href="http://www.exiv2.org">exifv2</a></b>.  
+<b><a href="https://libexif.github.io/">libexif</a></b> and
+<b><a href="http://www.exiv2.org">exifv2</a></b>.
 <p>
 
-Jhead homeage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
+Jhead homepage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
 Last Updated: Mar 24 2021<p>
-
-
-
