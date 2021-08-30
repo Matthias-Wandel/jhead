@@ -68,7 +68,7 @@ Metering Mode: pattern
 Exposure     : program (auto)
 JPEG Quality : 80
 
-Trying to replacde with no pointers:
+Trying to replace with no pointers:
 Argument '-rtt' not understood
 Use jhead -h for list of arguments
 JFIF SOI marker: Units: 1 (dots per inch)  X-density=72 Y-density=72
