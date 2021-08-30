@@ -6,6 +6,9 @@ SRC=.
 CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
 CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
 LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+CFLAGS:=-lefence -ggdb
+LDFLAGS:=-lefence -ggdb
+
 
 all: objdir jhead
 
@@ -15,7 +18,7 @@ objdir:
 objs = $(OBJ)/jhead.o $(OBJ)/jpgfile.o $(OBJ)/jpgqguess.o $(OBJ)/paths.o \
 	$(OBJ)/exif.o $(OBJ)/iptc.o $(OBJ)/gpsinfo.o $(OBJ)/makernote.o
 
-$(OBJ)/%.o:$(SRC)/%.c objdir
+$(OBJ)/%.o:$(SRC)/%.c 
 	${CC} $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 jhead: $(objs) jhead.h
