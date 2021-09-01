@@ -286,7 +286,10 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 // There can be different section using the same marker.
                 if (ReadMode & READ_METADATA){
                     if (memcmp(Data+2, "Exif", 4) == 0){
-                        process_EXIF(Data, itemlen);
+                        if (!process_EXIF(Data, itemlen)){
+                            // malformatted exif sections, discard.
+                            free(Sections[--SectionsRead].Data);
+						}
                         break;
                     }else if (memcmp(Data+2, "http:", 5) == 0){
                         Sections[SectionsRead-1].Type = M_XMP; // Change tag for internal purposes.
