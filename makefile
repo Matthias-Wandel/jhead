@@ -3,11 +3,13 @@
 #--------------------------------
 OBJ=obj
 SRC=.
-CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+
 CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
 LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
-CFLAGS:=-lefence -ggdb
-LDFLAGS:=-lefence -ggdb
+
+# To enable electric fence:
+#CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) -fsanitize=address
+#LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS) -fsanitize=address
 
 
 all: objdir jhead

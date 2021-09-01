@@ -1005,7 +1005,7 @@ void Clear_EXIF ()
 // Process a EXIF marker
 // Describes all the drivel that most digital cameras include...
 //--------------------------------------------------------------------------
-void process_EXIF (unsigned char * ExifSection, int length)
+int process_EXIF (unsigned char * ExifSection, int length)
 {
     int FirstOffset;
 
@@ -1020,7 +1020,7 @@ void process_EXIF (unsigned char * ExifSection, int length)
         static uchar ExifHeader[] = "Exif\0\0";
         if (memcmp(ExifSection+2, ExifHeader,6)){
             ErrNonfatal("Incorrect Exif header",0,0);
-            return;
+            return 0;
         }
     }
 
@@ -1033,21 +1033,21 @@ void process_EXIF (unsigned char * ExifSection, int length)
             MotorolaOrder = 1;
         }else{
             ErrNonfatal("Invalid Exif alignment marker.",0,0);
-            return;
+            return 0;
         }
     }
 
     // Check the next value for correctness.
     if (Get16u(ExifSection+10) != 0x2a){
         ErrNonfatal("Invalid Exif start (1)",0,0);
-        return;
+        return 0;
     }
 
     FirstOffset = (int)Get32u(ExifSection+12);
     if (FirstOffset < 8 || FirstOffset > 16){
         if (FirstOffset < 16 || FirstOffset > length-16 || length < 16){
             ErrNonfatal("invalid offset for first Exif IFD value",0,0);
-            return;
+            return 0;
         }
         // Usually set to 8, but other values valid too.
         ErrNonfatal("Suspicious offset of first Exif IFD value",0,0);
@@ -1087,6 +1087,7 @@ void process_EXIF (unsigned char * ExifSection, int length)
             ImageInfo.FocalLength35mmEquiv = (int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*36 + 0.5);
         }
     }
+	return 1;
 }
 
 
@@ -1236,6 +1237,7 @@ void create_EXIF(void)
 const char * ClearOrientation(void)
 {
     int a;
+
     if (NumOrientations == 0) return NULL;
 
     for (a=0;a<NumOrientations;a++){
