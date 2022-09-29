@@ -782,7 +782,8 @@ static int RegenerateThumbnail(const char * FileName)
         return FALSE;
     }
 
-    sprintf(ThumbnailGenCommand, "mogrify -thumbnail %dx%d -quality 80 \"%s\"",
+    snprintf(ThumbnailGenCommand, sizeof(ThumbnailGenCommand),
+        "mogrify -thumbnail %dx%d -quality 80 \"%s\"",
         RegenThumbnail, RegenThumbnail, FileName);
 
     if (system(ThumbnailGenCommand) == 0){
