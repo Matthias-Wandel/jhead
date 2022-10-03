@@ -782,7 +782,15 @@ static int RegenerateThumbnail(const char * FileName)
         return FALSE;
     }
 
-    sprintf(ThumbnailGenCommand, "mogrify -thumbnail %dx%d -quality 80 \"%s\"",
+    // Disallow characters in the filename that could be used to execute arbitrary
+    // shell commands with system() below.
+    if(strpbrk(FileName, "\";'&|`")) {
+        ErrNonfatal("Filename has invalid characters.", 0, 0);
+        return FALSE;
+    }
+
+    snprintf(ThumbnailGenCommand, sizeof(ThumbnailGenCommand),
+        "mogrify -thumbnail %dx%d -quality 80 \"%s\"",
         RegenThumbnail, RegenThumbnail, FileName);
 
     if (system(ThumbnailGenCommand) == 0){
