@@ -1633,7 +1633,7 @@ int main (int argc, char **argv)
             int a;
             // Check date validity and copy it.  Could be incompletely specified.
             strcpy(DateSet, "0000:01:01");
-            for (a=0;arg[a+3];a++){
+            for (a=0;arg[a+3] && a < sizeof(DateSet);a++){
                 if (isdigit(DateSet[a])){
                     if (!isdigit(arg[a+3])){
                         a = 0;
