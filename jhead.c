@@ -500,11 +500,15 @@ static void RelativeName(char * OutFileName, const char * NamePattern, const cha
     // multiple files at a time.
     char * Subst;
     Subst = strstr(NamePattern, "&i");
+    if (Subst > NamePattern+PATH_MAX-10){
+        ErrFatal("Bad file name pattern");
+    }
+
     if (Subst){
         strncpy(OutFileName, NamePattern, Subst-NamePattern);
         OutFileName[Subst-NamePattern] = 0;
-        strncat(OutFileName, OrigName, PATH_MAX);
-        strncat(OutFileName, Subst+2, PATH_MAX);
+        strncat(OutFileName, OrigName, PATH_MAX-1-strlen(OutFileName));
+        strncat(OutFileName, Subst+2, PATH_MAX-1-strlen(OutFileName));
     }else{
         strncpy(OutFileName, NamePattern, PATH_MAX);
     }
@@ -903,10 +907,8 @@ static void ProcessFile(const char * FileName)
 
     if (ExifXferScrFile){
         char RelativeExifName[PATH_MAX+1];
-
         // Make a relative name.
         RelativeName(RelativeExifName, ExifXferScrFile, FileName);
-
         if(!ReadJpegFile(RelativeExifName, READ_METADATA)) return;
 
         DiscardAllButExif();    // Don't re-read exif section again on next read.
