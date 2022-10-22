@@ -166,6 +166,15 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
         }
         if (strlen(Editor) > PATH_MAX) ErrFatal("env too long");
 
+        // Disallow characters in the editor or filename that could be used to execute arbitrary
+        // shell commands with system() below.
+        if (strpbrk(TempFileName, "\";'&|`$")) {
+            ErrFatal("Filename has invalid characters");
+        }
+        if (strpbrk(Editor, "\";'&|`$")) {
+            ErrFatal("Editor has invalid characters");
+        }
+
         sprintf(QuotedPath, "%s \"%s\"",Editor, TempFileName);
         a = system(QuotedPath);
     }
@@ -761,6 +770,14 @@ static int DoAutoRotate(const char * FileName)
                 sprintf(RotateCommand,"jpegtran -trim -%s -outfile \"%s\" \"%s\"",
                     Argument, ThumbTempName_out, ThumbTempName_in);
 
+                // Disallow characters in the command that could be used to execute arbitrary
+                // shell commands with system() below.
+                if (strpbrk(RotateCommand, "\";'&|`$")) {
+                    ErrNonfatal("Command has invalid characters.", 0, 0);
+                    unlink(ThumbTempName_in);
+                    return FALSE;
+                }
+
                 if (system(RotateCommand) == 0){
                     // Put the thumbnail back in the header
                     ReplaceThumbnail(ThumbTempName_out);
@@ -788,7 +805,7 @@ static int RegenerateThumbnail(const char * FileName)
 
     // Disallow characters in the filename that could be used to execute arbitrary
     // shell commands with system() below.
-    if(strpbrk(FileName, "\";'&|`")) {
+    if(strpbrk(FileName, "\";'&|`$")) {
         ErrNonfatal("Filename has invalid characters.", 0, 0);
         return FALSE;
     }
