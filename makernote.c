@@ -124,8 +124,9 @@ static void ProcessCanonMakerNoteDir(unsigned char * DirStart, unsigned char * O
                 }
         }
         if (Tag == 1 && Components > 16){
+            int IsoCode;
             if (ByteCount < 17 * sizeof(short)) continue; // Fuzztest -- not enough allocated.
-            int IsoCode = Get16u(ValuePtr + 16*sizeof(unsigned short));
+            IsoCode = Get16u(ValuePtr + 16*sizeof(unsigned short));
             if (IsoCode >= 16 && IsoCode <= 24){
                 ImageInfo.ISOequivalent = 50 << (IsoCode-16);
             }
