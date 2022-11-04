@@ -770,9 +770,9 @@ static int DoAutoRotate(const char * FileName)
                 sprintf(RotateCommand,"jpegtran -trim -%s -outfile \"%s\" \"%s\"",
                     Argument, ThumbTempName_out, ThumbTempName_in);
 
-                // Disallow characters in the command that could be used to execute arbitrary
+                // Disallow characters in the filenames that could be used to execute arbitrary
                 // shell commands with system() below.
-                if (strpbrk(RotateCommand, "\";'&|`$")) {
+                if (strpbrk(FileName, "\";'&|`$")) {
                     ErrNonfatal("Command has invalid characters.", 0, 0);
                     unlink(ThumbTempName_in);
                     return FALSE;
