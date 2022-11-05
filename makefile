@@ -30,7 +30,7 @@ objdir:
 objs = $(OBJ)/jhead.o $(OBJ)/jpgfile.o $(OBJ)/jpgqguess.o $(OBJ)/paths.o \
 	$(OBJ)/exif.o $(OBJ)/iptc.o $(OBJ)/gpsinfo.o $(OBJ)/makernote.o
 
-$(OBJ)/%.o:$(SRC)/%.c
+$(OBJ)/%.o:$(SRC)/%.c objdir
 	${CC} $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 jhead: $(objs) jhead.h
