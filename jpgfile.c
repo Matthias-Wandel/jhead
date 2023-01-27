@@ -176,7 +176,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         if (Data == NULL){
             ErrFatal("Could not allocate memory");
         }
-        memset(Data, 20, 0);
+        memset(Data, 0, 20);
         Sections[SectionsRead].Data = Data;
 
         // Store first two pre-read bytes.
