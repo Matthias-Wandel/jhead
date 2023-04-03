@@ -141,7 +141,7 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
 {
     FILE * file;
     int a;
-    char QuotedPath[PATH_MAX+10];
+    char QuotedPath[2*PATH_MAX+10];
 
     file = fopen(TempFileName, "w");
     if (file == NULL){
@@ -175,7 +175,11 @@ static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
             ErrFatal("Editor has invalid characters");
         }
 
-        sprintf(QuotedPath, "%s \"%s\"",Editor, TempFileName);
+        int num = snprintf(QuotedPath, sizeof(QuotedPath), "%s \"%s\"",Editor, TempFileName);
+        if(num > sizeof(QuotedPath)) {
+            ErrFatal("Quoted path to edit would be too long");
+        }
+
         a = system(QuotedPath);
     }
 
