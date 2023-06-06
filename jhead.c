@@ -7,7 +7,7 @@
 // Compiling under Windows:
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Oct 2020
+// Dec 1999 - Jun 2023
 //
 // by Matthias Wandel   http://woodgears.ca
 //--------------------------------------------------------------------------
@@ -19,7 +19,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "3.06"
+#define JHEAD_VERSION "3.08"
 
 // This #define turns on features that are too very specific to
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS

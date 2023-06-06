@@ -1,7 +1,20 @@
-****************************************************
-***** Detailed change log - since version 1.2  *****
-***** In chronological order, oldest to newest *****
-****************************************************
+*************************************************************
+***** Detailed change log - since version 1.2           *****
+***** In chronological order, oldest to newest          *****
+***** For detailed changes see jhead on github:         *****
+******       https://github.com/Matthias-Wandel/jhead   *****
+*************************************************************
+
+Jun 6 2023:
+Bumped version number to 3.08 after going thru some accumulated github issues.
+
+Jun 3 2021 - Jun 2023:
+Fix various "issues" people have found with fuzz testing.  
+These can only be produced when running jhead in some memory access testing setup
+such as ASAN and throwing carefully crafted garbage at it, causing jhead to read
+some bytes past memory it malloced.  no real life consequences.
+
+Also some spelling fixes and other stuff, but no new features.
 
 Jun 3 2001:
 Added -dc option for deleting all comments
