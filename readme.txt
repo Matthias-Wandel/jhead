@@ -1,12 +1,10 @@
 JHEAD is a simple command line tool for displaying and some manipulation
 of EXIF header data embedded in Jpeg images from digital cameras.
 
+Jhead is part of the online repository of many linux distribution, 
+you can install the package using "apt install jhead"
+
 For command line options, please see usage.html
-
-There is also a suite of regression tests in the "tests" directory.
-After compiling, from the tests directory run "runtests"
-To check the results, do "diff expected-txt results-txt"
-
 
 Some notes:
 
@@ -40,6 +38,10 @@ Compiling:
     Linux & Unices:
 
     type 'make'.
+
+	There is also a suite of regression tests in the "tests" directory.
+	After compiling, from the tests directory run "runtests"
+	To check the results, do "diff expected-txt results-txt"
 
 Portability:
 
