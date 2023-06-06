@@ -401,6 +401,11 @@ static void DoCommand(const char * FileName, int ShowIt)
     // Build the exec string.  &i and &o in the exec string get replaced by input and output files.
     for (a=0;;a++){
         if (ApplyCommand[a] == '&'){
+            printf("Arg &%c, e=%d max %d\n",ApplyCommand[a+1], e, PATH_MAX);
+            if (ApplyCommand[a+1] == 'i' || ApplyCommand[a+1] == 'o'){
+                if (e > PATH_MAX * 2) ErrFatal("Specified command line too long");
+            }
+
             if (ApplyCommand[a+1] == 'i'){
                 // Input file.
                 e += shellescape(ExecString+e, FileName);
