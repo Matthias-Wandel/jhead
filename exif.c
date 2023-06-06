@@ -1011,9 +1011,12 @@ int process_EXIF (unsigned char * ExifSection, int length)
 
     Clear_EXIF();
 
-
     if (ShowTags){
         printf("Exif header %u bytes long\n",length);
+    }
+
+    if (length < 16){
+        ErrFatal("exif section too short");
     }
 
     {   // Check the EXIF header component
@@ -1087,7 +1090,7 @@ int process_EXIF (unsigned char * ExifSection, int length)
             ImageInfo.FocalLength35mmEquiv = (int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*36 + 0.5);
         }
     }
-	return 1;
+    return 1;
 }
 
 
