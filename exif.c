@@ -671,7 +671,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
                     break;
                 }
                 ImageInfo.DateTimeOffsets[ImageInfo.numDateTimeTags++] =
-                    (char *)ValuePtr - (char *)OffsetBase;
+                    (int)((char *)ValuePtr - (char *)OffsetBase);
                 break;
 
             case TAG_USERCOMMENT:
@@ -694,7 +694,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
                 // Copy the comment
                 {
-                    int msiz = ExifLength - (ValuePtr-OffsetBase);
+                    int msiz = (int)(ExifLength - (ValuePtr-OffsetBase));
                     if (msiz > ByteCount) msiz = ByteCount;
                     if (msiz > MAX_COMMENT_SIZE-1) msiz = MAX_COMMENT_SIZE-1;
                     if (msiz > 5 && memcmp(ValuePtr, "ASCII",5) == 0){
@@ -853,7 +853,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
 
             case TAG_THUMBNAIL_LENGTH:
                 ThumbnailSize = (unsigned)ConvertAnyFormat(ValuePtr, Format);
-                ImageInfo.ThumbnailSizeOffset = ValuePtr-OffsetBase;
+                ImageInfo.ThumbnailSizeOffset = (int)(ValuePtr-OffsetBase);
                 break;
 
             case TAG_EXIF_OFFSET:

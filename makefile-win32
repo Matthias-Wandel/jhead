@@ -2,7 +2,7 @@
 # jhead makefile for Win32
 #--------------------------------
 
-CC=cl /nologo
+CC=cl /nologo /wd4267
 CFLAGS=-c -Ox -Os -W3 -Zp -D _CRT_SECURE_NO_WARNINGS
 
 

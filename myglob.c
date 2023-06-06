@@ -155,7 +155,7 @@ DoRecursion:
         int NumHave = 0;
 
         struct _finddata_t finddata;
-        long find_handle;
+        intptr_t find_handle;
 
         find_handle = _findfirst(MatchPattern, &finddata);
 
