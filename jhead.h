@@ -166,6 +166,7 @@ void Clear_EXIF();
 int process_EXIF (unsigned char * CharBuf, int length);
 void ShowImageInfo(int ShowFileInfo);
 void ShowConciseImageInfo(void);
+int CheckOrientationPtrs(unsigned char * ptr, unsigned int range);
 const char * ClearOrientation(void);
 void PrintFormatNumber(void * ValuePtr, int Format, int ByteCount);
 double ConvertAnyFormat(void * ValuePtr, int Format);
