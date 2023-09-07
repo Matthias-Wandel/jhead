@@ -1234,6 +1234,19 @@ void create_EXIF(void)
 }
 
 //--------------------------------------------------------------------------
+// Check the range of the memory block pointed by ptr contains OrientationPtr or not.
+// Return 1 if contains at least one OrientationPtr
+//--------------------------------------------------------------------------
+
+int CheckOrientationPtrs(unsigned char * ptr, unsigned int range){
+    if((OrientationPtr[0] >= (void *)ptr) && (OrientationPtr[0] < (void *)ptr+range))
+        return 1;
+    if((OrientationPtr[1] >= (void *)ptr) && (OrientationPtr[1] < (void *)ptr+range))
+        return 1;
+    return 0;
+}
+
+//--------------------------------------------------------------------------
 // Clear the rotation tag in the exif header to 1.
 // Returns NULL if no orientation tag exists.
 //--------------------------------------------------------------------------
