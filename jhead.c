@@ -309,7 +309,7 @@ static int AutoResizeCmdStuff(void)
     if (scale > 0.8){
         if (ImageInfo.QualityGuess >= 93){
             // Re-compress at lower quality.
-            sprintf(CommandString, "mogrify -quality 86 &i");
+            sprintf(CommandString, "magick &i -quality 80 &i");
             return TRUE;
         }
         printf("not resizing %dx%x '%s'\n",ImageInfo.Height, ImageInfo.Width, ImageInfo.FileName);
@@ -318,7 +318,7 @@ static int AutoResizeCmdStuff(void)
 
     if (scale < 0.4) scale = 0.4; // Don't scale down by too much.
 
-    sprintf(CommandString, "mogrify -geometry %dx%d -quality 85 &i",(int)(ImageInfo.Width*scale+0.5),
+    sprintf(CommandString, "magick &i -resize %dx%d -quality 80 &i",(int)(ImageInfo.Width*scale+0.5),
                                     (int)(ImageInfo.Height*scale+0.5));
     return TRUE;
 }
@@ -756,7 +756,7 @@ static int DoAutoRotate(const char * FileName)
                 // Unknown orientation, but still modified.
                 return TRUE; // Image is still modified.
             }
-            sprintf(RotateCommand, "jpegtran -trim -%s -outfile &o &i", Argument);
+            sprintf(RotateCommand, "jpegtran -copy all -trim -%s -outfile &o &i", Argument);
             ApplyCommand = RotateCommand;
             DoCommand(FileName, FALSE);
             ApplyCommand = NULL;
@@ -775,7 +775,7 @@ static int DoAutoRotate(const char * FileName)
                 strcpy(ThumbTempName_out, FileName);
                 strcat(ThumbTempName_out, ".tho");
                 SaveThumbnail(ThumbTempName_in);
-                sprintf(RotateCommand,"jpegtran -trim -%s -outfile \"%s\" \"%s\"",
+                sprintf(RotateCommand,"jpegtran -copy all -trim -%s -outfile \"%s\" \"%s\"",
                     Argument, ThumbTempName_out, ThumbTempName_in);
 
                 // Disallow characters in the filenames that could be used to execute arbitrary
