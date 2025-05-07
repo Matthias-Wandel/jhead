@@ -19,7 +19,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "3.08"
+#define JHEAD_VERSION "3.10"
 
 // This #define turns on features that are too very specific to
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -801,7 +801,7 @@ static int DoAutoRotate(const char * FileName)
 }
 
 //--------------------------------------------------------------------------
-// Regenerate the thumbnail using mogrify
+// Regenerate the thumbnail using imagemagick
 //--------------------------------------------------------------------------
 static int RegenerateThumbnail(const char * FileName)
 {
@@ -818,15 +818,17 @@ static int RegenerateThumbnail(const char * FileName)
         return FALSE;
     }
 
+    // This command replaces the current image with the thumbnail. We ahve the image
+    // loaded it RAM at this point, so we will recreate it after.
     snprintf(ThumbnailGenCommand, sizeof(ThumbnailGenCommand),
-        "mogrify -thumbnail %dx%d -quality 80 \"%s\"",
-        RegenThumbnail, RegenThumbnail, FileName);
+        "magick \"%s\" -thumbnail %dx%d -quality 80 \"%s\"",
+        FileName, RegenThumbnail, RegenThumbnail, FileName);
 
     if (system(ThumbnailGenCommand) == 0){
         // Put the thumbnail back in the header
         return ReplaceThumbnail(FileName);
     }else{
-        ErrFatal("Unable to run 'mogrify' command");
+        ErrFatal("Unable to run imagemagick 'magick' command");
         return FALSE;
     }
 }
@@ -1391,7 +1393,7 @@ static void Usage (void)
            "             already contain a thumbnail.\n"
            "  -rgt[size] Regenerate exif thumbnail.  Only works if image already\n"
            "             contains a thumbnail.  size specifies maximum height or width of\n"
-           "             thumbnail.  Relies on 'mogrify' programs to be on path\n"
+           "             thumbnail.  Relies on imagemagick 'magick' program to be on path\n"
 
            "\nROTATION TAG MANIPULATION:\n"
            "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
@@ -1425,7 +1427,7 @@ static void Usage (void)
            "             This is most useful in conjunction with the free ImageMagick tool. \n"
            "             For example, with my Canon S100, which suboptimally compresses\n"
            "             jpegs I can specify\n"
-           "                jhead -cmd \"mogrify -quality 80 &i\" *.jpg\n"
+           "                jhead -cmd \"magick &i -quality 80 &i\" *.jpg\n"
            "             to re-compress a lot of images using ImageMagick to half the size,\n"
            "             and no visible loss of quality while keeping the exif header\n"
            "             Another invocation I like to use is jpegtran (hard to find for\n"

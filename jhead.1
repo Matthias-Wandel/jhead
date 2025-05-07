@@ -294,7 +294,7 @@ camera)
 .TP
 .BI \-\^rgt \ size
 Regenerate exif thumbnail.  'size' specifies maximum height or width of
-thumbnail.  Relies on 'mogrify' program (from ImageMagick) to regenerate
+thumbnail.  Relies on the ImageMagick 'magick' program to regenerate
 the thumbnail.  This only works if the image already contains a
 thumbnail.
 
@@ -393,7 +393,7 @@ Example use:
 
 Having a whole directory of photos from my S100, I run the following commands:
 
-.I jhead \-cmd "mogrify \-quality 80 &i" \-model S100 *.jpg
+.I jhead \-cmd "magick &i \-quality 80 &i" \-model S100 *.jpg
 .br
 .I jhead \-cmd "jpegtran \-progressive &i > &o" *.jpg
 
@@ -407,7 +407,7 @@ This produces substantial savings on some cameras.
 
 .SH SEE ALSO
 .BR jpegtran (1),
-.BR mogrify (1),
+.BR ImageMagick (1),
 .BR rdjpgcom (1),
 .BR wrjpgcom (1)
 .SH AUTHOR
