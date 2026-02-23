@@ -12,28 +12,6 @@ static int ImgTypeLoaded = TYPE_UNKNOWN;
 // Storage for simplified info extracted from file.
 ImageInfo_t ImageInfo;
 
-
-// Helper to detect file type without advancing file pointer significantly
-// FIXME -- this is a kluge to leave othe code alone, should not be opening file twice!
-void DetectFileType(const char * FileName) {
-    unsigned char Sig[8];
-    FILE * f = fopen(FileName, "rb");
-    if (!f) return;
-
-    int read = fread(Sig, 1, 8, f);
-    fclose(f);
-    
-    //printf("Sig: %02x %02x\n",Sig[0],Sig[1]);
-
-    if (read >= 2 && Sig[0] == 0xff && Sig[1] == 0xd8){
-        ImgTypeLoaded = TYPE_JPEG;
-    }
-    
-    if (read >= 8 && memcmp(Sig, "\x89PNG\r\n\x1a\n", 8) == 0){
-        ImgTypeLoaded = TYPE_PNG;
-    }
-}
-
 void DiscardImgData(void)
 {
     if (ImgTypeLoaded == TYPE_JPEG) DiscardJpegData();
@@ -44,15 +22,37 @@ void DiscardImgData(void)
 // Thunked Read Function
 //--------------------------------------------------------------------------
 int ReadImgFile(const char * FileName, ReadMode_t ReadMode) {
-    DetectFileType(FileName);
-    
-    if (ImgTypeLoaded == TYPE_JPEG) {
-        return ReadJpegFile(FileName, ReadMode);
-    } else if (ImgTypeLoaded == TYPE_PNG) {
-        return ReadPngFile(FileName, ReadMode);
+    unsigned char Sig[8];
+    FILE * f = fopen(FileName, "rb");
+
+    if (!f) {
+        fprintf(stderr, "can't open '%s'\n", FileName);
+        return FALSE;
     }
-    
+
+    int read = fread(Sig, 1, 8, f);
+    fseek(f,0,SEEK_SET);
+
+    //printf("Sig: %02x %02x\n",Sig[0],Sig[1]);
+
+    if (read >= 2 && Sig[0] == 0xff && Sig[1] == 0xd8){
+        ImgTypeLoaded = TYPE_JPEG;
+    }
+
+    if (read >= 8 && memcmp(Sig, "\x89PNG\r\n\x1a\n", 8) == 0){
+        ImgTypeLoaded = TYPE_PNG;
+    }
+
+
+    if (ImgTypeLoaded == TYPE_JPEG) {
+        return ReadJpegFile(f, ReadMode);
+    } else if (ImgTypeLoaded == TYPE_PNG) {
+        return ReadPngFile(f, ReadMode);
+    }
+
+    fclose(f);
     fprintf(stderr, "Not JPEG or PNG: %s\n", FileName);
+
     return FALSE;
 }
 
@@ -105,7 +105,10 @@ Section_t * FindImgSection(int SectionType)
     if (ImgTypeLoaded == TYPE_JPEG){
         return FindJpegSection(SectionType);
     }else{
-        ErrFatal("Error, not implemented 4\n");
+        if (SectionType == M_IPTC) return NULL; // Not used in PNG files
+
+        printf("want %d\n",SectionType);
+        ErrFatal("Error, not implemented\n");
         return NULL;
     }
 }

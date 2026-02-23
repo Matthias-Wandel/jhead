@@ -149,12 +149,8 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
     return TRUE;
 }
 
-// --- Thunking function names to satisfy linker for testing ---
-
-int ReadPngFile(const char * FileName, ReadMode_t ReadMode)
+int ReadPngFile(FILE * infile, ReadMode_t ReadMode)
 {
-    FILE * infile = fopen(FileName, "rb");
-    if (infile == NULL) return FALSE;
     int ret = ReadPngSections(infile, ReadMode);
     fclose(infile);
     return ret;

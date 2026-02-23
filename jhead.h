@@ -231,7 +231,7 @@ Section_t * FindImgSection(int SectionType);
 Section_t * CreateImgSection(int SectionType, unsigned char * Data, int size);
 
 // Jpeg handling functions
-int  ReadJpegFile(const char * FileName, ReadMode_t ReadMode);
+int  ReadJpegFile(FILE * f, ReadMode_t ReadMode);
 void WriteJpegFile(const char * FileName);
 void ResetJpegFile(void);
 void DiscardAllJpegButExif(void);
@@ -245,7 +245,7 @@ Section_t * FindJpegExifSection();
 Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int size);
 
 // Png handling functions
-int  ReadPngFile(const char * FileName, ReadMode_t ReadMode);
+int  ReadPngFile(FILE * f, ReadMode_t ReadMode);
 void WritePngFile(const char * FileName);
 void ResetPngFile(void);
 void DiscardAllPngButExif(void);
