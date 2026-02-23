@@ -72,7 +72,6 @@ void DiscardPngData(void)
 {
     int a;
     for (a=0;a<SectionsRead;a++) free(Sections[a].Data);
-    memset(&ImageInfo, 0, sizeof(ImageInfo));
     SectionsRead = 0;
     HaveAll = 0;
 }
@@ -88,7 +87,7 @@ Section_t * FindSection(int SectionType)
 int RemovePngSectionType(int SectionType)
 {
     printf("Remove section type %d\n",SectionType);
-    
+
     int a, retval = FALSE;
     for (a=0; a<SectionsRead; a++){
         printf("Secition %d\n",Sections[a].Type);
@@ -113,6 +112,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
     if (fread(Sig, 1, 8, infile) != 8 || memcmp(Sig, "\x89PNG\r\n\x1a\n", 8) != 0) return FALSE;
 
     ResetPngFile();
+    int HaveCom = FALSE;
 
     for (;;) {
         uchar LenRaw[4], TypeRaw[4];
@@ -120,6 +120,8 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
 
         unsigned int ChunkLen = Get32png(LenRaw);
         int ChunkTypeInt = (TypeRaw[0] << 24) | (TypeRaw[1] << 16) | (TypeRaw[2] << 8) | TypeRaw[3];
+
+printf("PNG Chunk type %08x length %d\n",ChunkTypeInt, ChunkLen);
 
         CheckSectionsAllocated();
         uchar * Data = (uchar *)malloc(ChunkLen + 20);
@@ -139,8 +141,21 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
             uchar * FakeExif = (uchar *)malloc(ChunkLen + 6);
             memcpy(FakeExif, "Exif\0\0", 6);
             memcpy(FakeExif + 6, Data, ChunkLen);
-            process_EXIF(FakeExif - 2, ChunkLen + 8); 
+            process_EXIF(FakeExif - 2, ChunkLen + 8);
             free(FakeExif);
+
+        } else if (memcmp(TypeRaw, "tEXt", 4) == 0 && ChunkLen > 8 && memcmp("Comment",Data,8) == 0){
+printf("startswith: %s\n",Data);
+if (memcmp("Comment",Data,8) == 0) printf("Is comment! '%s'\n",Data+8);
+
+            if (HaveCom || ((ReadMode & READ_METADATA) == 0)){
+                // Discard this section.
+                free(Sections[--SectionsRead].Data);
+            }else{
+                ProcessImgComment(Data+8, ChunkLen-8);
+                HaveCom = TRUE;
+            }
+
         } else if (memcmp(TypeRaw, "IEND", 4) == 0) {
             HaveAll = 1;
             break;
@@ -166,7 +181,7 @@ void WritePngFile(const char * FileName)
         uchar Header[8], CrcIn[4], CrcRaw[4];
         Put32png(Header, Sections[a].Size);
         Put32png(Header + 4, Sections[a].Type);
-        
+
         fwrite(Header, 1, 8, outfile);
         fwrite(Sections[a].Data, 1, Sections[a].Size, outfile);
 
@@ -180,7 +195,7 @@ void WritePngFile(const char * FileName)
         for(unsigned i=0; i<Sections[a].Size; i++){
             c = CrcTable[(c ^ Sections[a].Data[i]) & 0xff] ^ (c >> 8);
         }
-        
+
         Put32png(CrcRaw, c ^ 0xffffffffL);
         fwrite(CrcRaw, 1, 4, outfile);
     }
@@ -189,7 +204,7 @@ void WritePngFile(const char * FileName)
 
 
 void DiscardAllPngButExif(void)
-{ 
+{
     // Simplified version: keep only IHDR, eXIf, and IEND
     for (int a=0; a<SectionsRead; a++) {
         if (Sections[a].Type != 0x49484452 && Sections[a].Type != 0x65584966 && Sections[a].Type != 0x49454E44) {

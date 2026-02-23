@@ -26,43 +26,6 @@ static int Get16m(const void * Short)
 }
 
 
-//--------------------------------------------------------------------------
-// Process a COM marker.
-// We want to print out the marker contents as legible text;
-// we must guard against random junk and varying newline representations.
-//--------------------------------------------------------------------------
-static void process_COM (const uchar * Data, int length)
-{
-    int ch;
-    char Comment[MAX_COMMENT_SIZE+1];
-    int nch;
-    int a;
-
-    nch = 0;
-
-    if (length > MAX_COMMENT_SIZE) length = MAX_COMMENT_SIZE; // Truncate if it won't fit in our structure.
-
-    for (a=2;a<length;a++){
-        ch = Data[a];
-
-        if (ch == '\r' && a < length-1 && Data[a+1] == '\n') continue; // Remove cr followed by lf.
-
-        if (ch >= 32 || ch == '\n' || ch == '\t'){
-            Comment[nch++] = (char)ch;
-        }else{
-            Comment[nch++] = '?';
-        }
-    }
-
-    Comment[nch] = '\0'; // Null terminate
-
-    if (ShowTags){
-        printf("COM marker comment: %s\n",Comment);
-    }
-
-    strcpy(ImageInfo.Comments,Comment);
-}
-
 
 //--------------------------------------------------------------------------
 // Process a SOFn marker.  This is useful for the image dimensions
@@ -238,7 +201,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                     // Discard this section.
                     free(Sections[--SectionsRead].Data);
                 }else{
-                    process_COM(Data, itemlen);
+                    ProcessImgComment(Data+2, itemlen-2);
                     HaveCom = TRUE;
                 }
                 break;
@@ -356,8 +319,7 @@ void DiscardJpegData(void)
     for (a=0;a<SectionsRead;a++){
         free(Sections[a].Data);
     }
-
-    memset(&ImageInfo, 0, sizeof(ImageInfo));
+    
     SectionsRead = 0;
     HaveAll = 0;
 }

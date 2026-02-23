@@ -230,6 +230,8 @@ Section_t * FindImgExifSection();
 Section_t * FindImgSection(int SectionType);
 Section_t * CreateImgSection(int SectionType, unsigned char * Data, int size);
 
+void ProcessImgComment (const uchar * Data, int length);
+
 // Jpeg handling functions
 int  ReadJpegFile(FILE * f, ReadMode_t ReadMode);
 void WriteJpegFile(const char * FileName);

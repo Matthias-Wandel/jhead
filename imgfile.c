@@ -19,6 +19,44 @@ void DiscardImgData(void)
 }
 
 //--------------------------------------------------------------------------
+// Process contents of COM marker or PNG 'tEXt' section
+// We want to print out the marker contents as legible text;
+// we must guard against random junk and varying newline representations.
+// Not taking utf8 into consideration.
+//--------------------------------------------------------------------------
+void ProcessImgComment (const uchar * Data, int length)
+{
+    int ch;
+    char Comment[MAX_COMMENT_SIZE+1];
+    int nch;
+    int a;
+
+    nch = 0;
+
+    if (length > MAX_COMMENT_SIZE) length = MAX_COMMENT_SIZE; // Truncate if it won't fit in our structure.
+
+    for (a=0;a<length;a++){
+        ch = Data[a];
+
+        if (ch == '\r' && a < length-1 && Data[a+1] == '\n') continue; // Remove cr followed by lf.
+
+        if (ch >= 32 || ch == '\n' || ch == '\t'){
+            Comment[nch++] = (char)ch;
+        }else{
+            Comment[nch++] = '?';
+        }
+    }
+
+    Comment[nch] = '\0'; // Null terminate
+
+    if (ShowTags){
+        printf("COM marker comment: %s\n",Comment);
+    }
+
+    strcpy(ImageInfo.Comments,Comment);
+}
+
+//--------------------------------------------------------------------------
 // Thunked Read Function
 //--------------------------------------------------------------------------
 int ReadImgFile(const char * FileName, ReadMode_t ReadMode) {

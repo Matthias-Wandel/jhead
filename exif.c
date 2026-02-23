@@ -1538,7 +1538,7 @@ void ShowImageInfo(int ShowFileInfo)
 
 
 
-    if (ImageInfo.Process != M_SOF0){
+    if (ImageInfo.Process != M_SOF0 && ImageInfo.Process >= 0){
         // don't show it if its the plain old boring 'baseline' process, but do
         // show it if its something else, like 'progressive' (used on web sometimes)
         unsigned a;

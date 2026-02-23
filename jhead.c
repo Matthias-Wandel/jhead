@@ -875,6 +875,8 @@ static void ProcessFile(const char * FileName)
     ImageInfo.FlashUsed = -1;
     ImageInfo.MeteringMode = -1;
     ImageInfo.Whitebalance = -1;
+    ImageInfo.IsColor = -1;
+    ImageInfo.Process = -1;
 
     // Store file date/time.
     {
