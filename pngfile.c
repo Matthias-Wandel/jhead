@@ -121,7 +121,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         unsigned int ChunkLen = Get32png(LenRaw);
         int ChunkTypeInt = (TypeRaw[0] << 24) | (TypeRaw[1] << 16) | (TypeRaw[2] << 8) | TypeRaw[3];
 
-printf("PNG Chunk type %08x length %d\n",ChunkTypeInt, ChunkLen);
+printf("PNG Chunk type '%.4s' %08x length %d\n",TypeRaw, ChunkTypeInt, ChunkLen);
 
         CheckSectionsAllocated();
         uchar * Data = (uchar *)malloc(ChunkLen + 20);
@@ -145,9 +145,6 @@ printf("PNG Chunk type %08x length %d\n",ChunkTypeInt, ChunkLen);
             free(FakeExif);
 
         } else if (memcmp(TypeRaw, "tEXt", 4) == 0 && ChunkLen > 8 && memcmp("Comment",Data,8) == 0){
-printf("startswith: %s\n",Data);
-if (memcmp("Comment",Data,8) == 0) printf("Is comment! '%s'\n",Data+8);
-
             if (HaveCom || ((ReadMode & READ_METADATA) == 0)){
                 // Discard this section.
                 free(Sections[--SectionsRead].Data);

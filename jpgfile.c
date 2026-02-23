@@ -191,7 +191,6 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                 process_DHT(Data, itemlen);
                 break;
 
-
             case M_EOI:   // in case it's a tables-only JPEG stream
                 fprintf(stderr,"No image in jpeg!\n");
                 return FALSE;
@@ -713,6 +712,44 @@ Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int Size)
     NewSection->Data = Data;
 
     return NewSection;
+}
+
+
+
+//--------------------------------------------------------------------------
+// Set or replace the comment section (M_COM)
+//--------------------------------------------------------------------------
+void SetJpegCommentTo(char * NewCommentStr)
+{
+    if (NewCommentStr == NULL){
+        // Actually want to remove comment section.
+        RemoveSectionType(M_COM);
+        return;
+    }
+
+    Section_t * CommentSec;
+    int CommentSize = strlen(NewCommentStr);
+    CommentSec = FindImgSection(M_COM);
+
+printf("SectionsRead = %d\n",SectionsRead);
+    if (CommentSec){
+printf("have existing comment section\n");
+        // Discard the old data section, as length will likey be different.
+        free(CommentSec->Data);
+    }else{
+printf("make new comment section\n");
+        unsigned char * DummyData;
+        CommentSec = CreateImgSection(M_COM, NULL,2);
+    }
+printf("SectionsRead = %d\n",SectionsRead);
+    // Discard old comment section and put a new one in.
+    int size;
+    size = CommentSize+2;
+    CommentSec->Size = size;
+    CommentSec->Data = malloc(size);
+    CommentSec->Data[0] = (uchar)(size >> 8);
+    CommentSec->Data[1] = (uchar)(size);
+    memcpy((CommentSec->Data)+2, NewCommentStr, CommentSize);
 }
 
 

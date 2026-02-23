@@ -113,7 +113,7 @@ int ReplaceImgThumbnail(const char * ThumbFileName)
     if (ImgTypeLoaded == TYPE_JPEG){
         return ReplaceJpegThumbnail(ThumbFileName);
     }else{
-        ErrFatal("Error, not implemented 1\n");
+        ErrFatal("not implemented 1\n");
         return FALSE;
     }
 }
@@ -123,7 +123,7 @@ int RemoveUnknownImgSections(void)
     if (ImgTypeLoaded == TYPE_JPEG){
         return RemoveUnknownJpegSections();
     }else{
-        ErrFatal("Error, not implemented 2\n");
+        ErrFatal("not implemented 2\n");
         return FALSE;
     }
 }
@@ -132,9 +132,18 @@ Section_t * FindImgExifSection()
 {
     if (ImgTypeLoaded == TYPE_JPEG) return FindJpegSection(M_EXIF);
     //if (ImgTypeLoaded == TYPE_PNG) return FindPngExifSection();
-    ErrFatal("Error, not implemented 3\n");
+    ErrFatal("not implemented 3\n");
     return FALSE;
 }
+
+void SetImgCommentTo(char * NewComment)
+{
+printf("SetImgComment to '%s'\n",NewComment);
+    if (ImgTypeLoaded == TYPE_JPEG) return SetJpegCommentTo(NewComment);
+    ErrFatal("not implemented 2.5");
+    //if (ImgTypeLoaded == TYPE_PNG) SetPngCommentTo(NewComment);
+}
+
 
 Section_t * FindImgSection(int SectionType)
 {
@@ -146,7 +155,7 @@ Section_t * FindImgSection(int SectionType)
         if (SectionType == M_IPTC) return NULL; // Not used in PNG files
 
         printf("want %d\n",SectionType);
-        ErrFatal("Error, not implemented\n");
+        ErrFatal("not implemented 4\n");
         return NULL;
     }
 }
@@ -155,7 +164,7 @@ Section_t * CreateImgSection(int SectionType, unsigned char * Data, int Size)
     if (ImgTypeLoaded == TYPE_JPEG){
         return CreateJpegSection(SectionType, Data, Size);
     }else{
-        ErrFatal("Error, not implemented 5\n");
+        ErrFatal("not implemented 5\n");
         return NULL;
     }
 }
@@ -165,7 +174,7 @@ int SaveImgThumbnail(char * ThumbFileName)
     if (ImgTypeLoaded == TYPE_JPEG){
         return SaveJpegThumbnail(ThumbFileName);
     }else{
-        ErrFatal("Error, not implemented 6\n");
+        ErrFatal("not implemented 6\n");
         return FALSE;
     }
 }

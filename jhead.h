@@ -226,6 +226,7 @@ int ReplaceImgThumbnail(const char * ThumbFileName);
 int SaveImgThumbnail(char * ThumbFileName);
 int RemoveSectionType(int SectionType);
 int RemoveUnknownImgSections(void);
+void SetImgCommentTo(char * NewComment);
 Section_t * FindImgExifSection();
 Section_t * FindImgSection(int SectionType);
 Section_t * CreateImgSection(int SectionType, unsigned char * Data, int size);
@@ -242,6 +243,7 @@ int ReplaceJpegThumbnail(const char * ThumbFileName);
 int RemoveJpegSectionType(int SectionType);
 int RemoveUnknownJpegSections(void);
 int SaveJpegThumbnail(char * ThumbFileName);
+void SetJpegCommentTo(char * NewComment);
 Section_t * FindJpegSection(int SectionType);
 Section_t * FindJpegExifSection();
 Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int size);
@@ -255,6 +257,7 @@ void DiscardPngData(void);
 int ReplacePngThumbnail(const char * ThumbFileName);
 int RemovePngSectionType(int SectionType);
 int RemoveUnknownPngSections(void);
+void SetPngCommentTo(char * NewComment);
 Section_t * FindPngExifSection();
 
 

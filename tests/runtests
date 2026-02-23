@@ -52,15 +52,8 @@ cp strange-jpegs/verizon.jpg verizon.jpg
 cp normal-digicams/S100.jpg comments.jpg
 #insert a comment (-ci)
 "$jhead" -ci normal-digicams/testfile.txt -ft comments.jpg
-#extract the comments (-cs)
-"$jhead" -cs results-txt/comments.txt comments.jpg
+#Show the comments
 "$jhead" -nofinfo comments.jpg >> results-txt/comments.txt
-#test comment edit
-EDITOR=./pretend-editor
-export EDITOR
-"$jhead" -ce -ft comments.jpg
-"$jhead" -nofinfo comments.jpg >> results-txt/comments.txt
-rm comments.jpg.txt
 
 cp comments.jpg results-bin
 #replace comment with a literal comment

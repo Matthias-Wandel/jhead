@@ -92,10 +92,8 @@ static int RegenThumbnail = FALSE;
 static char * ExifXferScrFile = NULL;// Extract Exif header from this file, and
                                     // put it into the Jpegs processed.
 
-static int EditComment = FALSE;     // Invoke an editor for editing the comment
 static int SuppressNonFatalErrors = FALSE; // Whether or not to pint warnings on recoverable errors
 
-static char * CommentSavefileName = NULL; // Save comment to this file.
 static char * CommentInsertfileName = NULL; // Insert comment from this file.
 static char * CommentInsertLiteral = NULL;  // Insert this comment (from command line)
 
@@ -105,16 +103,6 @@ static int ZeroRotateTagOnly = FALSE;
 static int ShowFileInfo = TRUE;     // Indicates to show standard file info
                                     // (file name, file size, file date)
 
-
-#ifdef MATTHIAS
-    // This #ifdef to take out less than elegant stuff for editing
-    // the comments in a JPEG.  The programs rdjpgcom and wrjpgcom
-    // included with Linux distributions do a better job.
-
-    static char * AddComment = NULL; // Add this tag.
-    static char * RemComment = NULL; // Remove this tag
-    static int AutoResize = FALSE;
-#endif // MATTHIAS
 
 //--------------------------------------------------------------------------
 // Error exit handler
@@ -141,164 +129,8 @@ void ErrNonfatal(const char * msg, int a1, int a2)
 }
 
 
-//--------------------------------------------------------------------------
-// Invoke an editor for editing a string.
-//--------------------------------------------------------------------------
-static int FileEditComment(char * TempFileName, char * Comment, int CommentSize)
-{
-    FILE * file;
-    int a;
-    char QuotedPath[2*PATH_MAX+10];
-
-    file = fopen(TempFileName, "w");
-    if (file == NULL){
-        fprintf(stderr, "Can't create file '%s'\n",TempFileName);
-        ErrFatal("could not create temporary file");
-    }
-    fwrite(Comment, CommentSize, 1, file);
-
-    fclose(file);
-
-    fflush(stdout); // So logs are contiguous.
-
-    {
-        char * Editor;
-        Editor = getenv("EDITOR");
-        if (Editor == NULL){
-#ifdef _WIN32
-            Editor = "notepad";
-#else
-            Editor = "vi";
-#endif
-        }
-        if (strlen(Editor) > PATH_MAX) ErrFatal("env too long");
-
-        // Disallow characters in the editor or filename that could be used to execute arbitrary
-        // shell commands with system() below.
-        if (strpbrk(TempFileName, "\";'&|`$")) {
-            ErrFatal("Filename has invalid characters");
-        }
-        if (strpbrk(Editor, "\";'&|`$")) {
-            ErrFatal("Editor has invalid characters");
-        }
-
-        int num = snprintf(QuotedPath, sizeof(QuotedPath), "%s \"%s\"",Editor, TempFileName);
-        if(num > sizeof(QuotedPath)) {
-            ErrFatal("Quoted path to edit would be too long");
-        }
-
-        a = system(QuotedPath);
-    }
-
-    if (a != 0){
-        perror("Editor failed to launch");
-        exit(-1);
-    }
-
-    file = fopen(TempFileName, "r");
-    if (file == NULL){
-        ErrFatal("could not open temp file for read");
-    }
-
-    // Read the file back in.
-    CommentSize = fread(Comment, 1, MAX_COMMENT_SIZE, file);
-
-    fclose(file);
-
-    unlink(TempFileName);
-
-    return CommentSize;
-}
-
 #ifdef MATTHIAS
-//--------------------------------------------------------------------------
-// Modify one of the lines in the comment field.
-// This very specific to the photo album program stuff.
-//--------------------------------------------------------------------------
-static char KnownTags[][10] = {"date", "desc","scan_date","author",
-                               "keyword","videograb",
-                               "show_raw","panorama","titlepix",""};
-
-static int ModifyDescriptComment(char * OutComment, char * SrcComment)
-{
-    char Line[500];
-    int Len;
-    int a,i;
-    unsigned l;
-    int HasScandate = FALSE;
-    int TagExists = FALSE;
-    int Modified = FALSE;
-    Len = 0;
-
-    OutComment[0] = 0;
-
-
-    for (i=0;;i++){
-        if (SrcComment[i] == '\r' || SrcComment[i] == '\n' || SrcComment[i] == 0 || Len >= 199){
-            // Process the line.
-            if (Len > 0){
-                Line[Len] = 0;
-                //printf("Line: '%s'\n",Line);
-                for (a=0;;a++){
-                    l = strlen(KnownTags[a]);
-                    if (!l){
-                        // Unknown tag.  Discard it.
-                        printf("Error: Unknown tag '%s'\n", Line); // Deletes the tag.
-                        Modified = TRUE;
-                        break;
-                    }
-                    if (memcmp(Line, KnownTags[a], l) == 0){
-                        if (Line[l] == ' ' || Line[l] == '=' || Line[l] == 0){
-                            // Its a good tag.
-                            if (Line[l] == ' ') Line[l] = '='; // Use equal sign for clarity.
-                            if (a == 2) break; // Delete 'orig_path' tag.
-                            if (a == 3) HasScandate = TRUE;
-                            if (RemComment){
-                                if (strlen(RemComment) == l){
-                                    if (!memcmp(Line, RemComment, l)){
-                                        Modified = TRUE;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (AddComment){
-                                // Overwrite old comment of same tag with new one.
-                                if (!memcmp(Line, AddComment, l+1)){
-                                    TagExists = TRUE;
-                                    strncpy(Line, AddComment, sizeof(Line));
-                                    Line[sizeof(Line)-1]='\0';
-                                    Modified = TRUE;
-                                }
-                            }
-                            strncat(OutComment, Line, MAX_COMMENT_SIZE-5-strlen(OutComment));
-                            strcat(OutComment, "\n");
-                            break;
-                        }
-                    }
-                }
-            }
-            Line[Len = 0] = 0;
-            if (SrcComment[i] == 0) break;
-        }else{
-            Line[Len++] = SrcComment[i];
-        }
-    }
-
-    if (AddComment && TagExists == FALSE){
-        strncat(OutComment, AddComment, MAX_COMMENT_SIZE-5-strlen(OutComment));
-        strcat(OutComment, "\n");
-        Modified = TRUE;
-    }
-
-    if (!HasScandate && !ImageInfo.DateTime[0]){
-        // Scan date is not in the file yet, and it doesn't have one built in.  Add it.
-        char Temp[40];
-        sprintf(Temp, "scan_date=%s", ctime(&ImageInfo.FileDateTime));
-        strncat(OutComment, Temp, MAX_COMMENT_SIZE-5-strlen(OutComment));
-        Modified = TRUE;
-    }
-    return Modified;
-}
+static int AutoResize = FALSE;
 //--------------------------------------------------------------------------
 // Automatic make smaller command stuff
 //--------------------------------------------------------------------------
@@ -391,18 +223,10 @@ static void DoCommand(const char * FileName, int ShowIt)
     memcpy(TempName, FileName, a);
     strcpy(TempName+a, "XXXXXX");
 
-    // Note: Compiler will warn about mkstemp.  but I need a filename, not a file.
-    // I could just then get the file name from what mkstemp made, and pass that
-    // to the executable, but that would make for the exact same vulnerability
-    // as mktemp - that is, that between getting the random name, and making the file
-    // some other program could snatch that exact same name!
-    // also, not all platforms support mkstemp.
-    mktemp(TempName);
 
-
-    if(!TempName[0]) {
-        ErrFatal("Cannot find available temporary file name");
-    }
+    int fd = mkstemp(TempName);
+    if (fd == -1) ErrFatal("Cannot find available temporary file name");
+    close(fd);
 
 
     // Build the exec string.  &i and &o in the exec string get replaced by input and output files.
@@ -1051,33 +875,12 @@ static void ProcessFile(const char * FileName)
         }
     }
 
-    if (
-#ifdef MATTHIAS
-        AddComment || RemComment ||
-#endif
-                   EditComment || CommentInsertfileName || CommentInsertLiteral){
+    if (CommentInsertfileName || CommentInsertLiteral){
 
-        Section_t * CommentSec;
+printf("Current comment:'%s'\n",ImageInfo.Comments);
+        
         char Comment[MAX_COMMENT_SIZE+1];
         int CommentSize;
-
-        CommentSec = FindImgSection(M_COM);
-
-        if (CommentSec == NULL){
-            unsigned char * DummyData;
-
-            DummyData = (uchar *) malloc(3);
-            DummyData[0] = 0;
-            DummyData[1] = 2;
-            DummyData[2] = 0;
-            CommentSec = CreateImgSection(M_COM, DummyData, 2);
-        }
-
-        CommentSize = CommentSec->Size-2;
-        if (CommentSize > MAX_COMMENT_SIZE){
-            fprintf(stderr, "Truncating comment at %d chars\n",MAX_COMMENT_SIZE);
-            CommentSize = MAX_COMMENT_SIZE;
-        }
 
         if (CommentInsertfileName){
             // Read a new comment section from file.
@@ -1100,68 +903,12 @@ static void ProcessFile(const char * FileName)
         }else if (CommentInsertLiteral){
             strncpy(Comment, CommentInsertLiteral, MAX_COMMENT_SIZE);
             CommentSize = strlen(Comment);
-        }else{
-#ifdef MATTHIAS
-            char CommentZt[MAX_COMMENT_SIZE+1];
-            memcpy(CommentZt, (char *)CommentSec->Data+2, CommentSize);
-            CommentZt[CommentSize] = '\0';
-            if (ModifyDescriptComment(Comment, CommentZt)){
-                Modified = TRUE;
-                CommentSize = strlen(Comment);
-            }
-            if (EditComment)
-#else
-            memcpy(Comment, (char *)CommentSec->Data+2, CommentSize);
-#endif
-            {
-                char EditFileName[PATH_MAX+5];
-                strcpy(EditFileName, FileName);
-                strcat(EditFileName, ".txt");
+        }
+        SetImgCommentTo(Comment);
+        Modified = TRUE;
 
-                CommentSize = FileEditComment(EditFileName, Comment, CommentSize);
-            }
-        }
-
-        if (strcmp(Comment, (char *)CommentSec->Data+2)){
-            // Discard old comment section and put a new one in.
-            int size;
-            size = CommentSize+2;
-            free(CommentSec->Data);
-            CommentSec->Size = size;
-            CommentSec->Data = malloc(size);
-            CommentSec->Data[0] = (uchar)(size >> 8);
-            CommentSec->Data[1] = (uchar)(size);
-            memcpy((CommentSec->Data)+2, Comment, size-2);
-            Modified = TRUE;
-        }
-        if (!Modified){
-            printf("Comment not modified\n");
-        }
     }
 
-
-    if (CommentSavefileName){
-        Section_t * CommentSec;
-        CommentSec = FindImgSection(M_COM);
-
-        if (CommentSec != NULL){
-            char OutFileName[PATH_MAX+1];
-            FILE * CommentFile;
-
-            // Make a relative name.
-            RelativeName(OutFileName, CommentSavefileName, FileName);
-
-            CommentFile = fopen(OutFileName,"w");
-            if (CommentFile){
-                fwrite((char *)CommentSec->Data+2 ,CommentSec->Size-2, 1, CommentFile);
-                fclose(CommentFile);
-            }else{
-                ErrFatal("Could not write comment file");
-            }
-        }else{
-            printf("File '%s' contains no comment section\n",FileName);
-        }
-    }
 
     if (ExifTimeAdjust || ExifTimeSet || DateSetChars || FileTimeToExif){
        if (ImageInfo.numDateTimeTags){
@@ -1219,7 +966,10 @@ skip_unixtime:
     }
 
     if (DeleteComments){
-        if (RemoveSectionType(M_COM)) Modified = TRUE;
+        if (ImageInfo.Comments[0]){
+            SetImgCommentTo(NULL);
+            Modified = TRUE;
+        }
     }
     if (DeleteExif){
         if (RemoveSectionType(M_EXIF)) Modified = TRUE;
@@ -1336,8 +1086,7 @@ static void Usage (void)
            "  -ce        Edit comment field.  Uses environment variable 'editor' to\n"
            "             determine which editor to use.  If editor not set, uses VI\n"
            "             under Unix and notepad with windows\n"
-           "  -cs <name> Save comment section to a file\n"
-           "  -ci <name> Insert comment section from a file.  -cs and -ci use same naming\n"
+           "  -ci <name> Insert comment section from a file.\n"
            "             scheme as used by the -st option\n"
            "  -cl string Insert literal comment string\n"
            "  -zt        Trim exif header trailing zeroes (Nikon 1 wastes 30k that way)\n"
@@ -1453,16 +1202,6 @@ static void Usage (void)
            "                 jhead **/*.jpg\n"
            "                 jhead \"c:\\my photos\\**\\*.jpg\"\n"
 #endif
-
-
-#ifdef MATTHIAS
-           "\n"
-           "  -cr        Remove comment tag (my way)\n"
-           "  -ca        Add comment tag (my way)\n"
-           "  -ar        Auto resize to fit in 1024x1024, but never less than half\n"
-#endif //MATTHIAS
-
-
            );
 
     exit(EXIT_FAILURE);
@@ -1541,11 +1280,6 @@ int main (int argc, char **argv)
             DeleteUnknown = TRUE;
             DeleteXmp = TRUE;
             DoModify |= MODIFY_JPEG;
-        }else if (!strcmp(arg,"-ce")){
-            EditComment = TRUE;
-            DoModify |= MODIFY_JPEG;
-        }else if (!strcmp(arg,"-cs")){
-            CommentSavefileName = argv[++argn];
         }else if (!strcmp(arg,"-ci")){
             CommentInsertfileName = argv[++argn];
             DoModify |= MODIFY_JPEG;
@@ -1743,14 +1477,6 @@ int main (int argc, char **argv)
             DoModify |= MODIFY_ANY;
 
 #ifdef MATTHIAS
-        }else if (!strcmp(arg,"-ca")){
-            // Its a literal comment.  Add.
-            AddComment = argv[++argn];
-            DoModify |= MODIFY_JPEG;
-        }else if (!strcmp(arg,"-cr")){
-            // Its a literal comment.  Remove this keyword.
-            RemComment = argv[++argn];
-            DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-ar")){
             AutoResize = TRUE;
             ShowConcise = TRUE;
@@ -1782,13 +1508,6 @@ int main (int argc, char **argv)
     if (RegenThumbnail){
         if (ThumbSaveName || ThumbInsertName){
             printf("Error: Cannot regen and save or insert thumbnail in same run\n");
-            exit(0);
-        }
-    }
-
-    if (EditComment){
-        if (CommentSavefileName != NULL || CommentInsertfileName != NULL){
-            printf("Error: Cannot use -ce option in combination with -cs or -ci\n");
             exit(0);
         }
     }
