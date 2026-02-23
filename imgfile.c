@@ -109,7 +109,7 @@ Section_t * FindImgSection(int SectionType)
 Section_t * CreateImgSection(int SectionType, unsigned char * Data, int Size)
 {
     if (ImgTypeLoaded == TYPE_JPEG){
-        return CreateImgSection(SectionType, Data, Size);
+        return CreateJpegSection(SectionType, Data, Size);
     }else{
         ErrFatal("Error, not implemented 5\n");
         return NULL;
