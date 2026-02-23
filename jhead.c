@@ -42,6 +42,13 @@ static const char * CurrentFile;
 
 static const char * progname;   // program name for error messages
 
+#ifdef _WIN32
+    // On my windows boxes, I grab imagemagick 7 from the source.
+    #define IMAGEMAGICK_PROGNAME "magick"
+#else
+    // Upstream repo of my linuxe, even pi os 12, is imagemagick 6.9, which uses convert
+    #define IMAGEMAGICK_PROGNAME "convert"
+#endif
 //--------------------------------------------------------------------------
 // Command line options flags
 static int TrimExif = FALSE;        // Cut off exif beyond interesting data.
@@ -309,7 +316,7 @@ static int AutoResizeCmdStuff(void)
     if (scale > 0.8){
         if (ImageInfo.QualityGuess >= 93){
             // Re-compress at lower quality.
-            sprintf(CommandString, "magick &i -quality 80 &i");
+            sprintf(CommandString, IMAGEMAGICK_PROGNAME" &i -quality 80 &i");
             return TRUE;
         }
         printf("not resizing %dx%x '%s'\n",ImageInfo.Height, ImageInfo.Width, ImageInfo.FileName);
@@ -318,8 +325,8 @@ static int AutoResizeCmdStuff(void)
 
     if (scale < 0.4) scale = 0.4; // Don't scale down by too much.
 
-    sprintf(CommandString, "magick &i -resize %dx%d -quality 80 &i",(int)(ImageInfo.Width*scale+0.5),
-                                    (int)(ImageInfo.Height*scale+0.5));
+    sprintf(CommandString, IMAGEMAGICK_PROGNAME" &i -resize %dx%d -quality 80 &i",
+            (int)(ImageInfo.Width*scale+0.5), (int)(ImageInfo.Height*scale+0.5));
     return TRUE;
 }
 
@@ -821,14 +828,14 @@ static int RegenerateThumbnail(const char * FileName)
     // This command replaces the current image with the thumbnail. We ahve the image
     // loaded it RAM at this point, so we will recreate it after.
     snprintf(ThumbnailGenCommand, sizeof(ThumbnailGenCommand),
-        "magick \"%s\" -thumbnail %dx%d -quality 80 \"%s\"",
+        IMAGEMAGICK_PROGNAME" \"%s\" -thumbnail %dx%d -quality 80 \"%s\"",
         FileName, RegenThumbnail, RegenThumbnail, FileName);
 
     if (system(ThumbnailGenCommand) == 0){
         // Put the thumbnail back in the header
         return ReplaceImgThumbnail(FileName);
     }else{
-        ErrFatal("Unable to run imagemagick 'magick' command");
+        ErrFatal("Unable to run imagemagick '"IMAGEMAGICK_PROGNAME"' command");
         return FALSE;
     }
 }
@@ -1393,7 +1400,7 @@ static void Usage (void)
            "             already contain a thumbnail.\n"
            "  -rgt[size] Regenerate exif thumbnail.  Only works if image already\n"
            "             contains a thumbnail.  size specifies maximum height or width of\n"
-           "             thumbnail.  Relies on imagemagick 'magick' program to be on path\n"
+           "             thumbnail.  Relies on imagemagick '"IMAGEMAGICK_PROGNAME"' program to be on path\n"
 
            "\nROTATION TAG MANIPULATION:\n"
            "  -autorot   Invoke jpegtran to rotate images according to Exif orientation tag\n"
