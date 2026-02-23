@@ -7,15 +7,18 @@
 #define TYPE_UNKNOWN 0
 #define TYPE_JPEG    1
 #define TYPE_PNG     2
-
-
 static int ImgTypeLoaded = TYPE_UNKNOWN;
 
+// Storage for simplified info extracted from file.
+ImageInfo_t ImageInfo;
+
+
 // Helper to detect file type without advancing file pointer significantly
+// FIXME -- this is a kluge to leave othe code alone, should not be opening file twice!
 void DetectFileType(const char * FileName) {
     unsigned char Sig[8];
     FILE * f = fopen(FileName, "rb");
-    if (!f) return TYPE_UNKNOWN;
+    if (!f) return;
 
     int read = fread(Sig, 1, 8, f);
     fclose(f);

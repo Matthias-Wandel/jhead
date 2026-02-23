@@ -4,9 +4,6 @@
 //--------------------------------------------------------------------------
 #include "jhead.h"
 
-// Storage for simplified info extracted from file.
-ImageInfo_t ImageInfo;
-
 static Section_t * Sections = NULL;
 static int SectionsAllocated;
 static int SectionsRead;

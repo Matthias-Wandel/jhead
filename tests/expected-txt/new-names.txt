@@ -41,7 +41,7 @@
 "movetest/2005/digital-rebel-.jpg" 160x112
 "movetest/2005/gpsinfo-.jpg" 160x120
 "movetest/2010/canon-bigend-.jpg" 240x171
-"movetest/2020/no-exif-.jpg" 987x518
+"movetest/2026/no-exif-.jpg" 987x518
 ---Test move/rename relative path ---
-"movetest/2004/1/05igital-zoomed-.jpg" 100x75
-"movetest/2004/2/05x6340-.jpg" 60x80
+"movetest/2004/1/digital-zoomed-.jpg" 100x75
+"movetest/2004/2/dx6340-.jpg" 60x80
