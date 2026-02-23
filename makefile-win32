@@ -16,7 +16,9 @@ obj:
 	mkdir obj
 
 OBJECTS_JHEAD = $(OBJ)\jhead.obj \
+                $(OBJ)\imgfile.obj \
                 $(OBJ)\jpgfile.obj \
+                $(OBJ)\pngfile.obj \
                 $(OBJ)\jpgqguess.obj \
                 $(OBJ)\myglob.obj \
                 $(OBJ)\paths.obj \

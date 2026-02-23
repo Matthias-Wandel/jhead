@@ -352,7 +352,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 //--------------------------------------------------------------------------
 // Discard read data.
 //--------------------------------------------------------------------------
-void DiscardData(void)
+void DiscardJpegData(void)
 {
     int a;
 
@@ -396,7 +396,7 @@ int ReadJpegFile(const char * FileName, ReadMode_t ReadMode)
     fclose(infile);
 
     if (ret == FALSE){
-        DiscardData();
+        DiscardJpegData();
     }
     return ret;
 }
@@ -405,7 +405,7 @@ int ReadJpegFile(const char * FileName, ReadMode_t ReadMode)
 //--------------------------------------------------------------------------
 // Replace or remove exif thumbnail
 //--------------------------------------------------------------------------
-int SaveThumbnail(char * ThumbFileName)
+int SaveJpegThumbnail(char * ThumbFileName)
 {
     FILE * ThumbnailFile;
 
@@ -425,7 +425,7 @@ int SaveThumbnail(char * ThumbFileName)
     if (ThumbnailFile){
         uchar * ThumbnailPointer;
         Section_t * ExifSection;
-        ExifSection = FindSection(M_EXIF);
+        ExifSection = FindJpegSection(M_EXIF);
         ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
 
         fwrite(ThumbnailPointer, ImageInfo.ThumbnailSize ,1, ThumbnailFile);
@@ -440,7 +440,7 @@ int SaveThumbnail(char * ThumbFileName)
 //--------------------------------------------------------------------------
 // Replace or remove exif thumbnail
 //--------------------------------------------------------------------------
-int ReplaceThumbnail(const char * ThumbFileName)
+int ReplaceJpegThumbnail(const char * ThumbFileName)
 {
     FILE * ThumbnailFile;
     int ThumbLen, NewExifSize;
@@ -487,7 +487,7 @@ int ReplaceThumbnail(const char * ThumbFileName)
         ThumbnailFile = NULL;
     }
 
-    ExifSection = FindSection(M_EXIF);
+    ExifSection = FindJpegSection(M_EXIF);
 
     NewExifSize = ImageInfo.ThumbnailOffset+8+ThumbLen;
     ExifSection->Data = (uchar *)realloc(ExifSection->Data, NewExifSize);
@@ -516,7 +516,7 @@ int ReplaceThumbnail(const char * ThumbFileName)
 //--------------------------------------------------------------------------
 // Discard everything but the exif and comment sections.
 //--------------------------------------------------------------------------
-void DiscardAllButExif(void)
+void DiscardAllJpegButExif(void)
 {
     Section_t ExifKeeper;
     Section_t CommentKeeper;
@@ -643,7 +643,7 @@ void WriteJpegFile(const char * FileName)
 //--------------------------------------------------------------------------
 // Check if image has exif header.
 //--------------------------------------------------------------------------
-Section_t * FindSection(int SectionType)
+Section_t * FindJpegSection(int SectionType)
 {
     int a;
 
@@ -681,7 +681,7 @@ int RemoveSectionType(int SectionType)
 //--------------------------------------------------------------------------
 // Remove sections not part of image and not exif or comment sections.
 //--------------------------------------------------------------------------
-int RemoveUnknownSections(void)
+int RemoveUnknownJpegSections(void)
 {
     int a;
     int Modified = FALSE;
@@ -730,7 +730,7 @@ int RemoveUnknownSections(void)
 // Add a section (assume it doesn't already exist) - used for
 // adding comment sections and exif sections
 //--------------------------------------------------------------------------
-Section_t * CreateSection(int SectionType, unsigned char * Data, int Size)
+Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int Size)
 {
     Section_t * NewSection;
     int a;
@@ -770,7 +770,7 @@ Section_t * CreateSection(int SectionType, unsigned char * Data, int Size)
 //--------------------------------------------------------------------------
 // Initialisation.
 //--------------------------------------------------------------------------
-void ResetJpgfile(void)
+void ResetJpegFile(void)
 {
     if (Sections == NULL){
         Sections = (Section_t *)malloc(sizeof(Section_t)*5);

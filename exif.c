@@ -1225,7 +1225,7 @@ void create_EXIF(void)
         }
         memcpy(NewBuf, Buffer, DataWriteIndex);
 
-        CreateSection(M_EXIF, NewBuf, DataWriteIndex);
+        CreateImgSection(M_EXIF, NewBuf, DataWriteIndex);
 
         // Re-parse new exif section, now that its in place
         // otherwise, we risk touching data that has already been freed.

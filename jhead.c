@@ -490,7 +490,7 @@ static int CheckFileSkip(void)
 
     if (ExifOnly){
         // Filtering by EXIF only.  Skip all files that have no Exif.
-        if (FindSection(M_EXIF) == NULL){
+        if (FindImgExifSection() == NULL){
             return TRUE;
         }
     }
@@ -774,7 +774,7 @@ static int DoAutoRotate(const char * FileName)
                 strcat(ThumbTempName_in, ".thi");
                 strcpy(ThumbTempName_out, FileName);
                 strcat(ThumbTempName_out, ".tho");
-                SaveThumbnail(ThumbTempName_in);
+                SaveImgThumbnail(ThumbTempName_in);
                 sprintf(RotateCommand,"jpegtran -copy all -trim -%s -outfile \"%s\" \"%s\"",
                     Argument, ThumbTempName_out, ThumbTempName_in);
 
@@ -788,7 +788,7 @@ static int DoAutoRotate(const char * FileName)
 
                 if (system(RotateCommand) == 0){
                     // Put the thumbnail back in the header
-                    ReplaceThumbnail(ThumbTempName_out);
+                    ReplaceImgThumbnail(ThumbTempName_out);
                 }
 
                 unlink(ThumbTempName_in);
@@ -826,7 +826,7 @@ static int RegenerateThumbnail(const char * FileName)
 
     if (system(ThumbnailGenCommand) == 0){
         // Put the thumbnail back in the header
-        return ReplaceThumbnail(FileName);
+        return ReplaceImgThumbnail(FileName);
     }else{
         ErrFatal("Unable to run imagemagick 'magick' command");
         return FALSE;
@@ -860,7 +860,7 @@ static void ProcessFile(const char * FileName)
     CurrentFile = FileName;
     FilesMatched = 1;
 
-    ResetJpgfile();
+    ResetImgfile();
     Clear_EXIF();
 
     // Start with an empty image information structure.
@@ -894,13 +894,13 @@ static void ProcessFile(const char * FileName)
         // Applying a command is special - the headers from the file have to be
         // pre-read, then the command executed, and then the image part of the file read.
 
-        if (!ReadJpegFile(FileName, READ_METADATA)) return;
+        if (!ReadImgFile(FileName, READ_METADATA)) return;
 
         #ifdef MATTHIAS
             if (AutoResize){
                 // Automatic resize computation - to customize for each run...
                 if (AutoResizeCmdStuff() == 0){
-                    DiscardData();
+                    DiscardImgData();
                     return;
                 }
             }
@@ -908,7 +908,7 @@ static void ProcessFile(const char * FileName)
 
 
         if (CheckFileSkip()){
-            DiscardData();
+            DiscardImgData();
             return;
         }
 
@@ -936,7 +936,7 @@ static void ProcessFile(const char * FileName)
         char RelativeExifName[PATH_MAX+1];
         // Make a relative name.
         RelativeName(RelativeExifName, ExifXferScrFile, FileName);
-        if(!ReadJpegFile(RelativeExifName, READ_METADATA)) return;
+        if(!ReadImgFile(RelativeExifName, READ_METADATA)) return;
 
         DiscardAllButExif();    // Don't re-read exif section again on next read.
 
@@ -948,10 +948,10 @@ static void ProcessFile(const char * FileName)
         ReadMode |= READ_IMAGE;
     }
 
-    if (!ReadJpegFile(FileName, ReadMode)) return;
+    if (!ReadImgFile(FileName, ReadMode)) return;
 
     if (CheckFileSkip()){
-        DiscardData();
+        DiscardImgData();
         return;
     }
 
@@ -961,7 +961,7 @@ static void ProcessFile(const char * FileName)
             int NumRedundant, WasRedundant;
             unsigned char * StartRedundant;
             //printf("Exif: Thumbnail %d - %d\n",ImageInfo.ThumbnailOffset, ImageInfo.ThumbnailOffset+ImageInfo.ThumbnailSize);
-            ExifSection = FindSection(M_EXIF);
+            ExifSection = FindImgExifSection();
 
             StartRedundant = ExifSection->Data + 8 + ImageInfo.ThumbnailOffset+ImageInfo.ThumbnailSize;
             WasRedundant = NumRedundant = (ExifSection->Size) - (ImageInfo.ThumbnailOffset + ImageInfo.ThumbnailSize + 8);
@@ -995,7 +995,7 @@ static void ProcessFile(const char * FileName)
             {
                 // if IPTC section is present, show it also.
                 Section_t * IptcSection;
-                IptcSection = FindSection(M_IPTC);
+                IptcSection = FindImgSection(M_IPTC);
 
                 if (IptcSection){
                     show_IPTC(IptcSection->Data, IptcSection->Size);
@@ -1010,7 +1010,7 @@ static void ProcessFile(const char * FileName)
         // Make a relative name.
         RelativeName(OutFileName, ThumbSaveName, FileName);
 
-        if (SaveThumbnail(OutFileName)){
+        if (SaveImgThumbnail(OutFileName)){
             printf("Created: '%s'\n", OutFileName);
         }
     }
@@ -1032,12 +1032,12 @@ static void ProcessFile(const char * FileName)
         // Make a relative name.
         RelativeName(ThumbFileName, ThumbInsertName, FileName);
 
-        if (ReplaceThumbnail(ThumbFileName)){
+        if (ReplaceImgThumbnail(ThumbFileName)){
             Modified = TRUE;
         }
     }else if (TrimExif){
         // Deleting thumbnail is just replacing it with a null thumbnail.
-        if (ReplaceThumbnail(NULL)){
+        if (ReplaceImgThumbnail(NULL)){
             Modified = TRUE;
         }
     }
@@ -1052,7 +1052,7 @@ static void ProcessFile(const char * FileName)
         char Comment[MAX_COMMENT_SIZE+1];
         int CommentSize;
 
-        CommentSec = FindSection(M_COM);
+        CommentSec = FindImgSection(M_COM);
 
         if (CommentSec == NULL){
             unsigned char * DummyData;
@@ -1061,7 +1061,7 @@ static void ProcessFile(const char * FileName)
             DummyData[0] = 0;
             DummyData[1] = 2;
             DummyData[2] = 0;
-            CommentSec = CreateSection(M_COM, DummyData, 2);
+            CommentSec = CreateImgSection(M_COM, DummyData, 2);
         }
 
         CommentSize = CommentSec->Size-2;
@@ -1133,7 +1133,7 @@ static void ProcessFile(const char * FileName)
 
     if (CommentSavefileName){
         Section_t * CommentSec;
-        CommentSec = FindSection(M_COM);
+        CommentSec = FindImgSection(M_COM);
 
         if (CommentSec != NULL){
             char OutFileName[PATH_MAX+1];
@@ -1194,7 +1194,7 @@ static void ProcessFile(const char * FileName)
                 tm.tm_hour, tm.tm_min, tm.tm_sec);
 
 skip_unixtime:
-            ExifSection = FindSection(M_EXIF);
+            ExifSection = FindImgExifSection();
 
             for (a = 0; a < ImageInfo.numDateTimeTags; a++) {
                 uchar * Pointer;
@@ -1222,7 +1222,7 @@ skip_unixtime:
         if (RemoveSectionType(M_XMP)) Modified = TRUE;
     }
     if (DeleteUnknown){
-        if (RemoveUnknownSections()) Modified = TRUE;
+        if (RemoveUnknownImgSections()) Modified = TRUE;
     }
 
 
@@ -1292,11 +1292,11 @@ skip_unixtime:
     if (RenameToDate){
         DoFileRenaming(FileName);
     }
-    DiscardData();
+    DiscardImgData();
     return;
 badtime:
     printf("Error: Time '%s': cannot convert to Unix time\n",ImageInfo.DateTime);
-    DiscardData();
+    DiscardImgData();
 }
 
 //--------------------------------------------------------------------------

@@ -216,19 +216,45 @@ void SlashToNative(char * Path);
 int EnsurePathExists(const char * FileName);
 void CatPath(char * BasePath, const char * FilePath);
 
-// Prototypes from jpgfile.c
-int ReadJpegSections (FILE * infile, ReadMode_t ReadMode);
-void DiscardData(void);
+// Thunked functions
+int  ReadImgFile(const char * FileName, ReadMode_t ReadMode);
+void WriteImgFile(const char * FileName);
+void ResetImgfile(void);
 void DiscardAllButExif(void);
-int ReadJpegFile(const char * FileName, ReadMode_t ReadMode);
-int ReplaceThumbnail(const char * ThumbFileName);
-int SaveThumbnail(char * ThumbFileName);
+void DiscardImgData(void);
+int ReplaceImgThumbnail(const char * ThumbFileName);
+int SaveImgThumbnail(char * ThumbFileName);
 int RemoveSectionType(int SectionType);
-int RemoveUnknownSections(void);
+int RemoveUnknownImgSections(void);
+Section_t * FindImgExifSection();
+Section_t * FindImgSection(int SectionType);
+Section_t * CreateImgSection(int SectionType, unsigned char * Data, int size);
+
+// Jpeg handling functions
+int  ReadJpegFile(const char * FileName, ReadMode_t ReadMode);
 void WriteJpegFile(const char * FileName);
-Section_t * FindSection(int SectionType);
-Section_t * CreateSection(int SectionType, unsigned char * Data, int size);
-void ResetJpgfile(void);
+void ResetJpegFile(void);
+void DiscardAllJpegButExif(void);
+void DiscardJpegData(void);
+int ReplaceJpegThumbnail(const char * ThumbFileName);
+int RemoveJpegSectionType(int SectionType);
+int RemoveUnknownJpegSections(void);
+int SaveJpegThumbnail(char * ThumbFileName);
+Section_t * FindJpegSection(int SectionType);
+Section_t * FindJpegExifSection();
+Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int size);
+
+// Png handling functions
+int  ReadPngFile(const char * FileName, ReadMode_t ReadMode);
+void WritePngFile(const char * FileName);
+void ResetPngFile(void);
+void DiscardAllPngButExif(void);
+void DiscardPngData(void);
+int ReplacePngThumbnail(const char * ThumbFileName);
+int RemovePngSectionType(int SectionType);
+int RemoveUnknownPngSections(void);
+Section_t * FindPngExifSection();
+
 
 // Prototypes from jpgqguess.c
 void process_DQT (const uchar * Data, int length);
