@@ -851,8 +851,8 @@ static void ProcessFile(const char * FileName)
     }
 
     if (CreateExifSection){
-        // Make a new minimal exif section
-        create_EXIF();
+        // Make a new minimal exif section, replacing the old one
+        CreateImgExif();
         Modified = TRUE;
     }
 
@@ -973,13 +973,13 @@ skip_unixtime:
         }
     }
     if (DeleteExif){
-        if (RemoveSectionType(M_EXIF)) Modified = TRUE;
+        if (RemoveImgExif()) Modified = TRUE;
     }
     if (DeleteIptc){
-        if (RemoveSectionType(M_IPTC)) Modified = TRUE;
+        if (RemoveImgSectionByType(M_IPTC)) Modified = TRUE;
     }
     if (DeleteXmp){
-        if (RemoveSectionType(M_XMP)) Modified = TRUE;
+        if (RemoveImgSectionByType(M_XMP)) Modified = TRUE;
     }
     if (DeleteUnknown){
         if (RemoveUnknownImgSections()) Modified = TRUE;

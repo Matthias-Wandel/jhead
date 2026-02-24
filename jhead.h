@@ -173,7 +173,8 @@ int Get16u(void * Short);
 unsigned Get32u(void * Long);
 int Get32s(void * Long);
 void Put32u(void * Value, unsigned PutValue);
-void create_EXIF(void);
+int CreateMinimalExif(char * Buffer);
+int RemoveImgSectionByType(int SectionType);
 
 //--------------------------------------------------------------------------
 // Exif format descriptor stuff
@@ -226,6 +227,9 @@ int ReplaceImgThumbnail(const char * ThumbFileName);
 int SaveImgThumbnail(char * ThumbFileName);
 int RemoveSectionType(int SectionType);
 int RemoveUnknownImgSections(void);
+int RemoveImgExif(void);
+void CreateImgExif(void);
+
 void SetImgCommentTo(char * NewComment);
 Section_t * FindImgExifSection();
 Section_t * FindImgSection(int SectionType);
@@ -240,7 +244,7 @@ void ResetJpegFile(void);
 void DiscardAllJpegButExif(void);
 void DiscardJpegData(void);
 int ReplaceJpegThumbnail(const char * ThumbFileName);
-int RemoveJpegSectionType(int SectionType);
+int RemoveJpegSectionByType(int SectionType);
 int RemoveUnknownJpegSections(void);
 int SaveJpegThumbnail(char * ThumbFileName);
 void SetJpegCommentTo(char * NewComment);
@@ -255,10 +259,13 @@ void ResetPngFile(void);
 void DiscardAllPngButExif(void);
 void DiscardPngData(void);
 int ReplacePngThumbnail(const char * ThumbFileName);
-int RemovePngSectionType(int SectionType);
+int RemovePngSectionByType(int SectionType);
 int RemoveUnknownPngSections(void);
 void SetPngCommentTo(char * NewComment);
+void CreateMinimalPngExif(void);
+Section_t * FindPngSection(int SectionType);
 Section_t * FindPngExifSection();
+Section_t * CreatePngSection(int SectionType, unsigned char * Data, int Size);
 
 
 // Prototypes from jpgqguess.c

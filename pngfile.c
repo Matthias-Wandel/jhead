@@ -76,7 +76,7 @@ void DiscardPngData(void)
     HaveAll = 0;
 }
 
-Section_t * FindSection(int SectionType)
+Section_t * FindPngSection(int SectionType)
 {
     for (int a=0; a<SectionsRead; a++) {
         if (Sections[a].Type == SectionType) return &Sections[a];
@@ -84,7 +84,7 @@ Section_t * FindSection(int SectionType)
     return NULL;
 }
 
-int RemovePngSectionType(int SectionType)
+int RemovePngSectionByType(int SectionType)
 {
     printf("Remove section type %d\n",SectionType);
 
@@ -101,6 +101,27 @@ int RemovePngSectionType(int SectionType)
         }
     }
     return retval;
+}
+
+//--------------------------------------------------------------------------
+// Create a minimal Exif header for PNG
+//--------------------------------------------------------------------------
+void CreateMinimalPngExif(void)
+{
+    unsigned char ExifData[256];
+    unsigned int ExifLen;
+
+    // Create the minimal Exif header using existing exif.c logic.
+    ExifLen = CreateMinimalExif(ExifData);
+
+    // PNG eXIf chunks start directly at the TIFF header (II* or MM*).
+    // So we skip the first 6 bytes ("Exif\0\0").
+    unsigned char * PngExifData = malloc(ExifLen);
+    memcpy(PngExifData, ExifData, ExifLen);
+
+    // Insert into sections array.
+    // Your CreatePngSection logic will ensure it's at index 1 (after IHDR).
+    CreatePngSection(0x65584966, PngExifData, ExifLen);
 }
 
 //--------------------------------------------------------------------------
@@ -204,7 +225,7 @@ void WritePngFile(const char * FileName)
 //--------------------------------------------------------------------------
 // Adds a PNG section, after initial seciton and before the image data.
 //--------------------------------------------------------------------------
-static Section_t * CreatePngSection(int SectionType, unsigned char * Data, int Size)
+Section_t * CreatePngSection(int SectionType, unsigned char * Data, int Size)
 {
     CheckSectionsAllocated();
 

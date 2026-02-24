@@ -607,7 +607,7 @@ Section_t * FindJpegSection(int SectionType)
 //--------------------------------------------------------------------------
 // Remove a certain type of section.
 //--------------------------------------------------------------------------
-int RemoveSectionType(int SectionType)
+int RemoveJpegSectionByType(int SectionType)
 {
     int a;
     int retval = FALSE;
@@ -715,6 +715,38 @@ Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int Size)
 }
 
 
+//--------------------------------------------------------------------------
+// Make a new minmial exif header (replacing existing one if there is one)
+//--------------------------------------------------------------------------
+void CreateMinimalJpegExif(void)
+{
+    char Buffer[256];
+    memcpy(Buffer+2, "Exif\0\0",6);
+    
+    int len = CreateMinimalExif(Buffer+8); // create the actual Exif structure
+    len += 8; // For the length bytes and 'Exif\0\0'
+
+    Buffer[0] = (unsigned char)(len >> 8);
+    Buffer[1] = (unsigned char)len;
+
+    // Remove old exif section, if there was one.
+    RemoveJpegSectionByType(M_EXIF);
+    
+    // Sections need malloced buffers, so do that now, especially because
+    // we now know how big it needs to be allocated.
+    unsigned char * NewBuf = malloc(len);
+    if (NewBuf == NULL){
+        ErrFatal("Could not allocate memory");
+    }
+    memcpy(NewBuf, Buffer, len);
+
+    CreateImgSection(M_EXIF, NewBuf, len);
+
+    // Re-parse new exif section, now that its in place
+    // otherwise, we risk touching data that has already been freed.
+    process_EXIF(NewBuf, len);
+}
+
 
 //--------------------------------------------------------------------------
 // Set or replace the comment section (M_COM)
@@ -723,7 +755,7 @@ void SetJpegCommentTo(char * NewCommentStr)
 {
     if (NewCommentStr == NULL){
         // Actually want to remove comment section.
-        RemoveSectionType(M_COM);
+        RemoveJpegSectionByType(M_COM);
         return;
     }
 
@@ -731,17 +763,12 @@ void SetJpegCommentTo(char * NewCommentStr)
     int CommentSize = strlen(NewCommentStr);
     CommentSec = FindImgSection(M_COM);
 
-printf("SectionsRead = %d\n",SectionsRead);
     if (CommentSec){
-printf("have existing comment section\n");
         // Discard the old data section, as length will likey be different.
         free(CommentSec->Data);
     }else{
-printf("make new comment section\n");
-        unsigned char * DummyData;
         CommentSec = CreateImgSection(M_COM, NULL,2);
     }
-printf("SectionsRead = %d\n",SectionsRead);
     // Discard old comment section and put a new one in.
     int size;
     size = CommentSize+2;

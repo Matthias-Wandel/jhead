@@ -1023,6 +1023,12 @@ int process_EXIF (unsigned char * ExifSection, int length)
         static uchar ExifHeader[] = "Exif\0\0";
         if (memcmp(ExifSection+2, ExifHeader,6)){
             ErrNonfatal("Incorrect Exif header",0,0);
+            printf("First 10 bytes:");
+            for (int a=0;a<10;a++){
+                printf("'%c' ",ExifHeader[a]);
+            }
+            printf("\n");
+
             return 0;
         }
     }
@@ -1095,13 +1101,12 @@ int process_EXIF (unsigned char * ExifSection, int length)
 
 
 //--------------------------------------------------------------------------
-// Create minimal exif header - just date and thumbnail pointers,
-// so that date and thumbnail may be filled later.
+// Create minimal exif header - just date and thumbnail pointers so that
+// date and thumbnail may be filled later.
+// Just the Exif part -- still needs to be framed for Jpeg or PNG
 //--------------------------------------------------------------------------
-void create_EXIF(void)
+int CreateMinimalExif(char * Buffer)
 {
-    char Buffer[256];
-
     unsigned short NumEntries;
     int DataWriteIndex;
     int DateIndex;
@@ -1110,12 +1115,13 @@ void create_EXIF(void)
 
     MotorolaOrder = 0;
 
-    memcpy(Buffer+2, "Exif\0\0II",8);
-    Put16u(Buffer+10, 0x2a);
+    //memcpy(Buffer+2, "Exif\0\0II",8);
 
-    DataWriteIndex = 16;
-    Put32u(Buffer+12, DataWriteIndex-8); // first IFD offset.  Means start 16 bytes in.
+    memcpy(Buffer, "II",2); // Intel order.
+    Put16u(Buffer+2, 0x2a);
 
+    DataWriteIndex = 8;
+    Put32u(Buffer+4, DataWriteIndex); // first IFD offset.
     {
         DirIndex = DataWriteIndex;
         NumEntries = 2;
@@ -1130,7 +1136,7 @@ void create_EXIF(void)
             Put16u(Buffer+DirIndex, TAG_DATETIME);         // Tag
             Put16u(Buffer+DirIndex + 2, FMT_STRING);       // Format
             Put32u(Buffer+DirIndex + 4, 20);               // Components
-            Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
+            Put32u(Buffer+DirIndex + 8, DataWriteIndex); // Pointer or value.
             DirIndex += 12;
 
             DateIndex = DataWriteIndex;
@@ -1148,7 +1154,7 @@ void create_EXIF(void)
             Put16u(Buffer+DirIndex, TAG_EXIF_OFFSET);      // Tag
             Put16u(Buffer+DirIndex + 2, FMT_ULONG);        // Format
             Put32u(Buffer+DirIndex + 4, 1);                // Components
-            Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
+            Put32u(Buffer+DirIndex + 8, DataWriteIndex); // Pointer or value.
             DirIndex += 12;
         }
 
@@ -1168,7 +1174,7 @@ void create_EXIF(void)
         Put16u(Buffer+DirIndex, TAG_DATETIME_ORIGINAL);         // Tag
         Put16u(Buffer+DirIndex + 2, FMT_STRING);       // Format
         Put32u(Buffer+DirIndex + 4, 20);               // Components
-        Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
+        Put32u(Buffer+DirIndex + 8, DataWriteIndex); // Pointer or value.
         DirIndex += 12;
 
         memcpy(Buffer+DataWriteIndex, Buffer+DateIndex, 20);
@@ -1180,7 +1186,7 @@ void create_EXIF(void)
 
     {
         //Continuation which links to this directory;
-        Put32u(Buffer+DirContinuation, DataWriteIndex-8);
+        Put32u(Buffer+DirContinuation, DataWriteIndex);
         DirIndex = DataWriteIndex;
         NumEntries = 2;
         DataWriteIndex += 2 + NumEntries*12 + 4;
@@ -1192,7 +1198,7 @@ void create_EXIF(void)
             Put16u(Buffer+DirIndex, TAG_THUMBNAIL_OFFSET);         // Tag
             Put16u(Buffer+DirIndex + 2, FMT_ULONG);       // Format
             Put32u(Buffer+DirIndex + 4, 1);               // Components
-            Put32u(Buffer+DirIndex + 8, DataWriteIndex-8); // Pointer or value.
+            Put32u(Buffer+DirIndex + 8, DataWriteIndex); // Pointer or value.
             DirIndex += 12;
         }
 
@@ -1208,29 +1214,8 @@ void create_EXIF(void)
         // End of directory - contains optional link to continued directory.
         Put32u(Buffer+DirIndex, 0);
     }
+    return DataWriteIndex;
 
-
-    Buffer[0] = (unsigned char)(DataWriteIndex >> 8);
-    Buffer[1] = (unsigned char)DataWriteIndex;
-
-    // Remove old exif section, if there was one.
-    RemoveSectionType(M_EXIF);
-
-    {
-        // Sections need malloced buffers, so do that now, especially because
-        // we now know how big it needs to be allocated.
-        unsigned char * NewBuf = malloc(DataWriteIndex);
-        if (NewBuf == NULL){
-            ErrFatal("Could not allocate memory");
-        }
-        memcpy(NewBuf, Buffer, DataWriteIndex);
-
-        CreateImgSection(M_EXIF, NewBuf, DataWriteIndex);
-
-        // Re-parse new exif section, now that its in place
-        // otherwise, we risk touching data that has already been freed.
-        process_EXIF(NewBuf, DataWriteIndex);
-    }
 }
 
 //--------------------------------------------------------------------------

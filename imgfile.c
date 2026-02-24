@@ -118,6 +118,20 @@ int ReplaceImgThumbnail(const char * ThumbFileName)
     }
 }
 
+//--------------------------------------------------------------------------
+// Remove a certain type of section.
+//--------------------------------------------------------------------------
+int RemoveImgSectionByType(int SectionType)
+{
+    if (ImgTypeLoaded == TYPE_JPEG){
+        return RemoveJpegSectionByType(SectionType);
+    }else{
+        ErrFatal("Not implemented 1.5");
+        return 0;
+    }
+}
+
+
 int RemoveUnknownImgSections(void)
 {
     if (ImgTypeLoaded == TYPE_JPEG){
@@ -135,6 +149,31 @@ Section_t * FindImgExifSection()
     ErrFatal("not implemented 3\n");
     return FALSE;
 }
+
+//--------------------------------------------------------------------------
+// Remove Exif section from the image
+//--------------------------------------------------------------------------
+int RemoveImgExif(void)
+{
+    if (ImgTypeLoaded == TYPE_JPEG) {
+        return RemoveJpegSectionByType(M_EXIF);
+    } else if (ImgTypeLoaded == TYPE_PNG) {
+        return RemovePngSectionByType(0x65584966); // 'eXIf'
+    }
+}
+
+//--------------------------------------------------------------------------
+// Create a minimal Exif header
+//--------------------------------------------------------------------------
+void CreateImgExif(void)
+{
+    if (ImgTypeLoaded == TYPE_JPEG) {
+        CreateMinimalJpegExif();
+    } else if (ImgTypeLoaded == TYPE_PNG) {
+        CreateMinimalPngExif();
+    }
+}
+
 
 void SetImgCommentTo(char * NewComment)
 {
