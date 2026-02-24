@@ -121,7 +121,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         unsigned int ChunkLen = Get32png(LenRaw);
         int ChunkTypeInt = (TypeRaw[0] << 24) | (TypeRaw[1] << 16) | (TypeRaw[2] << 8) | TypeRaw[3];
 
-printf("PNG Chunk type '%.4s' %08x length %d\n",TypeRaw, ChunkTypeInt, ChunkLen);
+        //printf("PNG Chunk type '%.4s' %08x length %d\n",TypeRaw, ChunkTypeInt, ChunkLen);
 
         CheckSectionsAllocated();
         uchar * Data = (uchar *)malloc(ChunkLen + 20);
@@ -168,6 +168,8 @@ int ReadPngFile(FILE * infile, ReadMode_t ReadMode)
     return ret;
 }
 
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 void WritePngFile(const char * FileName)
 {
     FILE * outfile = fopen(FileName, "wb");
@@ -199,7 +201,99 @@ void WritePngFile(const char * FileName)
     fclose(outfile);
 }
 
+//--------------------------------------------------------------------------
+// Adds a PNG section, after initial seciton and before the image data.
+//--------------------------------------------------------------------------
+static Section_t * CreatePngSection(int SectionType, unsigned char * Data, int Size)
+{
+    CheckSectionsAllocated();
 
+    int NewIndex = 1; // First section needs to stay at first position.
+
+    // Make room for the new section
+    for (int a = SectionsRead; a > NewIndex; a--) {
+        Sections[a] = Sections[a-1];
+    }
+    SectionsRead++;
+
+    Sections[NewIndex].Type = SectionType;
+    Sections[NewIndex].Size = Size;
+    Sections[NewIndex].Data = Data;
+
+    return &Sections[NewIndex];
+
+}
+
+//--------------------------------------------------------------------------
+// Remove a PNG section by its pointer.
+//--------------------------------------------------------------------------
+static void RemovePngSection(Section_t * Section)
+{
+    int a;
+    int Index = Section - Sections;
+
+    if (Index < 0 || Index >= SectionsRead) {
+        ErrFatal("Invalid section pointer for removal");
+    }
+
+    free(Sections[Index].Data);
+
+    // Shift the remaining sections down to fill the gap
+    for (a = Index; a < SectionsRead-1; a++) {
+        Sections[a] = Sections[a+1];
+    }
+    SectionsRead -= 1;
+}
+
+//--------------------------------------------------------------------------
+// Set PNG comment (tEXt chunk with "Description" keyword)
+//--------------------------------------------------------------------------
+void SetPngCommentTo(char * NewCommentStr)
+{
+    Section_t * CommentSec = NULL;
+    int a;
+
+    // Look for an existing tEXt chunk that starts with "Description"
+    for (a=0; a<SectionsRead; a++) {
+        if (Sections[a].Type == 0x74455874) { // 'tEXt'
+            if (strncmp((char*)Sections[a].Data, "Comment", 8) == 0) {
+                CommentSec = &Sections[a];
+                break;
+            }
+        }
+    }
+
+    if (NewCommentStr == NULL) {
+        // Remove the section if it exists
+        if (CommentSec) {
+            RemovePngSection(CommentSec); // Use your existing removal logic
+        }
+        return;
+    }
+
+    // Prepare the data: "Comment\0CommentText"
+    int CommentLen = strlen(NewCommentStr);
+    int KeyLen = 8; // "Comment" + null terminator
+    int TotalSize = KeyLen + CommentLen;
+
+    if (CommentSec) {
+        free(CommentSec->Data);
+    } else {
+        // Create a new 'tEXt' section.
+        // In PNG, metadata chunks should ideally come after IHDR.
+        CommentSec = CreatePngSection(0x74455874, NULL, TotalSize);
+    }
+
+    CommentSec->Size = TotalSize;
+    CommentSec->Data = malloc(TotalSize);
+    memcpy(CommentSec->Data, "Comment", 8);
+    memcpy(CommentSec->Data + 8, NewCommentStr, CommentLen);
+}
+
+
+//--------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------
 void DiscardAllPngButExif(void)
 {
     // Simplified version: keep only IHDR, eXIf, and IEND
@@ -208,12 +302,4 @@ void DiscardAllPngButExif(void)
              // Logic to remove... for testing just skip
         }
     }
-}
-
-Section_t * CreatePngSection(int SectionType, unsigned char * Data, int Size) {
-    CheckSectionsAllocated();
-    Sections[SectionsRead].Type = SectionType;
-    Sections[SectionsRead].Size = Size;
-    Sections[SectionsRead].Data = Data;
-    return &Sections[SectionsRead++];
 }

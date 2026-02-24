@@ -138,12 +138,14 @@ Section_t * FindImgExifSection()
 
 void SetImgCommentTo(char * NewComment)
 {
-printf("SetImgComment to '%s'\n",NewComment);
-    if (ImgTypeLoaded == TYPE_JPEG) return SetJpegCommentTo(NewComment);
-    ErrFatal("not implemented 2.5");
-    //if (ImgTypeLoaded == TYPE_PNG) SetPngCommentTo(NewComment);
+    if (ImgTypeLoaded == TYPE_JPEG) {
+        SetJpegCommentTo(NewComment);
+    } else if (ImgTypeLoaded == TYPE_PNG) {
+        SetPngCommentTo(NewComment);
+    } else {
+        ErrFatal("No image loaded to set comment");
+    }
 }
-
 
 Section_t * FindImgSection(int SectionType)
 {
@@ -159,6 +161,7 @@ Section_t * FindImgSection(int SectionType)
         return NULL;
     }
 }
+
 Section_t * CreateImgSection(int SectionType, unsigned char * Data, int Size)
 {
     if (ImgTypeLoaded == TYPE_JPEG){

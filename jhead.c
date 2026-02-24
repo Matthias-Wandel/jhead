@@ -223,11 +223,13 @@ static void DoCommand(const char * FileName, int ShowIt)
     memcpy(TempName, FileName, a);
     strcpy(TempName+a, "XXXXXX");
 
-
+#ifdef _WIN32
+    mktemp(TempName);
+#else
     int fd = mkstemp(TempName);
     if (fd == -1) ErrFatal("Cannot find available temporary file name");
     close(fd);
-
+#endif
 
     // Build the exec string.  &i and &o in the exec string get replaced by input and output files.
     for (a=0;;a++){
@@ -876,8 +878,7 @@ static void ProcessFile(const char * FileName)
     }
 
     if (CommentInsertfileName || CommentInsertLiteral){
-
-printf("Current comment:'%s'\n",ImageInfo.Comments);
+        //printf("Current comment:'%s'\n",ImageInfo.Comments);
         
         char Comment[MAX_COMMENT_SIZE+1];
         int CommentSize;
@@ -1001,7 +1002,7 @@ skip_unixtime:
         rename(FileName, BackupName);
 
         // Write the new file.
-        WriteJpegFile(FileName);
+        WriteImgFile(FileName);
 
         // Copy the access rights from original file
         if (stat(BackupName, &buf) == 0){
