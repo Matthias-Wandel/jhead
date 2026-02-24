@@ -174,7 +174,7 @@ unsigned Get32u(void * Long);
 int Get32s(void * Long);
 void Put32u(void * Value, unsigned PutValue);
 int CreateMinimalExif(char * Buffer);
-int RemoveImgSectionByType(int SectionType);
+int ExifBytesActuallyUsed(uchar * ExifData, unsigned Size);
 
 //--------------------------------------------------------------------------
 // Exif format descriptor stuff
@@ -217,7 +217,7 @@ void SlashToNative(char * Path);
 int EnsurePathExists(const char * FileName);
 void CatPath(char * BasePath, const char * FilePath);
 
-// Thunked functions
+// Functions that operate on Jpeg or PNG
 int  ReadImgFile(const char * FileName, ReadMode_t ReadMode);
 void WriteImgFile(const char * FileName);
 void ResetImgfile(void);
@@ -229,13 +229,13 @@ int RemoveSectionType(int SectionType);
 int RemoveUnknownImgSections(void);
 int RemoveImgExif(void);
 void CreateImgExif(void);
-
+int RemoveImgSectionByType(int SectionType);
 void SetImgCommentTo(char * NewComment);
-Section_t * FindImgExifSection();
+uchar * GetImgExifSectionData(unsigned int *Size);
 Section_t * FindImgSection(int SectionType);
 Section_t * CreateImgSection(int SectionType, unsigned char * Data, int size);
-
 void ProcessImgComment (const uchar * Data, int length);
+int TrimImgExifTrailingZeros(void);
 
 // Jpeg handling functions
 int  ReadJpegFile(FILE * f, ReadMode_t ReadMode);

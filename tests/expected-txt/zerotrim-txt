@@ -1,5 +1,10 @@
-Trimming 1 bytes from exif in results-bin/trim1.jpg
-Modified: results-bin/trim1.jpg
+---------run zerotrim
+Trimming 1 bytes from exif
+Modified: results-bin/ztrim1.jpg
+Trimming 240 bytes from exif
+Modified: results-bin/ztrim240.jpg
+---------run zerotrim again
+---------jehad -v on trimmed files
 Exif header 4631 bytes long
 Exif section in Intel order
 (dir has 10 entries)
@@ -59,7 +64,7 @@ Thumbnail size: 3750 bytes
 Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
 Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 120w * 160h, 3 color components, 8 bits per sample
-File name    : results-bin/trim0.jpg
+File name    : results-bin/ztrim0.jpg
 File size    : 9381 bytes
 Camera make  : SONY
 Camera model : CYBERSHOT
@@ -75,7 +80,7 @@ Metering Mode: spot
 Exposure     : program (auto)
 JPEG Quality : 75
 
-Exif header 26445 bytes long
+Exif header 26446 bytes long
 Exif section in Motorola order
 (dir has 10 entries)
     ImageDescription = "                                "
@@ -141,10 +146,9 @@ Exif section in Motorola order
         ThumbnailLength = 5625
         YCbCrPositioning = 2
 Thumbnail size: 5625 bytes
-Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
 Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 106h, 3 color components, 8 bits per sample
-File name    : results-bin/trim1.jpg
+File name    : results-bin/ztrim1.jpg
 File size    : 27204 bytes
 Camera make  : NIKON CORPORATION
 Camera model : NIKON D100 
@@ -157,6 +161,5 @@ Aperture     : f/4.5
 Whitebalance : Auto
 Metering Mode: pattern
 Exposure     : program (auto)
-JPEG Quality : 75
 Comment      : CDEFG
 

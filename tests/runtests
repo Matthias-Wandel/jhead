@@ -154,12 +154,16 @@ cp normal-digicams/fuji-dx10.jpg results-bin/exif-regen.jpg
 "$jhead" -v -nofdate results-bin/exif-regen.jpg >> results-txt/exif-regen-txt
 
 #-------------------------------------------------------------------
-#Test exf header zero trimming
-cp normal-digicams/35mmequiv-tag.jpg results-bin/trim1.jpg
-cp normal-digicams/two-orientation.jpg results-bin/trim240.jpg
-cp normal-digicams/sony.jpg results-bin/trim0.jpg
-"$jhead" -zt results-bin/trim?.jpg >> results-txt/zerotrim-txt
-"$jhead" -v -nofdate results-bin/trim?.jpg >> results-txt/zerotrim-txt
+#Test exif header zero trimming
+cp normal-digicams/35mmequiv-tag.jpg results-bin/ztrim1.jpg
+cp normal-digicams/two-orientation.jpg results-bin/ztrim240.jpg
+cp normal-digicams/sony.jpg results-bin/ztrim0.jpg
+echo "---------run zerotrim" >> results-txt/zerotrim-txt
+"$jhead" -zt -nofdate results-bin/ztrim*.jpg >> results-txt/zerotrim-txt
+echo "---------run zerotrim again" >> results-txt/zerotrim-txt
+"$jhead" -zt -nofdate results-bin/ztrim*.jpg >> results-txt/zerotrim-txt
+echo "---------jehad -v on trimmed files" >> results-txt/zerotrim-txt
+"$jhead" -v -nofdate results-bin/ztrim?.jpg >> results-txt/zerotrim-txt
 
 #-------------------------------------------------------------------
 #Test IPTC manipulation

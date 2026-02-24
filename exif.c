@@ -1213,6 +1213,38 @@ int CreateMinimalExif(char * Buffer)
 }
 
 //--------------------------------------------------------------------------
+// Figure out how many zeros can be trimmed off the end.
+//--------------------------------------------------------------------------
+int ExifBytesActuallyUsed(uchar * ExifData, unsigned Size)
+{
+    if (!ImageInfo.ThumbnailAtEnd) return Size;
+    
+    int NumRedundant, WasRedundant;
+    unsigned char * StartRedundant;
+
+    int NewSize = Size;
+    int ThumbnailEndIndex = ImageInfo.ThumbnailOffset+ImageInfo.ThumbnailSize;
+    for(;;NewSize--){
+        // Only trim trailing zeros.
+        if (ExifData[NewSize-1]) break;
+        if (NewSize <= ThumbnailEndIndex) break;
+    }
+        
+    //printf("Exif length: %d  Wasted: %d\n",Size, Size-NewSize);
+
+    for(;;NumRedundant--){// Only remove trailing bytes
+        if (StartRedundant[NumRedundant-1] == 0) break;
+        if (NumRedundant <= 0) break;
+    }
+
+    if (Size != NewSize){
+        int NewExifSize;
+        printf("Trimming %d bytes from exif\n", Size-NewSize);
+    }
+    return NewSize;
+}
+
+//--------------------------------------------------------------------------
 // Clear the rotation tag in the exif header to 1.
 // Returns NULL if no orientation tag exists.
 //--------------------------------------------------------------------------

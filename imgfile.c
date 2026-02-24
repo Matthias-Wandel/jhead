@@ -7,7 +7,7 @@
 #define TYPE_UNKNOWN 0
 #define TYPE_JPEG    1
 #define TYPE_PNG     2
-static int ImgTypeLoaded = TYPE_UNKNOWN;
+int ImgTypeLoaded = TYPE_UNKNOWN;
 
 // Storage for simplified info extracted from file.
 ImageInfo_t ImageInfo;
@@ -142,13 +142,31 @@ int RemoveUnknownImgSections(void)
         return FALSE;
     }
 }
-
+/*
 Section_t * FindImgExifSection()
 {
     if (ImgTypeLoaded == TYPE_JPEG) return FindJpegSection(M_EXIF);
-    //if (ImgTypeLoaded == TYPE_PNG) return FindPngExifSection();
+    if (ImgTypeLoaded == TYPE_PNG) return FindPngExifSection();
     ErrFatal("not implemented 3\n");
     return FALSE;
+}
+*/
+
+uchar * GetImgExifSectionData(unsigned int *Size)
+{
+    Section_t * section;
+    if (ImgTypeLoaded == TYPE_JPEG){
+        section = FindJpegSection(M_EXIF);
+        if (section == NULL) return NULL;
+        if (Size) *Size = section->Size-8;
+        return section->Data+8;
+    }else if (ImgTypeLoaded == TYPE_PNG){
+        section = FindPngSection(0x65584966); // 'eXIf'
+        if (section == NULL) return NULL;
+        if (Size) *Size = section->Size;
+        return section->Data;
+    }
+    return NULL;
 }
 
 //--------------------------------------------------------------------------
@@ -161,6 +179,7 @@ int RemoveImgExif(void)
     } else if (ImgTypeLoaded == TYPE_PNG) {
         return RemovePngSectionByType(0x65584966); // 'eXIf'
     }
+    return FALSE;
 }
 
 //--------------------------------------------------------------------------
@@ -173,6 +192,32 @@ void CreateImgExif(void)
     } else if (ImgTypeLoaded == TYPE_PNG) {
         CreateMinimalPngExif();
     }
+}
+
+//--------------------------------------------------------------------------
+// Trim redundant zeros off the end of an exif header
+//--------------------------------------------------------------------------
+int TrimImgExifTrailingZeros()
+{
+    unsigned Size;
+    uchar * ExifData;
+    ExifData = GetImgExifSectionData(&Size);
+    if (!ExifData) return FALSE;
+    
+    int NewSize = ExifBytesActuallyUsed(ExifData, Size);
+    if (NewSize < Size){
+        Section_t * ExSec;
+        if (ImgTypeLoaded == TYPE_JPEG){
+            ExSec = FindJpegSection(M_EXIF);
+            ExSec->Size = NewSize+8;
+            return TRUE;
+        } else if (ImgTypeLoaded == TYPE_PNG) {
+            ExSec = FindPngSection(0x65584966); // 'eXIf'
+            ExSec->Size = NewSize;
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
 
 

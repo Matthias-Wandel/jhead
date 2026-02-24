@@ -322,7 +322,7 @@ static int CheckFileSkip(void)
 
     if (ExifOnly){
         // Filtering by EXIF only.  Skip all files that have no Exif.
-        if (FindImgExifSection() == NULL){
+        if (GetImgExifSectionData(NULL) == NULL){
             return TRUE;
         }
     }
@@ -788,34 +788,8 @@ static void ProcessFile(const char * FileName)
         DiscardImgData();
         return;
     }
-
     if (TrimExifTrailingZeroes){
-        if (ImageInfo.ThumbnailAtEnd){
-            Section_t * ExifSection;
-            int NumRedundant, WasRedundant;
-            unsigned char * StartRedundant;
-            //printf("Exif: Thumbnail %d - %d\n",ImageInfo.ThumbnailOffset, ImageInfo.ThumbnailOffset+ImageInfo.ThumbnailSize);
-            ExifSection = FindImgExifSection();
-
-            StartRedundant = ExifSection->Data + 8 + ImageInfo.ThumbnailOffset+ImageInfo.ThumbnailSize;
-            WasRedundant = NumRedundant = (ExifSection->Size) - (ImageInfo.ThumbnailOffset + ImageInfo.ThumbnailSize + 8);
-
-            //printf("Exif length: %d  Wasted: %d\n",ExifSection->Size, NumRedundant);
-
-            for(;NumRedundant > 0 && StartRedundant[NumRedundant-1] == 0;NumRedundant--);// Only remove trailing bytes if they are zero.
-
-            if (NumRedundant != WasRedundant){
-                int NewExifSize;
-                printf("Trimming %d bytes from exif in %s\n", WasRedundant-NumRedundant, FileName);
-                NewExifSize = ImageInfo.ThumbnailOffset + ImageInfo.ThumbnailSize + 8 + NumRedundant;
-                ExifSection->Data[0] = (uchar)(NewExifSize >> 8); // Must write new length into exif data.
-                ExifSection->Data[1] = (uchar)NewExifSize;
-                ExifSection->Size = NewExifSize;
-                Modified = TRUE;
-            }else{
-                //printf("Noting to remove from %s\n", FileName);
-            }
-        }
+        Modified |= TrimImgExifTrailingZeros();
     }
 
     FileSequence += 1; // Count files processed.
@@ -909,7 +883,7 @@ static void ProcessFile(const char * FileName)
 
     }
 
-
+/*
     if (ExifTimeAdjust || ExifTimeSet || DateSetChars || FileTimeToExif){
        if (ImageInfo.numDateTimeTags){
             struct tm tm;
@@ -964,6 +938,7 @@ skip_unixtime:
             printf("File '%s' contains no Exif timestamp to change\n", FileName);
         }
     }
+*/    
 
     if (DeleteComments){
         if (ImageInfo.Comments[0]){
@@ -1168,7 +1143,7 @@ static void Usage (void)
            "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
            "  -se        Suppress error messages relating to corrupt exif header structure\n"
            "  -c         concise output\n"
-           "  -nofdate   Don't show file date (for regression testing)\n"
+           "  -nofinfo   Don't show file info (name/size/date)\n"
 
            "\nFILE MATCHING AND SELECTION:\n"
            "  -model model\n"
