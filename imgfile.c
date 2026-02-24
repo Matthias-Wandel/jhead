@@ -50,7 +50,8 @@ void ProcessImgComment (const uchar * Data, int length)
     Comment[nch] = '\0'; // Null terminate
 
     if (ShowTags){
-        printf("COM marker comment: %s\n",Comment);
+        if (ImgTypeLoaded == TYPE_JPEG) printf("COM marker comment: %s\n",Comment);
+        if (ImgTypeLoaded == TYPE_PNG) printf("tEXt section comment: %s\n",Comment);
     }
 
     strcpy(ImageInfo.Comments,Comment);

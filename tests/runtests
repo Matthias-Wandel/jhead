@@ -170,3 +170,35 @@ cp strange-jpegs/with_xmp.jpg results-bin/
 cp strange-jpegs/with_xmp.jpg results-bin/keep_xmp.jpg
 "$jhead" -dx results-bin/keep_xmp.jpg
 "$jhead" -v -nofinfo results-bin/keep_xmp.jpg >> results-txt/with_xmp.jpg
+
+
+#-------------------------------------------------------------------
+#Test PNG file handling
+echo "--------Normal view:" >> results-txt/pngfiles-txt
+"$jhead" pngfiles/*.png >> results-txt/pngfiles-txt
+echo "--------Compact view:" >> results-txt/pngfiles-txt
+"$jhead" -c pngfiles/*.png >> results-txt/pngfiles-txt
+echo "--------Verbose view:" >> results-txt/pngfiles-txt
+"$jhead" -v pngfiles/*.png >> results-txt/pngfiles-txt
+
+echo "--------Comment replace:" >> results-txt/pngfiles-txt
+cp pngfiles/ctest.png results-bin/
+"$jhead" -cl "A brand n./runew comment!" results-bin/ctest.png >> results-txt/pngfiles-txt
+"$jhead" results-bin/ctest.png >> results-txt/pngfiles-txt
+
+echo "--------Deleted comment:" >> results-txt/pngfiles-txt
+"$jhead" -dc results-bin/ctest.png >> results-txt/pngfiles-txt
+"$jhead" results-bin/ctest.png >> results-txt/pngfiles-txt
+
+echo "--------Replace with minimal exif header:" >> results-txt/pngfiles-txt
+cp pngfiles/from_photo.png results-bin/from_photo.png 
+"$jhead" -mkexif results-bin/from_photo.png >> results-txt/pngfiles-txt
+"$jhead" results-bin/from_photo.png >> results-txt/pngfiles-txt
+
+echo "--------Remove exif header:" >> results-txt/pngfiles-txt
+"$jhead" -de results-bin/from_photo.png >> results-txt/pngfiles-txt
+echo "--------foo1:" >> results-txt/pngfiles-txt
+"$jhead" results-bin/from_photo.png >> results-txt/pngfiles-txt
+echo "--------foo2:" >> results-txt/pngfiles-txt
+"$jhead" -v results-bin/from_photo.png >> results-txt/pngfiles-txt
+echo "--------foo3:" >> results-txt/pngfiles-txt

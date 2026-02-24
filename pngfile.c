@@ -86,13 +86,9 @@ Section_t * FindPngSection(int SectionType)
 
 int RemovePngSectionByType(int SectionType)
 {
-    printf("Remove section type %d\n",SectionType);
-
     int a, retval = FALSE;
     for (a=0; a<SectionsRead; a++){
-        printf("Secition %d\n",Sections[a].Type);
         if (Sections[a].Type == SectionType){
-            printf("found to remove");
             free(Sections[a].Data);
             memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a-1));
             SectionsRead -= 1;
@@ -119,6 +115,9 @@ void CreateMinimalPngExif(void)
     unsigned char * PngExifData = malloc(ExifLen);
     memcpy(PngExifData, ExifData, ExifLen);
 
+
+    RemovePngSectionByType(0x65584966); // 'eXIf' section
+
     // Insert into sections array.
     // Your CreatePngSection logic will ensure it's at index 1 (after IHDR).
     CreatePngSection(0x65584966, PngExifData, ExifLen);
@@ -142,7 +141,9 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         unsigned int ChunkLen = Get32png(LenRaw);
         int ChunkTypeInt = (TypeRaw[0] << 24) | (TypeRaw[1] << 16) | (TypeRaw[2] << 8) | TypeRaw[3];
 
-        //printf("PNG Chunk type '%.4s' %08x length %d\n",TypeRaw, ChunkTypeInt, ChunkLen);
+        if (ShowTags){
+            printf("PNG Chunk type 0x%08x '%.4s' length %d\n",ChunkTypeInt, TypeRaw, ChunkLen);
+        }
 
         CheckSectionsAllocated();
         uchar * Data = (uchar *)malloc(ChunkLen + 20);

@@ -18,7 +18,6 @@ Comment      : bla
 Comment      : bla
 Comment      : and some more text
 
-
 Camera make  : Canon
 Camera model : Canon PowerShot S100
 Date/Time    : 2000:06:27 15:53:09

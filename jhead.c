@@ -985,7 +985,6 @@ skip_unixtime:
         if (RemoveUnknownImgSections()) Modified = TRUE;
     }
 
-
     if (Modified){
         char BackupName[PATH_MAX+5];
         struct stat buf;

@@ -1555,8 +1555,6 @@ void ShowImageInfo(int ShowFileInfo)
                 // Do not start a new line if the string ends with a carriage return.
                 if (ImageInfo.Comments[a+1] != '\0'){
                     printf("\nComment      : ");
-                }else{
-                    printf("\n");
                 }
             }else{
                 putchar(c);
