@@ -1,3 +1,5 @@
+File name    : comments.jpg
+File size    : 4695 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot S100
 Date/Time    : 2000:06:27 15:53:09
@@ -18,6 +20,8 @@ Comment      : bla
 Comment      : bla
 Comment      : and some more text
 
+File name    : comments.jpg
+File size    : 4626 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot S100
 Date/Time    : 2000:06:27 15:53:09
@@ -32,6 +36,8 @@ Metering Mode: center weight
 JPEG Quality : 75
 Comment      : a literal inserted comment!
 
+File name    : comments.jpg
+File size    : 4595 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot S100
 Date/Time    : 2000:06:27 15:53:09

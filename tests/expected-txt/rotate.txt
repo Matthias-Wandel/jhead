@@ -15,6 +15,8 @@ ISO equiv.   : 100
 Metering Mode: center weight
 JPEG Quality : 75
 
+File name    : results-bin/rotate.jpg
+File size    : 10543 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot S40
 Date/Time    : 2004:01:08 22:00:22
@@ -29,6 +31,8 @@ ISO equiv.   : 100
 Metering Mode: center weight
 JPEG Quality : 74
 
+File name    : results-bin/rotate-thbad.jpg
+File size    : 10543 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot S40
 Date/Time    : 2004:01:08 22:00:22
@@ -109,6 +113,8 @@ Thumbnail size: 3128 bytes
 Approximate quality factor for qtable 0: 22 (scale 228.41, var 16385.78)
 Approximate quality factor for qtable 1: 26 (scale 192.04, var 9603.59)
 JPEG image is 120w * 160h, 3 color components, 8 bits per sample
+File name    : results-bin/two-orientation.jpg
+File size    : 37652 bytes
 Camera make  : Konica Minolta Camera, Inc.
 Camera model : DiMAGE A2
 Date/Time    : 2004:09:08 22:34:10

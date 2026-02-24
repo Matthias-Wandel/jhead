@@ -53,6 +53,8 @@ Exif section in Intel order
 Approximate quality factor for qtable 0: 80 (scale 40.12, var 1.43)
 Approximate quality factor for qtable 1: 80 (scale 40.26, var 0.36)
 JPEG image is 150w * 200h, 3 color components, 8 bits per sample
+File name    : strange-jpegs/no-thumb-pointer.jpg
+File size    : 18388 bytes
 Camera make  : Panasonic
 Camera model : DMC-FZ20
 Date/Time    : 2007:03:11 15:23:53

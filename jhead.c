@@ -100,8 +100,7 @@ static char * CommentInsertLiteral = NULL;  // Insert this comment (from command
 static int AutoRotate = FALSE;
 static int ZeroRotateTagOnly = FALSE;
 
-static int ShowFileInfo = TRUE;     // Indicates to show standard file info
-                                    // (file name, file size, file date)
+static int ShowFileDate = TRUE;     // Indicates to show file date (rurn off for testing)
 
 
 //--------------------------------------------------------------------------
@@ -825,7 +824,7 @@ static void ProcessFile(const char * FileName)
         ShowConciseImageInfo();
     }else{
         if (!(DoModify) || ShowTags){
-            ShowImageInfo(ShowFileInfo);
+            ShowImageInfo(ShowFileDate);
 
             {
                 // if IPTC section is present, show it also.
@@ -1169,7 +1168,7 @@ static void Usage (void)
            "  -exifmap   Dump header bytes, annotate.  Pipe thru sort for better viewing\n"
            "  -se        Suppress error messages relating to corrupt exif header structure\n"
            "  -c         concise output\n"
-           "  -nofinfo   Don't show file info (name/size/date)\n"
+           "  -nofdate   Don't show file date (for regression testing)\n"
 
            "\nFILE MATCHING AND SELECTION:\n"
            "  -model model\n"
@@ -1308,8 +1307,8 @@ int main (int argc, char **argv)
             SuppressNonFatalErrors = TRUE;
         }else if (!strcmp(arg,"-c")){
             ShowConcise = TRUE;
-        }else if (!strcmp(arg,"-nofinfo")){
-            ShowFileInfo = 0;
+        }else if (!strcmp(arg,"-nofdate")){
+            ShowFileDate = 0;
 
     // Thumbnail manipulation options
         }else if (!strcmp(arg,"-dt")){

@@ -13,6 +13,8 @@ ISO equiv.   : 100
 Metering Mode: average
 JPEG Quality : 50
 
+File name    : time.jpg
+File size    : 11839 bytes
 Camera make  :                          
 Camera model : 3MDSC
 Date/Time    : 2004:05:09 18:00:01
@@ -25,6 +27,8 @@ ISO equiv.   : 100
 Metering Mode: average
 JPEG Quality : 50
 
+File name    : time.jpg
+File size    : 11839 bytes
 Camera make  :                          
 Camera model : 3MDSC
 Date/Time    : 2005:05:09 19:01:01
@@ -37,6 +41,8 @@ ISO equiv.   : 100
 Metering Mode: average
 JPEG Quality : 50
 
+File name    : badyear.jpg
+File size    : 19397 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot Pro1
 Date/Time    : 2106:12:23 17:13:31
@@ -54,6 +60,8 @@ Metering Mode: center weight
 JPEG Quality : 85
 
 Modified: badyear.jpg
+File name    : badyear.jpg
+File size    : 19379 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot Pro1
 Date/Time    : 2006:01:23 18:13:31
@@ -70,6 +78,8 @@ Light Source : Daylight
 Metering Mode: center weight
 JPEG Quality : 85
 
+File name    : short_date.jpg
+File size    : 19798 bytes
 Camera make  : DIGITAL CAMERA
 Camera model : 1.0
 Date/Time    : 2008:02:15 17:02:03
@@ -83,6 +93,8 @@ Metering Mode: pattern
 Exposure     : aperture priority (semi-auto)
 JPEG Quality : 75
 
+File name    : verizon.jpg
+File size    : 27614 bytes
 Camera make  : LG Electronics
 Camera model : VX-9700
 Date/Time    : 2009:05:10 11:16:01

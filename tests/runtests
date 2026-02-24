@@ -8,12 +8,12 @@ mkdir -p results-bin
 
 #test parsing of normal exif information.
 for file in normal-digicams/*.jpg; do
-  "$jhead" -v -nofinfo "$file" > results-txt/${file##*/}
+  "$jhead" -v -nofdate "$file" > results-txt/${file##*/}
 done
 
 #test parsing and display of some strange jpeg files.
 for file in strange-jpegs/*.jpg; do
-  "$jhead" -v -nofinfo "$file" > results-txt/${file##*/}
+  "$jhead" -v -nofdate "$file" > results-txt/${file##*/}
 done
 
 #-------------------------------------------------------------------
@@ -32,20 +32,20 @@ cp normal-digicams/3dmsc.jpg time.jpg
 "$jhead" -ft time.jpg
 "$jhead" time.jpg > results-txt/time.txt
 "$jhead" -ta-0:00:20 time.jpg
-"$jhead" -nofinfo time.jpg >> results-txt/time.txt
+"$jhead" -nofdate time.jpg >> results-txt/time.txt
 "$jhead" -da+2005:05:01/01:01-2004:05:01 time.jpg
-"$jhead" -nofinfo time.jpg >> results-txt/time.txt
+"$jhead" -nofdate time.jpg >> results-txt/time.txt
 cp strange-jpegs/badyear.jpg badyear.jpg
-"$jhead" -nofinfo badyear.jpg >> results-txt/time.txt
+"$jhead" -nofdate badyear.jpg >> results-txt/time.txt
 "$jhead" -ds2006:01 -ta+1:00 badyear.jpg >> results-txt/time.txt
-"$jhead" -nofinfo badyear.jpg >> results-txt/time.txt
+"$jhead" -nofdate badyear.jpg >> results-txt/time.txt
 cp strange-jpegs/short_date.jpg short_date.jpg
 "$jhead" -ta+1:02:03 short_date.jpg
-"$jhead" -nofinfo short_date.jpg >> results-txt/time.txt
+"$jhead" -nofdate short_date.jpg >> results-txt/time.txt
 
 cp strange-jpegs/verizon.jpg verizon.jpg
 "$jhead" -ta+0:0:1 verizon.jpg
-"$jhead" -nofinfo verizon.jpg >> results-txt/time.txt
+"$jhead" -nofdate verizon.jpg >> results-txt/time.txt
 
 #-------------------------------------------------------------------
 #test comment manipulation
@@ -53,16 +53,16 @@ cp normal-digicams/S100.jpg comments.jpg
 #insert a comment (-ci)
 "$jhead" -ci normal-digicams/testfile.txt -ft comments.jpg
 #Show the comments
-"$jhead" -nofinfo comments.jpg >> results-txt/comments.txt
+"$jhead" -nofdate comments.jpg >> results-txt/comments.txt
 
 cp comments.jpg results-bin
 #replace comment with a literal comment
 "$jhead" -cl "a literal inserted comment!" -ft comments.jpg
-"$jhead" -nofinfo comments.jpg >> results-txt/comments.txt
+"$jhead" -nofdate comments.jpg >> results-txt/comments.txt
 
 #remove the comment again (-dc)
 "$jhead" -dc -ft comments.jpg
-"$jhead" -nofinfo comments.jpg >> results-txt/comments.txt
+"$jhead" -nofdate comments.jpg >> results-txt/comments.txt
 
 
 #-------------------------------------------------------------------
@@ -72,12 +72,12 @@ cp normal-digicams/rotate.jpg results-bin
 "$jhead" results-bin/rotate.jpg > results-txt/rotate.txt
 cp normal-digicams/rotate*.jpg results-bin
 "$jhead" -autorot -ft results-bin/rotate*.jpg
-"$jhead" -nofinfo results-bin/rotate*.jpg >> results-txt/rotate.txt
+"$jhead" -nofdate results-bin/rotate*.jpg >> results-txt/rotate.txt
 
 #test with two orientation tags.
 cp normal-digicams/two-orientation.jpg results-bin
 "$jhead" -autorot results-bin/two-orientation.jpg
-"$jhead" -nofinfo -v results-bin/two-orientation.jpg >> results-txt/rotate.txt
+"$jhead" -nofdate -v results-bin/two-orientation.jpg >> results-txt/rotate.txt
 
 #test saving of incorrectly placed thumbnail
 "$jhead" -st results-bin/thumbnail-place-error.thm strange-jpegs/thumbnail-place-error.jpg
@@ -110,12 +110,12 @@ echo "---Test move/rename relative path ---" >> results-txt/new-names.txt
 #test -purejpg with an image that I used to corrupt.
 cp strange-jpegs/olav.jpg results-bin
 "$jhead" -purejpg results-bin/olav.jpg
-"$jhead" -v -nofinfo results-bin/olav.jpg > results-txt/olav.jpg
+"$jhead" -v -nofdate results-bin/olav.jpg > results-txt/olav.jpg
 
 #test -purejpg with an image wth multiple copies of the same type of section
 cp strange-jpegs/don.jpg results-bin
 "$jhead" -purejpg results-bin/don.jpg
-"$jhead" -v -nofinfo results-bin/don.jpg > results-txt/don.jpg
+"$jhead" -v -nofdate results-bin/don.jpg > results-txt/don.jpg
 
 #-------------------------------------------------------------------
 #Test deletion of a thumbnail, and replacing of a thumbnail
@@ -136,22 +136,30 @@ cp normal-digicams/olympus.jpg results-bin/thumb-replaced.jpg
 cp strange-jpegs/no-thumb-pointer.jpg results-bin
 echo "Trying to remove nonexistent:" >> results-txt/thumb-operations-txt
 "$jhead" -dt results-bin/no-thumb-pointer.jpg >> results-txt/thumb-operations-txt
-"$jhead" -v -nofinfo res*bin/no-thumb-pointer.jpg >> results-txt/thumb-operations-txt
+"$jhead" -v -nofdate res*bin/no-thumb-pointer.jpg >> results-txt/thumb-operations-txt
 echo "Trying to replace with no pointers:" >> results-txt/thumb-operations-txt
 "$jhead" -rtt results-bin/no-thumb-pointer.jpg >> results-txt/thumb-operations-txt
 
-"$jhead" -v -nofinfo res*bin/*thumb-*.jpg >> results-txt/thumb-operations-txt
+"$jhead" -v -nofdate res*bin/*thumb-*.jpg >> results-txt/thumb-operations-txt
 
 #-------------------------------------------------------------------
 #Test generating a thumbnail
 cp normal-digicams/fuji-dx10.jpg results-bin/exif-regen.jpg
 "$jhead" -mkexif results-bin/exif-regen.jpg
 #Test regenerating using old exif date
-"$jhead" -v -nofinfo results-bin/exif-regen.jpg > results-txt/exif-regen-txt
+"$jhead" -v -nofdate results-bin/exif-regen.jpg > results-txt/exif-regen-txt
 "$jhead" -ft -de results-bin/exif-regen.jpg
 #Test regenerating using file time for timestamp.  also create thumbnail.
 "$jhead" -mkexif -rgt results-bin/exif-regen.jpg
-"$jhead" -v -nofinfo results-bin/exif-regen.jpg >> results-txt/exif-regen-txt
+"$jhead" -v -nofdate results-bin/exif-regen.jpg >> results-txt/exif-regen-txt
+
+#-------------------------------------------------------------------
+#Test exf header zero trimming
+cp normal-digicams/35mmequiv-tag.jpg results-bin/trim1.jpg
+cp normal-digicams/two-orientation.jpg results-bin/trim240.jpg
+cp normal-digicams/sony.jpg results-bin/trim0.jpg
+"$jhead" -zt results-bin/trim?.jpg >> results-txt/zerotrim-txt
+"$jhead" -v -nofdate results-bin/trim?.jpg >> results-txt/zerotrim-txt
 
 #-------------------------------------------------------------------
 #Test IPTC manipulation
@@ -159,46 +167,46 @@ cp strange-jpegs/iptc?.jpg results-bin/
 "$jhead" -di results-bin/iptc1.jpg
 #test removal and restoration of iptc section
 "$jhead" -de -cmd ""$jhead" -purejpg &i" results-bin/iptc2.jpg
-"$jhead" -nofinfo results-bin/iptc?.jpg > results-txt/iptc-txt
+"$jhead" -nofdate results-bin/iptc?.jpg > results-txt/iptc-txt
 
 #test XMP non-delete
 cp strange-jpegs/with_xmp.jpg results-bin/
 "$jhead" -ta+1:00 results-bin/with_xmp.jpg > results-txt/with_xmp.jpg
-"$jhead" -v -nofinfo results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
+"$jhead" -v -nofdate results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
 "$jhead" -cmd ""$jhead" -purejpg &i"  results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
-"$jhead" -v -nofinfo results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
+"$jhead" -v -nofdate results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
 cp strange-jpegs/with_xmp.jpg results-bin/keep_xmp.jpg
 "$jhead" -dx results-bin/keep_xmp.jpg
-"$jhead" -v -nofinfo results-bin/keep_xmp.jpg >> results-txt/with_xmp.jpg
+"$jhead" -v -nofdate results-bin/keep_xmp.jpg >> results-txt/with_xmp.jpg
 
 
 #-------------------------------------------------------------------
 #Test PNG file handling
 echo "--------Normal view:" >> results-txt/pngfiles-txt
-"$jhead" pngfiles/*.png >> results-txt/pngfiles-txt
+"$jhead" -nofdate pngfiles/*.png >> results-txt/pngfiles-txt
 echo "--------Compact view:" >> results-txt/pngfiles-txt
-"$jhead" -c pngfiles/*.png >> results-txt/pngfiles-txt
+"$jhead" -nofdate -c pngfiles/*.png >> results-txt/pngfiles-txt
 echo "--------Verbose view:" >> results-txt/pngfiles-txt
-"$jhead" -v pngfiles/*.png >> results-txt/pngfiles-txt
+"$jhead" -nofdate -v pngfiles/*.png >> results-txt/pngfiles-txt
 
 echo "--------Comment replace:" >> results-txt/pngfiles-txt
 cp pngfiles/ctest.png results-bin/
 "$jhead" -cl "A brand n./runew comment!" results-bin/ctest.png >> results-txt/pngfiles-txt
-"$jhead" results-bin/ctest.png >> results-txt/pngfiles-txt
+"$jhead" -nofdate results-bin/ctest.png >> results-txt/pngfiles-txt
 
 echo "--------Deleted comment:" >> results-txt/pngfiles-txt
 "$jhead" -dc results-bin/ctest.png >> results-txt/pngfiles-txt
-"$jhead" results-bin/ctest.png >> results-txt/pngfiles-txt
+"$jhead" -nofdate results-bin/ctest.png >> results-txt/pngfiles-txt
 
 echo "--------Replace with minimal exif header:" >> results-txt/pngfiles-txt
 cp pngfiles/from_photo.png results-bin/from_photo.png 
 "$jhead" -mkexif results-bin/from_photo.png >> results-txt/pngfiles-txt
-"$jhead" results-bin/from_photo.png >> results-txt/pngfiles-txt
+"$jhead" -nofdate results-bin/from_photo.png >> results-txt/pngfiles-txt
 
 echo "--------Remove exif header:" >> results-txt/pngfiles-txt
 "$jhead" -de results-bin/from_photo.png >> results-txt/pngfiles-txt
 echo "--------foo1:" >> results-txt/pngfiles-txt
-"$jhead" results-bin/from_photo.png >> results-txt/pngfiles-txt
+"$jhead" -nofdate results-bin/from_photo.png >> results-txt/pngfiles-txt
 echo "--------foo2:" >> results-txt/pngfiles-txt
-"$jhead" -v results-bin/from_photo.png >> results-txt/pngfiles-txt
+"$jhead" -v -nofdate results-bin/from_photo.png >> results-txt/pngfiles-txt
 echo "--------foo3:" >> results-txt/pngfiles-txt

@@ -54,6 +54,8 @@ Exif section in Intel order
 Approximate quality factor for qtable 0: 80 (scale 40.12, var 1.43)
 Approximate quality factor for qtable 1: 80 (scale 40.26, var 0.36)
 JPEG image is 150w * 200h, 3 color components, 8 bits per sample
+File name    : results-bin/no-thumb-pointer.jpg
+File size    : 18388 bytes
 Camera make  : Panasonic
 Camera model : DMC-FZ20
 Date/Time    : 2007:03:11 15:23:53
@@ -126,6 +128,8 @@ Exif section in Intel order
 Approximate quality factor for qtable 0: 80 (scale 40.12, var 1.43)
 Approximate quality factor for qtable 1: 80 (scale 40.26, var 0.36)
 JPEG image is 150w * 200h, 3 color components, 8 bits per sample
+File name    : results-bin/no-thumb-pointer.jpg
+File size    : 18388 bytes
 Camera make  : Panasonic
 Camera model : DMC-FZ20
 Date/Time    : 2007:03:11 15:23:53
@@ -198,6 +202,8 @@ Thumbnail size: 0 bytes
 Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
 Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+File name    : results-bin/thumb-deleted.jpg
+File size    : 4822 bytes
 Camera make  : FUJIFILM
 Camera model : DX-10
 Date/Time    : 2000:04:01 13:04:48
@@ -270,6 +276,8 @@ Thumbnail size: 9990 bytes
 Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
 Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+File name    : results-bin/thumb-inserted.jpg
+File size    : 14812 bytes
 Camera make  : FUJIFILM
 Camera model : DX-10
 Date/Time    : 2000:04:01 13:04:48
@@ -335,6 +343,8 @@ Thumbnail size: 9990 bytes
 Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
 Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 120h, 3 color components, 8 bits per sample
+File name    : results-bin/thumb-replaced.jpg
+File size    : 15653 bytes
 Camera make  : OLYMPUS OPTICAL CO.,LTD
 Camera model : C830L,D340R
 Date/Time    : 1999:07:18 20:41:25

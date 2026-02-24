@@ -1,14 +1,12 @@
 --------Normal view:
 File name    : pngfiles/ctest.png
 File size    : 34780 bytes
-File date    : 2026:02:24 12:55:51
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
 Comment      : hello world png comment here!
 
 File name    : pngfiles/from_photo.png
 File size    : 16051 bytes
-File date    : 2025:08:14 15:14:27
 Camera make  : Apple
 Camera model : iPhone 13 mini
 Date/Time    : 2025:08:14 15:14:27
@@ -53,7 +51,6 @@ PNG Chunk type 0x49444154 'IDAT' length 5748
 PNG Chunk type 0x49454e44 'IEND' length 0
 File name    : pngfiles/ctest.png
 File size    : 34780 bytes
-File date    : 2026:02:24 12:55:51
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
 Comment      : hello world png comment here!
@@ -145,7 +142,6 @@ PNG Chunk type 0x49444154 'IDAT' length 1784
 PNG Chunk type 0x49454e44 'IEND' length 0
 File name    : pngfiles/from_photo.png
 File size    : 16051 bytes
-File date    : 2025:08:14 15:14:27
 Camera make  : Apple
 Camera model : iPhone 13 mini
 Date/Time    : 2025:08:14 15:14:27
@@ -167,7 +163,6 @@ Comment      : titlepix=1
 Modified: results-bin/ctest.png
 File name    : results-bin/ctest.png
 File size    : 34776 bytes
-File date    : 2026:02:24 13:43:44
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
 Comment      : A brand n./runew comment!
@@ -176,7 +171,6 @@ Comment      : A brand n./runew comment!
 Modified: results-bin/ctest.png
 File name    : results-bin/ctest.png
 File size    : 34731 bytes
-File date    : 2026:02:24 13:43:44
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
 
@@ -184,7 +178,6 @@ Resolution   : 160 x 120
 Modified: results-bin/from_photo.png
 File name    : results-bin/from_photo.png
 File size    : 2091 bytes
-File date    : 2026:02:24 13:43:44
 Date/Time    : 2025:08:14 15:14:27
 Resolution   : 100 x 75
 Comment      : titlepix=1
@@ -194,7 +187,6 @@ Modified: results-bin/from_photo.png
 --------foo1:
 File name    : results-bin/from_photo.png
 File size    : 1953 bytes
-File date    : 2026:02:24 13:43:44
 Resolution   : 100 x 75
 Comment      : titlepix=1
 
@@ -209,7 +201,6 @@ PNG Chunk type 0x49444154 'IDAT' length 1784
 PNG Chunk type 0x49454e44 'IEND' length 0
 File name    : results-bin/from_photo.png
 File size    : 1953 bytes
-File date    : 2026:02:24 13:43:44
 Resolution   : 100 x 75
 Comment      : titlepix=1
 

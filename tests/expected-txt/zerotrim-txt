@@ -1,4 +1,81 @@
-Exif header 26446 bytes long
+Trimming 1 bytes from exif in results-bin/trim1.jpg
+Modified: results-bin/trim1.jpg
+Exif header 4631 bytes long
+Exif section in Intel order
+(dir has 10 entries)
+    ImageDescription = "                               "
+    Make = "SONY"
+    Model = "CYBERSHOT"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    DateTime = "2004:01:25 16:13:40"
+    YCbCrPositioning = 2
+    ExifOffset = 232
+    Exif Dir:(dir has 27 entries)
+        ExposureTime = 10/400
+        FNumber = 28/10
+        ExposureProgram = 2
+        ISOSpeedRatings = 160
+        ExifVersion = "0220"
+        DateTimeOriginal = "2004:01:25 16:13:40"
+        DateTimeDigitized = "2004:01:25 16:13:40"
+        ComponentsConfiguration = "?"
+        CompressedBitsPerPixel = 2/1
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 48/16
+        MeteringMode = 3
+        LightSource = 0
+        Flash = 31
+        FocalLength = 765/100
+        Maker note:  (0 bytes)
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 960
+        ExifImageLength = 1280
+        InteroperabilityOffset = 650
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        FileSource = ""
+        SceneType = ""
+        CustomRendered = 0
+        ExposureMode = 0
+        WhiteBalance = 0
+        SceneCaptureType = 0
+    Continued directory (dir has 10 entries)
+        Compression = 6
+        Make = "SONY"
+        Model = "CYBERSHOT"
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        DateTime = "2004:01:25 16:13:40"
+        ThumbnailOffset = 873
+        ThumbnailLength = 3750
+Thumbnail size: 3750 bytes
+Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
+Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
+JPEG image is 120w * 160h, 3 color components, 8 bits per sample
+File name    : results-bin/trim0.jpg
+File size    : 9381 bytes
+Camera make  : SONY
+Camera model : CYBERSHOT
+Date/Time    : 2004:01:25 16:13:40
+Resolution   : 120 x 160
+Flash used   : Yes (auto, return light detected)
+Focal length :  7.7mm
+Exposure time: 0.025 s  (1/40)
+Aperture     : f/2.8
+ISO equiv.   : 160
+Whitebalance : Auto
+Metering Mode: spot
+Exposure     : program (auto)
+JPEG Quality : 75
+
+Exif header 26445 bytes long
 Exif section in Motorola order
 (dir has 10 entries)
     ImageDescription = "                                "
@@ -67,8 +144,8 @@ Thumbnail size: 5625 bytes
 Approximate quality factor for qtable 0: 75 (scale 50.51, var 0.81)
 Approximate quality factor for qtable 1: 75 (scale 50.52, var 0.19)
 JPEG image is 160w * 106h, 3 color components, 8 bits per sample
-File name    : normal-digicams/35mmequiv-tag.jpg
-File size    : 27205 bytes
+File name    : results-bin/trim1.jpg
+File size    : 27204 bytes
 Camera make  : NIKON CORPORATION
 Camera model : NIKON D100 
 Date/Time    : 2003:12:26 09:12:21

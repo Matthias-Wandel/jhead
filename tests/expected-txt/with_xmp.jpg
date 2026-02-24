@@ -123,6 +123,8 @@ Image contains XMP section, 3675 bytes long
 Approximate quality factor for qtable 0: 90 (scale 19.88, var 1.14)
 Approximate quality factor for qtable 1: 90 (scale 20.14, var 0.34)
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample
+File name    : results-bin/with_xmp.jpg
+File size    : 34102 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 15:02:24
@@ -277,6 +279,8 @@ Image contains XMP section, 3675 bytes long
 Approximate quality factor for qtable 0: 90 (scale 19.88, var 1.14)
 Approximate quality factor for qtable 1: 90 (scale 20.14, var 0.34)
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample
+File name    : results-bin/with_xmp.jpg
+File size    : 34102 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 15:02:24
@@ -397,6 +401,8 @@ Image contains IPTC section, 128 bytes long
 Approximate quality factor for qtable 0: 90 (scale 19.88, var 1.14)
 Approximate quality factor for qtable 1: 90 (scale 20.14, var 0.34)
 JPEG image is 200w * 150h, 3 color components, 8 bits per sample
+File name    : results-bin/keep_xmp.jpg
+File size    : 30425 bytes
 Camera make  : Canon
 Camera model : Canon PowerShot A95
 Date/Time    : 2007:06:30 14:02:24
