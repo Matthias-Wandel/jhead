@@ -248,6 +248,7 @@ int RemoveJpegSectionByType(int SectionType);
 int RemoveUnknownJpegSections(void);
 int SaveJpegThumbnail(char * ThumbFileName);
 void SetJpegCommentTo(char * NewComment);
+void CreateMinimalJpegExif(void);
 Section_t * FindJpegSection(int SectionType);
 Section_t * FindJpegExifSection();
 Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int size);

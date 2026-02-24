@@ -1023,12 +1023,6 @@ int process_EXIF (unsigned char * ExifSection, int length)
         static uchar ExifHeader[] = "Exif\0\0";
         if (memcmp(ExifSection+2, ExifHeader,6)){
             ErrNonfatal("Incorrect Exif header",0,0);
-            printf("First 10 bytes:");
-            for (int a=0;a<10;a++){
-                printf("'%c' ",ExifHeader[a]);
-            }
-            printf("\n");
-
             return 0;
         }
     }
