@@ -225,3 +225,11 @@ cp pngfiles/from_photo.png nametest.png
 "$jhead" -ta+00:23:24 nametest.png >> results-txt/pngfiles-txt
 "$jhead" -nnametest-%Y%m%dt-%H%M%S nametest.png >> results-txt/pngfiles-txt
 "$jhead" -c nametest*.png >> results-txt/pngfiles-txt
+
+echo "--------------------------------------------------------------------------"
+if diff -qr expected-txt/ results-txt/ ; then
+    echo "All tests passed Passed!"
+else
+    echo "--------------------------------------------------------------------------"
+    echo "Tests Failed - see differences above."
+fi
