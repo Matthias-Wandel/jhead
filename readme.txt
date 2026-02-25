@@ -19,9 +19,9 @@ Some notes:
     Exif internals, or add Exif capability to your program, Jhead is the
     place to cut and paste code from.
 
-    If jhead doesn't have a feature you want, look for "exiftool".  Exiftool
-    has any feature you could imagine, but it's also 100x bigger and much
-    slower.
+    If jhead doesn't have a feature you want, look for "exiv2" or "exiftool".
+    Exiftool has any feature you could imagine, but it's also 100x bigger and much
+    slower.  exiv2 is closr to what Jhead does.
 
     If you find that it dies on a certain jpeg file, send it to me, and I
     will look at it.
@@ -31,8 +31,8 @@ Compiling:
 
     Windows:
 
-    Make sure visual C is on your path (I use version 6 from 1998,
-    but it shouldn't matter much).
+    Make sure visual C compiler is on your path.  I use Microsoft visual
+    C from 2022
     Run the batch file make.bat
 
     Linux & Unices:
@@ -47,9 +47,7 @@ Portability:
 
     Although I have never done so myself, people tell me it compiles
     under platforms as diverse as such as Mac OS-X, or NetBSD on Mac68k.
-    Jhead doesn't care about the endian-ness of your CPU, and should not
-    have problems with processors that do not handle unaligned data,
-    such as ARM.
+    Jhead doesn't care about the endian-ness of your CPU.
 
     Jhead has also made its way into various Linux distributions and ports
     trees, so you might already have it on your system without knowing.

@@ -8,13 +8,13 @@ Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b>
 
 
-<h3>Jhead v3.10 program Features</h3>
+<h3>Jhead v3.20 program Features</h3>
 <ul>
-<li>Extracting camera settings from Exif image files
+<li>Extracting camera settings from Jpeg and PNG files containing an Exif header
 <li>Able to set and/or adjust the Exif time field
 <li>Manipulation (extract, replace, regenerate) of Exif integral thumbnails
 <li>Transplant Exif image header from one JPEG to another
-<li>Edit JPEG comment fields
+<li>Show and set JPEG and PNG comment fields
 <li>Automatically rotate images upright (using jpegtran) according to "orientation" tag.
 <li>Manage running programs on large batches of Jpegs and restoring Exif header
     information afterwards.
@@ -71,20 +71,6 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     Note that Exif header creation is very limited at this time, and no other fields
     can be added to the Exif header this way.
 
-<tr valign=top><td><b>-ce
-<td>Edit the JPEG header comment field (note, this comment field is outside the Exif structure
-    and can be part of Exif and non Exif style JPEG images).
-    <br>
-    A temporary file containing the comment is created and a text editor is launched to edit
-    the file.  The editor is specified in the EDITOR environment variable.  If none is specified
-    notepad or vi are used under Windows and UNIX respectively.  After the editor exits,
-    the data is transferred back into the image, and the temporary file deleted.
-
-<tr valign=top><td><b>-cs &lt;name&gt;
-<td>Save comment section to a file
-
-<tr valign=top><td><b>-ci &lt;name&gt;
-<td>Replace comment with text from file.
 
 <tr valign=top><td><b>-cl&nbsp&lt;comment&gt;
 <td>Replace comment with comment from command line.
