@@ -4,6 +4,12 @@
 ***** For detailed changes see jhead on github:         *****
 ******       https://github.com/Matthias-Wandel/jhead   *****
 *************************************************************
+Feb 25 2026:
+Imlemented limited PNG file support, after letting AI take a crack at
+implemeting it, though fully integrating that was mostly manual work.
+Also removing some odd features in that I thought were a good idea more than
+a decade ago, but not even I used.
+Bumped version to 3.2
 
 Jun 6 2023:
 Bumped version number to 3.08 after going thru some accumulated github issues.

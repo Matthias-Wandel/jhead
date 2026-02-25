@@ -1,4 +1,4 @@
-.TH JHEAD 1 "24 Mar 2021" "jhead 3.06"
+.TH JHEAD 1 "25 Feb 2026" "jhead 3.2"
 .SH NAME
 jhead \- Digicam JPEG Exif header manipulation tool
 .SH SYNOPSIS
@@ -19,10 +19,9 @@ images from digital cameras.  By default, jhead displays the more useful
 camera settings from the file in a user-friendly format.
 .PP
 .B jhead
-can also be used to manipulate some aspects of the image relating to JPEG and
-Exif headers, such as changing the internal timestamps, removing the thumbnail,
-or transferring Exif headers back into edited images after graphical editors
-deleted the Exif header.
+can also be used to manipulate some aspects of the Exif header in Jpegs and
+some PNG files, such as changing the internal timestamps, removing the thumbnail,
+or transferring Exif headers back into edited images from other images.
 .B jhead
 can also be used to launch other programs, similar in style to the UNIX
 .B find
@@ -49,7 +48,7 @@ example, the incantation:
 
 .I jhead \-te "originals/&i" *.jpg
 
-would transfer the exif header for each .jpg file in the originals
+would transfer the Exif header for each .jpg file in the originals
 directory by the same name, Both Win32 and most Unix shells treat the '&'
 character in a special way, so you have to put quotes around that
 command line option for the '&' to even be passed to the program.
@@ -78,26 +77,11 @@ Strips any metadata that various applications may have left in the
 image.  A combination of the \-de \-dc and \-du options.
 .TP
 .B \-mkexif
-Creates minimal exif header. Exif header contains date/time, and empty
+Creates minimal Exif header. Exif header contains date/time, and empty
 thumbnail fields only. Date/time set to file time by default. Use with
-\-rgt option if you want the exif header to contain a thumbnail. Note
-that exif header creation is very limited at this time, and no other
-fields can be added to the exif header this way.
-.TP
-.B \-ce
-Edit the JPEG header comment field (note, this comment field is outside
-the Exif structure and can be part of Exif and non Exif style JPEG
-images).
-
-A temporary file containing the comment is created and a text editor is
-launched to edit the file.  The editor is specified in the EDITOR
-environment variable.  If none is specified notepad or vi are used under
-Windows and Unix respectively.  After the editor exits, the data is
-transferred back into the image, and the temporary file deleted.
-.TP
-.BI \-\^cs \ file
-Save comment section to a
-.I file
+\-rgt option if you want the Exif header to contain a thumbnail. Note
+that Exif header creation is very limited at this time, and no other
+fields can be added to the Exif header this way.
 .TP
 .BI \-\^ci \ file
 Replace comment with text from
@@ -176,7 +160,7 @@ Example:
 
 This will rename files matched by *.jpg in the format YYYYMMDD\-HHMMSS
 
-For a full listing of strftime arguments, look up the strftime in them
+For a full listing of strftime arguments, look up the strftime in the
 man pages.  Note that some arguments to the strftime function (not
 listed here) produce strings with characters such as ':' that may not be
 valid as part of a filename on some systems.
@@ -190,7 +174,7 @@ time has changed.
 
 Examples:
 
-Add 1 hourand 5 minutes to the time
+Add 1 hour and 5 minutes to the time
 .br
 jhead \-ta+1:05
 
@@ -293,8 +277,9 @@ the header (both always the case if the photo came from a digital
 camera)
 .TP
 .BI \-\^rgt \ size
-Regenerate exif thumbnail.  'size' specifies maximum height or width of
-thumbnail.  Relies on the ImageMagick 'magick' program to regenerate
+Regenerate Exif thumbnail.  'size' specifies maximum height or width of
+thumbnail.  Relies on the ImageMagick 'magick'(on Windows) or 
+'convert'(on Linux) program to regenerate
 the thumbnail.  This only works if the image already contains a
 thumbnail.
 
@@ -305,13 +290,16 @@ Using the 'Orientation' tag of the Exif header, rotate the image so that
 it is upright.  The program
 .B jpegtran
 is used to perform the rotation. This program is present in most Linux
-distributions.  For windows, you need to get a copy of it.  After
+distributions.  For Windows, you need to get a copy of it.  After
 rotation, the orientation tag of the Exif header is set to '1' (normal
 orientation).  The thumbnail is also rotated. Other fields of the Exif
 header, including dimensions are untouched, but the JPEG height/width
-are adjusted.  This feature is especially useful with newer Canon
-cameras, that set the orientation tag automatically using a gravity
-sensor.
+are adjusted.  This feature is useful as digital cameras will set
+the orientation field of the image by which way the camera is held
+while taking a photograph.  Most, but not all, programs will rotate
+the image accordin to the rotation field in the Exif header when
+displaying, but Rotating the actual image is a safer way to ensure it
+doesn't end up showing sideways in some programs.
 .TP
 .B \-norot
 Clears the rotation field in the Exif header without altering the image.
@@ -360,8 +348,13 @@ only images that are from an S100 camera:
 
 .I jhead \-model S100 *.jpg
 
-I use this option to restrict my JPEG recompensing to those images that
+restrict my JPEG reprocessing to those images that
 came from my Canon S100 digicam, (see the \-cmd option).
+
+I use this option mostly if I have a collection of photos from different
+cameras and need to adjust the time of just one of these cameras as it
+had the clock set wrong.
+
 .TP
 .B \-exonly
 Skip all files that don't have an Exif header.  Photos straight from a
@@ -418,13 +411,12 @@ dimensions and thumbnail in the Exif header are not adjusted.
 .PP
 Modifying of Exif header data is very limited, as Jhead internally only
 has a read only implementation of the file system contained in the Exif
-header.  For example, there is no way to replace the thumbnail or edit
-the Exif comment in the Exif header.  There is also no way to create
-minimal exif headers.
+header.  Thumbnails can only be replaced if they are at the very
+end of the Exif header.
 .PP
 Some Canon digital SLR cameras fail to adjust the effective sensor
 resolution when shooting at less than full resolution, causing jhead to
-incorrectly miscalculate the sensor width and 35mm equivalent focal
+miscalculate the sensor width and 35mm equivalent focal
 length.  The same can result from resizing photos with Photoshop, which
 will manipulate parts of the exif header.  This is often reported as a
 bug in Jhead, but Jhead can't do much about incorrect data.
