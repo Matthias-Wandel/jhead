@@ -4,9 +4,9 @@
 //--------------------------------------------------------------------------
 #include "jhead.h"
 
-static Section_t * Sections = NULL;
-static int SectionsAllocated;
-static int SectionsRead;
+static ImgSect_t * PngSections = NULL;
+static int PngSectionsAllocated;
+static int PngSectionsRead;
 static int HaveAll;
 
 // CRC-32 for PNG writing
@@ -49,37 +49,37 @@ static void Put32png(uchar * Data, unsigned int Value) {
 //--------------------------------------------------------------------------
 // Section Management (Identical to jpgfile.c logic)
 //--------------------------------------------------------------------------
-void CheckSectionsAllocated(void)
+void CheckPngSectionsAllocated(void)
 {
-    if (SectionsRead >= SectionsAllocated){
-        SectionsAllocated += SectionsAllocated/2 + 5;
-        Sections = (Section_t *)realloc(Sections, sizeof(Section_t)*SectionsAllocated);
-        if (Sections == NULL) ErrFatal("could not allocate data");
+    if (PngSectionsRead >= PngSectionsAllocated){
+        PngSectionsAllocated += PngSectionsAllocated/2 + 5;
+        PngSections = (ImgSect_t *)realloc(PngSections, sizeof(ImgSect_t)*PngSectionsAllocated);
+        if (PngSections == NULL) ErrFatal("could not allocate data");
     }
 }
 
 void ResetPngFile(void)
 {
-    if (Sections == NULL){
-        Sections = (Section_t *)malloc(sizeof(Section_t)*5);
-        SectionsAllocated = 5;
+    if (PngSections == NULL){
+        PngSections = (ImgSect_t *)malloc(sizeof(ImgSect_t)*5);
+        PngSectionsAllocated = 5;
     }
-    SectionsRead = 0;
+    PngSectionsRead = 0;
     HaveAll = 0;
 }
 
 void DiscardPngData(void)
 {
     int a;
-    for (a=0;a<SectionsRead;a++) free(Sections[a].Data);
-    SectionsRead = 0;
+    for (a=0;a<PngSectionsRead;a++) free(PngSections[a].Data);
+    PngSectionsRead = 0;
     HaveAll = 0;
 }
 
-Section_t * FindPngSection(int SectionType)
+ImgSect_t * FindPngSection(int SectionType)
 {
-    for (int a=0; a<SectionsRead; a++) {
-        if (Sections[a].Type == SectionType) return &Sections[a];
+    for (int a=0; a<PngSectionsRead; a++) {
+        if (PngSections[a].Type == SectionType) return &PngSections[a];
     }
     return NULL;
 }
@@ -87,11 +87,11 @@ Section_t * FindPngSection(int SectionType)
 int RemovePngSectionByType(int SectionType)
 {
     int a, retval = FALSE;
-    for (a=0; a<SectionsRead; a++){
-        if (Sections[a].Type == SectionType){
-            free(Sections[a].Data);
-            memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a-1));
-            SectionsRead -= 1;
+    for (a=0; a<PngSectionsRead; a++){
+        if (PngSections[a].Type == SectionType){
+            free(PngSections[a].Data);
+            memmove(PngSections+a, PngSections+a+1, sizeof(ImgSect_t) * (PngSectionsRead-a-1));
+            PngSectionsRead -= 1;
             a -= 1;
             retval = TRUE;
         }
@@ -145,15 +145,15 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
             printf("PNG Chunk type 0x%08x '%.4s' length %d\n",ChunkTypeInt, TypeRaw, ChunkLen);
         }
 
-        CheckSectionsAllocated();
+        CheckPngSectionsAllocated();
         uchar * Data = (uchar *)malloc(ChunkLen + 20);
         fread(Data, 1, ChunkLen, infile);
         fseek(infile, 4, SEEK_CUR); // Skip CRC
 
-        Sections[SectionsRead].Type = ChunkTypeInt;
-        Sections[SectionsRead].Size = ChunkLen;
-        Sections[SectionsRead].Data = Data;
-        SectionsRead++;
+        PngSections[PngSectionsRead].Type = ChunkTypeInt;
+        PngSections[PngSectionsRead].Size = ChunkLen;
+        PngSections[PngSectionsRead].Data = Data;
+        PngSectionsRead++;
 
         if (memcmp(TypeRaw, "IHDR", 4) == 0) {
             ImageInfo.Width = Get32png(Data);
@@ -169,7 +169,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         } else if (memcmp(TypeRaw, "tEXt", 4) == 0 && ChunkLen > 8 && memcmp("Comment",Data,8) == 0){
             if (HaveCom || ((ReadMode & READ_METADATA) == 0)){
                 // Discard this section.
-                free(Sections[--SectionsRead].Data);
+                free(PngSections[--PngSectionsRead].Data);
             }else{
                 ProcessImgComment(Data+8, ChunkLen-8);
                 HaveCom = TRUE;
@@ -198,23 +198,23 @@ void WritePngFile(const char * FileName)
     if (!outfile) ErrFatal("Could not open for write");
 
     fwrite("\x89PNG\r\n\x1a\n", 1, 8, outfile);
-    for (int a = 0; a < SectionsRead; a++) {
+    for (int a = 0; a < PngSectionsRead; a++) {
         uchar Header[8], CrcIn[4], CrcRaw[4];
-        Put32png(Header, Sections[a].Size);
-        Put32png(Header + 4, Sections[a].Type);
+        Put32png(Header, PngSections[a].Size);
+        Put32png(Header + 4, PngSections[a].Type);
 
         fwrite(Header, 1, 8, outfile);
-        fwrite(Sections[a].Data, 1, Sections[a].Size, outfile);
+        fwrite(PngSections[a].Data, 1, PngSections[a].Size, outfile);
 
         // CRC over Type + Data
-        Put32png(CrcIn, Sections[a].Type);
+        Put32png(CrcIn, PngSections[a].Type);
         unsigned int c = 0xffffffffL;
         if (!CrcTableGenerated) GenerateCrcTable();
         for(int i=0; i<4; i++){
             c = CrcTable[(c ^ CrcIn[i]) & 0xff] ^ (c >> 8);
         }
-        for(unsigned i=0; i<Sections[a].Size; i++){
-            c = CrcTable[(c ^ Sections[a].Data[i]) & 0xff] ^ (c >> 8);
+        for(unsigned i=0; i<PngSections[a].Size; i++){
+            c = CrcTable[(c ^ PngSections[a].Data[i]) & 0xff] ^ (c >> 8);
         }
 
         Put32png(CrcRaw, c ^ 0xffffffffL);
@@ -226,45 +226,45 @@ void WritePngFile(const char * FileName)
 //--------------------------------------------------------------------------
 // Adds a PNG section, after initial seciton and before the image data.
 //--------------------------------------------------------------------------
-Section_t * CreatePngSection(int SectionType, unsigned char * Data, int Size)
+ImgSect_t * CreatePngSection(int SectionType, unsigned char * Data, int Size)
 {
-    CheckSectionsAllocated();
+    CheckPngSectionsAllocated();
 
     int NewIndex = 1; // First section needs to stay at first position.
 
     // Make room for the new section
-    for (int a = SectionsRead; a > NewIndex; a--) {
-        Sections[a] = Sections[a-1];
+    for (int a = PngSectionsRead; a > NewIndex; a--) {
+        PngSections[a] = PngSections[a-1];
     }
-    SectionsRead++;
+    PngSectionsRead++;
 
-    Sections[NewIndex].Type = SectionType;
-    Sections[NewIndex].Size = Size;
-    Sections[NewIndex].Data = Data;
+    PngSections[NewIndex].Type = SectionType;
+    PngSections[NewIndex].Size = Size;
+    PngSections[NewIndex].Data = Data;
 
-    return &Sections[NewIndex];
+    return &PngSections[NewIndex];
 
 }
 
 //--------------------------------------------------------------------------
 // Remove a PNG section by its pointer.
 //--------------------------------------------------------------------------
-static void RemovePngSection(Section_t * Section)
+static void RemovePngSection(ImgSect_t * RemoveSection)
 {
     int a;
-    int Index = Section - Sections;
+    int Index = RemoveSection - PngSections;
 
-    if (Index < 0 || Index >= SectionsRead) {
+    if (Index < 0 || Index >= PngSectionsRead) {
         ErrFatal("Invalid section pointer for removal");
     }
 
-    free(Sections[Index].Data);
+    free(PngSections[Index].Data);
 
     // Shift the remaining sections down to fill the gap
-    for (a = Index; a < SectionsRead-1; a++) {
-        Sections[a] = Sections[a+1];
+    for (a = Index; a < PngSectionsRead-1; a++) {
+        PngSections[a] = PngSections[a+1];
     }
-    SectionsRead -= 1;
+    PngSectionsRead -= 1;
 }
 
 //--------------------------------------------------------------------------
@@ -272,14 +272,14 @@ static void RemovePngSection(Section_t * Section)
 //--------------------------------------------------------------------------
 void SetPngCommentTo(char * NewCommentStr)
 {
-    Section_t * CommentSec = NULL;
+    ImgSect_t * CommentSec = NULL;
     int a;
 
     // Look for an existing tEXt chunk that starts with "Description"
-    for (a=0; a<SectionsRead; a++) {
-        if (Sections[a].Type == 0x74455874) { // 'tEXt'
-            if (strncmp((char*)Sections[a].Data, "Comment", 8) == 0) {
-                CommentSec = &Sections[a];
+    for (a=0; a<PngSectionsRead; a++) {
+        if (PngSections[a].Type == 0x74455874) { // 'tEXt'
+            if (strncmp((char*)PngSections[a].Data, "Comment", 8) == 0) {
+                CommentSec = &PngSections[a];
                 break;
             }
         }
@@ -319,8 +319,8 @@ void SetPngCommentTo(char * NewCommentStr)
 void DiscardAllPngButExif(void)
 {
     // Simplified version: keep only IHDR, eXIf, and IEND
-    for (int a=0; a<SectionsRead; a++) {
-        if (Sections[a].Type != 0x49484452 && Sections[a].Type != 0x65584966 && Sections[a].Type != 0x49454E44) {
+    for (int a=0; a<PngSectionsRead; a++) {
+        if (PngSections[a].Type != 0x49484452 && PngSections[a].Type != 0x65584966 && PngSections[a].Type != 0x49454E44) {
              // Logic to remove... for testing just skip
         }
     }

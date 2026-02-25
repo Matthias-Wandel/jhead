@@ -8,13 +8,10 @@
 //--------------------------------------------------------------------------
 #include "jhead.h"
 
-
-static Section_t * Sections = NULL;
-static int SectionsAllocated;
-static int SectionsRead;
+static ImgSect_t * JpgSections = NULL;
+static int JpgSectionsAllocated;
+static int JpgSectionsRead;
 static int HaveAll;
-
-
 
 #define PSEUDO_IMAGE_MARKER 0x123; // Extra value.
 //--------------------------------------------------------------------------
@@ -24,8 +21,6 @@ static int Get16m(const void * Short)
 {
     return (((uchar *)Short)[0] << 8) | ((uchar *)Short)[1];
 }
-
-
 
 //--------------------------------------------------------------------------
 // Process a SOFn marker.  This is useful for the image dimensions
@@ -57,15 +52,15 @@ static void process_SOFn (const uchar * Data, int marker)
 //--------------------------------------------------------------------------
 // Check sections array to see if it needs to be increased in size.
 //--------------------------------------------------------------------------
-static void CheckSectionsAllocated(void)
+static void CheckJpgSectionsAllocated(void)
 {
-    if (SectionsRead > SectionsAllocated){
+    if (JpgSectionsRead > JpgSectionsAllocated){
         ErrFatal("allocation screwup");
     }
-    if (SectionsRead >= SectionsAllocated){
-        SectionsAllocated += SectionsAllocated/2;
-        Sections = (Section_t *)realloc(Sections, sizeof(Section_t)*SectionsAllocated);
-        if (Sections == NULL){
+    if (JpgSectionsRead >= JpgSectionsAllocated){
+        JpgSectionsAllocated += JpgSectionsAllocated/2;
+        JpgSections = (ImgSect_t *)realloc(JpgSections, sizeof(ImgSect_t)*JpgSectionsAllocated);
+        if (JpgSections == NULL){
             ErrFatal("could not allocate data for entire image");
         }
     }
@@ -96,7 +91,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         int ll,lh, got;
         uchar * Data;
 
-        CheckSectionsAllocated();
+        CheckJpgSectionsAllocated();
 
         prev = 0;
         for (a=0;;a++){
@@ -112,7 +107,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             ErrNonfatal("Extraneous %d padding bytes before section %02X",a-1,marker);
         }
 
-        Sections[SectionsRead].Type = marker;
+        JpgSections[JpgSectionsRead].Type = marker;
 
         // Read the length of the section.
         lh = fgetc(infile);
@@ -127,7 +122,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             ErrFatal("invalid marker");
         }
 
-        Sections[SectionsRead].Size = itemlen;
+        JpgSections[JpgSectionsRead].Size = itemlen;
 
         // Allocate an extra 20 bytes more than needed, because sometimes when reading structures,
         // if the section erroneously ends before short structures that should be there, that can trip
@@ -137,7 +132,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             ErrFatal("Could not allocate memory");
         }
         memset(Data, 0, 20);
-        Sections[SectionsRead].Data = Data;
+        JpgSections[JpgSectionsRead].Data = Data;
 
         // Store first two pre-read bytes.
         Data[0] = (uchar)lh;
@@ -147,7 +142,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
         if (got != itemlen-2){
             ErrFatal("Premature end of file?");
         }
-        SectionsRead += 1;
+        JpgSectionsRead += 1;
 
         switch(marker){
 
@@ -172,11 +167,11 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                         ErrFatal("could not read the rest of the image");
                     }
 
-                    CheckSectionsAllocated();
-                    Sections[SectionsRead].Data = Data;
-                    Sections[SectionsRead].Size = size;
-                    Sections[SectionsRead].Type = PSEUDO_IMAGE_MARKER;
-                    SectionsRead ++;
+                    CheckJpgSectionsAllocated();
+                    JpgSections[JpgSectionsRead].Data = Data;
+                    JpgSections[JpgSectionsRead].Size = size;
+                    JpgSections[JpgSectionsRead].Type = PSEUDO_IMAGE_MARKER;
+                    JpgSectionsRead ++;
                     HaveAll = 1;
                 }
                 return TRUE;
@@ -198,7 +193,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             case M_COM: // Comment section
                 if (HaveCom || ((ReadMode & READ_METADATA) == 0)){
                     // Discard this section.
-                    free(Sections[--SectionsRead].Data);
+                    free(JpgSections[--JpgSectionsRead].Data);
                 }else{
                     ProcessImgComment(Data+2, itemlen-2);
                     HaveCom = TRUE;
@@ -239,7 +234,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
                 ignore:
 
-                free(Sections[--SectionsRead].Data);
+                free(JpgSections[--JpgSectionsRead].Data);
                 break;
 
             case M_EXIF:
@@ -248,22 +243,22 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                     if (memcmp(Data+2, "Exif", 4) == 0){
                         if (!process_EXIF(Data, itemlen)){
                             // malformatted exif sections, discard.
-                            free(Sections[--SectionsRead].Data);
+                            free(JpgSections[--JpgSectionsRead].Data);
 						}
                         break;
                     }else if (memcmp(Data+2, "http:", 5) == 0){
-                        Sections[SectionsRead-1].Type = M_XMP; // Change tag for internal purposes.
+                        JpgSections[JpgSectionsRead-1].Type = M_XMP; // Change tag for internal purposes.
                         if (ShowTags){
                             printf("Image contains XMP section, %d bytes long\n", itemlen);
                             if (ShowTags){
-                                ShowXmp(Sections[SectionsRead-1]);
+                                ShowXmp(JpgSections[JpgSectionsRead-1]);
                             }
                         }
                         break;
                     }
                 }
                 // Otherwise, discard this section.
-                free(Sections[--SectionsRead].Data);
+                free(JpgSections[--JpgSectionsRead].Data);
                 break;
 
             case M_IPTC:
@@ -274,7 +269,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                     // Note: We just store the IPTC section.  Its relatively straightforward
                     // and we don't act on any part of it, so just display it at parse time.
                 }else{
-                    free(Sections[--SectionsRead].Data);
+                    free(JpgSections[--JpgSectionsRead].Data);
                 }
                 break;
 
@@ -315,11 +310,11 @@ void DiscardJpegData(void)
 {
     int a;
 
-    for (a=0;a<SectionsRead;a++){
-        free(Sections[a].Data);
+    for (a=0;a<JpgSectionsRead;a++){
+        free(JpgSections[a].Data);
     }
     
-    SectionsRead = 0;
+    JpgSectionsRead = 0;
     HaveAll = 0;
 }
 
@@ -372,7 +367,7 @@ int SaveJpegThumbnail(char * ThumbFileName)
 
     if (ThumbnailFile){
         uchar * ThumbnailPointer;
-        Section_t * ExifSection;
+        ImgSect_t * ExifSection;
         ExifSection = FindJpegSection(M_EXIF);
         ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
 
@@ -392,7 +387,7 @@ int ReplaceJpegThumbnail(const char * ThumbFileName)
 {
     FILE * ThumbnailFile;
     int ThumbLen, NewExifSize;
-    Section_t * ExifSection;
+    ImgSect_t * ExifSection;
     uchar * ThumbnailPointer;
 
     if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailAtEnd == FALSE){
@@ -466,10 +461,10 @@ int ReplaceJpegThumbnail(const char * ThumbFileName)
 //--------------------------------------------------------------------------
 void DiscardAllJpegButExif(void)
 {
-    Section_t ExifKeeper;
-    Section_t CommentKeeper;
-    Section_t IptcKeeper;
-    Section_t XmpKeeper;
+    ImgSect_t ExifKeeper;
+    ImgSect_t CommentKeeper;
+    ImgSect_t IptcKeeper;
+    ImgSect_t XmpKeeper;
     int a;
 
     memset(&ExifKeeper, 0, sizeof(ExifKeeper));
@@ -477,36 +472,36 @@ void DiscardAllJpegButExif(void)
     memset(&IptcKeeper, 0, sizeof(IptcKeeper));
     memset(&XmpKeeper, 0, sizeof(IptcKeeper));
 
-    for (a=0;a<SectionsRead;a++){
-        if (Sections[a].Type == M_EXIF && ExifKeeper.Type == 0){
-           ExifKeeper = Sections[a];
-        }else if (Sections[a].Type == M_XMP && XmpKeeper.Type == 0){
-           XmpKeeper = Sections[a];
-        }else if (Sections[a].Type == M_COM && CommentKeeper.Type == 0){
-            CommentKeeper = Sections[a];
-        }else if (Sections[a].Type == M_IPTC && IptcKeeper.Type == 0){
-            IptcKeeper = Sections[a];
+    for (a=0;a<JpgSectionsRead;a++){
+        if (JpgSections[a].Type == M_EXIF && ExifKeeper.Type == 0){
+           ExifKeeper = JpgSections[a];
+        }else if (JpgSections[a].Type == M_XMP && XmpKeeper.Type == 0){
+           XmpKeeper = JpgSections[a];
+        }else if (JpgSections[a].Type == M_COM && CommentKeeper.Type == 0){
+            CommentKeeper = JpgSections[a];
+        }else if (JpgSections[a].Type == M_IPTC && IptcKeeper.Type == 0){
+            IptcKeeper = JpgSections[a];
         }else{
-            free(Sections[a].Data);
+            free(JpgSections[a].Data);
         }
     }
-    SectionsRead = 0;
+    JpgSectionsRead = 0;
     if (ExifKeeper.Type){
-        CheckSectionsAllocated();
-        Sections[SectionsRead++] = ExifKeeper;
+        CheckJpgSectionsAllocated();
+        JpgSections[JpgSectionsRead++] = ExifKeeper;
     }
     if (CommentKeeper.Type){
-        CheckSectionsAllocated();
-        Sections[SectionsRead++] = CommentKeeper;
+        CheckJpgSectionsAllocated();
+        JpgSections[JpgSectionsRead++] = CommentKeeper;
     }
     if (IptcKeeper.Type){
-        CheckSectionsAllocated();
-        Sections[SectionsRead++] = IptcKeeper;
+        CheckJpgSectionsAllocated();
+        JpgSections[JpgSectionsRead++] = IptcKeeper;
     }
 
     if (XmpKeeper.Type){
-        CheckSectionsAllocated();
-        Sections[SectionsRead++] = XmpKeeper;
+        CheckJpgSectionsAllocated();
+        JpgSections[JpgSectionsRead++] = XmpKeeper;
     }
 }
 
@@ -531,7 +526,7 @@ void WriteJpegFile(const char * FileName)
     fputc(0xff,outfile);
     fputc(0xd8,outfile);
 
-    if (Sections[0].Type != M_EXIF && Sections[0].Type != M_JFIF){
+    if (JpgSections[0].Type != M_EXIF && JpgSections[0].Type != M_JFIF){
         // The image must start with an exif or jfif marker.  If we threw those away, create one.
         static uchar JfifHead[18] = {
             0xff, M_JFIF,
@@ -575,14 +570,14 @@ void WriteJpegFile(const char * FileName)
 
 
     // Write all the misc sections
-    for (a=0;a<SectionsRead-1;a++){
+    for (a=0;a<JpgSectionsRead-1;a++){
         fputc(0xff,outfile);
-        fputc((unsigned char)Sections[a].Type, outfile);
-        fwrite(Sections[a].Data, Sections[a].Size, 1, outfile);
+        fputc((unsigned char)JpgSections[a].Type, outfile);
+        fwrite(JpgSections[a].Data, JpgSections[a].Size, 1, outfile);
     }
 
     // Write the remaining image data.
-    fwrite(Sections[a].Data, Sections[a].Size, 1, outfile);
+    fwrite(JpgSections[a].Data, JpgSections[a].Size, 1, outfile);
 
     fclose(outfile);
 }
@@ -591,13 +586,13 @@ void WriteJpegFile(const char * FileName)
 //--------------------------------------------------------------------------
 // Check if image has exif header.
 //--------------------------------------------------------------------------
-Section_t * FindJpegSection(int SectionType)
+ImgSect_t * FindJpegSection(int SectionType)
 {
     int a;
 
-    for (a=0;a<SectionsRead;a++){
-        if (Sections[a].Type == SectionType){
-            return &Sections[a];
+    for (a=0;a<JpgSectionsRead;a++){
+        if (JpgSections[a].Type == SectionType){
+            return &JpgSections[a];
         }
     }
     // Could not be found.
@@ -612,13 +607,13 @@ int RemoveJpegSectionByType(int SectionType)
     int a;
     int retval = FALSE;
 
-    for (a=0;a<SectionsRead-1;a++){
-        if (Sections[a].Type == SectionType){
+    for (a=0;a<JpgSectionsRead-1;a++){
+        if (JpgSections[a].Type == SectionType){
             // Free up this section
-            free (Sections[a].Data);
+            free (JpgSections[a].Data);
             // Move succeeding sections back by one to close space in array.
-            memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a-1));
-            SectionsRead -= 1;
+            memmove(JpgSections+a, JpgSections+a+1, sizeof(ImgSect_t) * (JpgSectionsRead-a-1));
+            JpgSectionsRead -= 1;
             a -= 1;
             retval = TRUE;
         }
@@ -633,8 +628,8 @@ int RemoveUnknownJpegSections(void)
 {
     int a;
     int Modified = FALSE;
-    for (a=0;a<SectionsRead-1;){
-        switch(Sections[a].Type){
+    for (a=0;a<JpgSectionsRead-1;){
+        switch(JpgSections[a].Type){
             case  M_SOF0:
             case  M_SOF1:
             case  M_SOF2:
@@ -664,10 +659,10 @@ int RemoveUnknownJpegSections(void)
                 break;
             default:
                 // Unknown.  Delete.
-                free (Sections[a].Data);
+                free (JpgSections[a].Data);
                 // Move succeeding sections back by one to close space in array.
-                memmove(Sections+a, Sections+a+1, sizeof(Section_t) * (SectionsRead-a-1));
-                SectionsRead -= 1;
+                memmove(JpgSections+a, JpgSections+a+1, sizeof(ImgSect_t) * (JpgSectionsRead-a-1));
+                JpgSectionsRead -= 1;
                 Modified = TRUE;
         }
     }
@@ -678,9 +673,9 @@ int RemoveUnknownJpegSections(void)
 // Add a section (assume it doesn't already exist) - used for
 // adding comment sections and exif sections
 //--------------------------------------------------------------------------
-Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int Size)
+ImgSect_t * CreateJpegSection(int SectionType, unsigned char * Data, int Size)
 {
-    Section_t * NewSection;
+    ImgSect_t * NewSection;
     int a;
     int NewIndex;
 
@@ -689,23 +684,23 @@ Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int Size)
         // Exif always goes first!
     }else{
         for (;NewIndex < 3;NewIndex++){ // Maximum fourth position (just for the heck of it)
-            if (Sections[NewIndex].Type == M_JFIF) continue; // Put it after Jfif
-            if (Sections[NewIndex].Type == M_EXIF) continue; // Put it after Exif
+            if (JpgSections[NewIndex].Type == M_JFIF) continue; // Put it after Jfif
+            if (JpgSections[NewIndex].Type == M_EXIF) continue; // Put it after Exif
             break;
         }
     }
 
-    if (SectionsRead < NewIndex){
+    if (JpgSectionsRead < NewIndex){
         ErrFatal("Too few sections!");
     }
 
-    CheckSectionsAllocated();
-    for (a=SectionsRead;a>NewIndex;a--){
-        Sections[a] = Sections[a-1];
+    CheckJpgSectionsAllocated();
+    for (a=JpgSectionsRead;a>NewIndex;a--){
+        JpgSections[a] = JpgSections[a-1];
     }
-    SectionsRead += 1;
+    JpgSectionsRead += 1;
 
-    NewSection = Sections+NewIndex;
+    NewSection = JpgSections+NewIndex;
 
     NewSection->Type = SectionType;
     NewSection->Size = Size;
@@ -759,7 +754,7 @@ void SetJpegCommentTo(char * NewCommentStr)
         return;
     }
 
-    Section_t * CommentSec;
+    ImgSect_t * CommentSec;
     int CommentSize = strlen(NewCommentStr);
     CommentSec = FindImgSection(M_COM);
 
@@ -785,11 +780,11 @@ void SetJpegCommentTo(char * NewCommentStr)
 //--------------------------------------------------------------------------
 void ResetJpegFile(void)
 {
-    if (Sections == NULL){
-        Sections = (Section_t *)malloc(sizeof(Section_t)*5);
-        SectionsAllocated = 5;
+    if (JpgSections == NULL){
+        JpgSections = (ImgSect_t *)malloc(sizeof(ImgSect_t)*5);
+        JpgSectionsAllocated = 5;
     }
 
-    SectionsRead = 0;
+    JpgSectionsRead = 0;
     HaveAll = 0;
 }

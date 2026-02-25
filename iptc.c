@@ -186,7 +186,7 @@ corrupt:
 //--------------------------------------------------------------------------
 // Dump contents of XMP section
 //--------------------------------------------------------------------------
-void ShowXmp(Section_t XmpSection)
+void ShowXmp(ImgSect_t XmpSection)
 {
     unsigned char * Data;
     char OutLine[101];

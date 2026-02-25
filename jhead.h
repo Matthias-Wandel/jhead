@@ -64,7 +64,7 @@ typedef struct {
     uchar *  Data;
     int      Type;
     unsigned Size;
-}Section_t;
+}ImgSect_t;
 
 extern int ExifSectionIndex;
 
@@ -205,7 +205,7 @@ void ProcessGpsInfo(unsigned char * ValuePtr,
 
 // iptc.c prototypes
 void show_IPTC (unsigned char * CharBuf, unsigned int length);
-void ShowXmp(Section_t XmpSection);
+void ShowXmp(ImgSect_t XmpSection);
 
 // Prototypes for myglob.c module
 #ifdef _WIN32
@@ -232,8 +232,8 @@ void CreateImgExif(void);
 int RemoveImgSectionByType(int SectionType);
 void SetImgCommentTo(char * NewComment);
 uchar * GetImgExifSectionData(unsigned int *Size);
-Section_t * FindImgSection(int SectionType);
-Section_t * CreateImgSection(int SectionType, unsigned char * Data, int size);
+ImgSect_t * FindImgSection(int SectionType);
+ImgSect_t * CreateImgSection(int SectionType, unsigned char * Data, int size);
 void ProcessImgComment (const uchar * Data, int length);
 int TrimImgExifTrailingZeros(void);
 void DoFileRenaming(const char * FileName, char * strftime_args);
@@ -250,9 +250,9 @@ int RemoveUnknownJpegSections(void);
 int SaveJpegThumbnail(char * ThumbFileName);
 void SetJpegCommentTo(char * NewComment);
 void CreateMinimalJpegExif(void);
-Section_t * FindJpegSection(int SectionType);
-Section_t * FindJpegExifSection();
-Section_t * CreateJpegSection(int SectionType, unsigned char * Data, int size);
+ImgSect_t * FindJpegSection(int SectionType);
+ImgSect_t * FindJpegExifSection();
+ImgSect_t * CreateJpegSection(int SectionType, unsigned char * Data, int size);
 
 // Png handling functions
 int  ReadPngFile(FILE * f, ReadMode_t ReadMode);
@@ -265,9 +265,9 @@ int RemovePngSectionByType(int SectionType);
 int RemoveUnknownPngSections(void);
 void SetPngCommentTo(char * NewComment);
 void CreateMinimalPngExif(void);
-Section_t * FindPngSection(int SectionType);
-Section_t * FindPngExifSection();
-Section_t * CreatePngSection(int SectionType, unsigned char * Data, int Size);
+ImgSect_t * FindPngSection(int SectionType);
+ImgSect_t * FindPngExifSection();
+ImgSect_t * CreatePngSection(int SectionType, unsigned char * Data, int Size);
 
 
 // Prototypes from jpgqguess.c

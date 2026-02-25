@@ -1,14 +1,9 @@
 //--------------------------------------------------------------------------
 // imgfile.c - Thunking layer for jhead to handle both JPEG and PNG
 //--------------------------------------------------------------------------
-#ifdef _WIN32
-    #include <io.h>
-#endif
 
 #include "jhead.h"
-
 #include <sys/stat.h>
-
 
 // Define image types
 #define TYPE_UNKNOWN 0
@@ -149,29 +144,20 @@ int RemoveUnknownImgSections(void)
         return FALSE;
     }
 }
-/*
-Section_t * FindImgExifSection()
-{
-    if (ImgTypeLoaded == TYPE_JPEG) return FindJpegSection(M_EXIF);
-    if (ImgTypeLoaded == TYPE_PNG) return FindPngExifSection();
-    ErrFatal("not implemented 3\n");
-    return FALSE;
-}
-*/
 
 uchar * GetImgExifSectionData(unsigned int *Size)
 {
-    Section_t * section;
+    ImgSect_t * ExSection;
     if (ImgTypeLoaded == TYPE_JPEG){
-        section = FindJpegSection(M_EXIF);
-        if (section == NULL) return NULL;
-        if (Size) *Size = section->Size-8;
-        return section->Data+8;
+        ExSection = FindJpegSection(M_EXIF);
+        if (ExSection == NULL) return NULL;
+        if (Size) *Size = ExSection->Size-8;
+        return ExSection->Data+8;
     }else if (ImgTypeLoaded == TYPE_PNG){
-        section = FindPngSection(0x65584966); // 'eXIf'
-        if (section == NULL) return NULL;
-        if (Size) *Size = section->Size;
-        return section->Data;
+        ExSection = FindPngSection(0x65584966); // 'eXIf'
+        if (ExSection == NULL) return NULL;
+        if (Size) *Size = ExSection->Size;
+        return ExSection->Data;
     }
     return NULL;
 }
@@ -211,9 +197,9 @@ int TrimImgExifTrailingZeros()
     ExifData = GetImgExifSectionData(&Size);
     if (!ExifData) return FALSE;
 
-    int NewSize = ExifBytesActuallyUsed(ExifData, Size);
+    unsigned NewSize = ExifBytesActuallyUsed(ExifData, Size);
     if (NewSize < Size){
-        Section_t * ExSec;
+        ImgSect_t * ExSec;
         if (ImgTypeLoaded == TYPE_JPEG){
             ExSec = FindJpegSection(M_EXIF);
             ExSec->Size = NewSize+8;
@@ -239,7 +225,7 @@ void SetImgCommentTo(char * NewComment)
     }
 }
 
-Section_t * FindImgSection(int SectionType)
+ImgSect_t * FindImgSection(int SectionType)
 {
     // Section type values differ between Jpeg and Png, so calls to this
     // function needs to be replaced with calls referring to specific section types.
@@ -254,7 +240,7 @@ Section_t * FindImgSection(int SectionType)
     }
 }
 
-Section_t * CreateImgSection(int SectionType, unsigned char * Data, int Size)
+ImgSect_t * CreateImgSection(int SectionType, unsigned char * Data, int Size)
 {
     if (ImgTypeLoaded == TYPE_JPEG){
         return CreateJpegSection(SectionType, Data, Size);

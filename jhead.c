@@ -591,7 +591,7 @@ static void ProcessFile(const char * FileName)
 
             {
                 // if IPTC section is present, show it also.
-                Section_t * IptcSection;
+                ImgSect_t * IptcSection;
                 IptcSection = FindImgSection(M_IPTC);
 
                 if (IptcSection){
