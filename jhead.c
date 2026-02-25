@@ -34,9 +34,8 @@
 #define READ_JPEG   6
 static int DoModify  = FALSE;
 
-
 static int FilesMatched;
-static int FileSequence;
+static int FilesProcessed;
 
 static const char * CurrentFile;
 
@@ -53,9 +52,6 @@ static const char * progname;   // program name for error messages
 // Command line options flags
 static int TrimExif = FALSE;        // Cut off exif beyond interesting data.
 static int RenameToDate = 0;        // 1=rename, 2=rename all.
-#ifdef _WIN32
-static int RenameAssociatedFiles = FALSE;
-#endif
 static char * strftime_args = NULL; // Format for new file name.
 static int Exif2FileTime  = FALSE;
        int ShowTags     = FALSE;    // Do not show raw by default.
@@ -364,213 +360,6 @@ static void RelativeName(char * OutFileName, const char * NamePattern, const cha
 }
 
 
-#ifdef _WIN32
-//--------------------------------------------------------------------------
-// Rename associated files
-//--------------------------------------------------------------------------
-void RenameAssociated(const char * FileName, char * NewBaseName)
-{
-    int a;
-    int PathLen;
-    int ExtPos;
-    char FilePattern[_MAX_PATH+1];
-    char NewName[_MAX_PATH+1];
-    struct _finddata_t finddata;
-    long find_handle;
-
-    for(ExtPos = strlen(FileName);FileName[ExtPos-1] != '.';){
-        if (--ExtPos == 0) return; // No extension!
-    }
-
-    memcpy(FilePattern, FileName, ExtPos);
-    FilePattern[ExtPos] = '*';
-    FilePattern[ExtPos+1] = '\0';
-
-    for(PathLen = strlen(FileName);FileName[PathLen-1] != SLASH;){
-        if (--PathLen == 0) break;
-    }
-
-    find_handle = _findfirst(FilePattern, &finddata);
-
-    for (;;){
-        if (find_handle == -1) break;
-
-        // Eliminate the obvious patterns.
-        if (!memcmp(finddata.name, ".",2)) goto next_file;
-        if (!memcmp(finddata.name, "..",3)) goto next_file;
-        if (finddata.attrib & _A_SUBDIR) goto next_file;
-
-        strncpy(FilePattern+PathLen, finddata.name, PATH_MAX-PathLen); // full name with path
-
-        strcpy(NewName, NewBaseName);
-        for(a = strlen(finddata.name);finddata.name[a] != '.';){
-            if (--a == 0) goto next_file;
-        }
-        strncat(NewName, finddata.name+a, _MAX_PATH-strlen(NewName)); // add extension to new name
-
-        if (rename(FilePattern, NewName) == 0){
-            if (!Quiet){
-                printf("%s --> %s\n",FilePattern, NewName);
-            }
-        }
-
-        next_file:
-        if (_findnext(find_handle, &finddata) != 0) break;
-    }
-    _findclose(find_handle);
-}
-#endif
-
-//--------------------------------------------------------------------------
-// Handle renaming of files by date.
-//--------------------------------------------------------------------------
-static void DoFileRenaming(const char * FileName)
-{
-    int PrefixPart = 0; // Where the actual filename starts.
-    int ExtensionPart;  // Where the file extension starts.
-    int a;
-    struct tm tm;
-    char NewBaseName[PATH_MAX*2];
-    int AddLetter = 0;
-    char NewName[PATH_MAX+2];
-
-    ExtensionPart = strlen(FileName);
-    for (a=0;FileName[a];a++){
-        if (FileName[a] == SLASH){
-            // Don't count path component.
-            PrefixPart = a+1;
-        }
-
-        if (FileName[a] == '.') ExtensionPart = a;  // Remember where extension starts.
-    }
-    if (ExtensionPart < PrefixPart) { // no extension found
-        ExtensionPart = strlen(FileName);
-    }
-
-    if (!Exif2tm(&tm, ImageInfo.DateTime)){
-        printf("File '%s' contains no exif date stamp.  Using file date\n",FileName);
-        // Use file date/time instead.
-        tm = *localtime(&ImageInfo.FileDateTime);
-    }
-
-
-    strncpy(NewBaseName, FileName, PATH_MAX); // Get path component of name.
-
-    if (strftime_args){
-        // Complicated scheme for flexibility.  Just pass the args to strftime.
-        time_t UnixTime;
-
-        char *s;
-        char pattern[PATH_MAX+20];
-        int n = ExtensionPart - PrefixPart;
-
-        // Call mktime to get weekday and such filled in.
-        UnixTime = mktime(&tm);
-        if ((int)UnixTime == -1){
-            printf("Could not convert %s to unix time",ImageInfo.DateTime);
-            return;
-        }
-
-        // Substitute "%f" for the original name (minus path & extension)
-        pattern[PATH_MAX-1]=0;
-        strncpy(pattern, strftime_args, PATH_MAX-1);
-        while ((s = strstr(pattern, "%f")) && strlen(pattern) + n < PATH_MAX-1){
-            memmove(s + n, s + 2, strlen(s+2) + 1);
-            memmove(s, FileName + PrefixPart, n);
-        }
-
-        {
-            // Sequential number renaming part.
-            // '%i' type pattern becomes sequence number.
-            int ppos = -1;
-            for (a=0;pattern[a];a++){
-                if (pattern[a] == '%'){
-                     ppos = a;
-                }else if (pattern[a] == 'i'){
-                    if (ppos >= 0 && a<ppos+4){
-                        // Replace this part with a number.
-                        char pat[8], num[16];
-                        int l,nl;
-                        memcpy(pat, pattern+ppos, 4);
-                        pat[a-ppos] = 'd'; // Replace 'i' with 'd' for '%d'
-                        pat[a-ppos+1] = '\0';
-                        sprintf(num, pat, FileSequence); // let printf do the number formatting.
-                        nl = strlen(num);
-                        l = strlen(pattern+a+1);
-                        if (ppos+nl+l+1 >= PATH_MAX) ErrFatal("str overflow");
-                        memmove(pattern+ppos+nl, pattern+a+1, l+1);
-                        memcpy(pattern+ppos, num, nl);
-                        break;
-                    }
-                }else if (!isdigit(pattern[a])){
-                    ppos = -1;
-                }
-            }
-        }
-        strftime(NewName, PATH_MAX, pattern, &tm);
-    }else{
-        // My favourite scheme.
-        sprintf(NewName, "%02d%02d-%02d%02d%02d",
-             tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-    }
-
-    NewBaseName[PrefixPart] = 0;
-    CatPath(NewBaseName, NewName);
-
-    AddLetter = isdigit(NewBaseName[strlen(NewBaseName)-1]);
-    for (a=0;;a++){
-        char NewName[PATH_MAX*2+10];
-        char NameExtra[3];
-        struct stat dummy;
-
-        if (a){
-            // Generate a suffix for the file name if previous choice of names is taken.
-            // depending on whether the name ends in a letter or digit, pick the opposite to separate
-            // it.  This to avoid using a separator character - this because any good separator
-            // is before the '.' in ascii, and so sorting the names would put the later name before
-            // the name without suffix, causing the pictures to more likely be out of order.
-            if (AddLetter){
-                NameExtra[0] = (char)('a'-1+a); // Try a,b,c,d... for suffix if it ends in a number.
-            }else{
-                NameExtra[0] = (char)('0'-1+a); // Try 0,1,2,3... for suffix if it ends in a latter.
-            }
-            NameExtra[1] = 0;
-        }else{
-            NameExtra[0] = 0;
-        }
-
-        snprintf(NewName, sizeof(NewName), "%s%s.jpg", NewBaseName, NameExtra);
-
-        if (!strcmp(FileName, NewName)) break; // Skip if its already this name.
-
-        if (!EnsurePathExists(NewBaseName)){
-            break;
-        }
-
-
-        if (stat(NewName, &dummy)){
-            // This name does not pre-exist.
-            if (rename(FileName, NewName) == 0){
-                printf("%s --> %s\n",FileName, NewName);
-#ifdef _WIN32
-                if (RenameAssociatedFiles){
-                    sprintf(NewName, "%s%s", NewBaseName, NameExtra);
-                    RenameAssociated(FileName, NewName);
-                }
-#endif
-            }else{
-                printf("Error: Couldn't rename '%s' to '%s'\n",FileName, NewName);
-            }
-            break;
-
-        }
-
-        if (a > 25 || (!AddLetter && a > 9)){
-            printf("Possible new names for for '%s' already exist\n",FileName);
-            break;
-        }
-    }
-}
 
 //--------------------------------------------------------------------------
 // Rotate the image and its thumbnail
@@ -792,7 +581,7 @@ static void ProcessFile(const char * FileName)
         Modified |= TrimImgExifTrailingZeros();
     }
 
-    FileSequence += 1; // Count files processed.
+    FilesProcessed += 1; // Count files processed.
 
     if (ShowConcise){
         ShowConciseImageInfo();
@@ -1024,7 +813,7 @@ skip_unixtime:
     // I use this feature to put images from multiple digicams in sequence.
 
     if (RenameToDate){
-        DoFileRenaming(FileName);
+        DoFileRenaming(FileName, strftime_args);
     }
     DiscardImgData();
     return;
@@ -1086,9 +875,6 @@ static void Usage (void)
            "             the end of the name to make it unique.\n"
            "             The new name may include a path as part of the name.  If this path\n"
            "             does not exist, it will be created\n"
-           "  -a         (Windows only) Rename files with same name but different extension\n"
-           "             Use together with -n to rename .AVI files from exif in .THM files\n"
-           "             for example\n"
            "  -ta<+|->h[:mm[:ss]]\n"
            "             Adjust time by h:mm forwards or backwards.  Useful when having\n"
            "             taken pictures with the wrong time set on the camera, such as when\n"
@@ -1327,12 +1113,6 @@ int main (int argc, char **argv)
                 #endif
                 //printf("strftime_args = %s\n",arg);
             }
-        }else if (!strcmp(arg,"-a")){
-            #ifndef _WIN32
-                ErrFatal("Error: -a only supported in Windows version");
-            #else
-                RenameAssociatedFiles = TRUE;
-            #endif
         }else if (!strcmp(arg,"-ft")){
             Exif2FileTime = TRUE;
             DoModify |= MODIFY_ANY;
@@ -1492,7 +1272,7 @@ int main (int argc, char **argv)
         }
     }
 
-    FileSequence = 0;
+    FilesProcessed = 0;
     for (;argn<argc;argn++){
         FilesMatched = FALSE;
 
@@ -1512,7 +1292,7 @@ int main (int argc, char **argv)
         }
     }
 
-    if (FileSequence == 0){
+    if (FilesProcessed == 0){
         return EXIT_FAILURE;
     }else{
         return EXIT_SUCCESS;

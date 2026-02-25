@@ -174,6 +174,115 @@ File size    : 34731 bytes
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
 
+--------Zero trim png exif header and set file time:
+Trimming 2 bytes from exif
+Modified: results-bin/from_photo.png
+results-bin/from_photo.png
+PNG Chunk type 0x49484452 'IHDR' length 13
+PNG Chunk type 0x504c5445 'PLTE' length 48
+PNG Chunk type 0x65584966 'eXIf' length 14084
+Exif header 14092 bytes long
+Exif section in Motorola order
+(dir has 12 entries)
+    Make = "Apple"
+    Model = "iPhone 13 mini"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "18.5"
+    DateTime = "2025:08:14 15:14:27"
+    Unknown Tag 013c Value = "iPhone 13 mini"
+    YCbCrPositioning = 1
+    ExifOffset = 238
+    Exif Dir:(dir has 36 entries)
+        ExposureTime = 1/4854
+        FNumber = 8/5
+        ExposureProgram = 2
+        ISOSpeedRatings = 50
+        ExifVersion = "0232"
+        DateTimeOriginal = "2025:08:14 15:14:27"
+        DateTimeDigitized = "2025:08:14 15:14:27"
+        Unknown Tag 9010 Value = "-03:00"
+        Unknown Tag 9011 Value = "-03:00"
+        Unknown Tag 9012 Value = "-03:00"
+        ComponentsConfiguration = "?"
+        ShutterSpeedValue = 116071/9479
+        ApertureValue = 14447/10653
+        BrightnessValue = 68455/6602
+        ExposureBiasValue = 0/1
+        MeteringMode = 5
+        Flash = 16
+        FocalLength = 51/10
+        SubjectArea = 2006, 1508, 2213, 1330
+        Maker note:  41 70 70 6c 65 20 69 4f 53 00 00... (1758 bytes)
+        SubSecTimeOriginal = "679"
+        SubSecTimeDigitized = "679"
+        FlashPixVersion = "0100"
+        ColorSpace = 65535
+        ExifImageWidth = 100
+        ExifImageLength = 75
+        SensingMethod = 2
+        SceneType = ""
+        ExposureMode = 0
+        WhiteBalance = 0
+        FocalLengthIn35mmFilm = 26
+        SceneCaptureType = 0
+        Unknown Tag a432 Value = 807365/524263, 51/10, 8/5, 12/5
+        Unknown Tag a433 Value = "Apple"
+        Unknown Tag a434 Value = "iPhone 13 mini back dual wide camera 5.1mm f/1.6"
+        Unknown Tag a460 Value = 2
+    GPS Dir offset = 2650
+    GPS info dir:(dir has 15 entries)
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =46/1, 29/1, 5889/100, 29/1, 5889/100, 63/1, 5889/100, 63/1, 23/1
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =63/1, 23/1, 3791/100, 23/1, 3791/100, 51614/17989, 3791/100, 51614/17989, 18/1
+        GPSAltitudeRef      =00
+        GPSAltitude         =51614/17989
+        GPSTimeStamp        =18/1, 14/1, 26/1, 14/1, 26/1, 272594/698959, 26/1, 272594/698959, 555812/3635
+        GPSSpeedRef         ="K"
+        GPSSpeed            =272594/698959
+        GPSImgDirectionRef  ="T"
+        GPSImgDirection     =555812/3635
+        GPSDestBearingRef   ="T"
+        GPSDestBearing      =555812/3635
+        GPSDateStamp        ="2025:08:14"
+        Illegal GPS tag 001f=54974/15549
+    Continued directory (dir has 6 entries)
+        Compression = 6
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 3054
+        ThumbnailLength = 11030
+Thumbnail size: 11030 bytes
+PNG Chunk type 0x70485973 'pHYs' length 9
+PNG Chunk type 0x74455874 'tEXt' length 19
+tEXt section comment: titlepix=1
+
+PNG Chunk type 0x49444154 'IDAT' length 1784
+PNG Chunk type 0x49454e44 'IEND' length 0
+File name    : results-bin/from_photo.png
+File size    : 16049 bytes
+File date    : 2025:08:14 15:14:27
+Camera make  : Apple
+Camera model : iPhone 13 mini
+Date/Time    : 2025:08:14 15:14:27
+Resolution   : 100 x 75
+Flash used   : No
+Focal length :  5.1mm  (35mm equivalent: 26mm)
+Exposure time: 0.0002 s  (1/4854)
+Aperture     : f/1.6
+ISO equiv.   : 50
+Whitebalance : Auto
+Metering Mode: pattern
+Exposure     : program (auto)
+GPS Latitude : N 46d 29m 58.89s
+GPS Longitude: W 63d 23m 37.91s
+GPS Altitude :  2.87m
+Comment      : titlepix=1
+
 --------Replace with minimal exif header:
 Modified: results-bin/from_photo.png
 File name    : results-bin/from_photo.png
@@ -205,3 +314,8 @@ Resolution   : 100 x 75
 Comment      : titlepix=1
 
 --------foo3:
+--------PNG date manipulation:
+Modified: nametest.png
+Modified: nametest.png
+nametest.png --> nametest-20260224t-222324.png
+"nametest-20260224t-222324.png" 100x75 (1/4854) f/1.6 f(35)=26mm

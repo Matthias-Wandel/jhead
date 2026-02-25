@@ -1,7 +1,14 @@
 //--------------------------------------------------------------------------
 // imgfile.c - Thunking layer for jhead to handle both JPEG and PNG
 //--------------------------------------------------------------------------
+#ifdef _WIN32
+    #include <io.h>
+#endif
+
 #include "jhead.h"
+
+#include <sys/stat.h>
+
 
 // Define image types
 #define TYPE_UNKNOWN 0
@@ -203,7 +210,7 @@ int TrimImgExifTrailingZeros()
     uchar * ExifData;
     ExifData = GetImgExifSectionData(&Size);
     if (!ExifData) return FALSE;
-    
+
     int NewSize = ExifBytesActuallyUsed(ExifData, Size);
     if (NewSize < Size){
         Section_t * ExSec;
@@ -264,6 +271,155 @@ int SaveImgThumbnail(char * ThumbFileName)
     }else{
         ErrFatal("not implemented 6\n");
         return FALSE;
+    }
+}
+
+//--------------------------------------------------------------------------
+// Handle renaming of files by date.
+//--------------------------------------------------------------------------
+static int RenameSequence = 0;
+void DoFileRenaming(const char * FileName, char * strftime_args)
+{
+    int PrefixPart = 0; // Where the actual filename starts.
+    int ExtensionPart;  // Where the file extension starts.
+    int a;
+    struct tm tm;
+    char NewBaseName[PATH_MAX*2];
+    int AddLetter = 0;
+    char NewName[PATH_MAX+2];
+
+    ExtensionPart = strlen(FileName);
+    for (a=0;FileName[a];a++){
+        if (FileName[a] == SLASH){
+            // Don't count path component.
+            PrefixPart = a+1;
+        }
+
+        if (FileName[a] == '.') ExtensionPart = a;  // Remember where extension starts.
+    }
+    if (ExtensionPart < PrefixPart) { // no extension found
+        ExtensionPart = strlen(FileName);
+    }
+
+    if (!Exif2tm(&tm, ImageInfo.DateTime)){
+        printf("File '%s' contains no exif date stamp.  Using file date\n",FileName);
+        // Use file date/time instead.
+        tm = *localtime(&ImageInfo.FileDateTime);
+    }
+
+
+    strncpy(NewBaseName, FileName, PATH_MAX); // Get path component of name.
+
+    if (strftime_args){
+        // Complicated scheme for flexibility.  Just pass the args to strftime.
+        time_t UnixTime;
+
+        char *s;
+        char pattern[PATH_MAX+20];
+        int n = ExtensionPart - PrefixPart;
+
+        // Call mktime to get weekday and such filled in.
+        UnixTime = mktime(&tm);
+        if ((int)UnixTime == -1){
+            printf("Could not convert %s to unix time",ImageInfo.DateTime);
+            return;
+        }
+
+        // Substitute "%f" for the original name (minus path & extension)
+        pattern[PATH_MAX-1]=0;
+        strncpy(pattern, strftime_args, PATH_MAX-1);
+        while ((s = strstr(pattern, "%f")) && strlen(pattern) + n < PATH_MAX-1){
+            memmove(s + n, s + 2, strlen(s+2) + 1);
+            memmove(s, FileName + PrefixPart, n);
+        }
+
+        {
+            // Sequential number renaming part.
+            // '%i' type pattern becomes sequence number.
+            int ppos = -1;
+            for (a=0;pattern[a];a++){
+                if (pattern[a] == '%'){
+                     ppos = a;
+                }else if (pattern[a] == 'i'){
+                    if (ppos >= 0 && a<ppos+4){
+                        // Replace this part with a number.
+                        char pat[8], num[16];
+                        int l,nl;
+                        memcpy(pat, pattern+ppos, 4);
+                        pat[a-ppos] = 'd'; // Replace 'i' with 'd' for '%d'
+                        pat[a-ppos+1] = '\0';
+                        sprintf(num, pat, ++RenameSequence); // let printf do the number formatting.
+                        nl = strlen(num);
+                        l = strlen(pattern+a+1);
+                        if (ppos+nl+l+1 >= PATH_MAX) ErrFatal("str overflow");
+                        memmove(pattern+ppos+nl, pattern+a+1, l+1);
+                        memcpy(pattern+ppos, num, nl);
+                        break;
+                    }
+                }else if (!isdigit(pattern[a])){
+                    ppos = -1;
+                }
+            }
+        }
+        strftime(NewName, PATH_MAX, pattern, &tm);
+    }else{
+        // My favourite scheme.
+        sprintf(NewName, "%02d%02d-%02d%02d%02d",
+             tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    }
+
+    NewBaseName[PrefixPart] = 0;
+    CatPath(NewBaseName, NewName);
+
+    AddLetter = isdigit(NewBaseName[strlen(NewBaseName)-1]);
+    for (a=0;;a++){
+        char NewName[PATH_MAX*2+10];
+        char NameExtra[3];
+        struct stat dummy;
+
+        if (a){
+            // Generate a suffix for the file name if previous choice of names is taken.
+            // depending on whether the name ends in a letter or digit, pick the opposite to separate
+            // it.  This to avoid using a separator character - this because any good separator
+            // is before the '.' in ascii, and so sorting the names would put the later name before
+            // the name without suffix, causing the pictures to more likely be out of order.
+            if (AddLetter){
+                NameExtra[0] = (char)('a'-1+a); // Try a,b,c,d... for suffix if it ends in a number.
+            }else{
+                NameExtra[0] = (char)('0'-1+a); // Try 0,1,2,3... for suffix if it ends in a latter.
+            }
+            NameExtra[1] = 0;
+        }else{
+            NameExtra[0] = 0;
+        }
+
+        char * FileNameExt = "jpg";
+        if (ImgTypeLoaded == TYPE_PNG) FileNameExt = "png";
+
+        snprintf(NewName, sizeof(NewName), "%s%s.%s", NewBaseName, NameExtra, FileNameExt);
+
+        if (!strcmp(FileName, NewName)) break; // Skip if its already this name.
+
+        if (!EnsurePathExists(NewBaseName)){
+            break;
+        }
+
+
+        if (stat(NewName, &dummy)){
+            // This name does not pre-exist.
+            if (rename(FileName, NewName) == 0){
+                printf("%s --> %s\n",FileName, NewName);
+            }else{
+                printf("Error: Couldn't rename '%s' to '%s'\n",FileName, NewName);
+            }
+            break;
+
+        }
+
+        if (a > 25 || (!AddLetter && a > 9)){
+            printf("Possible new names for for '%s' already exist\n",FileName);
+            break;
+        }
     }
 }
 

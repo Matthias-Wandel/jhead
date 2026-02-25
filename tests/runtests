@@ -3,6 +3,7 @@ jhead=../jhead
 
 rm -rf results-txt/*
 rm -rf results-bin/*
+rm -rf *.jpg *.png
 mkdir -p results-txt
 mkdir -p results-bin
 
@@ -202,8 +203,11 @@ echo "--------Deleted comment:" >> results-txt/pngfiles-txt
 "$jhead" -dc results-bin/ctest.png >> results-txt/pngfiles-txt
 "$jhead" -nofdate results-bin/ctest.png >> results-txt/pngfiles-txt
 
-echo "--------Replace with minimal exif header:" >> results-txt/pngfiles-txt
+echo "--------Zero trim png exif header and set file time:" >> results-txt/pngfiles-txt
 cp pngfiles/from_photo.png results-bin/from_photo.png 
+"$jhead" -zt -ft results-bin/from_photo.png >> results-txt/pngfiles-txt
+"$jhead" -v results-bin/from_photo.png >> results-txt/pngfiles-txt
+echo "--------Replace with minimal exif header:" >> results-txt/pngfiles-txt
 "$jhead" -mkexif results-bin/from_photo.png >> results-txt/pngfiles-txt
 "$jhead" -nofdate results-bin/from_photo.png >> results-txt/pngfiles-txt
 
@@ -214,3 +218,10 @@ echo "--------foo1:" >> results-txt/pngfiles-txt
 echo "--------foo2:" >> results-txt/pngfiles-txt
 "$jhead" -v -nofdate results-bin/from_photo.png >> results-txt/pngfiles-txt
 echo "--------foo3:" >> results-txt/pngfiles-txt
+
+echo "--------PNG date manipulation:" >> results-txt/pngfiles-txt
+cp pngfiles/from_photo.png nametest.png
+"$jhead" -ts2026:02:24-22:00:00 nametest.png >> results-txt/pngfiles-txt
+"$jhead" -ta+00:23:24 nametest.png >> results-txt/pngfiles-txt
+"$jhead" -nnametest-%Y%m%dt-%H%M%S nametest.png >> results-txt/pngfiles-txt
+"$jhead" -c nametest*.png >> results-txt/pngfiles-txt

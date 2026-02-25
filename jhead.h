@@ -236,6 +236,7 @@ Section_t * FindImgSection(int SectionType);
 Section_t * CreateImgSection(int SectionType, unsigned char * Data, int size);
 void ProcessImgComment (const uchar * Data, int length);
 int TrimImgExifTrailingZeros(void);
+void DoFileRenaming(const char * FileName, char * strftime_args);
 
 // Jpeg handling functions
 int  ReadJpegFile(FILE * f, ReadMode_t ReadMode);
