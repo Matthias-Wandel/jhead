@@ -1219,9 +1219,6 @@ int ExifBytesActuallyUsed(uchar * ExifData, unsigned Size)
 {
     if (!ImageInfo.ThumbnailAtEnd) return Size;
     
-    int NumRedundant, WasRedundant;
-    unsigned char * StartRedundant;
-
     int NewSize = Size;
     int ThumbnailEndIndex = ImageInfo.ThumbnailOffset+ImageInfo.ThumbnailSize;
     for(;;NewSize--){
@@ -1231,11 +1228,6 @@ int ExifBytesActuallyUsed(uchar * ExifData, unsigned Size)
     }
         
     //printf("Exif length: %d  Wasted: %d\n",Size, Size-NewSize);
-
-    for(;;NumRedundant--){// Only remove trailing bytes
-        if (StartRedundant[NumRedundant-1] == 0) break;
-        if (NumRedundant <= 0) break;
-    }
 
     if (Size != NewSize){
         int NewExifSize;

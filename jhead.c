@@ -883,14 +883,16 @@ static void ProcessFile(const char * FileName)
 
     }
 
-/*
+
     if (ExifTimeAdjust || ExifTimeSet || DateSetChars || FileTimeToExif){
-       if (ImageInfo.numDateTimeTags){
+       uchar * Data;
+       unsigned Len;
+       Data = GetImgExifSectionData(&Len);
+       if (Data != NULL){
             struct tm tm;
             time_t UnixTime;
             char TempBuf[50];
             int a;
-            Section_t * ExifSection;
             if (ExifTimeSet){
                 // A time to set was specified.
                 UnixTime = ExifTimeSet;
@@ -924,11 +926,10 @@ static void ProcessFile(const char * FileName)
                 tm.tm_hour, tm.tm_min, tm.tm_sec);
 
 skip_unixtime:
-            ExifSection = FindImgExifSection();
 
             for (a = 0; a < ImageInfo.numDateTimeTags; a++) {
                 uchar * Pointer;
-                Pointer = ExifSection->Data+ImageInfo.DateTimeOffsets[a]+8;
+                Pointer = Data+ImageInfo.DateTimeOffsets[a];
                 memcpy(Pointer, TempBuf, 19);
             }
             memcpy(ImageInfo.DateTime, TempBuf, 19);
@@ -938,7 +939,7 @@ skip_unixtime:
             printf("File '%s' contains no Exif timestamp to change\n", FileName);
         }
     }
-*/    
+    
 
     if (DeleteComments){
         if (ImageInfo.Comments[0]){
@@ -1050,16 +1051,13 @@ static void Usage (void)
            "\nGENERAL METADATA:\n"
            "  -te <name> Transfer exif header from another image file <name>\n"
            "             Uses same name mangling as '-st' option\n"
-           "  -dc        Delete comment field (as left by progs like Photoshop & Compupic)\n"
+           "  -dc        Delete comment field (as left by some programs)\n"
            "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
-           "  -di        Delete IPTC section (from Photoshop, or Picasa)\n"
-           "  -dx        Delete XMP section\n"
-           "  -du        Delete non image sections except for Exif and comment sections\n"
+           "  -di        Delete Jpeg IPTC section (from Photoshop, or Picasa)\n"
+           "  -dx        Delete Jpeg XMP section\n"
+           "  -du        Delete Jpeg non image sections except for Exif and comment sections\n"
            "  -purejpg   Strip all unnecessary data from jpeg (combines -dc -de and -du)\n"
            "  -mkexif    Create new minimal exif section (overwrites pre-existing exif)\n"
-           "  -ce        Edit comment field.  Uses environment variable 'editor' to\n"
-           "             determine which editor to use.  If editor not set, uses VI\n"
-           "             under Unix and notepad with windows\n"
            "  -ci <name> Insert comment section from a file.\n"
            "             scheme as used by the -st option\n"
            "  -cl string Insert literal comment string\n"
