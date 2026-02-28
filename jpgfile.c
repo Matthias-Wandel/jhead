@@ -431,7 +431,9 @@ int ReplaceJpegThumbnail(const char * ThumbFileName)
              return FALSE;
         }
 
-        ThumbLen = 0;
+        ThumbLen = 0;
+
+
         ThumbnailFile = NULL;
     }
 
@@ -486,7 +488,7 @@ void DiscardAllJpegButExif(void)
             CommentKeeper = Sections[a];
         }else if (Sections[a].Type == M_IPTC && IptcKeeper.Type == 0){
             IptcKeeper = Sections[a];
-        }else{
+        }else if (CheckOrientationPtrs(Sections[a].Data, Sections[a].Size+20) == 0){
             free(Sections[a].Data);
         }
     }
