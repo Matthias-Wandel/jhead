@@ -191,7 +191,7 @@ echo "--------Normal view:" >> results-txt/pngfiles-txt
 "$jhead" -nofdate pngfiles/*.png >> results-txt/pngfiles-txt
 echo "--------Compact view:" >> results-txt/pngfiles-txt
 "$jhead" -nofdate -c pngfiles/*.png >> results-txt/pngfiles-txt
-echo "--------Verbose view:" >> results-txt/pngfiles-txt
+echo "--------Verbose view:" &>> results-txt/pngfiles-txt
 "$jhead" -nofdate -v pngfiles/*.png >> results-txt/pngfiles-txt
 
 echo "--------Comment replace:" >> results-txt/pngfiles-txt
@@ -212,12 +212,12 @@ echo "--------Replace with minimal exif header:" >> results-txt/pngfiles-txt
 "$jhead" -nofdate results-bin/from_photo.png >> results-txt/pngfiles-txt
 
 echo "--------Remove exif header:" >> results-txt/pngfiles-txt
-"$jhead" -de results-bin/from_photo.png >> results-txt/pngfiles-txt
-echo "--------foo1:" >> results-txt/pngfiles-txt
+"$jhead" -de -v results-bin/from_photo.png >> results-txt/pngfiles-txt
+echo "--------Resulting file:" >> results-txt/pngfiles-txt
 "$jhead" -nofdate results-bin/from_photo.png >> results-txt/pngfiles-txt
-echo "--------foo2:" >> results-txt/pngfiles-txt
-"$jhead" -v -nofdate results-bin/from_photo.png >> results-txt/pngfiles-txt
-echo "--------foo3:" >> results-txt/pngfiles-txt
+echo "--------REsulting file verbose:" >> results-txt/pngfiles-txt
+# Specify time adjust to make it read all of exif file (so it prints the tags in verbose mode)
+"$jhead" -v -nofdate -ta+0:0:1 results-bin/from_photo.png >> results-txt/pngfiles-txt
 
 echo "--------PNG date manipulation:" >> results-txt/pngfiles-txt
 cp pngfiles/from_photo.png nametest.png
@@ -225,6 +225,9 @@ cp pngfiles/from_photo.png nametest.png
 "$jhead" -ta+00:23:24 nametest.png >> results-txt/pngfiles-txt
 "$jhead" -nnametest-%Y%m%dt-%H%M%S nametest.png >> results-txt/pngfiles-txt
 "$jhead" -c nametest*.png >> results-txt/pngfiles-txt
+
+
+
 
 echo "--------------------------------------------------------------------------"
 if diff -qr expected-txt/ results-txt/ ; then

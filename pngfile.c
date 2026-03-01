@@ -7,7 +7,7 @@
 static ImgSect_t * PngSections = NULL;
 static int PngSectionsAllocated;
 static int PngSectionsRead;
-static int HaveAll;
+static int HaveAllOfPng;
 
 // CRC-32 for PNG writing
 static unsigned int CrcTable[256];
@@ -65,7 +65,7 @@ void ResetPngFile(void)
         PngSectionsAllocated = 5;
     }
     PngSectionsRead = 0;
-    HaveAll = 0;
+    HaveAllOfPng = 0;
 }
 
 void DiscardPngData(void)
@@ -73,7 +73,7 @@ void DiscardPngData(void)
     int a;
     for (a=0;a<PngSectionsRead;a++) free(PngSections[a].Data);
     PngSectionsRead = 0;
-    HaveAll = 0;
+    HaveAllOfPng = 0;
 }
 
 ImgSect_t * FindPngSection(int SectionType)
@@ -139,6 +139,10 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         if (fread(LenRaw, 1, 4, infile) != 4 || fread(TypeRaw, 1, 4, infile) != 4) break;
 
         unsigned int ChunkLen = Get32png(LenRaw);
+        if (ChunkLen > 1<<31){
+            ErrFatal("bad PNG chunk length");
+            return FALSE;
+        }
         int ChunkTypeInt = (TypeRaw[0] << 24) | (TypeRaw[1] << 16) | (TypeRaw[2] << 8) | TypeRaw[3];
 
         if (ShowTags){
@@ -174,9 +178,15 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
                 ProcessImgComment(Data+8, ChunkLen-8);
                 HaveCom = TRUE;
             }
-
+        } else if (memcmp(TypeRaw, "IDAT", 4) == 0){
+            if (!(ReadMode & READ_IMAGE)){
+                // Only want the metadata (not going to write the image)
+                // Assume all metadata preceeds the actual data sections.
+                if (ShowTags) printf("Skip rest of file (want metadata only)\n");
+                return TRUE;
+            }
         } else if (memcmp(TypeRaw, "IEND", 4) == 0) {
-            HaveAll = 1;
+            HaveAllOfPng = 1;
             break;
         }
     }
@@ -194,9 +204,10 @@ int ReadPngFile(FILE * infile, ReadMode_t ReadMode)
 //--------------------------------------------------------------------------
 void WritePngFile(const char * FileName)
 {
+    if (!HaveAllOfPng) ErrFatal("Can't write back - didn't read all PNG");
     FILE * outfile = fopen(FileName, "wb");
     if (!outfile) ErrFatal("Could not open for write");
-
+   
     fwrite("\x89PNG\r\n\x1a\n", 1, 8, outfile);
     for (int a = 0; a < PngSectionsRead; a++) {
         uchar Header[8], CrcIn[4], CrcRaw[4];

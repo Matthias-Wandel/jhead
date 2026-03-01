@@ -11,7 +11,7 @@
 static ImgSect_t * JpgSections = NULL;
 static int JpgSectionsAllocated;
 static int JpgSectionsRead;
-static int HaveAll;
+static int HaveAllOfJpeg;
 
 #define PSEUDO_IMAGE_MARKER 0x123; // Extra value.
 //--------------------------------------------------------------------------
@@ -172,7 +172,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                     JpgSections[JpgSectionsRead].Size = size;
                     JpgSections[JpgSectionsRead].Type = PSEUDO_IMAGE_MARKER;
                     JpgSectionsRead ++;
-                    HaveAll = 1;
+                    HaveAllOfJpeg = 1;
                 }
                 return TRUE;
 
@@ -315,7 +315,7 @@ void DiscardJpegData(void)
     }
     
     JpgSectionsRead = 0;
-    HaveAll = 0;
+    HaveAllOfJpeg = 0;
 }
 
 //--------------------------------------------------------------------------
@@ -513,7 +513,7 @@ void WriteJpegFile(const char * FileName)
     FILE * outfile;
     int a;
 
-    if (!HaveAll){
+    if (!HaveAllOfJpeg){
         ErrFatal("Can't write back - didn't read all");
     }
 
@@ -786,5 +786,5 @@ void ResetJpegFile(void)
     }
 
     JpgSectionsRead = 0;
-    HaveAll = 0;
+    HaveAllOfJpeg = 0;
 }
