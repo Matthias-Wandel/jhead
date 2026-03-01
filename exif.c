@@ -142,6 +142,10 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_METERING_MODE          0x9207
 #define TAG_LIGHT_SOURCE           0x9208
 #define TAG_FLASH                  0x9209
+#define TAG_OFFSET_TIME            0x9010
+#define TAG_OFFSET_TIME_ORIGINAL   0x9011
+#define TAG_OFFSET_TIME_DIGITZED   0x9012
+
 #define TAG_FOCALLENGTH            0x920A
 #define TAG_SUBJECTAREA            0x9214
 #define TAG_MAKER_NOTE             0x927C
@@ -155,7 +159,6 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_WINXP_AUTHOR           0x9c9d // Windows XP - not part of exif standard.
 #define TAG_WINXP_KEYWORDS         0x9c9e // Windows XP - not part of exif standard.
 #define TAG_WINXP_SUBJECT          0x9c9f // Windows XP - not part of exif standard.
-
 #define TAG_FLASH_PIX_VERSION      0xA000
 #define TAG_COLOR_SPACE            0xA001
 #define TAG_PIXEL_X_DIMENSION      0xA002
@@ -185,6 +188,7 @@ const int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_SHARPNESS              0xA40A
 #define TAG_DISTANCE_RANGE         0xA40C
 #define TAG_IMAGE_UNIQUE_ID        0xA420
+#define TAG_RATING                 0xa460
 
 static const TagTable_t TagTable[] = {
   { TAG_INTEROP_INDEX,          "InteropIndex"},
@@ -252,6 +256,9 @@ static const TagTable_t TagTable[] = {
   { TAG_METERING_MODE,          "MeteringMode"},
   { TAG_LIGHT_SOURCE,           "LightSource"},
   { TAG_FLASH,                  "Flash"},
+  { TAG_OFFSET_TIME,            "OffsetTime"},
+  { TAG_OFFSET_TIME_ORIGINAL,   "OffsetTimeOriginal"},
+  { TAG_OFFSET_TIME_DIGITZED,   "OffsetTimeDigitized"},
   { TAG_FOCALLENGTH,            "FocalLength"},
   { TAG_MAKER_NOTE,             "MakerNote"},
   { TAG_USERCOMMENT,            "UserComment"},
@@ -293,6 +300,7 @@ static const TagTable_t TagTable[] = {
   { TAG_SHARPNESS,              "Sharpness"},
   { TAG_DISTANCE_RANGE,         "SubjectDistanceRange"},
   { TAG_IMAGE_UNIQUE_ID,        "ImageUniqueId"},
+  { TAG_RATING,                 "Rating"}
 } ;
 
 #define TAG_TABLE_SIZE  (sizeof(TagTable) / sizeof(TagTable_t))
