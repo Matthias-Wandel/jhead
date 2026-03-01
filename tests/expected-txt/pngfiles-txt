@@ -109,12 +109,12 @@ Exif section in Motorola order
     GPS Dir offset = 2650
     GPS info dir:(dir has 15 entries)
         GPSLatitudeRef      ="N"
-        GPSLatitude         =46/1, 29/1, 5889/100, 29/1, 5889/100, 63/1, 5889/100, 63/1, 23/1
+        GPSLatitude         =46/1, 29/1, 5889/100
         GPSLongitudeRef     ="W"
-        GPSLongitude        =63/1, 23/1, 3791/100, 23/1, 3791/100, 51614/17989, 3791/100, 51614/17989, 18/1
+        GPSLongitude        =63/1, 23/1, 3791/100
         GPSAltitudeRef      =00
         GPSAltitude         =51614/17989
-        GPSTimeStamp        =18/1, 14/1, 26/1, 14/1, 26/1, 272594/698959, 26/1, 272594/698959, 555812/3635
+        GPSTimeStamp        =18/1, 14/1, 26/1
         GPSSpeedRef         ="K"
         GPSSpeed            =272594/698959
         GPSImgDirectionRef  ="T"
@@ -233,12 +233,12 @@ Exif section in Motorola order
     GPS Dir offset = 2650
     GPS info dir:(dir has 15 entries)
         GPSLatitudeRef      ="N"
-        GPSLatitude         =46/1, 29/1, 5889/100, 29/1, 5889/100, 63/1, 5889/100, 63/1, 23/1
+        GPSLatitude         =46/1, 29/1, 5889/100
         GPSLongitudeRef     ="W"
-        GPSLongitude        =63/1, 23/1, 3791/100, 23/1, 3791/100, 51614/17989, 3791/100, 51614/17989, 18/1
+        GPSLongitude        =63/1, 23/1, 3791/100
         GPSAltitudeRef      =00
         GPSAltitude         =51614/17989
-        GPSTimeStamp        =18/1, 14/1, 26/1, 14/1, 26/1, 272594/698959, 26/1, 272594/698959, 555812/3635
+        GPSTimeStamp        =18/1, 14/1, 26/1
         GPSSpeedRef         ="K"
         GPSSpeed            =272594/698959
         GPSImgDirectionRef  ="T"

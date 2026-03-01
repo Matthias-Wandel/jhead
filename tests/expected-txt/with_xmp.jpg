@@ -71,12 +71,12 @@ Exif section in Intel order
     GPS Dir offset = 1966
     GPS info dir:(dir has 10 entries)
         GPSLatitudeRef      ="N"
-        GPSLatitude         =42/1, 16/1, 90446/2493, 16/1, 90446/2493, 83/1, 90446/2493, 83/1, 42/1
+        GPSLatitude         =42/1, 16/1, 90446/2493
         GPSLongitudeRef     ="W"
-        GPSLongitude        =83/1, 42/1, 12465/5006, 42/1, 12465/5006, 227/1, 12465/5006, 227/1, 14/1
+        GPSLongitude        =83/1, 42/1, 12465/5006
         GPSAltitudeRef      =00
         GPSAltitude         =227/1
-        GPSTimeStamp        =14/1, 2/1, 24/1, 2/1, 24/1, 760432471/13368, 24/1, 760432471/13368, 925904946/976629818
+        GPSTimeStamp        =14/1, 2/1, 24/1
         GPSSatellites       ="0"
         GPSMapDatum         ="WGS-84"
         GPSDateStamp        ="2007:06:30"
@@ -227,12 +227,12 @@ Exif section in Intel order
     GPS Dir offset = 1966
     GPS info dir:(dir has 10 entries)
         GPSLatitudeRef      ="N"
-        GPSLatitude         =42/1, 16/1, 90446/2493, 16/1, 90446/2493, 83/1, 90446/2493, 83/1, 42/1
+        GPSLatitude         =42/1, 16/1, 90446/2493
         GPSLongitudeRef     ="W"
-        GPSLongitude        =83/1, 42/1, 12465/5006, 42/1, 12465/5006, 227/1, 12465/5006, 227/1, 14/1
+        GPSLongitude        =83/1, 42/1, 12465/5006
         GPSAltitudeRef      =00
         GPSAltitude         =227/1
-        GPSTimeStamp        =14/1, 2/1, 24/1, 2/1, 24/1, 760432471/13368, 24/1, 760432471/13368, 925904946/976629818
+        GPSTimeStamp        =14/1, 2/1, 24/1
         GPSSatellites       ="0"
         GPSMapDatum         ="WGS-84"
         GPSDateStamp        ="2007:06:30"
@@ -380,12 +380,12 @@ Exif section in Intel order
     GPS Dir offset = 1966
     GPS info dir:(dir has 10 entries)
         GPSLatitudeRef      ="N"
-        GPSLatitude         =42/1, 16/1, 90446/2493, 16/1, 90446/2493, 83/1, 90446/2493, 83/1, 42/1
+        GPSLatitude         =42/1, 16/1, 90446/2493
         GPSLongitudeRef     ="W"
-        GPSLongitude        =83/1, 42/1, 12465/5006, 42/1, 12465/5006, 227/1, 12465/5006, 227/1, 14/1
+        GPSLongitude        =83/1, 42/1, 12465/5006
         GPSAltitudeRef      =00
         GPSAltitude         =227/1
-        GPSTimeStamp        =14/1, 2/1, 24/1, 2/1, 24/1, 760432471/13368, 24/1, 760432471/13368, 925904946/976629818
+        GPSTimeStamp        =14/1, 2/1, 24/1
         GPSSatellites       ="0"
         GPSMapDatum         ="WGS-84"
         GPSDateStamp        ="2007:06:30"

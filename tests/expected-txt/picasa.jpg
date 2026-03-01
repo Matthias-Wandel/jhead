@@ -79,11 +79,11 @@ Exif section in Intel order
         ImageUniqueId = "ffd0d7527eb9805570f8fea98a603a2e"
     GPS Dir offset = 3324
     GPS info dir:(dir has 6 entries)
-        GPSVersionID        =02, 02, 00, 00, 02, 00, 00, 01, 00, 00, 01, 00, 00, 01, 00, 02
+        GPSVersionID        =02, 02, 00, 00
         GPSLatitudeRef      ="N"
-        GPSLatitude         =48/1, 38/1, 2870025930/160860569, 38/1, 2870025930/160860569, 2/1, 2870025930/160860569, 2/1, 27/1
+        GPSLatitude         =48/1, 38/1, 2870025930/160860569
         GPSLongitudeRef     ="W"
-        GPSLongitude        =2/1, 27/1, 3354417784/167750301, 27/1, 3354417784/167750301, 65540/262146, 3354417784/167750301, 65540/262146, 961675264/131128
+        GPSLongitude        =2/1, 27/1, 3354417784/167750301
         GPSAltitudeRef      =00
     Continued directory (dir has 6 entries)
         Compression = 6
