@@ -1238,7 +1238,6 @@ int ExifBytesActuallyUsed(uchar * ExifData, unsigned Size)
     //printf("Exif length: %d  Wasted: %d\n",Size, Size-NewSize);
 
     if (Size != NewSize){
-        int NewExifSize;
         printf("Trimming %d bytes from exif\n", Size-NewSize);
     }
     return NewSize;
@@ -1569,8 +1568,14 @@ void ShowImageInfo(int ShowFileDate)
         if (ImageInfo.GpsAlt[0]) printf("GPS Altitude : %s\n",ImageInfo.GpsAlt);
     }
 
-    if (ImageInfo.QualityGuess){
-        printf("JPEG Quality : %d\n", ImageInfo.QualityGuess);
+    if (ImageInfo.IsPngFile){
+        if (ImageInfo.PngNumColors){
+            printf("PNG colors   : %d\n", ImageInfo.PngNumColors);
+        }
+    }else{
+        if (ImageInfo.JpgQualityGuess){
+            printf("JPEG Quality : %d\n", ImageInfo.JpgQualityGuess);
+        }
     }
 
     // Print the comment. Print 'Comment:' for each new line of comment.

@@ -132,6 +132,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
     if (fread(Sig, 1, 8, infile) != 8 || memcmp(Sig, "\x89PNG\r\n\x1a\n", 8) != 0) return FALSE;
 
     ResetPngFile();
+    ImageInfo.IsPngFile = TRUE;
     int HaveCom = FALSE;
 
     for (;;) {
@@ -162,6 +163,26 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         if (memcmp(TypeRaw, "IHDR", 4) == 0) {
             ImageInfo.Width = Get32png(Data);
             ImageInfo.Height = Get32png(Data + 4);
+            ImageInfo.IsColor = TRUE;
+            int color_type = Data[9];
+            switch (color_type) {
+                case 0: // Grayscale
+                case 4:
+                    int bit_depth = Data[8];
+                    ImageInfo.PngNumColors = 1 << bit_depth;
+                    ImageInfo.IsColor = FALSE;
+                    break;
+                case 2: // Truecolor (RGB)
+                case 6: // Truecolor + Alpha
+                    // For truecolor, "NumColors" is technically 16 million+,
+                    ImageInfo.PngNumColors = 1<<24; // 24 bit color
+                    break;
+                case 3: // Indexed
+                    // We get the actual count from the PLTE chunk size
+                    break;
+            }
+        } else if (memcmp(TypeRaw, "PLTE", 4) == 0){
+            ImageInfo.PngNumColors = ChunkLen / 3;
         } else if (memcmp(TypeRaw, "eXIf", 4) == 0 && (ReadMode & READ_METADATA)) {
             // PNG eXIf chunk is raw TIFF. Prepend "Exif\0\0" to reuse process_EXIF
             uchar * FakeExif = (uchar *)malloc(ChunkLen + 6);
@@ -207,7 +228,7 @@ void WritePngFile(const char * FileName)
     if (!HaveAllOfPng) ErrFatal("Can't write back - didn't read all PNG");
     FILE * outfile = fopen(FileName, "wb");
     if (!outfile) ErrFatal("Could not open for write");
-   
+
     fwrite("\x89PNG\r\n\x1a\n", 1, 8, outfile);
     for (int a = 0; a < PngSectionsRead; a++) {
         uchar Header[8], CrcIn[4], CrcRaw[4];

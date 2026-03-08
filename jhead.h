@@ -79,6 +79,7 @@ extern int DumpExifMap;
 typedef struct {
     char  FileName     [PATH_MAX+1];
     time_t FileDateTime;
+    int  IsPngFile;
 
     struct {
         // Info in the jfif header.
@@ -137,7 +138,8 @@ typedef struct {
     char GpsLong[31];
     char GpsAlt[20];
 
-    int  QualityGuess;
+    int  JpgQualityGuess; // For jpeg
+    int  PngNumColors;
 }ImageInfo_t;
 
 

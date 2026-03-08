@@ -83,6 +83,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
 
     ImageInfo.JfifHeader.XDensity = ImageInfo.JfifHeader.YDensity = 300;
     ImageInfo.JfifHeader.ResolutionUnits = 1;
+    ImageInfo.IsPngFile = FALSE;
 
     for(;;){
         int itemlen;

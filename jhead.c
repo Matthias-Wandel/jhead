@@ -141,7 +141,7 @@ static int AutoResizeCmdStuff(void)
     if (scale > TargetSize / ImageInfo.Height) scale = TargetSize / ImageInfo.Height;
 
     if (scale > 0.8){
-        if (ImageInfo.QualityGuess >= 93){
+        if (ImageInfo.JpgQualityGuess >= 93){
             // Re-compress at lower quality.
             sprintf(CommandString, IMAGEMAGICK_PROGNAME" &i -quality 80 &i");
             return TRUE;
@@ -311,7 +311,7 @@ static int CheckFileSkip(void)
     }
     if (FilterQuality > 0){
         //Filter by above threshold quality
-        if (ImageInfo.QualityGuess < FilterQuality){
+        if (ImageInfo.JpgQualityGuess < FilterQuality){
             return TRUE;
         }
     }

@@ -154,7 +154,7 @@ tooshort:
                      tableindex, qual, cumsf, var);
             }
             if (tableindex == 0){
-                ImageInfo.QualityGuess = (int)(qual+0.5);
+                ImageInfo.JpgQualityGuess = (int)(qual+0.5);
             }
         }
     }
