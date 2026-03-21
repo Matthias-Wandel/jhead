@@ -3,6 +3,7 @@ File name    : pngfiles/ctest.png
 File size    : 34780 bytes
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
+PNG colors   : 16777216
 Comment      : hello world png comment here!
 
 File name    : pngfiles/from_photo.png
@@ -22,6 +23,7 @@ Exposure     : program (auto)
 GPS Latitude : N 46d 29m 58.89s
 GPS Longitude: W 63d 23m 37.91s
 GPS Altitude :  2.87m
+PNG colors   : 16
 Comment      : titlepix=1
 
 --------Compact view:
@@ -30,7 +32,7 @@ Comment      : titlepix=1
 --------Verbose view:
 PNG Chunk type 0x49484452 'IHDR' length 13
 PNG Chunk type 0x65584966 'eXIf' length 4281
-Exif header 4289 bytes long
+Exif header 4281 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2026:02:23 14:25:28"
@@ -50,12 +52,13 @@ File name    : pngfiles/ctest.png
 File size    : 34780 bytes
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
+PNG colors   : 16777216
 Comment      : hello world png comment here!
 
 PNG Chunk type 0x49484452 'IHDR' length 13
 PNG Chunk type 0x504c5445 'PLTE' length 48
 PNG Chunk type 0x65584966 'eXIf' length 14086
-Exif header 14094 bytes long
+Exif header 14086 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
     Make = "Apple"
@@ -154,6 +157,7 @@ Exposure     : program (auto)
 GPS Latitude : N 46d 29m 58.89s
 GPS Longitude: W 63d 23m 37.91s
 GPS Altitude :  2.87m
+PNG colors   : 16
 Comment      : titlepix=1
 
 PNG Chunk type 0x49484452 'IHDR' length 13
@@ -163,6 +167,7 @@ File name    : results-bin/ctest.png
 File size    : 34776 bytes
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
+PNG colors   : 16777216
 Comment      : A brand n./runew comment!
 
 --------Deleted comment:
@@ -171,6 +176,7 @@ File name    : results-bin/ctest.png
 File size    : 34731 bytes
 Date/Time    : 2026:02:23 14:25:28
 Resolution   : 160 x 120
+PNG colors   : 16777216
 
 --------Zero trim png exif header and set file time:
 Trimming 2 bytes from exif
@@ -179,7 +185,7 @@ results-bin/from_photo.png
 PNG Chunk type 0x49484452 'IHDR' length 13
 PNG Chunk type 0x504c5445 'PLTE' length 48
 PNG Chunk type 0x65584966 'eXIf' length 14084
-Exif header 14092 bytes long
+Exif header 14084 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
     Make = "Apple"
@@ -279,6 +285,7 @@ Exposure     : program (auto)
 GPS Latitude : N 46d 29m 58.89s
 GPS Longitude: W 63d 23m 37.91s
 GPS Altitude :  2.87m
+PNG colors   : 16
 Comment      : titlepix=1
 
 --------Replace with minimal exif header:
@@ -287,12 +294,13 @@ File name    : results-bin/from_photo.png
 File size    : 2091 bytes
 Date/Time    : 2025:08:14 15:14:27
 Resolution   : 100 x 75
+PNG colors   : 16
 Comment      : titlepix=1
 
 --------Remove exif header:
 PNG Chunk type 0x49484452 'IHDR' length 13
 PNG Chunk type 0x65584966 'eXIf' length 126
-Exif header 134 bytes long
+Exif header 126 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2025:08:14 15:14:27"
@@ -315,6 +323,7 @@ File size    : 2091 bytes
 File date    : 2025:08:14 15:14:27
 Date/Time    : 2025:08:14 15:14:27
 Resolution   : 100 x 75
+PNG colors   : 16
 Comment      : titlepix=1
 
 Modified: results-bin/from_photo.png
@@ -322,6 +331,7 @@ Modified: results-bin/from_photo.png
 File name    : results-bin/from_photo.png
 File size    : 1953 bytes
 Resolution   : 100 x 75
+PNG colors   : 16
 Comment      : titlepix=1
 
 --------REsulting file verbose:
@@ -336,6 +346,7 @@ PNG Chunk type 0x49454e44 'IEND' length 0
 File name    : results-bin/from_photo.png
 File size    : 1953 bytes
 Resolution   : 100 x 75
+PNG colors   : 16
 Comment      : titlepix=1
 
 File 'results-bin/from_photo.png' contains no Exif timestamp to change

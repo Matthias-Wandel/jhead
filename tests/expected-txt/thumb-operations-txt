@@ -1,6 +1,6 @@
 Trying to remove nonexistent:
 JFIF SOI marker: Units: 1 (dots per inch)  X-density=72 Y-density=72
-Exif header 6690 bytes long
+Exif header 6682 bytes long
 Exif section in Intel order
 (dir has 10 entries)
     Make = "Panasonic"
@@ -74,7 +74,7 @@ Trying to replace with no pointers:
 Argument '-rtt' not understood
 Use jhead -h for list of arguments
 JFIF SOI marker: Units: 1 (dots per inch)  X-density=72 Y-density=72
-Exif header 6690 bytes long
+Exif header 6682 bytes long
 Exif section in Intel order
 (dir has 10 entries)
     Make = "Panasonic"
@@ -144,7 +144,7 @@ Metering Mode: pattern
 Exposure     : program (auto)
 JPEG Quality : 80
 
-Exif header 864 bytes long
+Exif header 856 bytes long
 Exif section in Intel order
 (dir has 11 entries)
     Make = "FUJIFILM"
@@ -218,7 +218,7 @@ Metering Mode: pattern
 Exposure     : program (auto)
 JPEG Quality : 75
 
-Exif header 10854 bytes long
+Exif header 10846 bytes long
 Exif section in Intel order
 (dir has 11 entries)
     Make = "FUJIFILM"
@@ -292,7 +292,7 @@ Metering Mode: pattern
 Exposure     : program (auto)
 JPEG Quality : 75
 
-Exif header 12010 bytes long
+Exif header 12002 bytes long
 Exif section in Intel order
 (dir has 11 entries)
     ImageDescription = "OLYMPUS DIGITAL CAMERA         "

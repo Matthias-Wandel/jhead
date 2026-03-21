@@ -1,4 +1,4 @@
-Exif header 134 bytes long
+Exif header 126 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2000:04:01 13:04:48"
@@ -18,7 +18,7 @@ Date/Time    : 2000:04:01 13:04:48
 Resolution   : 160 x 120
 JPEG Quality : 75
 
-Exif header 4289 bytes long
+Exif header 4281 bytes long
 Exif section in Intel order
 (dir has 2 entries)
     DateTime = "2000:04:01 13:04:48"

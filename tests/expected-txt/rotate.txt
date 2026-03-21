@@ -47,7 +47,7 @@ ISO equiv.   : 100
 Metering Mode: center weight
 JPEG Quality : 74
 
-Exif header 34540 bytes long
+Exif header 34532 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
     ImageDescription = "KONICA MINOLTA DIGITAL CAMERA"
