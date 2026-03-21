@@ -740,7 +740,7 @@ void CreateMinimalJpegExif(void)
 
     // Re-parse new exif section, now that its in place
     // otherwise, we risk touching data that has already been freed.
-    process_EXIF(NewBuf, len);
+    process_EXIF(NewBuf+8, len-8);
 }
 
 

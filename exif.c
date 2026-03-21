@@ -1060,16 +1060,16 @@ int process_EXIF (unsigned char * ExifSection, int length)
 
 
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
-    ProcessExifDir(ExifSection+FirstOffset, ExifSection, length-8, 0);
+    ProcessExifDir(ExifSection+FirstOffset, ExifSection, length, 0);
 
     ImageInfo.ThumbnailAtEnd = ImageInfo.ThumbnailOffset >= ImageInfo.LargestExifOffset ? TRUE : FALSE;
 
     if (DumpExifMap){
         int a,b;
-        printf("Map: %05d- End of exif\n",length-8);
-        for (a=0;a<length-8;a+= 10){
+        printf("Map: %05d- End of exif\n",length);
+        for (a=0;a<length;a+= 10){
             printf("Map: %05d ",a);
-            for (b=0;b<10 && b<length-8-a;b++)
+            for (b=0;b<10 && b<length-a;b++)
                 printf(" %02x",*(ExifSection+a+b));
             printf("\n");
         }
@@ -1108,8 +1108,6 @@ int CreateMinimalExif(char * Buffer)
     int DirContinuation;
 
     MotorolaOrder = 0;
-
-    //memcpy(Buffer+2, "Exif\0\0II",8);
 
     memcpy(Buffer, "II",2); // Intel order.
     Put16u(Buffer+2, 0x2a);

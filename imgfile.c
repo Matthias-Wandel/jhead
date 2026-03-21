@@ -129,7 +129,7 @@ int RemoveImgSectionByType(int SectionType)
     if (ImgTypeLoaded == TYPE_JPEG){
         return RemoveJpegSectionByType(SectionType);
     }else{
-        ErrFatal("Not implemented 1.5");
+        ErrFatal("Only implemented for jpg files");
         return 0;
     }
 }

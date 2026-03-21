@@ -168,8 +168,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
             switch (color_type) {
                 case 0: // Grayscale
                 case 4:
-                    int bit_depth = Data[8];
-                    ImageInfo.PngNumColors = 1 << bit_depth;
+                    ImageInfo.PngNumColors = 1 << Data[8];
                     ImageInfo.IsColor = FALSE;
                     break;
                 case 2: // Truecolor (RGB)
@@ -278,7 +277,7 @@ ImgSect_t * CreatePngSection(int SectionType, unsigned char * Data, int Size)
 static void RemovePngSection(ImgSect_t * RemoveSection)
 {
     int a;
-    int Index = RemoveSection - PngSections;
+    int Index = (int)(RemoveSection - PngSections);
 
     if (Index < 0 || Index >= PngSectionsRead) {
         ErrFatal("Invalid section pointer for removal");
