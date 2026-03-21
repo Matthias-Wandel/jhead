@@ -271,6 +271,12 @@ ImgSect_t * FindPngSection(int SectionType);
 ImgSect_t * FindPngExifSection();
 ImgSect_t * CreatePngSection(int SectionType, unsigned char * Data, int Size);
 
+// Webp handling functions
+int  ReadWebpSections(FILE * f, ReadMode_t ReadMode);
+ImgSect_t * GetWebpExifSection(void);
+void WriteWebpFile(const char * FileName);
+void DiscardWebpData(void);
+void ResetWebpFile(void);
 
 // Prototypes from jpgqguess.c
 void process_DQT (const uchar * Data, int length);

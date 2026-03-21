@@ -19,6 +19,7 @@ OBJECTS_JHEAD = $(OBJ)\jhead.obj \
                 $(OBJ)\imgfile.obj \
                 $(OBJ)\jpgfile.obj \
                 $(OBJ)\pngfile.obj \
+                $(OBJ)\webpfile.obj \
                 $(OBJ)\jpgqguess.obj \
                 $(OBJ)\myglob.obj \
                 $(OBJ)\paths.obj \
