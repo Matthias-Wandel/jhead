@@ -241,8 +241,8 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
             case M_EXIF:
                 // There can be different section using the same marker.
                 if (ReadMode & READ_METADATA){
-                    if (memcmp(Data+2, "Exif", 4) == 0){
-                        if (!process_EXIF(Data, itemlen)){
+                    if (memcmp(Data+2, "Exif\0\0", 6) == 0){
+                        if (!process_EXIF(Data+8, itemlen-8)){
                             // malformatted exif sections, discard.
                             free(JpgSections[--JpgSectionsRead].Data);
 						}

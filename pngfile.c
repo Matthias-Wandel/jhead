@@ -184,13 +184,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         } else if (memcmp(TypeRaw, "PLTE", 4) == 0){
             ImageInfo.PngNumColors = ChunkLen / 3;
         } else if (memcmp(TypeRaw, "eXIf", 4) == 0 && (ReadMode & READ_METADATA)) {
-            // PNG eXIf chunk is raw TIFF. Prepend "Exif\0\0" to reuse process_EXIF
-            uchar * FakeExif = (uchar *)malloc(ChunkLen + 6);
-            memcpy(FakeExif, "Exif\0\0", 6);
-            memcpy(FakeExif + 6, Data, ChunkLen);
-            process_EXIF(FakeExif - 2, ChunkLen + 8);
-            free(FakeExif);
-
+            process_EXIF(Data, ChunkLen);
         } else if (memcmp(TypeRaw, "tEXt", 4) == 0 && ChunkLen > 8 && memcmp("Comment",Data,8) == 0){
             if (HaveCom || ((ReadMode & READ_METADATA) == 0)){
                 // Discard this section.

@@ -1023,23 +1023,15 @@ int process_EXIF (unsigned char * ExifSection, int length)
         printf("Exif header %u bytes long\n",length);
     }
 
-    if (length < 16){
+    if (length < 8){
         ErrFatal("exif section too short");
     }
 
-    {   // Check the EXIF header component
-        static uchar ExifHeader[] = "Exif\0\0";
-        if (memcmp(ExifSection+2, ExifHeader,6)){
-            ErrNonfatal("Incorrect Exif header",0,0);
-            return 0;
-        }
-    }
-
-    if (memcmp(ExifSection+8,"II",2) == 0){
+    if (memcmp(ExifSection,"II",2) == 0){
         if (ShowTags) printf("Exif section in Intel order\n");
         MotorolaOrder = 0;
     }else{
-        if (memcmp(ExifSection+8,"MM",2) == 0){
+        if (memcmp(ExifSection,"MM",2) == 0){
             if (ShowTags) printf("Exif section in Motorola order\n");
             MotorolaOrder = 1;
         }else{
@@ -1049,12 +1041,12 @@ int process_EXIF (unsigned char * ExifSection, int length)
     }
 
     // Check the next value for correctness.
-    if (Get16u(ExifSection+10) != 0x2a){
+    if (Get16u(ExifSection+2) != 0x2a){
         ErrNonfatal("Invalid Exif start (1)",0,0);
         return 0;
     }
 
-    FirstOffset = (int)Get32u(ExifSection+12);
+    FirstOffset = (int)Get32u(ExifSection+4);
     if (FirstOffset < 8 || FirstOffset > 16){
         if (FirstOffset < 16 || FirstOffset > length-16 || length < 16){
             ErrNonfatal("invalid offset for first Exif IFD value",0,0);
@@ -1068,7 +1060,7 @@ int process_EXIF (unsigned char * ExifSection, int length)
 
 
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
-    ProcessExifDir(ExifSection+8+FirstOffset, ExifSection+8, length-8, 0);
+    ProcessExifDir(ExifSection+FirstOffset, ExifSection, length-8, 0);
 
     ImageInfo.ThumbnailAtEnd = ImageInfo.ThumbnailOffset >= ImageInfo.LargestExifOffset ? TRUE : FALSE;
 
@@ -1078,7 +1070,7 @@ int process_EXIF (unsigned char * ExifSection, int length)
         for (a=0;a<length-8;a+= 10){
             printf("Map: %05d ",a);
             for (b=0;b<10 && b<length-8-a;b++)
-                printf(" %02x",*(ExifSection+8+a+b));
+                printf(" %02x",*(ExifSection+a+b));
             printf("\n");
         }
     }
