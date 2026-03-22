@@ -9,6 +9,7 @@
 #define TYPE_UNKNOWN 0
 #define TYPE_JPEG    1
 #define TYPE_PNG     2
+#define TYPE_WEBP    3
 int ImgTypeLoaded = TYPE_UNKNOWN;
 
 // Storage for simplified info extracted from file.
@@ -18,6 +19,7 @@ void DiscardImgData(void)
 {
     if (ImgTypeLoaded == TYPE_JPEG) DiscardJpegData();
     if (ImgTypeLoaded == TYPE_PNG) DiscardPngData();
+    if (ImgTypeLoaded == TYPE_WEBP) DiscardWebpData();
 }
 
 //--------------------------------------------------------------------------
@@ -54,6 +56,7 @@ void ProcessImgComment (const uchar * Data, int length)
     if (ShowTags){
         if (ImgTypeLoaded == TYPE_JPEG) printf("COM marker comment: %s\n",Comment);
         if (ImgTypeLoaded == TYPE_PNG) printf("tEXt section comment: %s\n",Comment);
+        if (ImgTypeLoaded == TYPE_WEBP) printf("COMM section comment: %s\n",Comment);
     }
 
     strcpy(ImageInfo.Comments,Comment);
@@ -63,47 +66,48 @@ void ProcessImgComment (const uchar * Data, int length)
 // Thunked Read Function
 //--------------------------------------------------------------------------
 int ReadImgFile(const char * FileName, ReadMode_t ReadMode) {
-    unsigned char Sig[8];
+    unsigned char Sig[12];
     FILE * f = fopen(FileName, "rb");
+    int retval;
 
     if (!f) {
         fprintf(stderr, "can't open '%s'\n", FileName);
         return FALSE;
     }
 
-    int read = fread(Sig, 1, 8, f);
+    int read = fread(Sig, 1, 12, f);
+    if (read < 12){
+        // Too small to contain an image.
+        fclose(f);
+        return FALSE;
+    }
     fseek(f,0,SEEK_SET);
 
     //printf("Sig: %02x %02x\n",Sig[0],Sig[1]);
 
-    if (read >= 2 && Sig[0] == 0xff && Sig[1] == 0xd8){
+    if (Sig[0] == 0xff && Sig[1] == 0xd8) {
         ImgTypeLoaded = TYPE_JPEG;
-    }
-
-    if (read >= 8 && memcmp(Sig, "\x89PNG\r\n\x1a\n", 8) == 0){
+        retval = ReadJpegFile(f, ReadMode);
+    }else if (memcmp(Sig, "\x89PNG\r\n\x1a\n", 8) == 0) {
         ImgTypeLoaded = TYPE_PNG;
+        retval = ReadPngFile(f, ReadMode);
+    }else if (memcmp(Sig, "RIFF", 4) == 0 && memcmp(Sig+8, "WEBP", 4) == 0) {
+        ImgTypeLoaded = TYPE_WEBP;
+        retval = ReadWebpSections(f, ReadMode);
+    }else{
+        printf("Unhandled file type (not JPG, PNG or WEBP): %s\n",FileName);
+        return FALSE;
     }
-
-
-    if (ImgTypeLoaded == TYPE_JPEG) {
-        return ReadJpegFile(f, ReadMode);
-    } else if (ImgTypeLoaded == TYPE_PNG) {
-        return ReadPngFile(f, ReadMode);
-    }
-
-    fclose(f);
-    fprintf(stderr, "Not JPEG or PNG: %s\n", FileName);
-
-    return FALSE;
+    return retval;
 }
 
 //--------------------------------------------------------------------------
 // Thunked Write Function
 //--------------------------------------------------------------------------
-void WriteImgFile(const char * FileName)
-{
+void WriteImgFile(const char * FileName) {
     if (ImgTypeLoaded == TYPE_JPEG) WriteJpegFile(FileName);
-    if (ImgTypeLoaded == TYPE_PNG) WritePngFile(FileName);
+    else if (ImgTypeLoaded == TYPE_PNG) WritePngFile(FileName);
+    else if (ImgTypeLoaded == TYPE_WEBP) WriteWebpFile(FileName);
 }
 
 void DiscardAllButExif(){
@@ -129,7 +133,7 @@ int RemoveImgSectionByType(int SectionType)
     if (ImgTypeLoaded == TYPE_JPEG){
         return RemoveJpegSectionByType(SectionType);
     }else{
-        ErrFatal("Only implemented for jpg files");
+        ErrFatal("Not implemented 1.5");
         return 0;
     }
 }
@@ -145,6 +149,9 @@ int RemoveUnknownImgSections(void)
     }
 }
 
+//--------------------------------------------------------------------------
+// Get pointer to exif section, cause we want to change it.
+//--------------------------------------------------------------------------
 uchar * GetImgExifSectionData(unsigned int *Size)
 {
     ImgSect_t * ExSection;
@@ -155,6 +162,11 @@ uchar * GetImgExifSectionData(unsigned int *Size)
         return ExSection->Data+8;
     }else if (ImgTypeLoaded == TYPE_PNG){
         ExSection = FindPngSection(0x65584966); // 'eXIf'
+        if (ExSection == NULL) return NULL;
+        if (Size) *Size = ExSection->Size;
+        return ExSection->Data;
+    } else if (ImgTypeLoaded == TYPE_WEBP) {
+        ExSection = GetWebpExifSection();
         if (ExSection == NULL) return NULL;
         if (Size) *Size = ExSection->Size;
         return ExSection->Data;
@@ -171,6 +183,8 @@ int RemoveImgExif(void)
         return RemoveJpegSectionByType(M_EXIF);
     } else if (ImgTypeLoaded == TYPE_PNG) {
         return RemovePngSectionByType(0x65584966); // 'eXIf'
+    }else{
+        ErrFatal("Not implemented for image type");
     }
     return FALSE;
 }
@@ -184,6 +198,8 @@ void CreateImgExif(void)
         CreateMinimalJpegExif();
     } else if (ImgTypeLoaded == TYPE_PNG) {
         CreateMinimalPngExif();
+    }else{
+        ErrFatal("Not implemented for image type");
     }
 }
 
@@ -220,6 +236,8 @@ void SetImgCommentTo(char * NewComment)
         SetJpegCommentTo(NewComment);
     } else if (ImgTypeLoaded == TYPE_PNG) {
         SetPngCommentTo(NewComment);
+    } else if (ImgTypeLoaded == TYPE_WEBP) {
+        SetWebpCommentTo(NewComment);
     } else {
         ErrFatal("No image loaded to set comment");
     }
@@ -416,4 +434,5 @@ void ResetImgfile(void)
 {
     ResetJpegFile();
     ResetPngFile();
+    ResetWebpFile();
 }

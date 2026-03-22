@@ -27,7 +27,7 @@ docs = $(SRC)/usage.html
 objdir:
 	@mkdir -p obj
 
-objs = $(OBJ)/jhead.o $(OBJ)/imgfile.o  $(OBJ)/jpgfile.o $(OBJ)/pngfile.o \
+objs = $(OBJ)/jhead.o $(OBJ)/imgfile.o  $(OBJ)/jpgfile.o $(OBJ)/pngfile.o $(OBJ)/webpfile.o \
 	$(OBJ)/jpgqguess.o $(OBJ)/paths.o \
 	$(OBJ)/exif.o $(OBJ)/iptc.o $(OBJ)/gpsinfo.o $(OBJ)/makernote.o
 

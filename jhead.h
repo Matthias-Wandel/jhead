@@ -277,6 +277,8 @@ ImgSect_t * GetWebpExifSection(void);
 void WriteWebpFile(const char * FileName);
 void DiscardWebpData(void);
 void ResetWebpFile(void);
+void SetWebpCommentTo(char * NewCommentStr);
+
 
 // Prototypes from jpgqguess.c
 void process_DQT (const uchar * Data, int length);
