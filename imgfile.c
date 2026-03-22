@@ -5,21 +5,16 @@
 #include "jhead.h"
 #include <sys/stat.h>
 
-// Define image types
-#define TYPE_UNKNOWN 0
-#define TYPE_JPEG    1
-#define TYPE_PNG     2
-#define TYPE_WEBP    3
-int ImgTypeLoaded = TYPE_UNKNOWN;
-
 // Storage for simplified info extracted from file.
 ImageInfo_t ImageInfo;
 
 void DiscardImgData(void)
 {
-    if (ImgTypeLoaded == TYPE_JPEG) DiscardJpegData();
-    if (ImgTypeLoaded == TYPE_PNG) DiscardPngData();
-    if (ImgTypeLoaded == TYPE_WEBP) DiscardWebpData();
+    switch (ImageInfo.ImgTypeLoaded){
+        case IMG_TYPE_JPEG: DiscardJpegData();break;
+        case IMG_TYPE_PNG: DiscardPngData();break;
+        case IMG_TYPE_WEBP: DiscardWebpData();break;
+    }
 }
 
 //--------------------------------------------------------------------------
@@ -54,9 +49,17 @@ void ProcessImgComment (const uchar * Data, int length)
     Comment[nch] = '\0'; // Null terminate
 
     if (ShowTags){
-        if (ImgTypeLoaded == TYPE_JPEG) printf("COM marker comment: %s\n",Comment);
-        if (ImgTypeLoaded == TYPE_PNG) printf("tEXt section comment: %s\n",Comment);
-        if (ImgTypeLoaded == TYPE_WEBP) printf("COMM section comment: %s\n",Comment);
+        switch (ImageInfo.ImgTypeLoaded){
+            case IMG_TYPE_JPEG: DiscardJpegData();
+                printf("COM marker comment: %s\n",Comment);
+                break;
+            case IMG_TYPE_PNG: DiscardPngData();
+                printf("tEXt section comment: %s\n",Comment);
+                break;
+            case IMG_TYPE_WEBP: DiscardWebpData();
+                printf("COMM section comment: %s\n",Comment);
+                break;
+        }
     }
 
     strcpy(ImageInfo.Comments,Comment);
@@ -86,13 +89,13 @@ int ReadImgFile(const char * FileName, ReadMode_t ReadMode) {
     //printf("Sig: %02x %02x\n",Sig[0],Sig[1]);
 
     if (Sig[0] == 0xff && Sig[1] == 0xd8) {
-        ImgTypeLoaded = TYPE_JPEG;
+        ImageInfo.ImgTypeLoaded = IMG_TYPE_JPEG;
         retval = ReadJpegFile(f, ReadMode);
     }else if (memcmp(Sig, "\x89PNG\r\n\x1a\n", 8) == 0) {
-        ImgTypeLoaded = TYPE_PNG;
+        ImageInfo.ImgTypeLoaded = IMG_TYPE_PNG;
         retval = ReadPngFile(f, ReadMode);
     }else if (memcmp(Sig, "RIFF", 4) == 0 && memcmp(Sig+8, "WEBP", 4) == 0) {
-        ImgTypeLoaded = TYPE_WEBP;
+        ImageInfo.ImgTypeLoaded = IMG_TYPE_WEBP;
         retval = ReadWebpSections(f, ReadMode);
     }else{
         printf("Unhandled file type (not JPG, PNG or WEBP): %s\n",FileName);
@@ -105,19 +108,19 @@ int ReadImgFile(const char * FileName, ReadMode_t ReadMode) {
 // Thunked Write Function
 //--------------------------------------------------------------------------
 void WriteImgFile(const char * FileName) {
-    if (ImgTypeLoaded == TYPE_JPEG) WriteJpegFile(FileName);
-    else if (ImgTypeLoaded == TYPE_PNG) WritePngFile(FileName);
-    else if (ImgTypeLoaded == TYPE_WEBP) WriteWebpFile(FileName);
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) WriteJpegFile(FileName);
+    else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) WritePngFile(FileName);
+    else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) WriteWebpFile(FileName);
 }
 
 void DiscardAllButExif(){
-    if (ImgTypeLoaded == TYPE_JPEG) DiscardAllJpegButExif();
-    if (ImgTypeLoaded == TYPE_PNG) DiscardAllPngButExif();
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) DiscardAllJpegButExif();
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) DiscardAllPngButExif();
 }
 
 int ReplaceImgThumbnail(const char * ThumbFileName)
 {
-    if (ImgTypeLoaded == TYPE_JPEG){
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
         return ReplaceJpegThumbnail(ThumbFileName);
     }else{
         ErrFatal("not implemented 1\n");
@@ -130,7 +133,7 @@ int ReplaceImgThumbnail(const char * ThumbFileName)
 //--------------------------------------------------------------------------
 int RemoveImgSectionByType(int SectionType)
 {
-    if (ImgTypeLoaded == TYPE_JPEG){
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
         return RemoveJpegSectionByType(SectionType);
     }else{
         ErrFatal("Not implemented 1.5");
@@ -141,7 +144,7 @@ int RemoveImgSectionByType(int SectionType)
 
 int RemoveUnknownImgSections(void)
 {
-    if (ImgTypeLoaded == TYPE_JPEG){
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
         return RemoveUnknownJpegSections();
     }else{
         ErrFatal("not implemented 2\n");
@@ -155,17 +158,17 @@ int RemoveUnknownImgSections(void)
 uchar * GetImgExifSectionData(unsigned int *Size)
 {
     ImgSect_t * ExSection;
-    if (ImgTypeLoaded == TYPE_JPEG){
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
         ExSection = FindJpegSection(M_EXIF);
         if (ExSection == NULL) return NULL;
         if (Size) *Size = ExSection->Size-8;
         return ExSection->Data+8;
-    }else if (ImgTypeLoaded == TYPE_PNG){
+    }else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG){
         ExSection = FindPngSection(0x65584966); // 'eXIf'
         if (ExSection == NULL) return NULL;
         if (Size) *Size = ExSection->Size;
         return ExSection->Data;
-    } else if (ImgTypeLoaded == TYPE_WEBP) {
+    } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
         ExSection = GetWebpExifSection();
         if (ExSection == NULL) return NULL;
         if (Size) *Size = ExSection->Size;
@@ -179,9 +182,9 @@ uchar * GetImgExifSectionData(unsigned int *Size)
 //--------------------------------------------------------------------------
 int RemoveImgExif(void)
 {
-    if (ImgTypeLoaded == TYPE_JPEG) {
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) {
         return RemoveJpegSectionByType(M_EXIF);
-    } else if (ImgTypeLoaded == TYPE_PNG) {
+    } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) {
         return RemovePngSectionByType(0x65584966); // 'eXIf'
     }else{
         ErrFatal("Not implemented for image type");
@@ -194,9 +197,9 @@ int RemoveImgExif(void)
 //--------------------------------------------------------------------------
 void CreateImgExif(void)
 {
-    if (ImgTypeLoaded == TYPE_JPEG) {
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) {
         CreateMinimalJpegExif();
-    } else if (ImgTypeLoaded == TYPE_PNG) {
+    } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) {
         CreateMinimalPngExif();
     }else{
         ErrFatal("Not implemented for image type");
@@ -216,11 +219,11 @@ int TrimImgExifTrailingZeros()
     unsigned NewSize = ExifBytesActuallyUsed(ExifData, Size);
     if (NewSize < Size){
         ImgSect_t * ExSec;
-        if (ImgTypeLoaded == TYPE_JPEG){
+        if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
             ExSec = FindJpegSection(M_EXIF);
             ExSec->Size = NewSize+8;
             return TRUE;
-        } else if (ImgTypeLoaded == TYPE_PNG) {
+        } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) {
             ExSec = FindPngSection(0x65584966); // 'eXIf'
             ExSec->Size = NewSize;
             return TRUE;
@@ -232,11 +235,11 @@ int TrimImgExifTrailingZeros()
 
 void SetImgCommentTo(char * NewComment)
 {
-    if (ImgTypeLoaded == TYPE_JPEG) {
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) {
         SetJpegCommentTo(NewComment);
-    } else if (ImgTypeLoaded == TYPE_PNG) {
+    } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) {
         SetPngCommentTo(NewComment);
-    } else if (ImgTypeLoaded == TYPE_WEBP) {
+    } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
         SetWebpCommentTo(NewComment);
     } else {
         ErrFatal("No image loaded to set comment");
@@ -247,7 +250,7 @@ ImgSect_t * FindImgSection(int SectionType)
 {
     // Section type values differ between Jpeg and Png, so calls to this
     // function needs to be replaced with calls referring to specific section types.
-    if (ImgTypeLoaded == TYPE_JPEG){
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
         return FindJpegSection(SectionType);
     }else{
         if (SectionType == M_IPTC) return NULL; // Not used in PNG files
@@ -260,7 +263,7 @@ ImgSect_t * FindImgSection(int SectionType)
 
 ImgSect_t * CreateImgSection(int SectionType, unsigned char * Data, int Size)
 {
-    if (ImgTypeLoaded == TYPE_JPEG){
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
         return CreateJpegSection(SectionType, Data, Size);
     }else{
         ErrFatal("not implemented 5\n");
@@ -270,7 +273,7 @@ ImgSect_t * CreateImgSection(int SectionType, unsigned char * Data, int Size)
 
 int SaveImgThumbnail(char * ThumbFileName)
 {
-    if (ImgTypeLoaded == TYPE_JPEG){
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
         return SaveJpegThumbnail(ThumbFileName);
     }else{
         ErrFatal("not implemented 6\n");
@@ -398,7 +401,7 @@ void DoFileRenaming(const char * FileName, char * strftime_args)
         }
 
         char * FileNameExt = "jpg";
-        if (ImgTypeLoaded == TYPE_PNG) FileNameExt = "png";
+        if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) FileNameExt = "png";
 
         snprintf(NewName, sizeof(NewName), "%s%s.%s", NewBaseName, NameExtra, FileNameExt);
 

@@ -79,7 +79,11 @@ extern int DumpExifMap;
 typedef struct {
     char  FileName     [PATH_MAX+1];
     time_t FileDateTime;
-    int  IsPngFile;
+    int   ImgTypeLoaded;
+        #define IMG_TYPE_UNKNOWN 0
+        #define IMG_TYPE_JPEG    1
+        #define IMG_TYPE_PNG     2
+        #define IMG_TYPE_WEBP    3
 
     struct {
         // Info in the jfif header.

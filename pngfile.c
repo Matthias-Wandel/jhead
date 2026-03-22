@@ -132,7 +132,6 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
     if (fread(Sig, 1, 8, infile) != 8 || memcmp(Sig, "\x89PNG\r\n\x1a\n", 8) != 0) return FALSE;
 
     ResetPngFile();
-    ImageInfo.IsPngFile = TRUE;
     int HaveCom = FALSE;
 
     for (;;) {

@@ -1558,13 +1558,13 @@ void ShowImageInfo(int ShowFileDate)
         if (ImageInfo.GpsAlt[0]) printf("GPS Altitude : %s\n",ImageInfo.GpsAlt);
     }
 
-    if (ImageInfo.IsPngFile){
-        if (ImageInfo.PngNumColors){
-            printf("PNG colors   : %d\n", ImageInfo.PngNumColors);
-        }
-    }else{
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
         if (ImageInfo.JpgQualityGuess){
             printf("JPEG Quality : %d\n", ImageInfo.JpgQualityGuess);
+        }
+    }else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG){
+        if (ImageInfo.PngNumColors){
+            printf("PNG colors   : %d\n", ImageInfo.PngNumColors);
         }
     }
 
