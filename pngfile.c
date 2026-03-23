@@ -89,6 +89,7 @@ int RemovePngSectionByType(int SectionType)
     int a, retval = FALSE;
     for (a=0; a<PngSectionsRead; a++){
         if (PngSections[a].Type == SectionType){
+printf("remove section type %x\n",SectionType);            
             free(PngSections[a].Data);
             memmove(PngSections+a, PngSections+a+1, sizeof(ImgSect_t) * (PngSectionsRead-a-1));
             PngSectionsRead -= 1;
