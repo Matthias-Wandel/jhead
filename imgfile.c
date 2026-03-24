@@ -25,44 +25,21 @@ void DiscardImgData(void)
 //--------------------------------------------------------------------------
 void ProcessImgComment (const uchar * Data, int length)
 {
-    int ch;
-    char Comment[MAX_COMMENT_SIZE+1];
-    int nch;
-    int a;
+    memset(ImageInfo.Comments, 0, sizeof(ImageInfo.Comments));
 
-    nch = 0;
-
-    if (length > MAX_COMMENT_SIZE) length = MAX_COMMENT_SIZE; // Truncate if it won't fit in our structure.
-
-    for (a=0;a<length;a++){
-        ch = Data[a];
-
-        if (ch == '\r' && a < length-1 && Data[a+1] == '\n') continue; // Remove cr followed by lf.
-
-        if (ch >= 32 || ch == '\n' || ch == '\t'){
-            Comment[nch++] = (char)ch;
-        }else{
-            Comment[nch++] = '?';
-        }
-    }
-
-    Comment[nch] = '\0'; // Null terminate
+    if (length > sizeof(ImageInfo.Comments)-1) length = sizeof(ImageInfo.Comments)-1;
+    strncpy(ImageInfo.Comments,Data, length);
 
     if (ShowTags){
+        char * type = "??";
         switch (ImageInfo.ImgTypeLoaded){
-            case IMG_TYPE_JPEG: DiscardJpegData();
-                printf("COM marker comment: %s\n",Comment);
-                break;
-            case IMG_TYPE_PNG: DiscardPngData();
-                printf("tEXt section comment: %s\n",Comment);
-                break;
-            case IMG_TYPE_WEBP: DiscardWebpData();
-                printf("COMM section comment: %s\n",Comment);
-                break;
+            case IMG_TYPE_JPEG: type = "COM"; break;
+            case IMG_TYPE_PNG: type = "tEXt"; break;
+            case IMG_TYPE_WEBP: type = "COMM"; break;
         }
-    }
 
-    strcpy(ImageInfo.Comments,Comment);
+        printf("%s section comment: %s\n", type, ImageInfo.Comments);
+    }
 }
 
 //--------------------------------------------------------------------------

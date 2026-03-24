@@ -25,10 +25,10 @@ Image contains XMP section, 604 bytes long
     </rdf:Description>
   </rdf:RDF>
 </x:xmpmeta>
-COM marker comment: 
+COM section comment: 
 
 CREATOR: XV Version 3.00  Rev: 3/30/93  Quality = 95, Smoothing = 0
-?
+
 Image contains IPTC section, 116 bytes long
 Approximate quality factor for qtable 0: 95 (scale 9.93, var 1.25)
 Approximate quality factor for qtable 1: 95 (scale 10.18, var 0.26)
@@ -41,7 +41,6 @@ JPEG Quality : 95
 Comment      : 
 Comment      : 
 Comment      : CREATOR: XV Version 3.00  Rev: 3/30/93  Quality = 95, Smoothing = 0
-Comment      : ?
 ======= IPTC data: =======
 Keywords      : /Events/Sport/Hiking+Trekking+Climbing
 Keywords      : /Places/Denmark/Greenland
