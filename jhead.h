@@ -278,10 +278,12 @@ ImgSect_t * CreatePngSection(int SectionType, unsigned char * Data, int Size);
 // Webp handling functions
 int  ReadWebpSections(FILE * f, ReadMode_t ReadMode);
 ImgSect_t * GetWebpExifSection(void);
-void WriteWebpFile(const char * FileName);
 void DiscardWebpData(void);
 void ResetWebpFile(void);
+int RemoveWebpSectionByType(int SectionType);
+void CreateMinimalWebpExif(void);
 void SetWebpCommentTo(char * NewCommentStr);
+void WriteWebpFile(const char * FileName);
 
 
 // Prototypes from jpgqguess.c

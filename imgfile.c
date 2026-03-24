@@ -76,8 +76,8 @@ int ReadImgFile(const char * FileName, ReadMode_t ReadMode) {
         retval = ReadWebpSections(f, ReadMode);
     }else{
         printf("Unhandled file type (not JPG, PNG or WEBP): %s\n",FileName);
-        return FALSE;
     }
+    fclose(f);
     return retval;
 }
 
@@ -163,6 +163,8 @@ int RemoveImgExif(void)
         return RemoveJpegSectionByType(M_EXIF);
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) {
         return RemovePngSectionByType(0x65584966); // 'eXIf'
+    } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
+        return RemoveWebpSectionByType(0x45584946); // "EXIF" section
     }else{
         ErrFatal("Not implemented for image type");
     }
@@ -178,6 +180,8 @@ void CreateImgExif(void)
         CreateMinimalJpegExif();
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) {
         CreateMinimalPngExif();
+    } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
+        CreateMinimalWebpExif();
     }else{
         ErrFatal("Not implemented for image type");
     }

@@ -86,17 +86,18 @@ ImgSect_t * FindPngSection(int SectionType)
 
 int RemovePngSectionByType(int SectionType)
 {
-    int a, retval = FALSE;
+    int a;
+    int modified = FALSE;
     for (a=0; a<PngSectionsRead; a++){
         if (PngSections[a].Type == SectionType){
             free(PngSections[a].Data);
             memmove(PngSections+a, PngSections+a+1, sizeof(ImgSect_t) * (PngSectionsRead-a-1));
             PngSectionsRead -= 1;
             a -= 1;
-            retval = TRUE;
+            modified = TRUE;
         }
     }
-    return retval;
+    return modified;
 }
 
 //--------------------------------------------------------------------------
@@ -119,7 +120,6 @@ void CreateMinimalPngExif(void)
     RemovePngSectionByType(0x65584966); // 'eXIf' section
 
     // Insert into sections array.
-    // Your CreatePngSection logic will ensure it's at index 1 (after IHDR).
     CreatePngSection(0x65584966, PngExifData, ExifLen);
 }
 
@@ -254,7 +254,7 @@ ImgSect_t * CreatePngSection(int SectionType, unsigned char * Data, int Size)
 {
     CheckPngSectionsAllocated();
 
-    int NewIndex = 1; // First section needs to stay at first position.
+    int NewIndex = 1; // First (0'th) section needs to stay at 0'th position.
 
     // Make room for the new section
     for (int a = PngSectionsRead; a > NewIndex; a--) {
@@ -312,7 +312,7 @@ void SetPngCommentTo(char * NewCommentStr)
     if (NewCommentStr == NULL) {
         // Remove the section if it exists
         if (CommentSec) {
-            RemovePngSection(CommentSec); // Use your existing removal logic
+            RemovePngSection(CommentSec); // Use existing removal logic
         }
         return;
     }
@@ -326,7 +326,7 @@ void SetPngCommentTo(char * NewCommentStr)
         free(CommentSec->Data);
     } else {
         // Create a new 'tEXt' section.
-        // In PNG, metadata chunks should ideally come after IHDR.
+        // In PNG, metadata chunks should come after IHDR.
         CommentSec = CreatePngSection(0x74455874, NULL, TotalSize);
     }
 

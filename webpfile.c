@@ -139,65 +139,114 @@ ImgSect_t * GetWebpExifSection(void)
     return NULL;
 }
 
+//--------------------------------------------------------------------------
+// Remove a WebP section by its type (FourCC)
+//--------------------------------------------------------------------------
+int RemoveWebpSectionByType(int SectionType)
+{
+    int i, j;
+    int modified = FALSE;
+    for (i = 0; i < WebpSectionsRead; i++) {
+        if (WebpSections[i].Type == SectionType) {
+            free(WebpSections[i].Data);
+            // Shift remaining sections down to fill the gap
+            for (j = i; j < WebpSectionsRead - 1; j++) {
+                WebpSections[j] = WebpSections[j + 1];
+            }
+            WebpSectionsRead--;
+            i--; // Check the new item shifted into this index
+            modified = TRUE;
+        }
+    }
+    return modified;
+}
+
+//--------------------------------------------------------------------------
+// Create a new WebP section, near the beginning, so if we only read
+// part of the file, we get the exif header
+//--------------------------------------------------------------------------
+ImgSect_t * CreateWebpSection(int SectionType, unsigned char * Data, int Size)
+{
+    int a;
+    int NewIndex = 0;
+
+    // WebP ordering: Metadata (EXIF, XMP) should appear after the header (VP8X)
+    // but MUST appear before the actual image data (VP8 or VP8L).
+    for (NewIndex=0; NewIndex < WebpSectionsRead; NewIndex++){
+        if (WebpSections[NewIndex].Type == 0x56503820) break; // 'VP8 '
+        if (WebpSections[NewIndex].Type == 0x5650384c) break; // 'VP8L'
+    }
+
+    if (WebpSectionsRead >= WebpSectionsAllocated){
+        WebpSectionsAllocated += 10;
+        WebpSections = (ImgSect_t *)realloc(WebpSections, sizeof(ImgSect_t)*WebpSectionsAllocated);
+        if (WebpSections == NULL) ErrFatal("could not allocate data");
+    }
+
+    // Shift to make room
+    for (a=WebpSectionsRead; a>NewIndex; a--){
+        WebpSections[a] = WebpSections[a-1];
+    }
+    WebpSectionsRead += 1;
+
+    WebpSections[NewIndex].Type = SectionType;
+    WebpSections[NewIndex].Size = Size;
+    WebpSections[NewIndex].Data = Data;
+
+    return &WebpSections[NewIndex];
+}
+
+//--------------------------------------------------------------------------
+// Create a minimal Exif header for WebP
+//--------------------------------------------------------------------------
+void CreateMinimalWebpExif(void)
+{
+    unsigned char ExifData[256];
+    unsigned int ExifLen;
+
+    // Create the minimal Exif header using existing exif.c logic.
+    ExifLen = CreateMinimalExif(ExifData);
+
+    // WebP EXIF chunks contain the raw TIFF data. 
+    unsigned char * WebpExifData = malloc(ExifLen);
+    if (WebpExifData == NULL) ErrFatal("Out of memory");
+    memcpy(WebpExifData, ExifData, ExifLen);
+
+    RemoveWebpSectionByType(0x45584946); // "EXIF" section
+
+    // Insert into sections array using our ordering logic.
+    CreateWebpSection(0x45584946, WebpExifData, ExifLen);
+}
+
 
 //--------------------------------------------------------------------------
 // Set or replace the comment section (COMM) for WebP
 //--------------------------------------------------------------------------
 void SetWebpCommentTo(char * NewCommentStr)
 {
-    int i;
-    ImgSect_t * CommentSec = NULL;
-
-    // Search for existing 'COMM' chunk
-    for (i = 0; i < WebpSectionsRead; i++) {
-        if (WebpSections[i].Type == 0x434f4d4d) { // "COMM"
-            CommentSec = &WebpSections[i];
-            break;
-        }
-    }
+    // Remove any existing 'COMM' chunk to avoid duplicates.
+    RemoveWebpSectionByType(0x434f4d4d); // "COMM"
 
     if (NewCommentStr == NULL) {
-        // Remove the section if it exists
-        if (CommentSec) {
-            free(CommentSec->Data);
-            // Shift remaining sections
-            int index = CommentSec - WebpSections;
-            for (i = index; i < WebpSectionsRead - 1; i++) {
-                WebpSections[i] = WebpSections[i + 1];
-            }
-            WebpSectionsRead--;
-        }
+        ImageInfo.Comments[0] = '\0';
         return;
     }
 
-    int CommentLen = strlen(NewCommentStr);
+    int CommentLen = (int)strlen(NewCommentStr);
+    unsigned char * Data = (unsigned char *)malloc(CommentLen);
+    if (Data == NULL) ErrFatal("Out of memory");
+    memcpy(Data, NewCommentStr, CommentLen);
 
-    if (CommentSec) {
-        free(CommentSec->Data);
-    } else {
-        // Create new section. In RIFF, it's safe to append before the end.
-        if (WebpSectionsRead >= WebpSectionsAllocated) {
-            WebpSectionsAllocated += 10;
-            WebpSections = (ImgSect_t *)realloc(WebpSections, sizeof(ImgSect_t) * WebpSectionsAllocated);
-        }
-        CommentSec = &WebpSections[WebpSectionsRead++];
-        CommentSec->Type = 0x434f4d4d; // "COMM"
-    }
+    // Create section near the beginning for the comment
+    CreateWebpSection(0x434f4d4d, Data, CommentLen);
 
-    // WebP implementation: Data is JUST the string.
-    // No 2-byte big-endian length prefix (unlike JPEG).
-    CommentSec->Size = CommentLen;
-    CommentSec->Data = (uchar *)malloc(CommentLen);
-    memcpy(CommentSec->Data, NewCommentStr, CommentLen);
-
-    // Update ImageInfo for immediate feedback
+    // Update copy im imginfo struct.
     strncpy(ImageInfo.Comments, NewCommentStr, MAX_COMMENT_SIZE);
 }
 
 
-
 //--------------------------------------------------------------------------
-// Write modified file back out (after exif changes)
+// Write modified file back out (after exif or comment changes)
 //--------------------------------------------------------------------------
 void WriteWebpFile(const char * FileName) {
     FILE * outfile = fopen(FileName, "wb");
