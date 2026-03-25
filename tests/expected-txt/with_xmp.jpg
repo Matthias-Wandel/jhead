@@ -90,7 +90,7 @@ Exif section in Intel order
 Thumbnail size: 8194 bytes
 Image contains IPTC section, 128 bytes long
 Image contains XMP section, 3675 bytes long
-?[http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>
+http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>
 <x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='Image::ExifTool 7.13'>
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
 
@@ -246,7 +246,7 @@ Exif section in Intel order
 Thumbnail size: 8194 bytes
 Image contains IPTC section, 128 bytes long
 Image contains XMP section, 3675 bytes long
-?[http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>
+http://ns.adobe.com/xap/1.0/?<?xpacket begin='???' id='W5M0MpCehiHzreSzNTczkc9d'?>
 <x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='Image::ExifTool 7.13'>
 <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
 
