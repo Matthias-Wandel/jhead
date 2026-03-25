@@ -147,7 +147,7 @@ uchar * GetImgExifSectionData(unsigned int *Size)
         if (Size) *Size = ExSection->Size;
         return ExSection->Data;
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
-        ExSection = GetWebpExifSection();
+        ExSection = GetWebpSection(0x45584946);  //'EXIF'
         if (ExSection == NULL) return NULL;
         if (Size) *Size = ExSection->Size;
         return ExSection->Data;

@@ -278,7 +278,7 @@ ImgSect_t * CreatePngSection(int SectionType, unsigned char * Data, int Size);
 
 // Webp handling functions
 int  ReadWebpSections(FILE * f, ReadMode_t ReadMode);
-ImgSect_t * GetWebpExifSection(void);
+ImgSect_t * GetWebpSection(int Type);
 void DiscardWebpData(void);
 void ResetWebpFile(void);
 int RemoveWebpSectionByType(int SectionType);
