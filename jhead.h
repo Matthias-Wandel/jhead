@@ -211,7 +211,7 @@ void ProcessGpsInfo(unsigned char * ValuePtr,
 
 // iptc.c prototypes
 void show_IPTC (unsigned char * CharBuf, unsigned int length);
-void ShowXmp(ImgSect_t XmpSection);
+void ShowXmp(unsigned char * Data, int Length);
 
 // Prototypes for myglob.c module
 #ifdef _WIN32
@@ -223,7 +223,7 @@ void SlashToNative(char * Path);
 int EnsurePathExists(const char * FileName);
 void CatPath(char * BasePath, const char * FilePath);
 
-// Functions that operate on Jpeg or PNG
+// Functions that operate on Jpeg PNG or Webp
 int  ReadImgFile(const char * FileName, ReadMode_t ReadMode);
 void WriteImgFile(const char * FileName);
 void ResetImgfile(void);
@@ -234,8 +234,8 @@ int SaveImgThumbnail(char * ThumbFileName);
 int RemoveSectionType(int SectionType);
 int RemoveUnknownImgSections(void);
 int RemoveImgExif(void);
+int RemoveImgXmp(void);
 void CreateImgExif(void);
-int RemoveImgSectionByType(int SectionType);
 void SetImgCommentTo(char * NewComment);
 uchar * GetImgExifSectionData(unsigned int *Size);
 ImgSect_t * FindImgSection(int SectionType);

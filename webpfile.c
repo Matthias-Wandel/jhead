@@ -116,6 +116,17 @@ int ReadWebpSections(FILE * infile, ReadMode_t ReadMode) {
             ProcessWebpGeometry(ChunkType, Data, ChunkLen);
         }
 
+
+        if (ChunkType == 0x56503858) { // "VP8X
+            if (ShowTags) printf("VP8X Metadata present flags = 0x%X\n",Data[0]);
+        }
+
+        if (ChunkType == 0x584d5020) { // "XMP "
+            if (ShowTags){
+                ShowXmp(Data, ChunkLen);
+            }
+        }
+
         if (ChunkType == 0x45584946) { // "EXIF"
             process_EXIF(Data, ChunkLen);
         }
@@ -292,11 +303,11 @@ void WriteWebpFile(const char * FileName) {
         uchar Flags = 0; // Clear and rebuild
 
         // Update flags in VP8 header for which metadata is present.
-        if (GetWebpSection(0x45584946)) Flags |= 0x08; // Exif bit
+        if (GetWebpSection(0x414e494d)) Flags |= 0x02; // Animation bit
         if (GetWebpSection(0x584d5020)) Flags |= 0x04; // XMP bit
+        if (GetWebpSection(0x45584946)) Flags |= 0x08; // Exif bit
         if (GetWebpSection(0x414c5048)) Flags |= 0x10; // Alpha bit
         if (GetWebpSection(0x49434350)) Flags |= 0x20; // ICC Profile bit
-        if (GetWebpSection(0x414e494d)) Flags |= 0x02; // Animation bit
 
         WebpSections[0].Data[0] = Flags;
     }

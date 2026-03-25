@@ -740,10 +740,14 @@ skip_unixtime:
         if (RemoveImgExif()) Modified = TRUE;
     }
     if (DeleteIptc){
-        if (RemoveImgSectionByType(M_IPTC)) Modified = TRUE;
+        if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
+            if (RemoveJpegSectionByType(M_IPTC)) Modified = TRUE;
+        }else{
+            ErrFatal("Only implemented for jpeg");
+        }
     }
     if (DeleteXmp){
-        if (RemoveImgSectionByType(M_XMP)) Modified = TRUE;
+        if (RemoveImgXmp()) Modified = TRUE;
     }
     if (DeleteUnknown){
         if (RemoveUnknownImgSections()) Modified = TRUE;

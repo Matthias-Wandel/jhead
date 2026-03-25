@@ -186,19 +186,16 @@ corrupt:
 //--------------------------------------------------------------------------
 // Dump contents of XMP section
 //--------------------------------------------------------------------------
-void ShowXmp(ImgSect_t XmpSection)
+void ShowXmp(unsigned char * Data, int Length)
 {
-    unsigned char * Data;
     char OutLine[101];
     int OutLineChars;
     int NonBlank;
     unsigned a;
     NonBlank = 0;
-    Data = XmpSection.Data;
     OutLineChars = 0;
 
-
-    for (a=0;a<XmpSection.Size;a++){
+    for (a=0;a<Length;a++){
         if (Data[a] >= 32 && Data[a] < 128){
             OutLine[OutLineChars++] = Data[a];
             if (Data[a] != ' ') NonBlank |= 1;

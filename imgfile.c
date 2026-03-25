@@ -106,20 +106,6 @@ int ReplaceImgThumbnail(const char * ThumbFileName)
 }
 
 
-//--------------------------------------------------------------------------
-// Remove a certain type of section.
-//--------------------------------------------------------------------------
-int RemoveImgSectionByType(int SectionType)
-{
-    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
-        return RemoveJpegSectionByType(SectionType);
-    }else{
-        ErrFatal("Not implemented 1.5");
-        return 0;
-    }
-}
-
-
 int RemoveUnknownImgSections(void)
 {
     if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
@@ -171,6 +157,17 @@ int RemoveImgExif(void)
     }
     return FALSE;
 }
+int RemoveImgXmp(void)
+{
+    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) {
+        return RemoveJpegSectionByType(M_XMP);
+    } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
+        return RemoveWebpSectionByType(0x584d5020); // "XMP " section
+    }else{
+        ErrFatal("Remove XMP not implemented for PNG");
+    }
+    return FALSE;
+}
 
 //--------------------------------------------------------------------------
 // Create a minimal Exif header
@@ -208,7 +205,7 @@ uchar * ChangeExifSectionLength(int NewLength)
 int ReplaceJpegThumbnail(const char * ThumbFileName)
 {
     FILE * ThumbnailFile;
-    int ThumbLen, NewExifSize;
+    int ThumbLen;
     uchar * ThumbnailPointer;
 
     if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailAtEnd == FALSE){

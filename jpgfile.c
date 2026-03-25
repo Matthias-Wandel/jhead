@@ -251,7 +251,7 @@ int ReadJpegSections (FILE * infile, ReadMode_t ReadMode)
                         if (ShowTags){
                             printf("Image contains XMP section, %d bytes long\n", itemlen);
                             if (ShowTags){
-                                ShowXmp(JpgSections[JpgSectionsRead-1]);
+                                ShowXmp(Data+2, itemlen-2);
                             }
                         }
                         break;
