@@ -209,7 +209,6 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
 int ReadPngFile(FILE * infile, ReadMode_t ReadMode)
 {
     int ret = ReadPngSections(infile, ReadMode);
-    fclose(infile);
     return ret;
 }
 

@@ -336,8 +336,6 @@ int ReadJpegFile(FILE * infile, ReadMode_t ReadMode)
         }
     }
 
-    fclose(infile);
-
     if (ret == FALSE){
         DiscardJpegData();
     }
@@ -381,78 +379,64 @@ int SaveJpegThumbnail(char * ThumbFileName)
 }
 
 //--------------------------------------------------------------------------
-// Replace or remove exif thumbnail
+// Find the existing Exif section, change its length to NewLength.
+// Reallocate if its larger than before, otherwise just update the length.
+// If there are more than one exif section, delete all but the first.
+// If the NewLength is zero, delete all exif sections.
+// Returns a pointer to the start of the Exif data (the TIFF header).
 //--------------------------------------------------------------------------
-int ReplaceJpegThumbnail(const char * ThumbFileName)
+uchar * ChangeJpegExifSectionLength(int NewLength)
 {
-    FILE * ThumbnailFile;
-    int ThumbLen, NewExifSize;
-    ImgSect_t * ExifSection;
-    uchar * ThumbnailPointer;
+    int i;
+    int FirstExifIndex = -1;
+    ImgSect_t * s;
 
-    if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailAtEnd == FALSE){
-        if (ThumbFileName == NULL){
-            // Delete of nonexistent thumbnail (not even pointers present)
-            // No action, no error.
-            return FALSE;
+    // Find the first Exif section and remove any duplicates
+    for (i = 0; i < JpgSectionsRead; i++) {
+        if (JpgSections[i].Type == M_EXIF) {
+            if (FirstExifIndex == -1) {
+                FirstExifIndex = i;
+            } else {
+                // Found a duplicate Exif section. Delete it.
+                free(JpgSections[i].Data);
+                // Shift remaining sections down to fill the gap
+                memmove(JpgSections + i, JpgSections + i + 1, sizeof(ImgSect_t) * (JpgSectionsRead - i - 1));
+                JpgSectionsRead--;
+                i--; // Check the same index again as it now contains the next section
+            }
         }
-
-        // Adding or removing of thumbnail is not possible - that would require rearranging
-        // of the exif header, which is risky, and jhead doesn't know how to do.
-        fprintf(stderr,"Image contains no thumbnail to replace - add is not possible\n");
-        return FALSE;
     }
 
-    if (ThumbFileName){
-        ThumbnailFile = fopen(ThumbFileName,"rb");
+    if (FirstExifIndex == -1) return NULL; // No Exif section found.
 
-        if (ThumbnailFile == NULL){
-            noread:
-            ErrFatal("Could not read thumbnail file");
-            return FALSE;
-        }
-
-        // get length
-        fseek(ThumbnailFile, 0, SEEK_END);
-
-        ThumbLen = ftell(ThumbnailFile);
-        fseek(ThumbnailFile, 0, SEEK_SET);
-
-        if (ThumbLen + ImageInfo.ThumbnailOffset > 0x10000-20){
-            ErrFatal("Thumbnail is too large to insert into exif header");
-        }
-    }else{
-        if (ImageInfo.ThumbnailSize == 0){
-             return FALSE;
-        }
-
-        ThumbLen = 0;
-        ThumbnailFile = NULL;
+    
+    if (NewLength <= 0) { // length of zero means delete the exif section.
+        free(JpgSections[FirstExifIndex].Data);
+        memmove(JpgSections + FirstExifIndex, JpgSections + FirstExifIndex + 1, sizeof(ImgSect_t) * (JpgSectionsRead - FirstExifIndex - 1));
+        JpgSectionsRead--;
+        return NULL;
     }
 
-    ExifSection = FindJpegSection(M_EXIF);
+    // Resize the section.
+    // In JPEGs, the section data starts with 2 bytes for length 6 for the "Exif\0\0" preamble.
+    unsigned TotalSize = NewLength + 8;
+    s = &JpgSections[FirstExifIndex];
 
-    NewExifSize = ImageInfo.ThumbnailOffset+8+ThumbLen;
-    ExifSection->Data = (uchar *)realloc(ExifSection->Data, NewExifSize);
-
-    ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
-
-    if (ThumbnailFile){
-        if (fread(ThumbnailPointer, 1, ThumbLen, ThumbnailFile) != ThumbLen){
-            goto noread;
-        }
-        fclose(ThumbnailFile);
+    if (TotalSize > s->Size) {
+        // Grow the buffer
+        uchar * NewData = (uchar *)realloc(s->Data, TotalSize);
+        if (NewData == NULL) ErrFatal("Out of memory reallocating Exif section");
+        s->Data = NewData;
     }
 
-    ImageInfo.ThumbnailSize = ThumbLen;
+    s->Size = TotalSize;
 
-    Put32u(ExifSection->Data+ImageInfo.ThumbnailSizeOffset+8, ThumbLen);
+    // Update the 2-byte length field in the JPEG section (Big Endian)
+    s->Data[0] = (uchar)(TotalSize >> 8);
+    s->Data[1] = (uchar)(TotalSize & 0xFF);
 
-    ExifSection->Data[0] = (uchar)(NewExifSize >> 8);
-    ExifSection->Data[1] = (uchar)NewExifSize;
-    ExifSection->Size = NewExifSize;
-
-    return TRUE;
+    // Return pointer to the actulal Exif data.
+    return s->Data + 8;
 }
 
 

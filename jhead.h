@@ -258,6 +258,7 @@ void SetJpegCommentTo(char * NewComment);
 void CreateMinimalJpegExif(void);
 ImgSect_t * FindJpegSection(int SectionType);
 ImgSect_t * FindJpegExifSection();
+unsigned char * ChangeJpegExifSectionLength(int NewLength);
 ImgSect_t * CreateJpegSection(int SectionType, unsigned char * Data, int size);
 
 // Png handling functions
