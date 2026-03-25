@@ -204,7 +204,7 @@ echo "--------Deleted comment:" >> results-txt/pngfiles-txt
 "$jhead" -nofdate results-bin/ctest.png >> results-txt/pngfiles-txt
 
 echo "--------Zero trim png exif header and set file time:" >> results-txt/pngfiles-txt
-cp pngfiles/from_photo.png results-bin/from_photo.png 
+cp pngfiles/from_photo.png results-bin/from_photo.png
 "$jhead" -zt -ft results-bin/from_photo.png >> results-txt/pngfiles-txt
 "$jhead" -v results-bin/from_photo.png >> results-txt/pngfiles-txt
 echo "--------Replace with minimal exif header:" >> results-txt/pngfiles-txt
@@ -225,6 +225,43 @@ cp pngfiles/from_photo.png nametest.png
 "$jhead" -ta+00:23:24 nametest.png >> results-txt/pngfiles-txt
 "$jhead" -nnametest-%Y%m%dt-%H%M%S nametest.png >> results-txt/pngfiles-txt
 "$jhead" -c nametest*.png >> results-txt/pngfiles-txt
+
+
+#-------------------------------------------------------------------
+#Test weebp file handling
+
+echo "--------Show webp contents------" >> results-txt/webpfiles-txt
+"$jhead" -nofdate webpfiles/*.webp >> results-txt/webpfiles-txt
+echo "--------Show webp contents verbose------" >> results-txt/webpfiles-txt
+"$jhead" -nofdate -v webpfiles/*.webp >> results-txt/webpfiles-txt
+cp webpfiles/basic.webp basic.webp
+echo "--------Add exif header to basic webp------" >> results-txt/webpfiles-txt
+"$jhead" -mkexif -ts2026:03:25-01:02:03 basic.webp >> results-txt/webpfiles-txt
+"$jhead" -nofdate -v basic.webp >> results-txt/webpfiles-txt
+
+# Should also create a thumbnail here but that's not working this moment.
+
+echo "--------Remove exif header ------" >> results-txt/webpfiles-txt
+"$jhead" -de basic.webp >> results-txt/webpfiles-txt
+"$jhead" -nofdate -v basic.webp >> results-txt/webpfiles-txt
+
+
+cp webpfiles/from_iphone.webp .
+echo "--------Remove XMP from from_iphone.webp header ------" >> results-txt/webpfiles-txt
+"$jhead" -dx from_iphone.webp >> results-txt/webpfiles-txt
+"$jhead" -nofdate -v from_iphone.webp >> results-txt/webpfiles-txt
+echo "--------Adjust timestamp and set file date ------" >> results-txt/webpfiles-txt
+"$jhead" -ta+01:02:03 from_iphone.webp >> results-txt/webpfiles-txt
+"$jhead" -ft from_iphone.webp >> results-txt/webpfiles-txt
+"$jhead" from_iphone.webp >> results-txt/webpfiles-txt
+echo "--------Remove exif header ------" >> results-txt/webpfiles-txt
+"$jhead" -de from_iphone.webp >> results-txt/webpfiles-txt
+"$jhead" -v -nofdate from_iphone.webp >> results-txt/webpfiles-txt
+echo "--------Re-add exif header ------" >> results-txt/webpfiles-txt
+"$jhead" -mkexif from_iphone.webp >> results-txt/webpfiles-txt
+"$jhead" -v -nofdate from_iphone.webp >> results-txt/webpfiles-txt
+
+
 
 
 

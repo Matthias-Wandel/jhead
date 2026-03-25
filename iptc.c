@@ -191,7 +191,7 @@ void ShowXmp(unsigned char * Data, int Length)
     char OutLine[101];
     int OutLineChars;
     int NonBlank;
-    unsigned a;
+    int a;
     NonBlank = 0;
     OutLineChars = 0;
 

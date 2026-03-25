@@ -1,0 +1,356 @@
+--------Show webp contents------
+File name    : webpfiles/basic.webp
+File size    : 1930 bytes
+Resolution   : 160 x 56
+
+File name    : webpfiles/from_iphone.webp
+File size    : 7408 bytes
+Camera make  : Apple
+Camera model : iPhone 13 mini
+Date/Time    : 2026:03:14 14:32:24
+Resolution   : 40 x 53
+Flash used   : No
+Focal length :  5.1mm  (35mm equivalent: 26mm)
+Exposure time: 0.0003 s  (1/3521)
+Aperture     : f/1.6
+ISO equiv.   : 50
+Whitebalance : Auto
+Metering Mode: pattern
+Exposure     : program (auto)
+GPS Latitude : N 45d 57m  3.63s
+GPS Longitude: W 66d 39m 15.96s
+GPS Altitude :  50.83m
+
+--------Show webp contents verbose------
+Chunk type 56503820 'VP8 ' length 1910
+WebP Image: 160x56
+File name    : webpfiles/basic.webp
+File size    : 1930 bytes
+Resolution   : 160 x 56
+
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x2C
+WebP Image: 40x53
+Chunk type 49434350 'ICCP' length 536
+Chunk type 56503820 'VP8 ' length 752
+Chunk type 45584946 'EXIF' length 2854
+Exif header 2854 bytes long
+Exif section in Motorola order
+(dir has 11 entries)
+    Make = "Apple"
+    Model = "iPhone 13 mini"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "26.3.1"
+    DateTime = "2026:03:14 14:32:24"
+    Unknown Tag 013c Value = "iPhone 13 mini"
+    ExifOffset = 228
+    Exif Dir:(dir has 33 entries)
+        ExposureTime = 1/3521
+        FNumber = 8/5
+        ExposureProgram = 2
+        ISOSpeedRatings = 50
+        ExifVersion = "0232"
+        DateTimeOriginal = "2026:03:14 14:32:24"
+        DateTimeDigitized = "2026:03:14 14:32:24"
+        OffsetTime = "-03:00"
+        OffsetTimeOriginal = "-03:00"
+        OffsetTimeDigitized = "-03:00"
+        ShutterSpeedValue = 65719/5578
+        ApertureValue = 14447/10653
+        BrightnessValue = 404123/40521
+        ExposureBiasValue = 0/1
+        MeteringMode = 5
+        Flash = 16
+        FocalLength = 51/10
+        SubjectArea = 1699, 2551, 161, 160
+        Maker note:  41 70 70 6c 65 20 69 4f 53 00 00... (1698 bytes)
+        SubSecTimeOriginal = "661"
+        SubSecTimeDigitized = "661"
+        ColorSpace = 65535
+        ExifImageWidth = 40
+        ExifImageLength = 53
+        SensingMethod = 2
+        SceneType = ""
+        ExposureMode = 0
+        WhiteBalance = 0
+        FocalLengthIn35mmFilm = 26
+        Unknown Tag a432 Value = 807365/524263, 51/10, 8/5, 12/5
+        Unknown Tag a433 Value = "Apple"
+        Unknown Tag a434 Value = "iPhone 13 mini back dual wide camera 5.1mm f/1.6"
+        Rating = 2
+    GPS Dir offset = 2544
+    GPS info dir:(dir has 15 entries)
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =45/1, 57/1, 363/100
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =66/1, 39/1, 1596/100
+        GPSAltitudeRef      =00
+        GPSAltitude         =176326/3469
+        GPSTimeStamp        =17/1, 32/1, 2400/100
+        GPSSpeedRef         ="K"
+        GPSSpeed            =19541/76800
+        GPSImgDirectionRef  ="T"
+        GPSImgDirection     =4775175/16384
+        GPSDestBearingRef   ="T"
+        GPSDestBearing      =4775175/16384
+        GPSDateStamp        ="2026:03:14"
+        Illegal GPS tag 001f=30719/3889
+Chunk type 584d5020 'XMP ' length 3204
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 6.0.0">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/"
+            xmlns:mwg-rs="http://www.metadataworkinggroup.com/schemas/regions/"
+            xmlns:stArea="http://ns.adobe.com/xmp/sType/Area#"
+            xmlns:apple-fi="http://ns.apple.com/faceinfo/1.0/"
+            xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#">
+         <xmp:CreateDate>2026-03-14T14:32:24</xmp:CreateDate>
+         <xmp:CreatorTool>26.3.1</xmp:CreatorTool>
+         <xmp:ModifyDate>2026-03-14T14:32:24</xmp:ModifyDate>
+         <photoshop:DateCreated>2026-03-14T14:32:24</photoshop:DateCreated>
+         <mwg-rs:Regions rdf:parseType="Resource">
+            <mwg-rs:RegionList>
+               <rdf:Seq>
+                  <rdf:li rdf:parseType="Resource">
+                     <mwg-rs:Area rdf:parseType="Resource">
+                        <stArea:y>0.15850000000000003</stArea:y>
+                        <stArea:w>0.031428571428571417</stArea:w>
+                        <stArea:x>0.44866666666666666</stArea:x>
+                        <stArea:h>0.041000000000000009</stArea:h>
+                        <stArea:unit>normalized</stArea:unit>
+                     </mwg-rs:Area>
+                     <mwg-rs:Type>Face</mwg-rs:Type>
+                     <mwg-rs:Extensions rdf:parseType="Resource">
+                        <apple-fi:AngleInfoYaw>349</apple-fi:AngleInfoYaw>
+                        <apple-fi:AngleInfoRoll>279</apple-fi:AngleInfoRoll>
+                        <apple-fi:ConfidenceLevel>284</apple-fi:ConfidenceLevel>
+                        <apple-fi:FaceID>42</apple-fi:FaceID>
+                     </mwg-rs:Extensions>
+                  </rdf:li>
+                  <rdf:li rdf:parseType="Resource">
+                     <mwg-rs:Area rdf:parseType="Resource">
+                        <stArea:y>0.84099999999999997</stArea:y>
+                        <stArea:w>0.039809523809523795</stArea:w>
+                        <stArea:x>0.42247619047619045</stArea:x>
+                        <stArea:h>0.052000000000000046</stArea:h>
+                        <stArea:unit>normalized</stArea:unit>
+                     </mwg-rs:Area>
+                     <mwg-rs:Type>Face</mwg-rs:Type>
+                     <mwg-rs:Extensions rdf:parseType="Resource">
+                        <apple-fi:AngleInfoYaw>21</apple-fi:AngleInfoYaw>
+                        <apple-fi:AngleInfoRoll>271</apple-fi:AngleInfoRoll>
+                        <apple-fi:ConfidenceLevel>441</apple-fi:ConfidenceLevel>
+                        <apple-fi:FaceID>40</apple-fi:FaceID>
+                     </mwg-rs:Extensions>
+                  </rdf:li>
+               </rdf:Seq>
+            </mwg-rs:RegionList>
+            <mwg-rs:AppliedToDimensions rdf:parseType="Resource">
+               <stDim:h>3024</stDim:h>
+               <stDim:w>4032</stDim:w>
+               <stDim:unit>pixel</stDim:unit>
+            </mwg-rs:AppliedToDimensions>
+         </mwg-rs:Regions>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+File name    : webpfiles/from_iphone.webp
+File size    : 7408 bytes
+Camera make  : Apple
+Camera model : iPhone 13 mini
+Date/Time    : 2026:03:14 14:32:24
+Resolution   : 40 x 53
+Flash used   : No
+Focal length :  5.1mm  (35mm equivalent: 26mm)
+Exposure time: 0.0003 s  (1/3521)
+Aperture     : f/1.6
+ISO equiv.   : 50
+Whitebalance : Auto
+Metering Mode: pattern
+Exposure     : program (auto)
+GPS Latitude : N 45d 57m  3.63s
+GPS Longitude: W 66d 39m 15.96s
+GPS Altitude :  50.83m
+
+--------Add exif header to basic webp------
+Modified: basic.webp
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x8
+WebP Image: 160x56
+Chunk type 45584946 'EXIF' length 126
+Exif header 126 bytes long
+Exif section in Intel order
+(dir has 2 entries)
+    DateTime = "2026:03:25 19:30:45"
+    ExifOffset = 58
+    Exif Dir:(dir has 1 entries)
+        DateTimeOriginal = "2026:03:25 19:30:45"
+    Continued directory (dir has 2 entries)
+        ThumbnailOffset = 126
+        ThumbnailLength = 0
+Thumbnail size: 0 bytes
+Chunk type 56503820 'VP8 ' length 1910
+File name    : basic.webp
+File size    : 2082 bytes
+Date/Time    : 2026:03:25 19:30:45
+Resolution   : 160 x 56
+
+--------Remove exif header ------
+Modified: basic.webp
+Chunk type 56503820 'VP8 ' length 1910
+WebP Image: 160x56
+File name    : basic.webp
+File size    : 1930 bytes
+Resolution   : 160 x 56
+
+--------Remove XMP from from_iphone.webp header ------
+Modified: from_iphone.webp
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x28
+WebP Image: 40x53
+Chunk type 49434350 'ICCP' length 536
+Chunk type 56503820 'VP8 ' length 752
+Chunk type 45584946 'EXIF' length 2854
+Exif header 2854 bytes long
+Exif section in Motorola order
+(dir has 11 entries)
+    Make = "Apple"
+    Model = "iPhone 13 mini"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "26.3.1"
+    DateTime = "2026:03:14 14:32:24"
+    Unknown Tag 013c Value = "iPhone 13 mini"
+    ExifOffset = 228
+    Exif Dir:(dir has 33 entries)
+        ExposureTime = 1/3521
+        FNumber = 8/5
+        ExposureProgram = 2
+        ISOSpeedRatings = 50
+        ExifVersion = "0232"
+        DateTimeOriginal = "2026:03:14 14:32:24"
+        DateTimeDigitized = "2026:03:14 14:32:24"
+        OffsetTime = "-03:00"
+        OffsetTimeOriginal = "-03:00"
+        OffsetTimeDigitized = "-03:00"
+        ShutterSpeedValue = 65719/5578
+        ApertureValue = 14447/10653
+        BrightnessValue = 404123/40521
+        ExposureBiasValue = 0/1
+        MeteringMode = 5
+        Flash = 16
+        FocalLength = 51/10
+        SubjectArea = 1699, 2551, 161, 160
+        Maker note:  41 70 70 6c 65 20 69 4f 53 00 00... (1698 bytes)
+        SubSecTimeOriginal = "661"
+        SubSecTimeDigitized = "661"
+        ColorSpace = 65535
+        ExifImageWidth = 40
+        ExifImageLength = 53
+        SensingMethod = 2
+        SceneType = ""
+        ExposureMode = 0
+        WhiteBalance = 0
+        FocalLengthIn35mmFilm = 26
+        Unknown Tag a432 Value = 807365/524263, 51/10, 8/5, 12/5
+        Unknown Tag a433 Value = "Apple"
+        Unknown Tag a434 Value = "iPhone 13 mini back dual wide camera 5.1mm f/1.6"
+        Rating = 2
+    GPS Dir offset = 2544
+    GPS info dir:(dir has 15 entries)
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =45/1, 57/1, 363/100
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =66/1, 39/1, 1596/100
+        GPSAltitudeRef      =00
+        GPSAltitude         =176326/3469
+        GPSTimeStamp        =17/1, 32/1, 2400/100
+        GPSSpeedRef         ="K"
+        GPSSpeed            =19541/76800
+        GPSImgDirectionRef  ="T"
+        GPSImgDirection     =4775175/16384
+        GPSDestBearingRef   ="T"
+        GPSDestBearing      =4775175/16384
+        GPSDateStamp        ="2026:03:14"
+        Illegal GPS tag 001f=30719/3889
+File name    : from_iphone.webp
+File size    : 4196 bytes
+Camera make  : Apple
+Camera model : iPhone 13 mini
+Date/Time    : 2026:03:14 14:32:24
+Resolution   : 40 x 53
+Flash used   : No
+Focal length :  5.1mm  (35mm equivalent: 26mm)
+Exposure time: 0.0003 s  (1/3521)
+Aperture     : f/1.6
+ISO equiv.   : 50
+Whitebalance : Auto
+Metering Mode: pattern
+Exposure     : program (auto)
+GPS Latitude : N 45d 57m  3.63s
+GPS Longitude: W 66d 39m 15.96s
+GPS Altitude :  50.83m
+
+--------Adjust timestamp and set file date ------
+Modified: from_iphone.webp
+from_iphone.webp
+File name    : from_iphone.webp
+File size    : 4196 bytes
+File date    : 2026:03:14 15:34:27
+Camera make  : Apple
+Camera model : iPhone 13 mini
+Date/Time    : 2026:03:14 15:34:27
+Resolution   : 40 x 53
+Flash used   : No
+Focal length :  5.1mm  (35mm equivalent: 26mm)
+Exposure time: 0.0003 s  (1/3521)
+Aperture     : f/1.6
+ISO equiv.   : 50
+Whitebalance : Auto
+Metering Mode: pattern
+Exposure     : program (auto)
+GPS Latitude : N 45d 57m  3.63s
+GPS Longitude: W 66d 39m 15.96s
+GPS Altitude :  50.83m
+
+--------Remove exif header ------
+Modified: from_iphone.webp
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x20
+WebP Image: 40x53
+Chunk type 49434350 'ICCP' length 536
+Chunk type 56503820 'VP8 ' length 752
+File name    : from_iphone.webp
+File size    : 1334 bytes
+Resolution   : 40 x 53
+
+--------Re-add exif header ------
+Modified: from_iphone.webp
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x28
+WebP Image: 40x53
+Chunk type 45584946 'EXIF' length 126
+Exif header 126 bytes long
+Exif section in Intel order
+(dir has 2 entries)
+    DateTime = "2026:03:14 15:34:27"
+    ExifOffset = 58
+    Exif Dir:(dir has 1 entries)
+        DateTimeOriginal = "2026:03:14 15:34:27"
+    Continued directory (dir has 2 entries)
+        ThumbnailOffset = 126
+        ThumbnailLength = 0
+Thumbnail size: 0 bytes
+Chunk type 49434350 'ICCP' length 536
+Chunk type 56503820 'VP8 ' length 752
+File name    : from_iphone.webp
+File size    : 1468 bytes
+Date/Time    : 2026:03:14 15:34:27
+Resolution   : 40 x 53
+

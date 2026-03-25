@@ -111,11 +111,6 @@ int ReadWebpSections(FILE * infile, ReadMode_t ReadMode) {
         WebpSections[WebpSectionsRead].Size = ChunkLen;
         WebpSectionsRead++;
 
-        // Process geometry if we haven't found it yet
-        if (ImageInfo.Width == 0) {
-            ProcessWebpGeometry(ChunkType, Data, ChunkLen);
-        }
-
 
         if (ChunkType == 0x56503858) { // "VP8X
             if (ShowTags) printf("VP8X Metadata present flags = 0x%X\n",Data[0]);
@@ -135,6 +130,12 @@ int ReadWebpSections(FILE * infile, ReadMode_t ReadMode) {
             // Pass the raw data and size to the thunked comment processor
             ProcessImgComment(Data, ChunkLen);
         }
+
+        // Process geometry if we haven't found it yet
+        if (ImageInfo.Width == 0) {
+            ProcessWebpGeometry(ChunkType, Data, ChunkLen);
+        }
+
     }
     return TRUE;
 }
