@@ -183,6 +183,8 @@ void CreateImgExif(void)
     }else{
         ErrFatal("Not implemented for image type");
     }
+    
+    
 }
 
 uchar * ChangeExifSectionLength(int NewLength)

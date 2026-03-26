@@ -26,13 +26,17 @@ static void GenerateCrcTable(void) {
     CrcTableGenerated = 1;
 }
 
-static unsigned int CalculateCrc(unsigned char *buf, int len) {
-    unsigned int c = 0xffffffffL;
+//--------------------------------------------------------------------------
+// Update a running CRC calculation with more data.
+// Note: This does NOT perform the final XOR; it allows for chaining.
+//--------------------------------------------------------------------------
+static unsigned int UpdateCrc(unsigned int c, unsigned char *buf, int len)
+{
     if (!CrcTableGenerated) GenerateCrcTable();
     for (int n = 0; n < len; n++) {
         c = CrcTable[(c ^ buf[n]) & 0xff] ^ (c >> 8);
     }
-    return c ^ 0xffffffffL;
+    return c;
 }
 
 static unsigned int Get32png(const uchar * Data) {
@@ -137,7 +141,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
     int HaveCom = FALSE;
 
     for (;;) {
-        uchar LenRaw[4], TypeRaw[4];
+        uchar LenRaw[4], TypeRaw[4], CrcRaw[4];
         if (fread(LenRaw, 1, 4, infile) != 4 || fread(TypeRaw, 1, 4, infile) != 4) break;
 
         unsigned int ChunkLen = Get32png(LenRaw);
@@ -153,8 +157,31 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
 
         CheckPngSectionsAllocated();
         uchar * Data = (uchar *)malloc(ChunkLen + 20);
-        fread(Data, 1, ChunkLen, infile);
-        fseek(infile, 4, SEEK_CUR); // Skip CRC
+        if (Data == NULL) ErrFatal("Out of memory");
+
+        if (fread(Data, 1, ChunkLen, infile) != ChunkLen) {
+            ErrFatal("Premature end of file");
+            free(Data);
+            break;
+        }
+
+        // Read the 4-byte CRC from the file
+        if (fread(CrcRaw, 1, 4, infile) != 4) {
+            free(Data);
+            break;
+        }
+        unsigned int StoredCrc = Get32png(CrcRaw); // PNG integers are Big-Endian
+
+        // Calculate the CRC over Type + Data
+        unsigned int c = 0xffffffffL; // Start value for CRC-32
+        c = UpdateCrc(c, TypeRaw, 4); // Include the 4-byte Type
+        c = UpdateCrc(c, Data, ChunkLen); // Include the Data payload
+        unsigned int ComputedCrc = c ^ 0xffffffffL; // Final XOR
+
+        if (StoredCrc != ComputedCrc){
+            ErrFatal("PNG CRC corrupt");
+        }
+        // ------------------------------
 
         PngSections[PngSectionsRead].Type = ChunkTypeInt;
         PngSections[PngSectionsRead].Size = ChunkLen;
@@ -231,40 +258,6 @@ int ReadPngFile(FILE * infile, ReadMode_t ReadMode)
 {
     int ret = ReadPngSections(infile, ReadMode);
     return ret;
-}
-
-//--------------------------------------------------------------------------
-//--------------------------------------------------------------------------
-void WritePngFile(const char * FileName)
-{
-    if (!HaveAllOfPng) ErrFatal("Can't write back - didn't read all PNG");
-    FILE * outfile = fopen(FileName, "wb");
-    if (!outfile) ErrFatal("Could not open for write");
-
-    fwrite("\x89PNG\r\n\x1a\n", 1, 8, outfile);
-    for (int a = 0; a < PngSectionsRead; a++) {
-        uchar Header[8], CrcIn[4], CrcRaw[4];
-        Put32png(Header, PngSections[a].Size);
-        Put32png(Header + 4, PngSections[a].Type);
-
-        fwrite(Header, 1, 8, outfile);
-        fwrite(PngSections[a].Data, 1, PngSections[a].Size, outfile);
-
-        // CRC over Type + Data
-        Put32png(CrcIn, PngSections[a].Type);
-        unsigned int c = 0xffffffffL;
-        if (!CrcTableGenerated) GenerateCrcTable();
-        for(int i=0; i<4; i++){
-            c = CrcTable[(c ^ CrcIn[i]) & 0xff] ^ (c >> 8);
-        }
-        for(unsigned i=0; i<PngSections[a].Size; i++){
-            c = CrcTable[(c ^ PngSections[a].Data[i]) & 0xff] ^ (c >> 8);
-        }
-
-        Put32png(CrcRaw, c ^ 0xffffffffL);
-        fwrite(CrcRaw, 1, 4, outfile);
-    }
-    fclose(outfile);
 }
 
 //--------------------------------------------------------------------------
@@ -354,6 +347,42 @@ void SetPngCommentTo(char * NewCommentStr)
     CommentSec->Data = malloc(TotalSize);
     memcpy(CommentSec->Data, "Comment", 8);
     memcpy(CommentSec->Data + 8, NewCommentStr, CommentLen);
+}
+
+//--------------------------------------------------------------------------
+// Write PNG File, re-generating the CRCs
+//--------------------------------------------------------------------------
+void WritePngFile(const char * FileName)
+{
+    if (!HaveAllOfPng) ErrFatal("Can't write back - didn't read all PNG");
+    FILE * outfile = fopen(FileName, "wb");
+    if (!outfile) ErrFatal("Could not open for write");
+
+    fwrite("\x89PNG\r\n\x1a\n", 1, 8, outfile);
+
+    for (int a = 0; a < PngSectionsRead; a++) {
+        uchar Header[8], CrcRaw[4];
+
+        unsigned int c = 0xffffffffL; // Start CRC value
+        
+        // Write Length and Type
+        Put32png(Header, PngSections[a].Size);
+        Put32png(Header + 4, PngSections[a].Type);
+        fwrite(Header, 1, 8, outfile);
+
+        c = UpdateCrc(c, Header+4, 4);// Feed Type into CRC
+
+        // Write Data
+        fwrite(PngSections[a].Data, 1, PngSections[a].Size, outfile);
+
+        // Feed data into CRC.
+        c = UpdateCrc(c, PngSections[a].Data, PngSections[a].Size); // Feed Data
+
+        // Finalize and write CRC
+        Put32png(CrcRaw, c ^ 0xffffffffL);
+        fwrite(CrcRaw, 1, 4, outfile);
+    }
+    fclose(outfile);
 }
 
 
