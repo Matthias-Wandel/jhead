@@ -164,6 +164,12 @@ PNG colors   : 16
 Comment      : titlepix=1
 
 PNG Chunk type 'IHDR' 0x49484452 length 13
+--------Bad crc:
+
+Error : PNG CRC corrupt
+in file 'pngfiles/bad_crc.png_x'
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'pHYs' 0x70485973 length 9
 --------Comment replace:
 Modified: results-bin/ctest.png
 File name    : results-bin/ctest.png

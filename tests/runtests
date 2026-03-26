@@ -194,6 +194,9 @@ echo "--------Compact view:" >> results-txt/pngfiles-txt
 echo "--------Verbose view:" &>> results-txt/pngfiles-txt
 "$jhead" -nofdate -v pngfiles/*.png >> results-txt/pngfiles-txt
 
+echo "--------Bad crc:" &>> results-txt/pngfiles-txt
+"$jhead" -nofdate -v pngfiles/bad_crc.png_x >> results-txt/pngfiles-txt 2>>results-txt/pngfiles-txt
+
 echo "--------Comment replace:" >> results-txt/pngfiles-txt
 cp pngfiles/ctest.png results-bin/
 "$jhead" -cl "A brand n./runew comment!" results-bin/ctest.png >> results-txt/pngfiles-txt
