@@ -497,6 +497,7 @@ void DoFileRenaming(const char * FileName, char * strftime_args)
 
         char * FileNameExt = "jpg";
         if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) FileNameExt = "png";
+        if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) FileNameExt = "webp";
 
         snprintf(NewName, sizeof(NewName), "%s%s.%s", NewBaseName, NameExtra, FileNameExt);
 

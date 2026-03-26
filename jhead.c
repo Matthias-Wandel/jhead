@@ -806,7 +806,7 @@ skip_unixtime:
             if (utime(FileName, &mtime) != 0){
                 printf("Error: Could not change time of file '%s'\n",FileName);
             }else{
-                if (!Quiet) printf("%s\n",FileName);
+                if (!Quiet) printf("File '%s' time set from Exif\n",FileName);
             }
         }else{
             printf("File '%s' contains no Exif timestamp\n", FileName);

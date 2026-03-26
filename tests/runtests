@@ -3,7 +3,7 @@ jhead=../jhead
 
 rm -rf results-txt/*
 rm -rf results-bin/*
-rm -rf *.jpg *.png
+rm -rf *.jpg *.png *.webp
 mkdir -p results-txt
 mkdir -p results-bin
 
@@ -236,14 +236,15 @@ echo "--------Show webp contents verbose------" >> results-txt/webpfiles-txt
 "$jhead" -nofdate -v webpfiles/*.webp >> results-txt/webpfiles-txt
 cp webpfiles/basic.webp basic.webp
 echo "--------Add exif header to basic webp------" >> results-txt/webpfiles-txt
-"$jhead" -mkexif -ts2026:03:25-19:30:45 basic.webp >> results-txt/webpfiles-txt
-"$jhead" -nofdate -v basic.webp >> results-txt/webpfiles-txt
-
+"$jhead" -mkexif -ts2026:03:25-19:30:45 -ft basic.webp >> results-txt/webpfiles-txt
+echo "--------Shopw header ------" >> results-txt/webpfiles-txt
+"$jhead" -v basic.webp >> results-txt/webpfiles-txt
 # Should also create a thumbnail here but that's not working this moment.
 
+"$jhead" -n basic.webp >> results-txt/webpfiles-txt
 echo "--------Remove exif header ------" >> results-txt/webpfiles-txt
-"$jhead" -de basic.webp >> results-txt/webpfiles-txt
-"$jhead" -nofdate -v basic.webp >> results-txt/webpfiles-txt
+"$jhead" -de 0325*.webp >> results-txt/webpfiles-txt
+"$jhead" -nofdate -v 0325*.webp >> results-txt/webpfiles-txt
 
 
 cp webpfiles/from_iphone.webp .

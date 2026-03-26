@@ -178,6 +178,8 @@ GPS Altitude :  50.83m
 
 --------Add exif header to basic webp------
 Modified: basic.webp
+File 'basic.webp' time set from Exif
+--------Shopw header ------
 Chunk type 56503858 'VP8X' length 10
 VP8X Metadata present flags = 0x8
 WebP Image: 160x56
@@ -196,14 +198,16 @@ Thumbnail size: 0 bytes
 Chunk type 56503820 'VP8 ' length 1910
 File name    : basic.webp
 File size    : 2082 bytes
+File date    : 2026:03:25 19:30:45
 Date/Time    : 2026:03:25 19:30:45
 Resolution   : 160 x 56
 
+basic.webp --> 0325-193045.webp
 --------Remove exif header ------
-Modified: basic.webp
+Modified: 0325-193045.webp
 Chunk type 56503820 'VP8 ' length 1910
 WebP Image: 160x56
-File name    : basic.webp
+File name    : 0325-193045.webp
 File size    : 1930 bytes
 Resolution   : 160 x 56
 
@@ -299,7 +303,7 @@ GPS Altitude :  50.83m
 
 --------Adjust timestamp and set file date ------
 Modified: from_iphone.webp
-from_iphone.webp
+File 'from_iphone.webp' time set from Exif
 File name    : from_iphone.webp
 File size    : 4196 bytes
 File date    : 2026:03:14 15:34:27
