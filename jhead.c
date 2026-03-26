@@ -445,13 +445,13 @@ static int RegenerateThumbnail(const char * FileName)
         IMAGEMAGICK_PROGNAME" \"%s\" -thumbnail %dx%d -quality 80 \"%s-t\"",
         FileName, RegenThumbnail, RegenThumbnail, FileName);
 
-printf("Run command:%s\n",ThumbnailGenCommand);
     if (system(ThumbnailGenCommand) == 0){
         // Put the thumbnail back in the header
 
         //Reuse command buffer for thumbnail name
         snprintf(ThumbnailGenCommand, sizeof(ThumbnailGenCommand),"%s-t",FileName);
         return ReplaceImgThumbnail(ThumbnailGenCommand);
+        unlink(ThumbnailGenCommand); // Erase temprary thumbnail file
     }else{
         ErrFatal("Unable to run imagemagick '"IMAGEMAGICK_PROGNAME"' command");
         return FALSE;

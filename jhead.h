@@ -271,6 +271,7 @@ int RemovePngSectionByType(int SectionType);
 int RemoveUnknownPngSections(void);
 void SetPngCommentTo(char * NewComment);
 void CreateMinimalPngExif(void);
+unsigned char * ChangePngExifSectionLength(int NewLength);
 ImgSect_t * FindPngSection(int SectionType);
 ImgSect_t * FindPngExifSection();
 ImgSect_t * CreatePngSection(int SectionType, unsigned char * Data, int Size);

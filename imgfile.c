@@ -181,8 +181,7 @@ uchar * ChangeExifSectionLength(int NewLength)
     if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) {
         return ChangeJpegExifSectionLength(NewLength);
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) {
-printf("Change size not implemented\n");
-        //return ChangePngExifSectionLength(NewLength);
+        return ChangePngExifSectionLength(NewLength);
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
         return ChangeWebpExifSectionLength(NewLength);
     }else{

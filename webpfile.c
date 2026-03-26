@@ -245,7 +245,6 @@ ImgSect_t * CreateWebpSection(int SectionType, unsigned char * Data, int Size)
 uchar * ChangeWebpExifSectionLength(int NewLength)
 {
     ImgSect_t * ExifSection;
-printf("Ajust length to %d\n",NewLength);
     if (NewLength == 0){
         RemoveWebpSectionByType(0x45584946); // EXIF
         return NULL;
@@ -258,7 +257,6 @@ printf("Ajust length to %d\n",NewLength);
 
     if (NewLength > ExifSection->Size){
         // If bigger than before, re-allocate it.  Otherwise, just set length shorter.
-printf("realloc\n");
         ExifSection->Data = realloc(ExifSection->Data, NewLength);
         ExifSection->Size = NewLength;
     }

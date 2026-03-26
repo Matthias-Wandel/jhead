@@ -1,7 +1,9 @@
 Implement exif header trimming, nonzeros too -- for bloated gopro headers.
 
-Make sure thumbnail creation works on png and webp
+Write tests for thumbnail adding for exif and png.
 
-Implement -purejpg function for exif (if first chunk of section type is lower case, discard)
+Test delete thumbnail for webp and png
+
+Implement -purejpg function for webp and png (if first chunk of section type is lower case, discard)
 
 Add CRCs to sections on write

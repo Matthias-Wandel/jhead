@@ -88,6 +88,29 @@ ImgSect_t * FindPngSection(int SectionType)
     return NULL;
 }
 
+unsigned char * ChangePngExifSectionLength(int NewLength)
+{
+    ImgSect_t * ExifSection;
+
+    if (NewLength == 0){
+        RemovePngSectionByType(0x65584966); // 'eXIf' section
+        return NULL;
+    }
+
+    ExifSection = FindPngSection(0x65584966); // 'eXIf' section
+    if (!ExifSection) ErrFatal("no exif section");
+
+    NewLength = (NewLength+1) & 0xfffe; // Round up to even length.
+
+    if (NewLength > ExifSection->Size){
+        // If bigger than before, re-allocate it.  Otherwise, just set length shorter.
+        ExifSection->Data = realloc(ExifSection->Data, NewLength);
+        ExifSection->Size = NewLength;
+    }
+    ExifSection->Size = NewLength;
+    return ExifSection->Data;
+}
+
 int RemovePngSectionByType(int SectionType)
 {
     int a;
