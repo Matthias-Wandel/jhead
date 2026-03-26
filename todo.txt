@@ -5,5 +5,3 @@ Write tests for thumbnail adding for exif and png.
 Test delete thumbnail for webp and png
 
 Implement -purejpg function for webp and png (if first chunk of section type is lower case, discard)
-
-Add CRCs to sections on write
