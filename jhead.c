@@ -7,7 +7,7 @@
 // Compiling under Windows:
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
 //
-// Dec 1999 - Jun 2023
+// Dec 1999 - March 2026
 //
 // by Matthias Wandel   http://woodgears.ca
 //--------------------------------------------------------------------------
@@ -439,15 +439,19 @@ static int RegenerateThumbnail(const char * FileName)
         return FALSE;
     }
 
-    // This command replaces the current image with the thumbnail. We ahve the image
+    // This command replaces the current image with the thumbnail. We have the image
     // loaded it RAM at this point, so we will recreate it after.
     snprintf(ThumbnailGenCommand, sizeof(ThumbnailGenCommand),
-        IMAGEMAGICK_PROGNAME" \"%s\" -thumbnail %dx%d -quality 80 \"%s\"",
+        IMAGEMAGICK_PROGNAME" \"%s\" -thumbnail %dx%d -quality 80 \"%s-t\"",
         FileName, RegenThumbnail, RegenThumbnail, FileName);
 
+printf("Run command:%s\n",ThumbnailGenCommand);
     if (system(ThumbnailGenCommand) == 0){
         // Put the thumbnail back in the header
-        return ReplaceImgThumbnail(FileName);
+
+        //Reuse command buffer for thumbnail name
+        snprintf(ThumbnailGenCommand, sizeof(ThumbnailGenCommand),"%s-t",FileName);
+        return ReplaceImgThumbnail(ThumbnailGenCommand);
     }else{
         ErrFatal("Unable to run imagemagick '"IMAGEMAGICK_PROGNAME"' command");
         return FALSE;
@@ -1086,7 +1090,7 @@ int main (int argc, char **argv)
         }else if (!memcmp(arg,"-rgt", 4)){
             RegenThumbnail = 160;
             sscanf(arg+4, "%d", &RegenThumbnail);
-            if (RegenThumbnail > 320){
+            if (RegenThumbnail > 400){
                 ErrFatal("Specified thumbnail geometry too big!");
             }
             DoModify |= MODIFY_JPEG;

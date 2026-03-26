@@ -95,17 +95,6 @@ void DiscardAllButExif(){
     if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) DiscardAllPngButExif();
 }
 
-int ReplaceImgThumbnail(const char * ThumbFileName)
-{
-    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
-        return ReplaceJpegThumbnail(ThumbFileName);
-    }else{
-        ErrFatal("not implemented 1\n");
-        return FALSE;
-    }
-}
-
-
 int RemoveUnknownImgSections(void)
 {
     if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
@@ -153,7 +142,7 @@ int RemoveImgExif(void)
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
         return RemoveWebpSectionByType(0x45584946); // "EXIF" section
     }else{
-        ErrFatal("Not implemented for image type");
+        ErrFatal("Not implemented for image type\n");
     }
     return FALSE;
 }
@@ -164,7 +153,7 @@ int RemoveImgXmp(void)
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
         return RemoveWebpSectionByType(0x584d5020); // "XMP " section
     }else{
-        ErrFatal("Remove XMP not implemented for PNG");
+        ErrFatal("Remove XMP not implemented for PNG\n");
     }
     return FALSE;
 }
@@ -181,10 +170,10 @@ void CreateImgExif(void)
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
         CreateMinimalWebpExif();
     }else{
-        ErrFatal("Not implemented for image type");
+        ErrFatal("Not implemented for image type\n");
     }
-    
-    
+
+
 }
 
 uchar * ChangeExifSectionLength(int NewLength)
@@ -192,9 +181,10 @@ uchar * ChangeExifSectionLength(int NewLength)
     if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) {
         return ChangeJpegExifSectionLength(NewLength);
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) {
+printf("Change size not implemented\n");
         //return ChangePngExifSectionLength(NewLength);
     } else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) {
-        //return ChangeWebpExifSectionLength(NewLength);
+        return ChangeWebpExifSectionLength(NewLength);
     }else{
         ErrFatal("Not implemented for image type");
     }
@@ -204,7 +194,7 @@ uchar * ChangeExifSectionLength(int NewLength)
 //--------------------------------------------------------------------------
 // Replace or remove exif thumbnail
 //--------------------------------------------------------------------------
-int ReplaceJpegThumbnail(const char * ThumbFileName)
+int ReplaceImgThumbnail(const char * ThumbFileName)
 {
     FILE * ThumbnailFile;
     int ThumbLen;
@@ -245,10 +235,7 @@ int ReplaceJpegThumbnail(const char * ThumbFileName)
         if (ImageInfo.ThumbnailSize == 0){
              return FALSE;
         }
-
         ThumbLen = 0;
-
-
         ThumbnailFile = NULL;
     }
 
@@ -258,7 +245,8 @@ int ReplaceJpegThumbnail(const char * ThumbFileName)
     ThumbnailPointer = ExifSection+ImageInfo.ThumbnailOffset;
 
     if (ThumbnailFile){
-        if (fread(ThumbnailPointer, 1, ThumbLen, ThumbnailFile) != ThumbLen){
+        int nread = fread(ThumbnailPointer, 1, ThumbLen, ThumbnailFile);
+        if (nread != ThumbLen){
             goto noread;
         }
         fclose(ThumbnailFile);
@@ -270,36 +258,8 @@ int ReplaceJpegThumbnail(const char * ThumbFileName)
     Put32u(ExifSection+ImageInfo.ThumbnailSizeOffset, ThumbLen);
 
     return TRUE;
-    
-/*
-    ExifSection = FindJpegSection(M_EXIF);
 
-
-
-    NewExifSize = ImageInfo.ThumbnailOffset+8+ThumbLen;
-    ExifSection->Data = (uchar *)realloc(ExifSection->Data, NewExifSize);
-
-    ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
-
-    if (ThumbnailFile){
-        if (fread(ThumbnailPointer, 1, ThumbLen, ThumbnailFile) != ThumbLen){
-            goto noread;
-        }
-        fclose(ThumbnailFile);
-    }
-
-    ImageInfo.ThumbnailSize = ThumbLen;
-
-    Put32u(ExifSection->Data+ImageInfo.ThumbnailSizeOffset+8, ThumbLen);
-
-    ExifSection->Data[0] = (uchar)(NewExifSize >> 8);
-    ExifSection->Data[1] = (uchar)NewExifSize;
-    ExifSection->Size = NewExifSize;
-
-    return TRUE;
-    */
 }
-
 
 //--------------------------------------------------------------------------
 // Trim redundant zeros off the end of an exif header
@@ -322,6 +282,8 @@ int TrimImgExifTrailingZeros()
             ExSec = FindPngSection(0x65584966); // 'eXIf'
             ExSec->Size = NewSize;
             return TRUE;
+        }else{
+            ErrFatal("trim not implemented for file type");
         }
     }
     return FALSE;
@@ -366,12 +328,49 @@ ImgSect_t * CreateImgSection(int SectionType, unsigned char * Data, int Size)
     }
 }
 
+//--------------------------------------------------------------------------
+// Replace or remove exif thumbnail
+//--------------------------------------------------------------------------
 int SaveImgThumbnail(char * ThumbFileName)
 {
-    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
-        return SaveJpegThumbnail(ThumbFileName);
+    FILE * ThumbnailFile;
+
+    if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailSize == 0){
+        fprintf(stderr,"Image contains no thumbnail\n");
+        return FALSE;
+    }
+
+    if (strcmp(ThumbFileName, "-") == 0){
+        // A filename of '-' indicates thumbnail goes to stdout.
+        // This doesn't make much sense under Windows, so this feature is unix only.
+        ThumbnailFile = stdout;
     }else{
-        ErrFatal("not implemented 6\n");
+        ThumbnailFile = fopen(ThumbFileName,"wb");
+    }
+
+    if (ThumbnailFile){
+        uchar * ThumbnailPointer;
+        ImgSect_t * ExifSection;
+
+        if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
+            ExifSection = FindJpegSection(M_EXIF);
+            ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset+8;
+        }else{
+            if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP){
+                ExifSection = GetWebpSection(0x45584946);
+            }else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG){
+                ExifSection = FindPngSection(0x65584966); //'eXIF'
+            }else{
+                ErrFatal("not implemented for file type\n");
+            }
+            ThumbnailPointer = ExifSection->Data+ImageInfo.ThumbnailOffset;
+        }
+
+        fwrite(ThumbnailPointer, ImageInfo.ThumbnailSize ,1, ThumbnailFile);
+        fclose(ThumbnailFile);
+        return TRUE;
+    }else{
+        ErrFatal("Could not write thumbnail file");
         return FALSE;
     }
 }

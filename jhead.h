@@ -250,7 +250,6 @@ void WriteJpegFile(const char * FileName);
 void ResetJpegFile(void);
 void DiscardAllJpegButExif(void);
 void DiscardJpegData(void);
-int ReplaceJpegThumbnail(const char * ThumbFileName);
 int RemoveJpegSectionByType(int SectionType);
 int RemoveUnknownJpegSections(void);
 int SaveJpegThumbnail(char * ThumbFileName);
@@ -285,6 +284,7 @@ int RemoveWebpSectionByType(int SectionType);
 void CreateMinimalWebpExif(void);
 void SetWebpCommentTo(char * NewCommentStr);
 void WriteWebpFile(const char * FileName);
+uchar * ChangeWebpExifSectionLength(int NewLength);
 
 
 // Prototypes from jpgqguess.c

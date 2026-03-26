@@ -240,6 +240,33 @@ ImgSect_t * CreateWebpSection(int SectionType, unsigned char * Data, int Size)
 }
 
 //--------------------------------------------------------------------------
+// Adjust exif section length up or down
+//--------------------------------------------------------------------------
+uchar * ChangeWebpExifSectionLength(int NewLength)
+{
+    ImgSect_t * ExifSection;
+printf("Ajust length to %d\n",NewLength);
+    if (NewLength == 0){
+        RemoveWebpSectionByType(0x45584946); // EXIF
+        return NULL;
+    }
+
+    ExifSection = GetWebpSection(0x45584946); // EXIF
+    if (!ExifSection) ErrFatal("no exif section");
+
+    NewLength = (NewLength+1) & 0xfffe; // Round up to even length.
+
+    if (NewLength > ExifSection->Size){
+        // If bigger than before, re-allocate it.  Otherwise, just set length shorter.
+printf("realloc\n");
+        ExifSection->Data = realloc(ExifSection->Data, NewLength);
+        ExifSection->Size = NewLength;
+    }
+    ExifSection->Size = NewLength;
+    return ExifSection->Data;
+}
+
+//--------------------------------------------------------------------------
 // Create a minimal Exif header for WebP
 //--------------------------------------------------------------------------
 void CreateMinimalWebpExif(void)
