@@ -236,7 +236,7 @@ echo "--------Show webp contents verbose------" >> results-txt/webpfiles-txt
 "$jhead" -nofdate -v webpfiles/*.webp >> results-txt/webpfiles-txt
 cp webpfiles/basic.webp basic.webp
 echo "--------Add exif header to basic webp------" >> results-txt/webpfiles-txt
-"$jhead" -mkexif -ts2026:03:25-01:02:03 basic.webp >> results-txt/webpfiles-txt
+"$jhead" -mkexif -ts2026:03:25-19:30:45 basic.webp >> results-txt/webpfiles-txt
 "$jhead" -nofdate -v basic.webp >> results-txt/webpfiles-txt
 
 # Should also create a thumbnail here but that's not working this moment.

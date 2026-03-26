@@ -111,11 +111,13 @@ void CreateMinimalPngExif(void)
     // Create the minimal Exif header using existing exif.c logic.
     ExifLen = CreateMinimalExif(ExifData);
 
+    // reprocess the new minimal exif header to make sure data is up to date.
+    process_EXIF(ExifData, ExifLen);
+
     // PNG eXIf chunks start directly at the TIFF header (II* or MM*).
     // So we skip the first 6 bytes ("Exif\0\0").
     unsigned char * PngExifData = malloc(ExifLen);
     memcpy(PngExifData, ExifData, ExifLen);
-
 
     RemovePngSectionByType(0x65584966); // 'eXIf' section
 
@@ -146,7 +148,7 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         int ChunkTypeInt = (TypeRaw[0] << 24) | (TypeRaw[1] << 16) | (TypeRaw[2] << 8) | TypeRaw[3];
 
         if (ShowTags){
-            printf("PNG Chunk type 0x%08x '%.4s' length %d\n",ChunkTypeInt, TypeRaw, ChunkLen);
+            printf("PNG Chunk type '%.4s' 0x%08x length %d\n", TypeRaw, ChunkTypeInt, ChunkLen);
         }
 
         CheckPngSectionsAllocated();
@@ -158,6 +160,12 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
         PngSections[PngSectionsRead].Size = ChunkLen;
         PngSections[PngSectionsRead].Data = Data;
         PngSectionsRead++;
+
+        if (TypeRaw[3] == 'X'){
+            // X means unsafe to copy, so discard it now.
+            PngSectionsRead--;
+            free(PngSections[PngSectionsRead].Data);
+        }
 
         if (memcmp(TypeRaw, "IHDR", 4) == 0) {
             ImageInfo.Width = Get32png(Data);
@@ -183,11 +191,24 @@ int ReadPngSections(FILE * infile, ReadMode_t ReadMode)
             ImageInfo.PngNumColors = ChunkLen / 3;
         } else if (memcmp(TypeRaw, "eXIf", 4) == 0 && (ReadMode & READ_METADATA)) {
             process_EXIF(Data, ChunkLen);
-        } else if (memcmp(TypeRaw, "tEXt", 4) == 0 && ChunkLen > 8 && memcmp("Comment",Data,8) == 0){
-            if (HaveCom || ((ReadMode & READ_METADATA) == 0)){
-                // Discard this section.
-                free(PngSections[--PngSectionsRead].Data);
-            }else{
+        } else if (memcmp(TypeRaw, "tIME", 4) == 0){
+            if (ShowTags){
+                printf("    Last modification Time:  %04d:%02d:%02d  %02d:%02d:%02d\n",
+                     (Data[0]<<8)+Data[1],Data[2],Data[3],Data[4],Data[5],Data[6]);
+            }
+        } else if (memcmp(TypeRaw, "tEXt", 4) == 0){
+            if (ShowTags){
+                printf("    Text:");
+                for (unsigned a=0;a<ChunkLen;a++){
+                    if (Data[a] == '\0'){
+                        putchar(' ');
+                    }else{
+                        putchar(Data[a]);
+                    }
+                }
+                printf("\n");
+            }
+            if (ChunkLen > 8 && memcmp("Comment",Data,8) ==0 && HaveCom == FALSE){
                 ProcessImgComment(Data+8, ChunkLen-8);
                 HaveCom = TRUE;
             }

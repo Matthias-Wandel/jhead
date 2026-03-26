@@ -247,8 +247,11 @@ void CreateMinimalWebpExif(void)
     unsigned char ExifData[256];
     unsigned int ExifLen;
 
-    // Create the minimal Exif header using existing exif.c logic.
+    // Create the minimal Exif header
     ExifLen = CreateMinimalExif(ExifData);
+
+    // reprocess the new minimal exif header to make sure data is up to date.
+    process_EXIF(ExifData, ExifLen);
 
     // WebP EXIF chunks contain the raw TIFF data.
     unsigned char * WebpExifData = malloc(ExifLen);

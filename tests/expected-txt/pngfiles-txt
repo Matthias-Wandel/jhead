@@ -30,8 +30,8 @@ Comment      : titlepix=1
 "pngfiles/ctest.png" 160x120
 "pngfiles/from_photo.png" 100x75 (1/4854) f/1.6 f(35)=26mm
 --------Verbose view:
-PNG Chunk type 0x49484452 'IHDR' length 13
-PNG Chunk type 0x65584966 'eXIf' length 4281
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'eXIf' 0x65584966 length 4281
 Exif header 4281 bytes long
 Exif section in Intel order
 (dir has 2 entries)
@@ -43,10 +43,11 @@ Exif section in Intel order
         ThumbnailOffset = 126
         ThumbnailLength = 4155
 Thumbnail size: 4155 bytes
-PNG Chunk type 0x70485973 'pHYs' length 9
-PNG Chunk type 0x74455874 'tEXt' length 37
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tEXt' 0x74455874 length 37
+    Text:Comment hello world png comment here!
 tEXt section comment: hello world png comment here!
-PNG Chunk type 0x49444154 'IDAT' length 8192
+PNG Chunk type 'IDAT' 0x49444154 length 8192
 Skip rest of file (want metadata only)
 File name    : pngfiles/ctest.png
 File size    : 34780 bytes
@@ -55,9 +56,9 @@ Resolution   : 160 x 120
 PNG colors   : 16777216
 Comment      : hello world png comment here!
 
-PNG Chunk type 0x49484452 'IHDR' length 13
-PNG Chunk type 0x504c5445 'PLTE' length 48
-PNG Chunk type 0x65584966 'eXIf' length 14086
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'PLTE' 0x504c5445 length 48
+PNG Chunk type 'eXIf' 0x65584966 length 14086
 Exif header 14086 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
@@ -134,11 +135,13 @@ Exif section in Motorola order
         ThumbnailOffset = 3054
         ThumbnailLength = 11030
 Thumbnail size: 11030 bytes
-PNG Chunk type 0x70485973 'pHYs' length 9
-PNG Chunk type 0x74455874 'tEXt' length 19
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tEXt' 0x74455874 length 19
+    Text:Comment titlepix=1
+
 tEXt section comment: titlepix=1
 
-PNG Chunk type 0x49444154 'IDAT' length 1784
+PNG Chunk type 'IDAT' 0x49444154 length 1784
 Skip rest of file (want metadata only)
 File name    : pngfiles/from_photo.png
 File size    : 16051 bytes
@@ -160,7 +163,7 @@ GPS Altitude :  2.87m
 PNG colors   : 16
 Comment      : titlepix=1
 
-PNG Chunk type 0x49484452 'IHDR' length 13
+PNG Chunk type 'IHDR' 0x49484452 length 13
 --------Comment replace:
 Modified: results-bin/ctest.png
 File name    : results-bin/ctest.png
@@ -182,9 +185,9 @@ PNG colors   : 16777216
 Trimming 2 bytes from exif
 Modified: results-bin/from_photo.png
 results-bin/from_photo.png
-PNG Chunk type 0x49484452 'IHDR' length 13
-PNG Chunk type 0x504c5445 'PLTE' length 48
-PNG Chunk type 0x65584966 'eXIf' length 14084
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'PLTE' 0x504c5445 length 48
+PNG Chunk type 'eXIf' 0x65584966 length 14084
 Exif header 14084 bytes long
 Exif section in Motorola order
 (dir has 12 entries)
@@ -261,11 +264,13 @@ Exif section in Motorola order
         ThumbnailOffset = 3054
         ThumbnailLength = 11030
 Thumbnail size: 11030 bytes
-PNG Chunk type 0x70485973 'pHYs' length 9
-PNG Chunk type 0x74455874 'tEXt' length 19
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tEXt' 0x74455874 length 19
+    Text:Comment titlepix=1
+
 tEXt section comment: titlepix=1
 
-PNG Chunk type 0x49444154 'IDAT' length 1784
+PNG Chunk type 'IDAT' 0x49444154 length 1784
 Skip rest of file (want metadata only)
 File name    : results-bin/from_photo.png
 File size    : 16049 bytes
@@ -298,8 +303,8 @@ PNG colors   : 16
 Comment      : titlepix=1
 
 --------Remove exif header:
-PNG Chunk type 0x49484452 'IHDR' length 13
-PNG Chunk type 0x65584966 'eXIf' length 126
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'eXIf' 0x65584966 length 126
 Exif header 126 bytes long
 Exif section in Intel order
 (dir has 2 entries)
@@ -311,13 +316,15 @@ Exif section in Intel order
         ThumbnailOffset = 126
         ThumbnailLength = 0
 Thumbnail size: 0 bytes
-PNG Chunk type 0x504c5445 'PLTE' length 48
-PNG Chunk type 0x70485973 'pHYs' length 9
-PNG Chunk type 0x74455874 'tEXt' length 19
+PNG Chunk type 'PLTE' 0x504c5445 length 48
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tEXt' 0x74455874 length 19
+    Text:Comment titlepix=1
+
 tEXt section comment: titlepix=1
 
-PNG Chunk type 0x49444154 'IDAT' length 1784
-PNG Chunk type 0x49454e44 'IEND' length 0
+PNG Chunk type 'IDAT' 0x49444154 length 1784
+PNG Chunk type 'IEND' 0x49454e44 length 0
 File name    : results-bin/from_photo.png
 File size    : 2091 bytes
 File date    : 2025:08:14 15:14:27
@@ -335,14 +342,16 @@ PNG colors   : 16
 Comment      : titlepix=1
 
 --------REsulting file verbose:
-PNG Chunk type 0x49484452 'IHDR' length 13
-PNG Chunk type 0x504c5445 'PLTE' length 48
-PNG Chunk type 0x70485973 'pHYs' length 9
-PNG Chunk type 0x74455874 'tEXt' length 19
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'PLTE' 0x504c5445 length 48
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tEXt' 0x74455874 length 19
+    Text:Comment titlepix=1
+
 tEXt section comment: titlepix=1
 
-PNG Chunk type 0x49444154 'IDAT' length 1784
-PNG Chunk type 0x49454e44 'IEND' length 0
+PNG Chunk type 'IDAT' 0x49444154 length 1784
+PNG Chunk type 'IEND' 0x49454e44 length 0
 File name    : results-bin/from_photo.png
 File size    : 1953 bytes
 Resolution   : 100 x 75

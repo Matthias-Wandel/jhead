@@ -703,6 +703,10 @@ void CreateMinimalJpegExif(void)
     memcpy(Buffer+2, "Exif\0\0",6);
     
     int len = CreateMinimalExif(Buffer+8); // create the actual Exif structure
+
+    // reprocess the new minimal exif header to make sure data is up to date.
+    process_EXIF(Buffer+8, len);
+
     len += 8; // For the length bytes and 'Exif\0\0'
 
     Buffer[0] = (unsigned char)(len >> 8);
