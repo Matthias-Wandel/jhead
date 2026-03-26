@@ -245,10 +245,12 @@ ImgSect_t * CreateWebpSection(int SectionType, unsigned char * Data, int Size)
 void CreateMinimalWebpExif(void)
 {
     unsigned char ExifData[256];
+    memset(ExifData, 0, sizeof(ExifData));
     unsigned int ExifLen;
 
     // Create the minimal Exif header
     ExifLen = CreateMinimalExif(ExifData);
+    ExifLen = (ExifLen+1) & 0xfffe; // Round to even length
 
     // reprocess the new minimal exif header to make sure data is up to date.
     process_EXIF(ExifData, ExifLen);
@@ -279,6 +281,8 @@ void SetWebpCommentTo(char * NewCommentStr)
     }
 
     int CommentLen = (int)strlen(NewCommentStr);
+    CommentLen = (CommentLen+1) & 0xfffe; // Round up to even length
+
     unsigned char * Data = (unsigned char *)malloc(CommentLen);
     if (Data == NULL) ErrFatal("Out of memory");
     memcpy(Data, NewCommentStr, CommentLen);

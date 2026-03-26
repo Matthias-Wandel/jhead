@@ -265,8 +265,15 @@ echo "--------Re-add exif header ------" >> results-txt/webpfiles-txt
 "$jhead" -mkexif from_iphone.webp >> results-txt/webpfiles-txt
 "$jhead" -v -nofdate from_iphone.webp >> results-txt/webpfiles-txt
 
-
-
+# Test to make sure sections are padded to even length
+cp webpfiles/basic.webp commentlen.webp
+echo "--------Even length comment-----" >> results-txt/webpfiles-txt
+"$jhead" -cl "even length stays!" commentlen.webp >> results-txt/webpfiles-txt
+"$jhead" -v -nofdate commentlen.webp >> results-txt/webpfiles-txt
+echo "--------Odd length comment-----" >> results-txt/webpfiles-txt
+"$jhead" -cl "odd size rounds up!" commentlen.webp >> results-txt/webpfiles-txt
+"$jhead" -v -nofdate commentlen.webp >> results-txt/webpfiles-txt
+echo "--------done-----" >> results-txt/webpfiles-txt
 
 
 

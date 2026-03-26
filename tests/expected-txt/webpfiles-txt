@@ -358,3 +358,30 @@ File size    : 1468 bytes
 Date/Time    : 2026:03:14 15:34:27
 Resolution   : 40 x 53
 
+--------Even length comment-----
+Modified: commentlen.webp
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x0
+WebP Image: 160x56
+Chunk type 434f4d4d 'COMM' length 18
+COMM section comment: even length stays!
+Chunk type 56503820 'VP8 ' length 1910
+File name    : commentlen.webp
+File size    : 1974 bytes
+Resolution   : 160 x 56
+Comment      : even length stays!
+
+--------Odd length comment-----
+Modified: commentlen.webp
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x0
+WebP Image: 160x56
+Chunk type 434f4d4d 'COMM' length 20
+COMM section comment: odd size rounds up!
+Chunk type 56503820 'VP8 ' length 1910
+File name    : commentlen.webp
+File size    : 1976 bytes
+Resolution   : 160 x 56
+Comment      : odd size rounds up!
+
+--------done-----

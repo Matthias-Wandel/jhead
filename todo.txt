@@ -1,13 +1,6 @@
-Test webp exif thumbnail creation
-Test png file exif thumbnail creation
-
 Implement exif header trimming, nonzeros too -- for bloated gopro headers.
 
-Fix -n to use appropriate extension (not always .jpg)
-
 Make sure thumbnail creation works on png and webp
-
-Make sure padding to even size when making webp exif or comment
 
 Implement -purejpg function for exif (if first chunk of section type is lower case, discard)
 
