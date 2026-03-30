@@ -276,6 +276,40 @@ echo "--------Odd length comment-----" >> results-txt/webpfiles-txt
 echo "--------done-----" >> results-txt/webpfiles-txt
 
 
+# Test thumbnail manipulation of webp files
+
+cp webpfiles/basic.webp basic.webp 
+echo "--------Add exif wth thumbnail ----" >> results-txt/wp_thmb-txt
+"$jhead" -mkexif -rgt -ts2026:03:25-01:02:03 basic.webp >> results-txt/wp_thmb-txt
+"$jhead" -nofdate -v basic.webp >> results-txt/wp_thmb-txt
+echo "--------Save the thumbnail ---" >> results-txt/wp_thmb-txt
+"$jhead" -st th.webp basic.webp >> results-txt/wp_thmb-txt
+echo "--------Examine thumbanil -- dependent on imagemagick version ---" >> results-txt/wp_thmb-txt
+"$jhead" -v -nofdate th.webp >> results-txt/wp_thmb-txt
+echo "--------Attempt to save without thumbnail ---" >> results-txt/wp_thmb-txt
+"$jhead" -dt basic.webp >> results-txt/wp_thmb-txt
+"$jhead" -st thx.webp basic.webp >> results-txt/wp_thmb-txt
+echo "--------Check that no thumbnail got saved ---" >> results-txt/wp_thmb-txt
+"$jhead" thx.webp basic.webp >> results-txt/wp_thmb-txt
+echo "--------Make new custom size thumbnail ---" >> results-txt/wp_thmb-txt
+"$jhead" -rgt320 basic.webp >> results-txt/wp_thmb-txt
+echo "--------and save thumbnail ---" >> results-txt/wp_thmb-txt
+"$jhead" -st th320.webp basic.webp >> results-txt/wp_thmb-txt
+"$jhead" -v -nofdate th320.webp >> results-txt/wp_thmb-txt
+
+# Test thumbnail manipulation of png files
+echo "--------Now test with png ---" >> results-txt/wp_thmb-txt
+cp pngfiles/ctest.png ctest.png
+"$jhead" -rgt200 ctest.png >> results-txt/wp_thmb-txt
+"$jhead" -st th200.png ctest.png >> results-txt/wp_thmb-txt
+echo "--------Examine thumbnail.  Very dependent on imagemagick version ---" >> results-txt/wp_thmb-txt
+"$jhead" -v -nofdate th200.png ctest.png >> results-txt/wp_thmb-txt
+"$jhead" -v -nofdate th200.png ctest.png >> results-txt/wp_thmb-txt
+echo "--------Just for kicks, use webp file for png thumbnail ---" >> results-txt/wp_thmb-txt
+"$jhead" -rt basic.webp ctest.png >> results-txt/wp_thmb-txt
+"$jhead" -nofdate -v pngfiles/ctest.png >> results-txt/wp_thmb-txt
+
+
 
 echo "--------------------------------------------------------------------------"
 if diff -qr expected-txt/ results-txt/ ; then

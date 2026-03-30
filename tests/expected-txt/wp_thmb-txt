@@ -1,0 +1,157 @@
+--------Add exif wth thumbnail ----
+Modified: basic.webp
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x8
+WebP Image: 160x56
+Chunk type 45584946 'EXIF' length 1976
+Exif header 1976 bytes long
+Exif section in Intel order
+(dir has 2 entries)
+    DateTime = "2026:03:25 01:02:03"
+    ExifOffset = 58
+    Exif Dir:(dir has 1 entries)
+        DateTimeOriginal = "2026:03:25 01:02:03"
+    Continued directory (dir has 2 entries)
+        ThumbnailOffset = 126
+        ThumbnailLength = 1850
+Thumbnail size: 1850 bytes
+Chunk type 56503820 'VP8 ' length 1910
+File name    : basic.webp
+File size    : 3932 bytes
+Date/Time    : 2026:03:25 01:02:03
+Resolution   : 160 x 56
+
+--------Save the thumbnail ---
+Created: 'th.webp'
+--------Examine thumbanil -- dependent on imagemagick version ---
+Chunk type 56503820 'VP8 ' length 1830
+WebP Image: 160x56
+File name    : th.webp
+File size    : 1850 bytes
+Resolution   : 160 x 56
+
+--------Attempt to save without thumbnail ---
+Modified: basic.webp
+--------Check that no thumbnail got saved ---
+--------Make new custom size thumbnail ---
+Modified: basic.webp
+--------and save thumbnail ---
+Created: 'th320.webp'
+Chunk type 56503820 'VP8 ' length 2948
+WebP Image: 320x112
+File name    : th320.webp
+File size    : 2968 bytes
+Resolution   : 320 x 112
+
+--------Now test with png ---
+Modified: ctest.png
+Created: 'th200.png'
+--------Examine thumbnail.  Very dependent on imagemagick version ---
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'gAMA' 0x67414d41 length 4
+PNG Chunk type 'cHRM' 0x6348524d length 32
+PNG Chunk type 'bKGD' 0x624b4744 length 6
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tIME' 0x74494d45 length 7
+    Last modification Time:  2026:03:30  11:56:44
+PNG Chunk type 'IDAT' 0x49444154 length 32768
+Skip rest of file (want metadata only)
+File name    : th200.png
+File size    : 46840 bytes
+Resolution   : 200 x 150
+PNG colors   : 16777216
+
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'eXIf' 0x65584966 length 46966
+Exif header 46966 bytes long
+Exif section in Intel order
+(dir has 2 entries)
+    DateTime = "2026:02:23 14:25:28"
+    ExifOffset = 58
+    Exif Dir:(dir has 1 entries)
+        DateTimeOriginal = "2026:02:23 14:25:28"
+    Continued directory (dir has 2 entries)
+        ThumbnailOffset = 126
+        ThumbnailLength = 46840
+Thumbnail size: 46840 bytes
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tEXt' 0x74455874 length 37
+    Text:Comment hello world png comment here!
+tEXt section comment: hello world png comment here!
+PNG Chunk type 'IDAT' 0x49444154 length 8192
+Skip rest of file (want metadata only)
+File name    : ctest.png
+File size    : 77465 bytes
+Date/Time    : 2026:02:23 14:25:28
+Resolution   : 160 x 120
+PNG colors   : 16777216
+Comment      : hello world png comment here!
+
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'gAMA' 0x67414d41 length 4
+PNG Chunk type 'cHRM' 0x6348524d length 32
+PNG Chunk type 'bKGD' 0x624b4744 length 6
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tIME' 0x74494d45 length 7
+    Last modification Time:  2026:03:30  11:56:44
+PNG Chunk type 'IDAT' 0x49444154 length 32768
+Skip rest of file (want metadata only)
+File name    : th200.png
+File size    : 46840 bytes
+Resolution   : 200 x 150
+PNG colors   : 16777216
+
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'eXIf' 0x65584966 length 46966
+Exif header 46966 bytes long
+Exif section in Intel order
+(dir has 2 entries)
+    DateTime = "2026:02:23 14:25:28"
+    ExifOffset = 58
+    Exif Dir:(dir has 1 entries)
+        DateTimeOriginal = "2026:02:23 14:25:28"
+    Continued directory (dir has 2 entries)
+        ThumbnailOffset = 126
+        ThumbnailLength = 46840
+Thumbnail size: 46840 bytes
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tEXt' 0x74455874 length 37
+    Text:Comment hello world png comment here!
+tEXt section comment: hello world png comment here!
+PNG Chunk type 'IDAT' 0x49444154 length 8192
+Skip rest of file (want metadata only)
+File name    : ctest.png
+File size    : 77465 bytes
+Date/Time    : 2026:02:23 14:25:28
+Resolution   : 160 x 120
+PNG colors   : 16777216
+Comment      : hello world png comment here!
+
+--------Just for kicks, use webp file for png thumbnail ---
+Modified: ctest.png
+PNG Chunk type 'IHDR' 0x49484452 length 13
+PNG Chunk type 'eXIf' 0x65584966 length 4281
+Exif header 4281 bytes long
+Exif section in Intel order
+(dir has 2 entries)
+    DateTime = "2026:02:23 14:25:28"
+    ExifOffset = 58
+    Exif Dir:(dir has 1 entries)
+        DateTimeOriginal = "2026:02:23 14:25:28"
+    Continued directory (dir has 2 entries)
+        ThumbnailOffset = 126
+        ThumbnailLength = 4155
+Thumbnail size: 4155 bytes
+PNG Chunk type 'pHYs' 0x70485973 length 9
+PNG Chunk type 'tEXt' 0x74455874 length 37
+    Text:Comment hello world png comment here!
+tEXt section comment: hello world png comment here!
+PNG Chunk type 'IDAT' 0x49444154 length 8192
+Skip rest of file (want metadata only)
+File name    : pngfiles/ctest.png
+File size    : 34780 bytes
+Date/Time    : 2026:02:23 14:25:28
+Resolution   : 160 x 120
+PNG colors   : 16777216
+Comment      : hello world png comment here!
+
