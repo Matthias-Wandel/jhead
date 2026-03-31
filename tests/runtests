@@ -303,8 +303,7 @@ cp pngfiles/ctest.png ctest.png
 "$jhead" -rgt200 ctest.png >> results-txt/wp_thmb-txt
 "$jhead" -st th200.png ctest.png >> results-txt/wp_thmb-txt
 echo "--------Examine thumbnail.  Very dependent on imagemagick version ---" >> results-txt/wp_thmb-txt
-"$jhead" -v -nofdate th200.png ctest.png >> results-txt/wp_thmb-txt
-"$jhead" -v -nofdate th200.png ctest.png >> results-txt/wp_thmb-txt
+"$jhead" -nofdate th200.png ctest.png >> results-txt/wp_thmb-txt
 echo "--------Just for kicks, use webp file for png thumbnail ---" >> results-txt/wp_thmb-txt
 "$jhead" -rt basic.webp ctest.png >> results-txt/wp_thmb-txt
 "$jhead" -nofdate -v pngfiles/ctest.png >> results-txt/wp_thmb-txt

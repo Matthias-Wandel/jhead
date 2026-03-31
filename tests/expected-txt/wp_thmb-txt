@@ -47,79 +47,11 @@ Resolution   : 320 x 112
 Modified: ctest.png
 Created: 'th200.png'
 --------Examine thumbnail.  Very dependent on imagemagick version ---
-PNG Chunk type 'IHDR' 0x49484452 length 13
-PNG Chunk type 'gAMA' 0x67414d41 length 4
-PNG Chunk type 'cHRM' 0x6348524d length 32
-PNG Chunk type 'bKGD' 0x624b4744 length 6
-PNG Chunk type 'pHYs' 0x70485973 length 9
-PNG Chunk type 'tIME' 0x74494d45 length 7
-    Last modification Time:  2026:03:30  11:56:44
-PNG Chunk type 'IDAT' 0x49444154 length 32768
-Skip rest of file (want metadata only)
 File name    : th200.png
 File size    : 46840 bytes
 Resolution   : 200 x 150
 PNG colors   : 16777216
 
-PNG Chunk type 'IHDR' 0x49484452 length 13
-PNG Chunk type 'eXIf' 0x65584966 length 46966
-Exif header 46966 bytes long
-Exif section in Intel order
-(dir has 2 entries)
-    DateTime = "2026:02:23 14:25:28"
-    ExifOffset = 58
-    Exif Dir:(dir has 1 entries)
-        DateTimeOriginal = "2026:02:23 14:25:28"
-    Continued directory (dir has 2 entries)
-        ThumbnailOffset = 126
-        ThumbnailLength = 46840
-Thumbnail size: 46840 bytes
-PNG Chunk type 'pHYs' 0x70485973 length 9
-PNG Chunk type 'tEXt' 0x74455874 length 37
-    Text:Comment hello world png comment here!
-tEXt section comment: hello world png comment here!
-PNG Chunk type 'IDAT' 0x49444154 length 8192
-Skip rest of file (want metadata only)
-File name    : ctest.png
-File size    : 77465 bytes
-Date/Time    : 2026:02:23 14:25:28
-Resolution   : 160 x 120
-PNG colors   : 16777216
-Comment      : hello world png comment here!
-
-PNG Chunk type 'IHDR' 0x49484452 length 13
-PNG Chunk type 'gAMA' 0x67414d41 length 4
-PNG Chunk type 'cHRM' 0x6348524d length 32
-PNG Chunk type 'bKGD' 0x624b4744 length 6
-PNG Chunk type 'pHYs' 0x70485973 length 9
-PNG Chunk type 'tIME' 0x74494d45 length 7
-    Last modification Time:  2026:03:30  11:56:44
-PNG Chunk type 'IDAT' 0x49444154 length 32768
-Skip rest of file (want metadata only)
-File name    : th200.png
-File size    : 46840 bytes
-Resolution   : 200 x 150
-PNG colors   : 16777216
-
-PNG Chunk type 'IHDR' 0x49484452 length 13
-PNG Chunk type 'eXIf' 0x65584966 length 46966
-Exif header 46966 bytes long
-Exif section in Intel order
-(dir has 2 entries)
-    DateTime = "2026:02:23 14:25:28"
-    ExifOffset = 58
-    Exif Dir:(dir has 1 entries)
-        DateTimeOriginal = "2026:02:23 14:25:28"
-    Continued directory (dir has 2 entries)
-        ThumbnailOffset = 126
-        ThumbnailLength = 46840
-Thumbnail size: 46840 bytes
-PNG Chunk type 'pHYs' 0x70485973 length 9
-PNG Chunk type 'tEXt' 0x74455874 length 37
-    Text:Comment hello world png comment here!
-tEXt section comment: hello world png comment here!
-PNG Chunk type 'IDAT' 0x49444154 length 8192
-Skip rest of file (want metadata only)
 File name    : ctest.png
 File size    : 77465 bytes
 Date/Time    : 2026:02:23 14:25:28
