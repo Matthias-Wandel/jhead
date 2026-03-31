@@ -32,6 +32,7 @@ Resolution   : 160 x 56
 
 --------Attempt to save without thumbnail ---
 Modified: basic.webp
+Image contains no thumbnail
 --------Check that no thumbnail got saved ---
 --------Make new custom size thumbnail ---
 Modified: basic.webp

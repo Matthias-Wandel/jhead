@@ -76,7 +76,7 @@ static int DeleteComments = FALSE;
 static int DeleteExif = FALSE;
 static int DeleteIptc = FALSE;
 static int DeleteXmp = FALSE;
-static int DeleteUnknown = FALSE;
+static int DeleteMetadata = FALSE;
 static char * ThumbSaveName = NULL; // If not NULL, use this string to make up
                                     // the filename to store the thumbnail to.
 
@@ -753,8 +753,8 @@ skip_unixtime:
     if (DeleteXmp){
         if (RemoveImgXmp()) Modified = TRUE;
     }
-    if (DeleteUnknown){
-        if (RemoveUnknownImgSections()) Modified = TRUE;
+    if (DeleteMetadata){
+        if (RemoveMetadataImgSections()) Modified = TRUE;
     }
 
     if (Modified){
@@ -1036,15 +1036,8 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-dx")){
             DeleteXmp = TRUE;
             DoModify |= MODIFY_JPEG;
-        }else if (!strcmp(arg, "-du")){
-            DeleteUnknown = TRUE;
-            DoModify |= MODIFY_JPEG;
-        }else if (!strcmp(arg, "-purejpg")){
-            DeleteExif = TRUE;
-            DeleteComments = TRUE;
-            DeleteIptc = TRUE;
-            DeleteUnknown = TRUE;
-            DeleteXmp = TRUE;
+        }else if (!memcmp(arg, "-pure", 5)){ // Also matches -purejpg
+            DeleteMetadata = TRUE;
             DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-ci")){
             CommentInsertfileName = argv[++argn];

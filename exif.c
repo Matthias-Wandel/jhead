@@ -1068,7 +1068,7 @@ int process_EXIF (unsigned char * ExifSection, int length)
         int a,b;
         printf("Map: %05d- End of exif\n",length);
         for (a=0;a<length;a+= 10){
-            printf("Map: %05d ",a);
+            printf("Map: %05d: ",a);
             for (b=0;b<10 && b<length-a;b++)
                 printf(" %02x",*(ExifSection+a+b));
             printf("\n");

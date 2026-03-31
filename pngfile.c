@@ -327,6 +327,33 @@ static void RemovePngSection(ImgSect_t * RemoveSection)
     PngSectionsRead -= 1;
 }
 
+
+//--------------------------------------------------------------------------
+// Remove all sections that are not "Critical" chunks per PNG spec rules.
+//--------------------------------------------------------------------------
+int RemoveMetadataPngSections(void)
+{
+    int Modified = FALSE;
+    for (int i = 0; i < PngSectionsRead; ) {
+        // The first byte of the 4-byte Chunk Type contains the Ancillary bit.
+        // Bit 5 (0x20) is 0 for Critical chunks and 1 for Ancillary chunks.
+
+        // Uppercase (e.g., 'I') = Critical
+        // Lowercase (e.g., 'e') = Ancillary
+        if ((PngSections[i].Type >> 24) & 0x20) {
+            // This is an Ancillary chunk (metadata).
+            RemovePngSection(&PngSections[i]);
+            Modified = TRUE;
+
+            // Note: We do not increment 'i' here because RemovePngSection
+            // should shift the remaining array elements to the left.
+        } else {
+            i++;
+        }
+    }
+    return Modified;
+}
+
 //--------------------------------------------------------------------------
 // Set PNG comment (tEXt chunk with "Description" keyword)
 //--------------------------------------------------------------------------
@@ -387,7 +414,7 @@ void WritePngFile(const char * FileName)
         uchar Header[8], CrcRaw[4];
 
         unsigned int c = 0xffffffffL; // Start CRC value
-        
+
         // Write Length and Type
         Put32png(Header, PngSections[a].Size);
         Put32png(Header + 4, PngSections[a].Type);

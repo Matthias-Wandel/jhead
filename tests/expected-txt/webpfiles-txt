@@ -384,4 +384,19 @@ File size    : 1976 bytes
 Resolution   : 160 x 56
 Comment      : odd size rounds up!
 
+--------Metadata deletion-----
+Modified: from_iphone.webp
+Modified: commentlen.webp
+Chunk type 56503820 'VP8 ' length 752
+WebP Image: 40x53
+File name    : from_iphone.webp
+File size    : 772 bytes
+Resolution   : 40 x 53
+
+Chunk type 56503820 'VP8 ' length 1910
+WebP Image: 160x56
+File name    : commentlen.webp
+File size    : 1930 bytes
+Resolution   : 160 x 56
+
 --------done-----

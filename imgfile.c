@@ -95,13 +95,14 @@ void DiscardAllButExif(){
     if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) DiscardAllPngButExif();
 }
 
-int RemoveUnknownImgSections(void)
+int RemoveMetadataImgSections(void)
 {
     if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){
-        return RemoveUnknownJpegSections();
-    }else{
-        ErrFatal("not implemented 2\n");
-        return FALSE;
+        return RemoveMetadataJpegSections();
+    }else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG){
+        return RemoveMetadataPngSections();
+    }else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP){
+        return RemoveMetadataWebpSections();
     }
 }
 
@@ -186,6 +187,7 @@ uchar * ChangeExifSectionLength(int NewLength)
         return ChangeWebpExifSectionLength(NewLength);
     }else{
         ErrFatal("Not implemented for image type");
+        return 0;
     }
 }
 
@@ -208,7 +210,7 @@ int ReplaceImgThumbnail(const char * ThumbFileName)
 
         // Adding or removing of thumbnail is not possible - that would require rearranging
         // of the exif header, which is risky, and jhead doesn't know how to do.
-        fprintf(stderr,"Image contains no thumbnail to replace - add is not possible\n");
+        printf("Image contains no thumbnail to replace - add is not possible\n");
         return FALSE;
     }
 
@@ -335,7 +337,7 @@ int SaveImgThumbnail(char * ThumbFileName)
     FILE * ThumbnailFile;
 
     if (ImageInfo.ThumbnailOffset == 0 || ImageInfo.ThumbnailSize == 0){
-        fprintf(stderr,"Image contains no thumbnail\n");
+        printf("Image contains no thumbnail\n");
         return FALSE;
     }
 

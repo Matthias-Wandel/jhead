@@ -229,6 +229,11 @@ cp pngfiles/from_photo.png nametest.png
 "$jhead" -nnametest-%Y%m%dt-%H%M%S nametest.png >> results-txt/pngfiles-txt
 "$jhead" -c nametest*.png >> results-txt/pngfiles-txt
 
+echo "--------PNG metadata removal:" >> results-txt/pngfiles-txt
+cp pngfiles/*.png .
+"$jhead" -pure *.png >> results-txt/pngfiles-txt
+"$jhead" -nofdate -v *.png >> results-txt/pngfiles-txt
+
 
 #-------------------------------------------------------------------
 #Test weebp file handling
@@ -273,7 +278,15 @@ echo "--------Even length comment-----" >> results-txt/webpfiles-txt
 echo "--------Odd length comment-----" >> results-txt/webpfiles-txt
 "$jhead" -cl "odd size rounds up!" commentlen.webp >> results-txt/webpfiles-txt
 "$jhead" -v -nofdate commentlen.webp >> results-txt/webpfiles-txt
+
+# Test webp metadata removal
+echo "--------Metadata deletion-----" >> results-txt/webpfiles-txt
+cp webpfiles/from_iphone.webp .
+"$jhead" -pure from_iphone.webp commentlen.webp >> results-txt/webpfiles-txt
+"$jhead" -v -nofdate from_iphone.webp commentlen.webp >> results-txt/webpfiles-txt
 echo "--------done-----" >> results-txt/webpfiles-txt
+
+
 
 
 # Test thumbnail manipulation of webp files

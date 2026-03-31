@@ -177,6 +177,44 @@ int RemoveWebpSectionByType(int SectionType)
 }
 
 //--------------------------------------------------------------------------
+// Remove all sections that are not "Critical" chunks per PNG spec rules.
+//--------------------------------------------------------------------------
+int RemoveMetadataWebpSections(void)
+{
+    int Modified = FALSE;
+
+    for (int i = 0; i < WebpSectionsRead; ) {
+        int Type = WebpSections[i].Type;
+
+        // Check against our "Keep" list (Allow-list)
+        if (Type == 0x56503820 || // "VP8 " (Lossy Data)
+            Type == 0x5650384c || // "VP8L" (Lossless Data)
+            Type == 0x56503858 || // "VP8X" (Extended Header)
+            Type == 0x414c5048 || // "ALPH" (Alpha Data)
+            Type == 0x414e494d || // "ANIM" (Animation Control)
+            Type == 0x414e4d46)   // "ANMF" (Animation Frame)
+        {
+            // This is essential image data; keep it.
+            i++;
+        } else {
+            // This is presumably metadata not needed for image rendering,
+            // remove it.
+            free(WebpSections[i].Data);
+
+            // Shift remaining sections down to fill the gap
+            for (int j = i; j < WebpSectionsRead - 1; j++) {
+                WebpSections[j] = WebpSections[j + 1];
+            }
+            WebpSectionsRead--;
+            Modified = TRUE;
+            // Do not increment i; check the new item shifted into this index.
+        }
+    }
+
+    return Modified;
+}
+
+//--------------------------------------------------------------------------
 // Ensure VP8X header exists if needed and is synchronized with chunks.
 //--------------------------------------------------------------------------
 static void EnsureVP8XHeaderExists(void)

@@ -572,7 +572,7 @@ int RemoveJpegSectionByType(int SectionType)
 //--------------------------------------------------------------------------
 // Remove sections not part of image and not exif or comment sections.
 //--------------------------------------------------------------------------
-int RemoveUnknownJpegSections(void)
+int RemoveMetadataJpegSections(void)
 {
     int a;
     int Modified = FALSE;
@@ -595,18 +595,14 @@ int RemoveUnknownJpegSections(void)
             case  M_EOI:
             case  M_SOS:
             case  M_JFIF:
-            case  M_EXIF:
-            case  M_XMP:
-            case  M_COM:
             case  M_DQT:
             case  M_DHT:
             case  M_DRI:
-            case  M_IPTC:
                 // keep.
                 a++;
                 break;
             default:
-                // Unknown.  Delete.
+                // Not image data, delete.
                 free (JpgSections[a].Data);
                 // Move succeeding sections back by one to close space in array.
                 memmove(JpgSections+a, JpgSections+a+1, sizeof(ImgSect_t) * (JpgSectionsRead-a-1));
