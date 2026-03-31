@@ -23,8 +23,6 @@ echo "Normal digicams" > results-txt/compact-txt
 "$jhead" -c normal-digicams/*.jpg >> results-txt/compact-txt
 echo "Strange jpegs" >> results-txt/compact-txt
 "$jhead" -c strange-jpegs/*.jpg >> results-txt/compact-txt
-echo "Portrait only option test" >> results-txt/compact-txt
-"$jhead" -c -se -orp normal-digicams/*.jpg >> results-txt/compact-txt
 
 #-------------------------------------------------------------------
 #test date manipulation
@@ -171,14 +169,14 @@ echo "---------jehad -v on trimmed files" >> results-txt/zerotrim-txt
 cp strange-jpegs/iptc?.jpg results-bin/
 "$jhead" -di results-bin/iptc1.jpg
 #test removal and restoration of iptc section
-"$jhead" -de -cmd ""$jhead" -purejpg &i" results-bin/iptc2.jpg
+"$jhead" -de results-bin/iptc2.jpg
 "$jhead" -nofdate results-bin/iptc?.jpg > results-txt/iptc-txt
 
 #test XMP non-delete
 cp strange-jpegs/with_xmp.jpg results-bin/
 "$jhead" -ta+1:00 results-bin/with_xmp.jpg > results-txt/with_xmp.jpg
 "$jhead" -v -nofdate results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
-"$jhead" -cmd ""$jhead" -purejpg &i"  results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
+"$jhead" -purejpg results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
 "$jhead" -v -nofdate results-bin/with_xmp.jpg >> results-txt/with_xmp.jpg
 cp strange-jpegs/with_xmp.jpg results-bin/keep_xmp.jpg
 "$jhead" -dx results-bin/keep_xmp.jpg

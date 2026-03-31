@@ -407,7 +407,7 @@ uchar * ChangeJpegExifSectionLength(int NewLength)
 //--------------------------------------------------------------------------
 // Discard everything but the exif and comment sections.
 //--------------------------------------------------------------------------
-void DiscardAllJpegButExif(void)
+void DiscardAllJpegSectionsButExif(void)
 {
     ImgSect_t ExifKeeper;
     ImgSect_t CommentKeeper;

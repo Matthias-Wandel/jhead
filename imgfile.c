@@ -90,11 +90,6 @@ void WriteImgFile(const char * FileName) {
     else if (ImageInfo.ImgTypeLoaded == IMG_TYPE_WEBP) WriteWebpFile(FileName);
 }
 
-void DiscardAllButExif(){
-    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG) DiscardAllJpegButExif();
-    if (ImageInfo.ImgTypeLoaded == IMG_TYPE_PNG) DiscardAllPngButExif();
-}
-
 int RemoveMetadataImgSections(void)
 {
     if (ImageInfo.ImgTypeLoaded == IMG_TYPE_JPEG){

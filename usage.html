@@ -8,7 +8,7 @@ Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on
 or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b>
 
 
-<h3>Jhead v3.20 program Features</h3>
+<h3>Jhead v3.2.1 program Features</h3>
 <ul>
 <li>Extracting camera settings from Jpeg and PNG files containing an Exif header
 <li>Able to set and/or adjust the Exif time field
@@ -326,9 +326,6 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     For example, the following command will list only images that are from an S100 camera:
     <p>
     jhead -model S100 *.jpg<p>
-    <p>
-    I use this option to restrict my JPEG re-compressing to those images that came from my
-    Cannon S100 camera, (see the -cmd option).
 
 <tr valign=top><td><b>-quality &lt;nn&gt;
 <td>Restricts processing of files to those whose estimated quality factor is equal to
@@ -341,35 +338,6 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     preserve the Exif header when saving pictures.
 
 <tr valign=top>
-<td><b>-proc
-<td>Skip all but files matching process.  Specifying "-proc 0" for example will
-    only process files with baseline encoding.  Specifying "-proc 2" will only
-    process files with progressive encoding.
-    This option is useful when converting files to progressive jpegs using jpegtran,
-    to skip those files already encoded as progressive jpegs.  For example, the following
-    command converts only files as baseline to progressive:<p>
-    jhead -proc 0 -cmd "jpegtran -progressive -outfile &o &i" *.jpg
-
-
-<tr valign=top><td><b>-cmd&lt;command&gt;
-<td>Executes the specified command on each Jpeg file to be processed.<p>
-    The Exif section of each file is read before running the command, and re-inserted
-    after the command finishes.
-    <p>
-    This is useful for using Jhead's file globbing capability for processing a whole
-    directory tree of files.
-    <p>
-    It's also useful for restoring the exif header after operations that wipe out
-    the Exif metadata.  Most programs today however will keep the Exif metadata
-    intact, so this is less important than it used to be.
-
-<tr valign=top><td><b>-orp, -orl
-<td>Operate only on images with portrait (-orp) or landscape (-orl) aspect ratio.<br>
-    Please note that this is solely based on jpeg width and height values.  Some browsers may auto
-    rotate the image on displaying it based on the Exif orientation tag, so that images shot
-    in portrait mode are displayed as portrait.  However, the image itself may not be stored in
-    portrait orientation.
-    The -autorot and -norot options are useful for dealing with rotation issues.
 
 <tr valign=top><td><b>-r
 <td>The recursive feature of version 1.0 never worked to my satisfaction, and I replaced it
@@ -386,12 +354,10 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     implementation of the file system contained in the Exif header.  For the most part, Exif
     can only modify pre-existing fixed-length fields in the header.
     <p>
-
-    Most Canon digital SLR cameras fail to adjust the effective sensor resolution when shooting at less
+    Some digital cameras fail to adjust the effective sensor resolution when shooting at less
     than full resolution, causing Jhead to incorrectly miscalculate the sensor width and 35mm equivalent
-    focal length.  The same can result from resizing photos with Photoshop, which will manipulate
-    parts of the Exif header.
-    This is often reported as a bug in Jhead, but Jhead can't do much about incorrect data.
+    focal length.  The same can result from resizing photos with other programs as well.
+    This is sometimes reported as a bug in Jhead, but Jhead can't do much about incorrect data.
 </ul>
 
 <h3>Name globbing and recursive directories under Windows</h3>
@@ -468,5 +434,5 @@ For those who need a programming interface, there are:
 <b><a href="http://www.exiv2.org">exifv2</a></b>.
 <p>
 
-Jhead homepage: <a href="http://www.sentex.net/~mwandel/jhead">http://www.sentex.net/~mwandel/jhead</a><br>
-Last Updated: Jun 6 2023<p>
+Jhead homepage: <a href="https://github.com/Matthias-Wandel/jhead">https://github.com/Matthias-Wandel/jhead</a><br>
+Last Updated: March 2026<p>

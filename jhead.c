@@ -2,7 +2,7 @@
 // Program to pull the information out of various types of EXIF digital
 // camera files and show it in a reasonably consistent way
 //
-// Version 3.2
+// Version 3.2.1
 //
 // Compiling under Windows:
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
@@ -19,7 +19,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "3.2"
+#define JHEAD_VERSION "3.2.1"
 
 // This #define turns on features that are too very specific to
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -62,10 +62,7 @@ static int CreateExifSection = FALSE;
 static int TrimExifTrailingZeroes = FALSE;
 static char * ApplyCommand = NULL;  // Apply this command to all images.
 static char * FilterModel = NULL;
-static int    FilterQuality = 0;
 static int    ExifOnly    = FALSE;  // Only do images with exif header
-static int    ProcessOnly = -1;     // 0 for baseline, 2 for progressive only, -1 for all images.
-static int    PortraitOnly = FALSE; // Only do images with portrait orientation.
 static time_t ExifTimeAdjust = 0;   // Timezone adjust
 static time_t ExifTimeSet = 0;      // Set exif time to a value.
 static char DateSet[11];
@@ -84,9 +81,6 @@ static char * ThumbInsertName = NULL; // If not NULL, use this string to make up
                                     // the filename to retrieve the thumbnail from.
 
 static int RegenThumbnail = FALSE;
-
-static char * ExifXferScrFile = NULL;// Extract Exif header from this file, and
-                                    // put it into the Jpegs processed.
 
 static int SuppressNonFatalErrors = FALSE; // Whether or not to pint warnings on recoverable errors
 
@@ -122,44 +116,6 @@ void ErrNonfatal(const char * msg, int a1, int a2)
     fprintf(stderr, msg, a1, a2);
     fprintf(stderr, "\n");
 }
-
-
-#ifdef MATTHIAS
-static int AutoResize = FALSE;
-//--------------------------------------------------------------------------
-// Automatic make smaller command stuff
-//--------------------------------------------------------------------------
-static int AutoResizeCmdStuff(void)
-{
-    static char CommandString[PATH_MAX+1];
-    double scale;
-    float TargetSize = 1800;
-
-    ApplyCommand = CommandString;
-
-    scale = TargetSize / ImageInfo.Width;
-    if (scale > TargetSize / ImageInfo.Height) scale = TargetSize / ImageInfo.Height;
-
-    if (scale > 0.8){
-        if (ImageInfo.JpgQualityGuess >= 93){
-            // Re-compress at lower quality.
-            sprintf(CommandString, IMAGEMAGICK_PROGNAME" &i -quality 80 &i");
-            return TRUE;
-        }
-        printf("not resizing %dx%x '%s'\n",ImageInfo.Height, ImageInfo.Width, ImageInfo.FileName);
-        return FALSE;
-    }
-
-    if (scale < 0.4) scale = 0.4; // Don't scale down by too much.
-
-    sprintf(CommandString, IMAGEMAGICK_PROGNAME" &i -resize %dx%d -quality 80 &i",
-            (int)(ImageInfo.Width*scale+0.5), (int)(ImageInfo.Height*scale+0.5));
-    return TRUE;
-}
-
-
-#endif // MATTHIAS
-
 
 //--------------------------------------------------------------------------
 // Escape an argument such that it is interpreted literally by the shell
@@ -292,14 +248,6 @@ static void DoCommand(const char * FileName, int ShowIt)
 //--------------------------------------------------------------------------
 static int CheckFileSkip(void)
 {
-    // I sometimes add code here to only process images based on certain
-    // criteria - for example, only to convert non progressive Jpegs to progressives, etc..
-    if(ProcessOnly >= 0 && (ImageInfo.Process & 0x0f) != ProcessOnly){
-        // ProcessOnly == 0 means skip baseline oencoded jpegs
-        // ProcessOnly == 2 means skip progressive oencoded jpegs
-        return TRUE;
-    }
-
     if (FilterModel){
         // Filtering processing by camera model.
         // This feature is useful when pictures from multiple cameras are collated,
@@ -309,26 +257,12 @@ static int CheckFileSkip(void)
             return TRUE;
         }
     }
-    if (FilterQuality > 0){
-        //Filter by above threshold quality
-        if (ImageInfo.JpgQualityGuess < FilterQuality){
-            return TRUE;
-        }
-    }
 
     if (ExifOnly){
         // Filtering by EXIF only.  Skip all files that have no Exif.
         if (GetImgExifSectionData(NULL) == NULL){
             return TRUE;
         }
-    }
-
-    if (PortraitOnly == 1){
-        if (ImageInfo.Width > ImageInfo.Height) return TRUE;
-    }
-
-    if (PortraitOnly == -1){
-        if (ImageInfo.Width < ImageInfo.Height) return TRUE;
     }
 
     return FALSE;
@@ -522,24 +456,18 @@ static void ProcessFile(const char * FileName)
         // pre-read, then the command executed, and then the image part of the file read.
 
         if (!ReadImgFile(FileName, READ_METADATA)) return;
-
-        #ifdef MATTHIAS
-            if (AutoResize){
-                // Automatic resize computation - to customize for each run...
-                if (AutoResizeCmdStuff() == 0){
-                    DiscardImgData();
-                    return;
-                }
-            }
-        #endif // MATTHIAS
-
+        if (ImageInfo.ImgTypeLoaded != IMG_TYPE_JPEG){
+            printf("This option for Jpeg files only\n");
+            DiscardImgData();
+            return;
+        }
 
         if (CheckFileSkip()){
             DiscardImgData();
             return;
         }
 
-        DiscardAllButExif();
+        DiscardAllJpegSectionsButExif();
 
         if (AutoRotate){
             if (DoAutoRotate(FileName)){
@@ -557,18 +485,6 @@ static void ProcessFile(const char * FileName)
             Modified = TRUE;
         }
         ReadMode = READ_IMAGE;   // Don't re-read exif section again on next read.
-    }
-
-    if (ExifXferScrFile){
-        char RelativeExifName[PATH_MAX+1];
-        // Make a relative name.
-        RelativeName(RelativeExifName, ExifXferScrFile, FileName);
-        if(!ReadImgFile(RelativeExifName, READ_METADATA)) return;
-
-        DiscardAllButExif();    // Don't re-read exif section again on next read.
-
-        Modified = TRUE;
-        ReadMode = READ_IMAGE;
     }
 
     if (DoModify){
@@ -846,8 +762,6 @@ static void Usage (void)
 
            "[options] are:\n"
            "\nGENERAL METADATA:\n"
-           "  -te <name> Transfer exif header from another image file <name>\n"
-           "             Uses same name mangling as '-st' option\n"
            "  -dc        Delete comment field (as left by some programs)\n"
            "  -de        Strip Exif section (smaller JPEG file, but lose digicam info)\n"
            "  -di        Delete Jpeg IPTC section (from Photoshop, or Picasa)\n"
@@ -943,24 +857,6 @@ static void Usage (void)
            "             camera model description\n"
            "  -exonly    Skip all files that don't have an exif header (skip all jpegs that\n"
            "             were not created by digicam)\n"
-           "  -quality x Only work on images with JPEG quality factor x or higher\n"
-           "  -cmd command\n"
-           "             Apply 'command' to every file, then re-insert exif and command\n"
-           "             sections into the image. &i will be substituted for the input file\n"
-           "             name, and &o (if &o is used). Use quotes around the command string\n"
-           "             This is most useful in conjunction with the free ImageMagick tool. \n"
-           "             For example, with my Canon S100, which suboptimally compresses\n"
-           "             jpegs I can specify\n"
-           "                jhead -cmd \"magick &i -quality 80 &i\" *.jpg\n"
-           "             to re-compress a lot of images using ImageMagick to half the size,\n"
-           "             and no visible loss of quality while keeping the exif header\n"
-           "             Another invocation I like to use is jpegtran (hard to find for\n"
-           "             windows).  I type:\n"
-           "                jhead -cmd \"jpegtran -progressive &i &o\" *.jpg\n"
-           "             to convert jpegs to progressive jpegs (Unix jpegtran syntax\n"
-           "             differs slightly)\n"
-           "  -orp       Only operate on 'portrait' aspect ratio images\n"
-           "  -orl       Only operate on 'landscape' aspect ratio images\n"
 #ifdef _WIN32
            "  -r         No longer supported.  Use the ** wildcard to recurse directories\n"
            "             with instead.\n"
@@ -1020,11 +916,8 @@ int main (int argc, char **argv)
         arg = argv[argn];
         if (arg[0] != '-') break; // Filenames from here on.
 
-    // General metadata options:
-        if (!strcmp(arg,"-te")){
-            ExifXferScrFile = argv[++argn];
-            DoModify |= MODIFY_JPEG;
-        }else if (!strcmp(arg,"-dc")){
+        // General metadata options:
+        if (!strcmp(arg,"-dc")){
             DeleteComments = TRUE;
             DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-de")){
@@ -1208,34 +1101,8 @@ int main (int argc, char **argv)
         }else if (!strcmp(arg,"-model")){
             if (argn+1 >= argc) Usage(); // No extra argument.
             FilterModel = argv[++argn];
-        }else if (!strcmp(arg,"-quality")){
-            if (argn+1 >= argc) Usage(); // No extra argument.
-            if (sscanf(argv[++argn], "%d", &FilterQuality) != 1){
-                Usage();
-            }
-        }else if (!strcmp(arg,"-proc")){
-            sscanf(argv[++argn], "%d", &ProcessOnly);
-            if (ProcessOnly < 0 || ProcessOnly > 2){
-                ErrFatal("-proc must be followed by a number 0-2");
-            }
         }else if (!strcmp(arg,"-exonly")){
             ExifOnly = 1;
-        }else if (!strcmp(arg,"-orp")){
-            PortraitOnly = 1;
-        }else if (!strcmp(arg,"-orl")){
-            PortraitOnly = -1;
-        }else if (!strcmp(arg,"-cmd")){
-            if (argn+1 >= argc) Usage(); // No extra argument.
-            ApplyCommand = argv[++argn];
-            DoModify |= MODIFY_ANY;
-
-#ifdef MATTHIAS
-        }else if (!strcmp(arg,"-ar")){
-            AutoResize = TRUE;
-            ShowConcise = TRUE;
-            ApplyCommand = (char *)1; // Must be non null so it does commands.
-            DoModify |= MODIFY_JPEG;
-#endif // MATTHIAS
         }else{
             printf("Argument '%s' not understood\n",arg);
             printf("Use jhead -h for list of arguments\n");
@@ -1265,13 +1132,6 @@ int main (int argc, char **argv)
         }
     }
 
-
-    if (ExifXferScrFile){
-        if (FilterModel || ApplyCommand){
-            ErrFatal("Error: Filter by model and/or applying command to files\n"
-            "   invalid while transferring Exif headers");
-        }
-    }
 
     FilesProcessed = 0;
     for (;argn<argc;argn++){
