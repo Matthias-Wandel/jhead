@@ -20,8 +20,8 @@ Some notes:
     place to cut and paste code from.
 
     If jhead doesn't have a feature you want, look for "exiv2" or "exiftool".
-    Exiftool has any feature you could imagine, but it's also 100x bigger and much
-    slower.  exiv2 is closr to what Jhead does.
+    Exiftool has any feature you could imagine, but it's also 100x bigger and
+    much slower (perl inside).  exiv2 is much faster and not quite as big.
 
     If you find that it dies on a certain jpeg file, send it to me, and I
     will look at it.
@@ -35,7 +35,7 @@ Compiling:
     C from 2022
     Run the batch file make.bat
 
-    Linux & Unices:
+    Linux:
 
     type 'make'.
 
@@ -57,10 +57,6 @@ License:
     Jhead is public domain software - that is, you can do whatever you want
     with it, and include it software that is licensed under the GNU or the
     BSD license, or whatever other license you chose, including proprietary
-    closed source licenses.  Although not part of the license, I do expect
-    common courtesy, please.
-
-    If you do integrate the code into some software of yours, I'd appreciate
-    knowing about it though.
+    closed source licenses. 
 
 Matthias Wandel

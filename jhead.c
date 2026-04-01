@@ -2,7 +2,7 @@
 // Program to pull the information out of various types of EXIF digital
 // camera files and show it in a reasonably consistent way
 //
-// Version 3.2.1
+// Version 3.3
 //
 // Compiling under Windows:
 //   Make sure you have Microsoft's compiler on the path, then run make.bat
@@ -19,7 +19,7 @@
 
 #include <sys/stat.h>
 
-#define JHEAD_VERSION "3.2.1"
+#define JHEAD_VERSION "3.3"
 
 // This #define turns on features that are too very specific to
 // how I organize my photos.  Best to ignore everything inside #ifdef MATTHIAS
@@ -1041,7 +1041,7 @@ int main (int argc, char **argv)
             ExifTimeAdjust = NewDate-OldDate;
             DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-dsft",5)){
-            // Set exif time to the timestamp of the file.
+            // Set Exif time from file date/toime.
             FileTimeToExif = TRUE;
             DoModify |= MODIFY_JPEG;
         }else if (!memcmp(arg,"-ds",3)){

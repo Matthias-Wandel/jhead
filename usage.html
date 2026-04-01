@@ -1,50 +1,32 @@
 <html>
 <span style="font-family: helvetica,arial,sans-serif;">
 
-<h3>Jhead is a command line driven program for manipulating the non-image parts of Exif flavour
-JPEG files that most digital cameras produce.</h3><p>
+<h3>Jhead is a command line driven program for manipulating the non-image parts 
+JPEG files from digital cameras.</h3>
 
-Windows / Mac users:  Jhead has <b>no Graphical User Interface</b>.  Clicking on it with the mouse from Windows
-or Mac OS-X won't do anything for you - you have to <b>use it from the Command prompt</b>
+Jhead Also manipulate Exif headers in Webp and PNG files if present.
+<br>
+Jhead is simple and fast.  for more complex Exif and metadata manipulations, see the Exiv2 or the ExifTool programs.
 
 
-<h3>Jhead v3.2.1 program Features</h3>
+<h3>Jhead v3.3 program Features</h3>
 <ul>
 <li>Extracting camera settings from Jpeg and PNG files containing an Exif header
 <li>Able to set and/or adjust the Exif time field
 <li>Manipulation (extract, replace, regenerate) of Exif integral thumbnails
-<li>Transplant Exif image header from one JPEG to another
 <li>Show and set JPEG and PNG comment fields
 <li>Automatically rotate images upright (using jpegtran) according to "orientation" tag.
-<li>Manage running programs on large batches of Jpegs and restoring Exif header
-    information afterwards.
-<li>Display embedded GPS info (if present)
+<li>Display embedded Exif GPS info (if present)
 </ul>
 
 
 <h3>General metadata options</h3>
 <table cellpadding=5>
 
-<tr valign=top><td><b>-te &lt;name&gt;
-  <td>
-    Transplant Exif header from image &lt;name&gt; into specified image.  This option is
-    useful if you like to edit the photos but still want the Exif header on your photos.
-    As most photo editing programs will wipe out the Exif header, this option can be used
-    to re-transplant them back in after editing the photos.
-    <br>
-    This feature has an interesting 'relative path' option for specifying the thumbnail name.
-    Whenever the &lt;name&gt; contains the characters '&i', jhead will substitute the original
-    filename for this name.  This allows creating a 'relative name' when doing a whole
-    batch of files.  For example, the incantation:
-    <ul>jhead -te "originals\&i" *.jpg</ul>
-    would transfer the Exif header for each .jpg file in the originals directory by the same name,
-    Both Win32 and most UNIX shells treat the '&' character in a special way, so you have to
-    put quotes around that command line option for the '&' to even be passed to the program.
-
 
 <tr valign=top><td><b>-dc
-<td>Delete comment field from the JPEG header.  Note that the comment
-    is not part of the Exif header.
+<td>Delete comment field from the JPEG header.  This doesn't manipulate any comment
+    that may be in the Exif header in the Jpeg.
 
 <tr valign=top><td><b>-de
 <td>Delete the Exif header entirely.  This leaves other sections (IPTC, XMP, comment) intact
@@ -55,21 +37,17 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
 <tr valign=top><td><b>-dx
 <td>Delete XMP section (if present).  Leaves other sections intact.
 
-<tr valign=top><td><b>-du
-<td>Delete any sections that jhead doesn't know about.  Leaves Exif, XMP, IPTC and comment
-    sections intact.
-
-<tr valign=top><td><b>-purejpg
+<tr valign=top><td><b>-pure[jpg]
 <td>Delete all JPEG sections that aren't necessary for rendering the image.  Strips any
-    metadata that various applications may have left in the image.  A combination of
-    the -de -dc and -du options.
+    metadata that various applications may have left in the image.
 
 <tr valign=top><td><b>-mkexif
 <td>Creates minimal Exif header.  Exif header contains date/time, and empty thumbnail
     fields only.  Date/time set to file time by default.
     use with -rgt option if you want the Exif header to contain a thumbnail.
-    Note that Exif header creation is very limited at this time, and no other fields
-    can be added to the Exif header this way.
+    Note that Exif header creation is very limited and no other fields
+    can be added to the Exif header this way.  For more sophisticated Exif manipulation
+    see Exiv2
 
 
 <tr valign=top><td><b>-cl&nbsp&lt;comment&gt;
@@ -327,9 +305,6 @@ or Mac OS-X won't do anything for you - you have to <b>use it from the Command p
     <p>
     jhead -model S100 *.jpg<p>
 
-<tr valign=top><td><b>-quality &lt;nn&gt;
-<td>Restricts processing of files to those whose estimated quality factor is equal to
-    or higher than the specified number nn.
 
 <tr valign=top>
 <td><b>-exonly
@@ -434,5 +409,6 @@ For those who need a programming interface, there are:
 <b><a href="http://www.exiv2.org">exifv2</a></b>.
 <p>
 
-Jhead homepage: <a href="https://github.com/Matthias-Wandel/jhead">https://github.com/Matthias-Wandel/jhead</a><br>
+Jhead homepage: <a href="https://github.com/Matthias-Wandel/jhead">https://github.com/Matthias-Wandel/jhead</a>
+<p>
 Last Updated: March 2026<p>

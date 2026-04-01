@@ -474,3 +474,9 @@ Also removing some odd features in that I thought were a good idea more than
 a decade ago, but not even I used.
 Bumped version to 3.2
 
+March 2026
+Also adding webp support, much more testing ans fixing or removing some 
+features not well supported for non JPEG files.
+Removing some complex old featurees even I no longer used.
+Bumped version to 3.3
+
