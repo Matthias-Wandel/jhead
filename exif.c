@@ -971,7 +971,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
         }
     }
 
-    if (ThumbnailOffset){
+    if (ThumbnailOffset > 0){
         ImageInfo.ThumbnailAtEnd = FALSE;
 
         if (DumpExifMap){
