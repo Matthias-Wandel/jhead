@@ -14,10 +14,10 @@ CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
 LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
 endif
 
-# To enable electric fence, set ELECTRIC_FENCE=1
-ifeq ($(ELECTRIC_FENCE),1)
-CFLAGS += -fsanitize=address
-LDFLAGS += -fsanitize=address
+# Enable address sanetizing
+ifeq ($(ASAN),1)
+    CFLAGS += -fsanitize=address -fno-omit-frame-pointer
+    LDFLAGS += -fsanitize=address
 endif
 
 all: objdir jhead
@@ -32,10 +32,10 @@ objs = $(OBJ)/jhead.o $(OBJ)/imgfile.o  $(OBJ)/jpgfile.o $(OBJ)/pngfile.o $(OBJ)
 	$(OBJ)/exif.o $(OBJ)/iptc.o $(OBJ)/gpsinfo.o $(OBJ)/makernote.o
 
 $(OBJ)/%.o:$(SRC)/%.c
-	${CC} $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 jhead: $(objs) jhead.h
-	${CC} $(LDFLAGS) -o jhead $(objs) -lm
+	$(CC) $(LDFLAGS) -o jhead $(objs) -lm $(CFLAGS)
 
 clean:
 	rm -f $(objs) jhead
