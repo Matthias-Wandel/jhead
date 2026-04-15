@@ -85,6 +85,9 @@ int ReadWebpSections(FILE * infile, ReadMode_t ReadMode) {
         if (fread(RawHeader, 1, 8, infile) != 8) break;
 
         unsigned int ChunkLen = Get32webp(RawHeader + 4);
+
+        if ((int)ChunkLen <=0) continue; // Corrupt crap in a fuzz test, ignore.
+
         int ChunkType = (RawHeader[0] << 24) | (RawHeader[1] << 16) | (RawHeader[2] << 8) | RawHeader[3];
         if (ShowTags){
             printf("Chunk type %x '",ChunkType);
