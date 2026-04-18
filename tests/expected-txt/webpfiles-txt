@@ -3,6 +3,24 @@ File name    : webpfiles/basic.webp
 File size    : 1930 bytes
 Resolution   : 160 x 56
 
+File name    : webpfiles/clearrot.webp
+File size    : 6770 bytes
+Camera make  : motorola
+Camera model : moto g play - 2023
+Date/Time    : 2026:04:16 10:35:14
+Resolution   : 100 x 75
+Orientation  : rotate 90
+Flash used   : No
+Focal length :  3.4mm  (35mm equivalent: 28mm)
+Exposure time: 0.0051 s  (1/196)
+Aperture     : f/2.2
+ISO equiv.   : 100
+Whitebalance : Auto
+Metering Mode: center weight
+GPS Latitude : N 43d 38m 32.7456s
+GPS Longitude: W 79d 22m 35.6854s
+GPS Altitude :  41.00m
+
 File name    : webpfiles/from_iphone.webp
 File size    : 7408 bytes
 Camera make  : Apple
@@ -27,6 +45,112 @@ WebP Image: 160x56
 File name    : webpfiles/basic.webp
 File size    : 1930 bytes
 Resolution   : 160 x 56
+
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x8
+WebP Image: 100x75
+Chunk type 56503820 'VP8 ' length 848
+Chunk type 45584946 'EXIF' length 5876
+Exif header 5876 bytes long
+Exif section in Intel order
+(dir has 20 entries)
+    ImageWidth = 4656
+    ImageLength = 3504
+    ImageDescription = "?"
+    Make = "motorola?"
+    Model = "moto g play - 2023?"
+    Orientation = 6
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "?"
+    DateTime = "2026:04:16 10:35:14"
+    YCbCrPositioning = 2
+    Unknown Tag 0220 Value = 0
+    Unknown Tag 0221 Value = 0
+    Unknown Tag 0222 Value = 0
+    Unknown Tag 0223 Value = 0
+    Unknown Tag 0224 Value = 0
+    Unknown Tag 0225 Value = "?"
+    ExifOffset = 454
+    Exif Dir:(dir has 35 entries)
+        ExposureTime = 5094/1000000
+        FNumber = 2200/1000
+        ExposureProgram = 0
+        ISOSpeedRatings = 100
+        Unknown Tag 8830 Value = 0
+        Unknown Tag 8832 Value = 0
+        ExifVersion = "0220"
+        DateTimeOriginal = "2026:04:16 10:35:14"
+        DateTimeDigitized = "2026:04:16 10:35:14"
+        ComponentsConfiguration = "?"
+        ShutterSpeedValue = 5094/1000000
+        ApertureValue = 2200/1000
+        BrightnessValue = 0/10
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 200/100
+        MeteringMode = 2
+        LightSource = 255
+        Flash = 0
+        FocalLength = 3420/1000
+        Maker note:  4d 4f 54 00 01 01 01 01 53 00 00... (2500 bytes)
+        SubSecTime = "081"
+        SubSecTimeOriginal = "081"
+        SubSecTimeDigitized = "081"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 4656
+        ExifImageLength = 3504
+        InteroperabilityOffset = 3891
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        SensingMethod = 1
+        SceneType = ""
+        ExposureMode = 0
+        WhiteBalance = 0
+        DigitalZoomRatio = 100/100
+        FocalLengthIn35mmFilm = 28
+        SceneCaptureType = 0
+    GPS Dir offset = 3492
+    GPS info dir:(dir has 10 entries)
+        GPSVersionID        =02, 02, 00, 00
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =43/1, 38/1, 327456/10000
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =79/1, 22/1, 356854/10000
+        GPSAltitudeRef      =00
+        GPSAltitude         =41/1
+        GPSTimeStamp        =14/1, 35/1, 10/1
+        GPSProcessingMethod ="ASCIICELLID"
+        GPSDateStamp        ="2026:04:16"
+    Continued directory (dir has 8 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 5876
+        ThumbnailLength = 0
+        YCbCrPositioning = 2
+Thumbnail size: 0 bytes
+File name    : webpfiles/clearrot.webp
+File size    : 6770 bytes
+Camera make  : motorola
+Camera model : moto g play - 2023
+Date/Time    : 2026:04:16 10:35:14
+Resolution   : 100 x 75
+Orientation  : rotate 90
+Flash used   : No
+Focal length :  3.4mm  (35mm equivalent: 28mm)
+Exposure time: 0.0051 s  (1/196)
+Aperture     : f/2.2
+ISO equiv.   : 100
+Whitebalance : Auto
+Metering Mode: center weight
+GPS Latitude : N 43d 38m 32.7456s
+GPS Longitude: W 79d 22m 35.6854s
+GPS Altitude :  41.00m
 
 Chunk type 56503858 'VP8X' length 10
 VP8X Metadata present flags = 0x2C
@@ -398,5 +522,114 @@ WebP Image: 160x56
 File name    : commentlen.webp
 File size    : 1930 bytes
 Resolution   : 160 x 56
+
+--------Webpfile clear rotation tag-----
+clear rotation
+Modified: clearrot.webp
+Chunk type 56503858 'VP8X' length 10
+VP8X Metadata present flags = 0x8
+WebP Image: 100x75
+Chunk type 56503820 'VP8 ' length 848
+Chunk type 45584946 'EXIF' length 5876
+Exif header 5876 bytes long
+Exif section in Intel order
+(dir has 20 entries)
+    ImageWidth = 4656
+    ImageLength = 3504
+    ImageDescription = "?"
+    Make = "motorola?"
+    Model = "moto g play - 2023?"
+    Orientation = 1
+    XResolution = 72/1
+    YResolution = 72/1
+    ResolutionUnit = 2
+    Software = "?"
+    DateTime = "2026:04:16 10:35:14"
+    YCbCrPositioning = 2
+    Unknown Tag 0220 Value = 0
+    Unknown Tag 0221 Value = 0
+    Unknown Tag 0222 Value = 0
+    Unknown Tag 0223 Value = 0
+    Unknown Tag 0224 Value = 0
+    Unknown Tag 0225 Value = "?"
+    ExifOffset = 454
+    Exif Dir:(dir has 35 entries)
+        ExposureTime = 5094/1000000
+        FNumber = 2200/1000
+        ExposureProgram = 0
+        ISOSpeedRatings = 100
+        Unknown Tag 8830 Value = 0
+        Unknown Tag 8832 Value = 0
+        ExifVersion = "0220"
+        DateTimeOriginal = "2026:04:16 10:35:14"
+        DateTimeDigitized = "2026:04:16 10:35:14"
+        ComponentsConfiguration = "?"
+        ShutterSpeedValue = 5094/1000000
+        ApertureValue = 2200/1000
+        BrightnessValue = 0/10
+        ExposureBiasValue = 0/10
+        MaxApertureValue = 200/100
+        MeteringMode = 2
+        LightSource = 255
+        Flash = 0
+        FocalLength = 3420/1000
+        Maker note:  4d 4f 54 00 01 01 01 01 53 00 00... (2500 bytes)
+        SubSecTime = "081"
+        SubSecTimeOriginal = "081"
+        SubSecTimeDigitized = "081"
+        FlashPixVersion = "0100"
+        ColorSpace = 1
+        ExifImageWidth = 4656
+        ExifImageLength = 3504
+        InteroperabilityOffset = 3891
+        Interop Dir:(dir has 2 entries)
+            InteropIndex = "R98"
+            InteropVersion = "0100"
+        SensingMethod = 1
+        SceneType = ""
+        ExposureMode = 0
+        WhiteBalance = 0
+        DigitalZoomRatio = 100/100
+        FocalLengthIn35mmFilm = 28
+        SceneCaptureType = 0
+    GPS Dir offset = 3492
+    GPS info dir:(dir has 10 entries)
+        GPSVersionID        =02, 02, 00, 00
+        GPSLatitudeRef      ="N"
+        GPSLatitude         =43/1, 38/1, 327456/10000
+        GPSLongitudeRef     ="W"
+        GPSLongitude        =79/1, 22/1, 356854/10000
+        GPSAltitudeRef      =00
+        GPSAltitude         =41/1
+        GPSTimeStamp        =14/1, 35/1, 10/1
+        GPSProcessingMethod ="ASCIICELLID"
+        GPSDateStamp        ="2026:04:16"
+    Continued directory (dir has 8 entries)
+        Compression = 6
+        Orientation = 1
+        XResolution = 72/1
+        YResolution = 72/1
+        ResolutionUnit = 2
+        ThumbnailOffset = 5876
+        ThumbnailLength = 0
+        YCbCrPositioning = 2
+Thumbnail size: 0 bytes
+File name    : clearrot.webp
+File size    : 6770 bytes
+File date    : 2026:04:18 09:59:23
+Camera make  : motorola
+Camera model : moto g play - 2023
+Date/Time    : 2026:04:16 10:35:14
+Resolution   : 100 x 75
+Flash used   : No
+Focal length :  3.4mm  (35mm equivalent: 28mm)
+Exposure time: 0.0051 s  (1/196)
+Aperture     : f/2.2
+ISO equiv.   : 100
+Whitebalance : Auto
+Metering Mode: center weight
+GPS Latitude : N 43d 38m 32.7456s
+GPS Longitude: W 79d 22m 35.6854s
+GPS Altitude :  41.00m
 
 --------done-----

@@ -282,10 +282,13 @@ echo "--------Metadata deletion-----" >> results-txt/webpfiles-txt
 cp webpfiles/from_iphone.webp .
 "$jhead" -pure from_iphone.webp commentlen.webp >> results-txt/webpfiles-txt
 "$jhead" -v -nofdate from_iphone.webp commentlen.webp >> results-txt/webpfiles-txt
+
+# Test webp clear rotation
+echo "--------Webpfile clear rotation tag-----" >> results-txt/webpfiles-txt
+cp webpfiles/clearrot.webp .
+"$jhead" -norot clearrot.webp >> results-txt/webpfiles-txt
+"$jhead" -v clearrot.webp >> results-txt/webpfiles-txt
 echo "--------done-----" >> results-txt/webpfiles-txt
-
-
-
 
 # Test thumbnail manipulation of webp files
 
