@@ -88,7 +88,7 @@ static char * CommentInsertfileName = NULL; // Insert comment from this file.
 static char * CommentInsertLiteral = NULL;  // Insert this comment (from command line)
 
 static int AutoRotate = FALSE;
-static int ZeroRotateTagOnly = FALSE;
+static int ClearRotation = FALSE;
 
 static int ShowFileDate = TRUE;     // Indicates to show file date (rurn off for testing)
 
@@ -305,50 +305,48 @@ static int DoAutoRotate(const char * FileName)
         Argument = ClearOrientation();
         if (Argument == NULL) return FALSE; // orientation tag in image, nothing changed.
 
-        if (!ZeroRotateTagOnly){
-            char RotateCommand[PATH_MAX*2+50];
-            if (strlen(Argument) == 0){
-                // Unknown orientation, but still modified.
-                return TRUE; // Image is still modified.
-            }
-            sprintf(RotateCommand, "jpegtran -copy all -trim -%s -outfile &o &i", Argument);
-            ApplyCommand = RotateCommand;
-            DoCommand(FileName, FALSE);
-            ApplyCommand = NULL;
+        char RotateCommand[PATH_MAX*2+50];
+        if (strlen(Argument) == 0){
+            // Unknown orientation, but still modified.
+            return TRUE; // Image is still modified.
+        }
+        sprintf(RotateCommand, "jpegtran -copy all -trim -%s -outfile &o &i", Argument);
+        ApplyCommand = RotateCommand;
+        DoCommand(FileName, FALSE);
+        ApplyCommand = NULL;
 
-            // Now rotate the thumbnail, if there is one.
-            if (ImageInfo.ThumbnailOffset &&
-                ImageInfo.ThumbnailSize &&
-                ImageInfo.ThumbnailAtEnd){
-                // Must have a thumbnail that exists and is modifiable.
+        // Now rotate the thumbnail, if there is one.
+        if (ImageInfo.ThumbnailOffset &&
+            ImageInfo.ThumbnailSize &&
+            ImageInfo.ThumbnailAtEnd){
+            // Must have a thumbnail that exists and is modifiable.
 
-                char ThumbTempName_in[PATH_MAX+5];
-                char ThumbTempName_out[PATH_MAX+5];
+            char ThumbTempName_in[PATH_MAX+5];
+            char ThumbTempName_out[PATH_MAX+5];
 
-                strcpy(ThumbTempName_in, FileName);
-                strcat(ThumbTempName_in, ".thi");
-                strcpy(ThumbTempName_out, FileName);
-                strcat(ThumbTempName_out, ".tho");
-                SaveImgThumbnail(ThumbTempName_in);
-                sprintf(RotateCommand,"jpegtran -copy all -trim -%s -outfile \"%s\" \"%s\"",
-                    Argument, ThumbTempName_out, ThumbTempName_in);
+            strcpy(ThumbTempName_in, FileName);
+            strcat(ThumbTempName_in, ".thi");
+            strcpy(ThumbTempName_out, FileName);
+            strcat(ThumbTempName_out, ".tho");
+            SaveImgThumbnail(ThumbTempName_in);
+            sprintf(RotateCommand,"jpegtran -copy all -trim -%s -outfile \"%s\" \"%s\"",
+                Argument, ThumbTempName_out, ThumbTempName_in);
 
-                // Disallow characters in the filenames that could be used to execute arbitrary
-                // shell commands with system() below.
-                if (strpbrk(FileName, "\";'&|`$")) {
-                    ErrNonfatal("Command has invalid characters.", 0, 0);
-                    unlink(ThumbTempName_in);
-                    return FALSE;
-                }
-
-                if (system(RotateCommand) == 0){
-                    // Put the thumbnail back in the header
-                    ReplaceImgThumbnail(ThumbTempName_out);
-                }
-
+            // Disallow characters in the filenames that could be used to execute arbitrary
+            // shell commands with system() below.
+            if (strpbrk(FileName, "\";'&|`$")) {
+                ErrNonfatal("Command has invalid characters.", 0, 0);
                 unlink(ThumbTempName_in);
-                unlink(ThumbTempName_out);
+                return FALSE;
             }
+
+            if (system(RotateCommand) == 0){
+                // Put the thumbnail back in the header
+                ReplaceImgThumbnail(ThumbTempName_out);
+            }
+
+            unlink(ThumbTempName_in);
+            unlink(ThumbTempName_out);
         }
         return TRUE;
     }
@@ -449,7 +447,6 @@ static void ProcessFile(const char * FileName)
     }
 
     strncpy(ImageInfo.FileName, FileName, PATH_MAX);
-
 
     if (ApplyCommand || AutoRotate){
         // Applying a command is special - the headers from the file have to be
@@ -592,6 +589,12 @@ static void ProcessFile(const char * FileName)
 
     }
 
+    if (ClearRotation){
+        printf("clear rotation\n");
+        if (ClearOrientation()){
+            Modified = TRUE;
+        }
+    }
 
     if (ExifTimeAdjust || ExifTimeSet || DateSetChars || FileTimeToExif){
        uchar * Data;
@@ -986,8 +989,7 @@ int main (int argc, char **argv)
             AutoRotate = 1;
             DoModify |= MODIFY_JPEG;
         }else if (!strcmp(arg,"-norot")){
-            AutoRotate = 1;
-            ZeroRotateTagOnly = 1;
+            ClearRotation = TRUE;
             DoModify |= MODIFY_JPEG;
 
     // Date/Time manipulation options
