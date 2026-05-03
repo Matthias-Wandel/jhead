@@ -663,7 +663,7 @@ static void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase,
             case TAG_DATETIME_ORIGINAL:
             case TAG_DATETIME_DIGITIZED:
             case TAG_DATETIME:
-                if (ValuePtr+19 >= OffsetBase+ExifLength){
+                if (ByteCount != 20 || ValuePtr+ByteCount > OffsetBase+ExifLength){
                     ErrNonfatal("Incomplete time",0,0);
                     continue;
                 }
