@@ -260,7 +260,7 @@ echo "--------Remove XMP from from_iphone.webp header ------" >> results-txt/web
 echo "--------Adjust timestamp and set file date ------" >> results-txt/webpfiles-txt
 "$jhead" -ta+01:02:03 from_iphone.webp >> results-txt/webpfiles-txt
 "$jhead" -ft from_iphone.webp >> results-txt/webpfiles-txt
-"$jhead" from_iphone.webp >> results-txt/webpfiles-txt
+"$jhead" -nofdate from_iphone.webp >> results-txt/webpfiles-txt
 echo "--------Remove exif header ------" >> results-txt/webpfiles-txt
 "$jhead" -de from_iphone.webp >> results-txt/webpfiles-txt
 "$jhead" -v -nofdate from_iphone.webp >> results-txt/webpfiles-txt
@@ -287,7 +287,7 @@ cp webpfiles/from_iphone.webp .
 echo "--------Webpfile clear rotation tag-----" >> results-txt/webpfiles-txt
 cp webpfiles/clearrot.webp .
 "$jhead" -norot clearrot.webp >> results-txt/webpfiles-txt
-"$jhead" -v clearrot.webp >> results-txt/webpfiles-txt
+"$jhead" -v -nofdate clearrot.webp >> results-txt/webpfiles-txt
 echo "--------done-----" >> results-txt/webpfiles-txt
 
 # Test thumbnail manipulation of webp files
